@@ -1,0 +1,357 @@
+/* ========================================= DELIVERIES SECTION ========================================= */
+.deliveries_section {
+  width: 100%;
+} /* ========================================= HEADER ========================================= */
+.deliveries_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+.deliveries_title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #172033;
+}
+.deliveries_count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26px;
+  height: 24px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: #f1f3f5;
+  color: #495057;
+  font-size: 12px;
+  font-weight: 700;
+}
+.deliveries_subtitle {
+  margin-top: 4px;
+  color: #8a94a6;
+  font-size: 13px;
+}
+.deliveries_header_actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+} /* ========================================= BUTTONS ========================================= */
+.deliveries_add_btn {
+  min-height: 40px;
+  padding: 0 16px;
+  border: none;
+  border-radius: 10px;
+  background: #0d6efd;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+.deliveries_add_btn:hover {
+  background: #0b5ed7;
+  color: #fff;
+}
+.deliveries_history_btn {
+  min-height: 40px;
+  padding: 0 15px;
+  border: 1px solid #dee2e6;
+  border-radius: 10px;
+  background: #fff;
+  color: #495057;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+.deliveries_history_btn:hover {
+  background: #f8f9fa;
+} /* ========================================= DELIVERY LIST ========================================= */
+.deliveries_list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+} /* ========================================= DELIVERY CARD ========================================= */
+.delivery_card {
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #e7eaf0;
+  border-radius: 14px;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.15s ease;
+}
+.delivery_card:hover {
+  border-color: #d8dde6;
+  box-shadow: 0 4px 16px rgba(20, 30, 50, 0.06);
+  transform: translateY(-1px);
+} /* ========================================= STATUS BAR ========================================= */
+.delivery_status_bar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 4px;
+}
+.delivery_status_received {
+  background: #198754;
+}
+.delivery_status_partial {
+  background: #0dcaf0;
+}
+.delivery_status_other {
+  background: #dc3545;
+} /* ========================================= CARD CONTENT ========================================= */
+.delivery_card_content {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 17px 16px 20px;
+} /* ========================================= ICON ========================================= */
+.delivery_icon {
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.delivery_icon .material-symbols-outlined {
+  font-size: 22px;
+}
+.delivery_icon_received {
+  background: #edf8f2;
+  color: #198754;
+}
+.delivery_icon_partial {
+  background: #eefaff;
+  color: #087f9c;
+}
+.delivery_icon_other {
+  background: #fff0f1;
+  color: #dc3545;
+} /* ========================================= MAIN ========================================= */
+.delivery_main {
+  flex: 1;
+  min-width: 0;
+}
+.delivery_reference {
+  margin-bottom: 3px;
+  color: #8a94a6;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.delivery_supplier {
+  color: #172033;
+  font-size: 15px;
+  font-weight: 650;
+  line-height: 1.35;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+} /* ========================================= META ========================================= */
+.delivery_meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 9px;
+}
+.delivery_badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 650;
+}
+.delivery_badge_dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+}
+.delivery_badge_received {
+  background: #edf8f2;
+  color: #157347;
+}
+.delivery_badge_received .delivery_badge_dot {
+  background: #198754;
+}
+.delivery_badge_partial {
+  background: #eefaff;
+  color: #087f9c;
+}
+.delivery_badge_partial .delivery_badge_dot {
+  background: #0dcaf0;
+}
+.delivery_badge_other {
+  background: #fff0f1;
+  color: #c92a2a;
+}
+.delivery_badge_other .delivery_badge_dot {
+  background: #dc3545;
+}
+.delivery_time {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #7b8494;
+  font-size: 11px;
+  font-weight: 600;
+}
+.delivery_time i {
+  font-size: 11px;
+} /* ========================================= ARROW ========================================= */
+.delivery_arrow {
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #f7f8fa;
+  color: #7b8494;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.delivery_arrow i {
+  font-size: 13px;
+} /* ========================================= MOBILE VIEW ALL ========================================= */
+.deliveries_mobile_view_all {
+  width: 100%;
+  margin-top: 10px;
+  padding: 11px;
+  border: 1px solid #e3e6eb;
+  border-radius: 10px;
+  background: #fff;
+  color: #0d6efd;
+  font-size: 13px;
+  font-weight: 600;
+}
+.deliveries_mobile_view_all i {
+  margin-left: 5px;
+} /* ========================================= EMPTY STATE ========================================= */
+.deliveries_empty_section {
+  padding: 30px 20px;
+  text-align: center;
+  background: #fff !important;
+  border: 1px solid #e7eaf0;
+  border-radius: 16px;
+}
+.delivery_empty_icon {
+  width: 54px;
+  height: 54px;
+  margin: 0 auto 14px;
+  border-radius: 15px;
+  background: #eef8f3 !important;
+  color: #198754;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.delivery_empty_icon .material-symbols-outlined {
+  font-size: 26px;
+}
+.delivery_empty_title {
+  margin-bottom: 5px;
+  color: #172033;
+  font-size: 16px;
+  font-weight: 700;
+}
+.delivery_empty_text {
+  max-width: 360px;
+  margin: 0 auto 20px;
+  color: #8a94a6;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.delivery_empty_actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 360px;
+  margin: 0 auto;
+}
+.delivery_empty_actions .deliveries_history_btn {
+  min-height: 42px;
+} /* ========================================= TABLET / MOBILE ========================================= */
+@media (max-width: 767.98px) {
+  .deliveries_header {
+    margin-bottom: 14px;
+  }
+  .deliveries_subtitle {
+    font-size: 12px;
+  }
+  .deliveries_add_btn {
+    min-height: 38px;
+    padding: 0 13px;
+  }
+  .delivery_card_content {
+    padding: 14px 13px 14px 17px;
+    gap: 11px;
+  }
+  .delivery_icon {
+    flex-basis: 40px;
+    width: 40px;
+    height: 40px;
+    border-radius: 11px;
+  }
+  .delivery_icon .material-symbols-outlined {
+    font-size: 20px;
+  }
+  .delivery_supplier {
+    font-size: 14px;
+  }
+  .delivery_arrow {
+    width: 30px;
+    height: 30px;
+  }
+} /* ========================================= SMALL PHONES ========================================= */
+@media (max-width: 420px) {
+  .deliveries_header {
+    align-items: flex-start;
+  }
+  .deliveries_title {
+    font-size: 16px;
+  }
+  .deliveries_count {
+    min-width: 24px;
+    height: 22px;
+  }
+  .deliveries_subtitle {
+    display: none;
+  }
+  .deliveries_add_btn {
+    min-width: 42px;
+    width: 42px;
+    padding: 0;
+    border-radius: 10px;
+  }
+  .delivery_card_content {
+    padding: 13px 10px 13px 15px;
+  }
+  .delivery_meta {
+    gap: 6px;
+  }
+  .delivery_badge {
+    font-size: 10px;
+    padding: 4px 7px;
+  }
+  .delivery_time {
+    font-size: 10px;
+  }
+  .delivery_arrow {
+    width: 28px;
+    height: 28px;
+  }
+}

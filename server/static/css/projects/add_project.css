@@ -1,0 +1,742 @@
+  /* =========================================================
+   PAGE
+========================================================= */
+
+  .coreva_project_form_page {
+    min-height: 100vh;
+    /* background: #f6f8fb; */
+    padding: 30px 16px 70px;
+  }
+
+  .coreva_project_form_container {
+    width: 100%;
+    max-width: 780px;
+    margin: 0 auto;
+  }
+
+  /* =========================================================
+   BACK
+========================================================= */
+
+  .coreva_project_back {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+
+    color: #64748b;
+    font-size: 13px;
+    font-weight: 700;
+
+    text-decoration: none;
+
+    margin-bottom: 22px;
+  }
+
+  .coreva_project_back:hover {
+    color: #2563eb;
+  }
+
+  /* =========================================================
+   HEADER
+========================================================= */
+
+  .coreva_project_form_header {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+
+    margin-bottom: 25px;
+  }
+
+  .coreva_project_header_icon {
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+
+    border-radius: 13px;
+
+    background: #172a46;
+    color: #ffffff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .coreva_project_header_icon span {
+    font-size: 24px;
+  }
+
+  .coreva_project_eyebrow {
+    color: #2563eb;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    margin-bottom: 3px;
+  }
+
+  .coreva_project_form_header h1 {
+    color: #172a46;
+    font-size: 26px;
+    font-weight: 800;
+    margin: 0;
+    letter-spacing: -0.02em;
+  }
+
+  .coreva_project_form_header p {
+    color: #718096;
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 5px 0 0;
+    max-width: 600px;
+  }
+
+  /* =========================================================
+   FORM CARD
+========================================================= */
+
+  .project_form_card {
+    background: #ffffff;
+
+    border: 1px solid #e5e9ef;
+    border-radius: 16px;
+
+    padding: 25px;
+
+    margin-bottom: 16px;
+  }
+
+  /* =========================================================
+   SECTION HEADER
+========================================================= */
+
+  .project_form_section_header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+
+    padding-bottom: 19px;
+    margin-bottom: 20px;
+
+    border-bottom: 1px solid #edf0f4;
+  }
+
+  .project_form_number {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+
+    border-radius: 8px;
+
+    background: #eff6ff;
+    color: #2563eb;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 11px;
+    font-weight: 800;
+  }
+
+  .project_form_section_header h2 {
+    color: #172a46;
+    font-size: 15px;
+    font-weight: 800;
+
+    margin: 0;
+  }
+
+  .project_form_section_header p {
+    color: #7a8494;
+    font-size: 12px;
+
+    margin: 3px 0 0;
+  }
+
+  /* =========================================================
+   FIELDS
+========================================================= */
+
+  .project_form_field {
+    width: 100%;
+  }
+
+  .project_form_field > label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    color: #27364d;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    margin-bottom: 7px;
+  }
+
+  .project_form_field > label span {
+    color: #dc2626;
+  }
+
+  .project_form_field > label small {
+    color: #9aa3b1;
+    font-size: 10px;
+    font-weight: 500;
+  }
+
+  /* =========================================================
+   INPUTS
+========================================================= */
+
+  .project_input_wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .project_input_wrapper > i {
+    position: absolute;
+    left: 14px;
+
+    color: #8b95a5;
+
+    font-size: 15px;
+
+    pointer-events: none;
+
+    z-index: 2;
+  }
+
+  .project_input_wrapper input,
+  .project_input_wrapper select {
+    width: 100%;
+    height: 47px;
+
+    padding: 0 14px 0 40px;
+
+    border: 1px solid #dfe4eb;
+    border-radius: 10px;
+
+    background: #f9fafb;
+
+    color: #172a46;
+
+    font-size: 13px;
+
+    outline: none;
+
+    transition: all 0.2s ease;
+  }
+
+  .project_input_wrapper select {
+    cursor: pointer;
+  }
+
+  .project_input_wrapper input::placeholder {
+    color: #a4acb8;
+  }
+
+  .project_input_wrapper input:focus,
+  .project_input_wrapper select:focus {
+    background: #ffffff;
+
+    border-color: #2563eb;
+
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.09);
+  }
+
+  /* =========================================================
+   PROJECT PHOTO
+========================================================= */
+
+  .project_file_upload {
+    min-height: 47px;
+
+    border: 1px dashed #cbd5e1;
+    border-radius: 10px;
+
+    background: #f9fafb;
+
+    display: flex;
+    align-items: center;
+
+    padding: 7px 12px;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+  }
+
+  .project_file_upload:hover {
+    border-color: #2563eb;
+    background: #eff6ff;
+  }
+
+  .project_file_icon {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+
+    border-radius: 8px;
+
+    background: #eff6ff;
+    color: #2563eb;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .project_file_text {
+    display: flex;
+    flex-direction: column;
+
+    margin-left: 10px;
+  }
+
+  .project_file_text strong {
+    color: #334155;
+    font-size: 12px;
+  }
+
+  .project_file_text span {
+    color: #94a3b8;
+    font-size: 10px;
+    margin-top: 1px;
+  }
+
+  .project_file_arrow {
+    margin-left: auto;
+    color: #94a3b8;
+    font-size: 13px;
+  }
+
+  /* =========================================================
+   GPS
+========================================================= */
+
+  .project_location_coordinates {
+    background: #f8fafc;
+
+    border: 1px solid #e8edf3;
+
+    border-radius: 12px;
+
+    padding: 16px;
+
+    margin-top: 5px;
+  }
+
+  .project_coordinates_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 15px;
+  }
+
+  .project_coordinates_header strong {
+    display: block;
+
+    color: #334155;
+
+    font-size: 12px;
+  }
+
+  .project_coordinates_header strong i {
+    color: #2563eb;
+    margin-right: 4px;
+  }
+
+  .project_coordinates_header p {
+    color: #8a94a3;
+
+    font-size: 10px;
+
+    margin: 3px 0 0;
+  }
+
+  .project_location_button {
+    height: 35px;
+
+    padding: 0 11px;
+
+    border: 1px solid #bfdbfe;
+    border-radius: 8px;
+
+    background: #eff6ff;
+
+    color: #2563eb;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+  }
+
+  .project_location_button:hover {
+    background: #dbeafe;
+  }
+
+  .project_location_status {
+    margin-top: 10px;
+
+    padding: 8px 10px;
+
+    border-radius: 8px;
+
+    font-size: 11px;
+  }
+
+  /* =========================================================
+   WORKING DAYS
+========================================================= */
+
+  .project_schedule_notice {
+    display: flex;
+    gap: 10px;
+
+    background: #f8fafc;
+
+    border: 1px solid #e8edf3;
+
+    border-radius: 10px;
+
+    padding: 12px;
+
+    margin-bottom: 17px;
+  }
+
+  .project_schedule_notice_icon {
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+
+    border-radius: 8px;
+
+    background: #eff6ff;
+    color: #2563eb;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .project_schedule_notice strong {
+    display: block;
+
+    color: #334155;
+
+    font-size: 11px;
+  }
+
+  .project_schedule_notice p {
+    color: #7a8494;
+
+    font-size: 10px;
+    line-height: 1.4;
+
+    margin: 2px 0 0;
+  }
+
+  /* =========================================================
+   WORK DAY GRID
+========================================================= */
+
+  .project_work_days {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 8px;
+  }
+
+  .project_work_day {
+    cursor: pointer;
+    margin: 0;
+  }
+
+  .project_work_day input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .project_work_day_inner {
+    min-height: 54px;
+
+    border: 1px solid #dfe4eb;
+
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    display: flex;
+    align-items: center;
+
+    padding: 8px 10px;
+
+    gap: 8px;
+
+    transition: all 0.18s ease;
+  }
+
+  .project_work_day:hover .project_work_day_inner {
+    border-color: #bfdbfe;
+    background: #f8fbff;
+  }
+
+  .project_work_day_check {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+
+    border: 1px solid #cbd5e1;
+
+    border-radius: 5px;
+
+    color: #ffffff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: all 0.18s ease;
+  }
+
+  .project_work_day_check i {
+    font-size: 12px;
+    opacity: 0;
+  }
+
+  .project_work_day_name {
+    color: #475569;
+
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  /* Checked */
+
+  .project_work_day input:checked + .project_work_day_inner {
+    border-color: #93c5fd;
+    background: #eff6ff;
+  }
+
+  .project_work_day
+    input:checked
+    + .project_work_day_inner
+    .project_work_day_check {
+    background: #2563eb;
+    border-color: #2563eb;
+  }
+
+  .project_work_day
+    input:checked
+    + .project_work_day_inner
+    .project_work_day_check
+    i {
+    opacity: 1;
+  }
+
+  .project_work_day
+    input:checked
+    + .project_work_day_inner
+    .project_work_day_name {
+    color: #1d4ed8;
+  }
+
+  /* =========================================================
+   DESKTOP ACTIONS
+========================================================= */
+
+  .project_form_actions {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    margin-top: 20px;
+  }
+
+  .project_cancel_button,
+  .project_save_button {
+    height: 46px;
+
+    border-radius: 10px;
+
+    padding: 0 20px;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    cursor: pointer;
+  }
+
+  .project_cancel_button {
+    border: 1px solid #bfdbfe;
+
+    background: #ffffff;
+
+    color: #2563eb;
+  }
+
+  .project_cancel_button:hover {
+    background: #eff6ff;
+  }
+
+  .project_save_button {
+    border: 0;
+
+    background: #2563eb;
+
+    color: #ffffff;
+
+    min-width: 160px;
+  }
+
+  .project_save_button:hover {
+    background: #1d4ed8;
+
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.2);
+  }
+
+  /* =========================================================
+   MOBILE ACTIONS
+========================================================= */
+
+  .project_mobile_actions {
+    position: fixed;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    z-index: 1000;
+
+    display: grid;
+
+    grid-template-columns: 0.75fr 1.25fr;
+
+    gap: 8px;
+
+    padding: 10px 12px;
+
+    background: rgba(255, 255, 255, 0.96);
+
+    border-top: 1px solid #e5e9ef;
+
+    box-shadow: 0 -5px 20px rgba(15, 23, 42, 0.07);
+
+    backdrop-filter: blur(10px);
+  }
+
+  .project_mobile_actions .project_cancel_button,
+  .project_mobile_actions .project_save_button {
+    width: 100%;
+    height: 46px;
+  }
+
+  /* =========================================================
+   MOBILE
+========================================================= */
+
+  @media (max-width: 767.98px) {
+    .coreva_project_form_page {
+      padding: 22px 12px 90px;
+    }
+
+    .coreva_project_form_header {
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .coreva_project_header_icon {
+      width: 42px;
+      height: 42px;
+      min-width: 42px;
+    }
+
+    .coreva_project_header_icon span {
+      font-size: 21px;
+    }
+
+    .coreva_project_form_header h1 {
+      font-size: 22px;
+    }
+
+    .coreva_project_form_header p {
+      font-size: 12px;
+    }
+
+    .project_form_card {
+      padding: 19px 16px;
+      border-radius: 14px;
+    }
+
+    .project_form_section_header {
+      margin-bottom: 17px;
+    }
+
+    .project_coordinates_header {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .project_location_button {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .project_work_days {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 380px) {
+    .project_form_card {
+      padding: 17px 13px;
+    }
+
+    .project_work_day_inner {
+      padding: 8px;
+    }
+
+    .project_work_day_name {
+      font-size: 11px;
+    }
+  }
+
+  /* =========================================================
+   LOADING STATE
+========================================================= */
+
+  .project_save_button.loading {
+    opacity: 0.8;
+    pointer-events: none;
+  }
+
+  .project_save_button.loading i {
+    animation: projectSpin 0.8s linear infinite;
+  }
+
+  @keyframes projectSpin {
+    to {
+      transform: rotate(360deg);
+    }
+  }

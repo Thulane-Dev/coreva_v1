@@ -1,0 +1,945 @@
+{% load static %}
+<!-- divider  -->
+
+<!-- =========================================================
+COREVA MOBILE TOP NAVBAR AND LARGE SCREEN BACK BUTTON
+========================================================= -->
+{% url 'dashboard:today' as back_url %}
+
+{% include 'partials/page_topbar.html' with next_url=next_url back_url=back_url brand_name=project.project_name brand_url=back_url %}
+
+
+<!-- ======= PROJECT HEADER  ======= -->
+<section class="project_details_header section-spacing">
+  <div class="project_header_inner">
+    <!-- ========================= PROJECT IDENTITY ========================== -->
+    <div class="project_identity">
+      <!-- Cover Image -->
+      <div class="project_cover_wrapper">
+        {% if project.cover_image %}
+        <img
+          src="{{ project.cover_image.url }}"
+          alt="{{ project.project_name }}"
+          class="project_cover_image"
+        />
+        {% else %}
+        <div class="project_cover_placeholder">
+          <span class="material-symbols-outlined"> construction </span>
+        </div>
+        {% endif %}
+      </div>
+      <!-- Project Information -->
+      <div class="project_header_info">
+        <div class="project_label">PROJECT</div>
+        <h1 class="project_header_name">{{ project.project_name }}</h1>
+        <div class="project_header_location">
+          <i class="bi bi-geo-alt-fill"></i>
+          <span>
+            {{ project.location.street_address }}, {{ project.location.city }},
+            {{ project.location.province }}
+          </span>
+        </div>
+        <!-- ========================= PROJECT STATUS ========================== -->
+        <div class="project_status_group">
+          <!-- Project Status -->
+          <span class="project_status active">
+            <span class="status_dot"></span> Active
+          </span>
+          <!-- Overall Status -->
+          {% if project_data.overall_status == 'Needs Attention' %}
+          <span class="project_status attention">
+            <i class="bi bi-exclamation-circle-fill"></i> Needs Attention
+          </span>
+          {% else %}
+          <span class="project_status healthy">
+            <i class="bi bi-check-circle-fill"></i>
+            <!-- divider  -->
+            {{project_data.overall_status }}
+          </span>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <!-- ========================= PROJECT ICON ========================== -->
+    <div class="project_header_icon d-none d-lg-flex">
+      <span class="material-symbols-outlined"> apartment </span>
+    </div>
+  </div>
+</section>
+
+<!-- =======  TODAY'S WORK  ======= -->
+<section class="section-spacing">
+  <div class="todays-work-header">
+    <div>
+      <h4 class="new_section_title mb-1">Today's Work</h4>
+      <p class="project_management_subtitle mb-0">
+        Activity and actions for this project
+      </p>
+    </div>
+  </div>
+
+  <div class="todays-work-list">
+    <!-- =====================================================
+         INSPECTIONS
+    ====================================================== -->
+    
+    {% if project_data.inspection_status == 'Not Started' %}
+    <a href="{% url 'inspections:checklist' project.uuid %}?next={{ request.get_full_path|urlencode }}" class="today-work-link">
+      <div class="today-work-card">
+        <div class="today-work-icon inspection-work-icon">
+          <span class="material-symbols-outlined"> fact_check </span>
+        </div>
+
+        <div class="today-work-content">
+          <div class="today-work-title-row">
+            <h6 class="today-work-title mb-0">
+              {{project_data.inspection_insight}}
+              <!-- divider  -->
+              {% if project_data.inspection_status == 'Ready to Save'%}
+              <i
+                class="bi bi-exclamation-circle-fill text-danger"
+                style="margin-left: 4px"
+              ></i>
+              {% endif %}
+            </h6>
+          </div>
+          {% if project_data.failed_inspections != '(0 failed checks)' %}
+          <p class="today-work-description mb-0">Daily Inspections  <span style="color: #d63948 !important;font-weight: 700;">{{project_data.failed_inspections }}</span></p>
+          {% else %}
+          <p class="today-work-description mb-0">Daily Inspections </p>
+          {% endif %}
+        </div>
+
+        <div class="today-work-action d-flex align-items-center gap-2">
+          <span class="today-work-action-text">
+            {{project_data.inspection_action}}
+          </span>
+          <span class="today-work-arrow">
+            <i class="bi bi-arrow-right"></i>
+          </span>
+        </div>
+      </div>
+    </a>
+    {% else %}
+    <a href="{% if inspection %}{% url 'inspections:checklist' project.uuid inspection.uuid %}?next={{ request.get_full_path|urlencode }}{% else %}{% url 'inspections:checklist' project.uuid %}?next={{ request.get_full_path|urlencode }}{% endif %}" class="today-work-link">
+      <div class="today-work-card">
+        <div class="today-work-icon inspection-work-icon">
+          <span class="material-symbols-outlined"> fact_check </span>
+        </div>
+
+        <div class="today-work-content">
+          <div class="today-work-title-row">
+            <h6 class="today-work-title mb-0">
+              {{project_data.inspection_insight}}
+              <!-- divider  -->
+              {% if project_data.inspection_status == 'Ready to Save'%}
+              <i
+                class="bi bi-exclamation-circle-fill text-danger"
+                style="margin-left: 4px"
+              ></i>
+              {% endif %}
+            </h6>
+          </div>
+          {% if project_data.failed_inspections != '(0 failed checks)' %}
+          <p class="today-work-description mb-0">Daily Inspections  <span style="color: #d63948 !important;font-weight: 700;">{{project_data.failed_inspections }}</span></p>
+          {% else %}
+          <p class="today-work-description mb-0">Daily Inspections </p>
+          {% endif %}
+        </div>
+
+        <div class="today-work-action d-flex align-items-center gap-2">
+          <span class="today-work-action-text">
+            {{project_data.inspection_action}}
+          </span>
+          <span class="today-work-arrow">
+            <i class="bi bi-arrow-right"></i>
+          </span>
+        </div>
+      </div>
+    </a>
+    {% endif %}
+    
+
+    <!-- =====================================================
+         DAILY REPORT
+    ====================================================== -->
+    {% if project_data.report_status == 'Pending'%}
+    <a href="{% url 'report:create-report' project.uuid %}?next={{ request.get_full_path|urlencode }}" class="today-work-link">
+      <div class="today-work-card">
+        <div class="today-work-icon report-work-icon">
+          <span class="material-symbols-outlined"> description </span>
+        </div>
+
+        <div class="today-work-content">
+          <h6 class="today-work-title mb-0">{{project_data.report_insight}}</h6>
+          <p class="today-work-description mb-0">Daily Report</p>
+        </div>
+
+        <div class="today-work-action d-flex align-items-center gap-2">
+          <span class="today-work-action-text">
+            {{project_data.report_action}}
+          </span>
+
+          <span class="today-work-arrow">
+            <i class="bi bi-arrow-right"></i>
+          </span>
+        </div>
+      </div>
+    </a>
+    {% else %}
+    <a href="{% if report %}{% url 'report:create-report' project.uuid report.uuid %}?next={{ request.get_full_path|urlencode }}{% else %}{% url 'report:create-report' project.uuid %}?next={{ request.get_full_path|urlencode }}{% endif %}" class="today-work-link">
+      <div class="today-work-card">
+        <div class="today-work-icon report-work-icon">
+          <span class="material-symbols-outlined"> description </span>
+        </div>
+
+        <div class="today-work-content">
+          <h6 class="today-work-title mb-0">{{project_data.report_insight}}</h6>
+          <p class="today-work-description mb-0">Daily Report</p>
+        </div>
+
+        <div class="today-work-action d-flex align-items-center gap-2">
+          <span class="today-work-action-text">
+            {{project_data.report_action}}
+          </span>
+
+          <span class="today-work-arrow">
+            <i class="bi bi-arrow-right"></i>
+          </span>
+        </div>
+      </div>
+    </a>
+    {% endif %}
+
+    <!-- =====================================================
+         ISSUES
+    ====================================================== -->
+    {% if project_data.show_issue_insight == True %}
+    <a href="{% url 'issues:project-issues' project.uuid %}" class="today-work-link">
+      <div class="today-work-card">
+        <div class="today-work-icon issue-work-icon">
+          <span class="material-symbols-outlined"> warning </span>
+        </div>
+
+        <div class="today-work-content">
+          <h6 class="today-work-title mb-0 d-flex gap-1">
+            {{project_data.issues_insight_text}}
+            <!-- divider  -->
+            {% if project_data.overdue_issues_count > 0 %}
+            <div class="d-none d-md-block">
+              <span class="today-overdue-text">
+                {{project_data.overdue_text}}
+              </span>
+            </div>
+            {% endif %}
+          </h6>
+
+          {% if project_data.overdue_issues_count > 0 %}
+          <div class="d-flex align-items-center gap-1">
+            <p class="today-work-description mb-0">Issues</p>
+            <div class="d-block d-md-none">
+              <span class="today-overdue-text">
+                {{project_data.overdue_text}}
+              </span>
+            </div>
+          </div>
+          {% else %}
+          <p class="today-work-description mb-0">Issues</p>
+          {% endif %}
+        </div>
+
+        <div class="today-work-action d-flex align-items-center gap-2">
+          <span class="today-work-action-text"> View issues </span>
+
+          <span class="today-work-arrow">
+            <i class="bi bi-arrow-right"></i>
+          </span>
+        </div>
+      </div>
+    </a>
+    {% endif %}
+
+    <!-- New Issue Comments -->
+    {% if project_data.comments_issues_list %}
+    <a
+      data-bs-toggle="offcanvas"
+      href="#IssuesComments"
+      role="button"
+      aria-controls="IssuesComments"
+    >
+      <div class="today-work-card comment-work-card" style="cursor: pointer">
+        <div class="today-work-icon comment-work-icon">
+          <span class="material-symbols-outlined">chat_bubble</span>
+        </div>
+
+        <div class="today-work-content">
+          <h6 class="today-work-title mb-0">
+            {% if project_data.comments_issues_list|length == 1 %} 1 Issue has
+            new comment {% else %} {{ project_data.comments_issues_list|length}}
+            issues have new comments {% endif %}
+          </h6>
+
+          <p class="today-work-description mb-0">
+            New comments have been added to your issues
+          </p>
+        </div>
+        <div class="today-work-action d-flex align-items-center gap-2">
+          <span class="today-work-action-text"> View comments </span>
+
+          <span class="today-work-arrow">
+            <i class="bi bi-arrow-right"></i>
+          </span>
+        </div>
+      </div>
+    </a>
+    {% endif %}
+
+    <!-- =====================================================
+         TASKS
+    ====================================================== -->
+    {% if project_data.show_task_insight == True %}
+    <a href="{% url 'issues:project-tasks' project.uuid %}" class="today-work-link">
+      <div class="today-work-card">
+        <div class="today-work-icon task-work-icon">
+          <span class="material-symbols-outlined"> task_alt </span>
+        </div>
+
+
+        <div class="today-work-content">
+          <h6 class="today-work-title mb-0 d-flex gap-1">
+            {{project_data.tasks_insight_text}}
+            <!-- divider  -->
+            {% if project_data.overdue_tasks_count > 0 %}
+            <div class="d-none d-md-block">
+              <span class="today-overdue-text font_size_12">
+                {{project_data.overdue_task_text}}
+              </span>
+            </div>
+            {% endif %}
+          </h6>
+
+          {% if project_data.overdue_tasks_count > 0 %}
+          <div class="d-flex align-items-center gap-1">
+            <p class="today-work-description mb-0">Tasks</p>
+            <div class="d-block d-md-none">
+              <span class="today-overdue-text font_size_12 mb-0">
+                {{project_data.overdue_task_text}}
+              </span>
+            </div>
+          </div>
+          {% else %}
+          <p class="today-work-description mb-0">Tasks</p>
+          {% endif %}
+        </div>
+
+        <div class="today-work-action d-flex align-items-center gap-2">
+          <span class="today-work-action-text"> View tasks </span>
+
+          <span class="today-work-arrow">
+            <i class="bi bi-arrow-right"></i>
+          </span>
+        </div>
+      </div>
+    </a>
+    {% endif %}
+    <!-- New Issue Comments -->
+    {% if project_data.comments_tasks_list %}
+    <a
+      data-bs-toggle="offcanvas"
+      data-bs-target="#CommentTasks"
+      aria-controls="CommentTasks"
+    >
+      <div class="today-work-card comment-work-card">
+        <div class="today-work-icon comment-work-icon">
+          <span class="material-symbols-outlined">chat_bubble</span>
+        </div>
+
+        <div class="today-work-content">
+          <h6 class="today-work-title mb-0">
+            {% if project_data.comments_tasks_list|length == 1 %} 1 Task has new
+            comment {% else %} {{ project_data.comments_tasks_list|length }}
+            tasks have new comments {% endif %}
+          </h6>
+
+          <p class="today-work-description mb-0">
+            New comments have been added to your tasks
+          </p>
+        </div>
+        <div class="today-work-action d-flex align-items-center gap-2">
+          <span class="today-work-action-text"> View comments </span>
+
+          <span class="today-work-arrow">
+            <i class="bi bi-arrow-right"></i>
+          </span>
+        </div>
+      </div>
+    </a>
+    {% endif %}
+
+    <!-- =====================================================
+         MISSED INSPECTIONS
+    ====================================================== -->
+    {% if project_data.missed_inspection_count > 0 %}
+
+    <a
+      href="{% url 'inspections:missed-inspections' project.uuid %}"
+      class="today-work-action-link"
+    >
+      <div class="today-work-card today-work-warning w-100">
+        <div class="today-work-icon missed-work-icon">
+          <span class="material-symbols-outlined"> event_busy </span>
+        </div>
+
+        <div class="today-work-content">
+          <h6 class="today-work-title mb-0">
+            {{project_data.missed_inspections_text}}
+          </h6>
+          <p class="today-work-description mb-0">Missed Inspections</p>
+        </div>
+
+        <div class="today-work-action d-flex align-items-center gap-2">
+          <span class="today-work-action-text"> View inspections </span>
+          <span class="today-work-arrow">
+            <i class="bi bi-arrow-right"></i>
+          </span>
+        </div>
+      </div>
+    </a>
+    {% endif %}
+
+    <!-- =====================================================
+         MISSED REPORTS
+    ====================================================== -->
+    {% if project_data.missed_report_count > 0 %}
+    <a
+      href="{% url 'report:missed-daily-reports' project.uuid %}"
+      class="today-work-action-link"
+    >
+      <div class="today-work-card today-work-warning w-100">
+        <div class="today-work-icon missed-work-icon">
+          <span class="material-symbols-outlined"> assignment_late </span>
+        </div>
+
+        <div class="today-work-content">
+          <h6 class="today-work-title mb-0">
+            {{project_data.missed_report_text}}
+          </h6>
+          <p class="today-work-description mb-0">Missed Daily Reports</p>
+        </div>
+
+        <div class="today-work-action d-flex align-items-center gap-2">
+          <span class="today-work-action-text"> View reports </span>
+          <span class="today-work-arrow">
+            <i class="bi bi-arrow-right"></i>
+          </span>
+        </div>
+      </div>
+    </a>
+    {% endif %}
+  </div>
+</section>
+
+<!-- =======  TODAY'S WORK COMMENTS OFFCANVAS ======= -->
+<section>
+  <!-- ISSUES OFFCANVAS  -->
+  <div
+    class="offcanvas offcanvas-start offcanvas_background_new"
+    tabindex="-1"
+    id="IssuesComments"
+    aria-labelledby="IssuesCommentsLabel"
+  >
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="IssuesCommentsLabel"></h5>
+      <button
+        type="button"
+        class="btn-close text-reset"
+        data-bs-dismiss="offcanvas"
+        aria-label="Close"
+      ></button>
+    </div>
+    <div class="offcanvas-body">
+      <!-- ================= HEADER ================= -->
+      <div class="dashboard_main_card mb-3">
+        <div class="missed_inspections_header mb-0">
+          <div
+            class="missed_inspections_header_icon"
+            style="
+              background-color: #e8f1ff !important;
+              color: rgb(37, 99, 235) !important;
+            "
+          >
+            <i class="bi bi-chat-left-dots-fill"></i>
+          </div>
+
+          <div>
+            <div class="missed_inspections_eyebrow">ISSUES</div>
+
+            <div class="d-flex align-items-center gap-2 flex-wrap">
+              <h1
+                class="missed_inspections_title mb-0"
+                style="font-size: 16px !important"
+              >
+                Issues with New Comments
+              </h1>
+
+              <span class="missed_inspections_count">
+                {{ project_data.comments_issues_list|length }}
+              </span>
+            </div>
+
+            <p class="missed_inspections_subtitle mb-0">
+              Issues that have new comments waiting for your attention.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ISSUE COMMENTS  -->
+      {% for issue in project_data.comments_issues_list %}
+      <a href="{% url 'issues:issue' issue.uuid %}">
+        <div class="today-work-card mb-2">
+          <div class="today-work-icon inspection-work-icon">
+            <span class="material-symbols-outlined"> chat_bubble</span>
+          </div>
+          <div class="today-work-content">
+            <div class="today-work-title-row">
+              <h6 class="today-work-title mb-0">{{issue.title}}</h6>
+              <p class="today-work-description mb-0 text-capitalize">
+                {{issue.priority}} priority
+              </p>
+            </div>
+          </div>
+          <div class="today-work-action d-flex align-items-center gap-2">
+            <span class="today-work-arrow">
+              <i class="bi bi-arrow-right"></i>
+            </span>
+          </div>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- TASKS OFFCANVAS  -->
+  <div
+    class="offcanvas offcanvas-start offcanvas_background_new"
+    tabindex="-1"
+    id="CommentTasks"
+    aria-labelledby="CommentTasksLabel"
+  >
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="CommentTasksLabel"></h5>
+      <button
+        type="button"
+        class="btn-close text-reset"
+        data-bs-dismiss="offcanvas"
+        aria-label="Close"
+      ></button>
+    </div>
+    <div class="offcanvas-body">
+      <!-- ================= HEADER ================= -->
+      <div class="dashboard_main_card mb-3">
+        <div class="missed_inspections_header mb-0">
+          <div
+            class="missed_inspections_header_icon"
+            style="
+              background-color: #e8f1ff !important;
+              color: rgb(37, 99, 235) !important;
+            "
+          >
+            <i class="bi bi-chat-left-dots-fill"></i>
+          </div>
+
+          <div>
+            <div class="missed_inspections_eyebrow">TASKS</div>
+
+            <div class="d-flex align-items-center gap-2 flex-wrap">
+              <h1
+                class="missed_inspections_title mb-0"
+                style="font-size: 16px !important"
+              >
+                New Task Comments
+              </h1>
+
+              <span class="missed_inspections_count">
+                {{ project_data.comments_tasks_list|length }}
+              </span>
+            </div>
+
+            <p class="missed_inspections_subtitle mb-0">
+              Tasks with new comments waiting for your attention.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ISSUE COMMENTS  -->
+      {% for issue in project_data.comments_tasks_list %}
+      <a href="{% url 'issues:issue' issue.uuid %}">
+        <div class="today-work-card mb-2">
+          <div class="today-work-icon inspection-work-icon">
+            <span class="material-symbols-outlined"> chat_bubble</span>
+          </div>
+          <div class="today-work-content">
+            <div class="today-work-title-row">
+              <h6 class="today-work-title mb-0">{{issue.title}}</h6>
+              <p class="today-work-description mb-0 text-capitalize">
+                {{issue.priority}} priority
+              </p>
+            </div>
+          </div>
+          <div class="today-work-action d-flex align-items-center gap-2">
+            <span class="today-work-arrow">
+              <i class="bi bi-arrow-right"></i>
+            </span>
+          </div>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- ======= QUICK ACTIONS ======= -->
+<section class="project_quick_actions section-spacing">
+  <div class="project_quick_actions_header">
+    <div>
+      <h4 class="new_section_title mb-1">Quick Actions</h4>
+      <p class="project_management_subtitle mb-0">Common project actions</p>
+    </div>
+  </div>
+  <div class="project_quick_actions_list">
+    <!-- LOG ISSUE -->
+     <a data-bs-toggle="offcanvas" href="#addIssueOffcanvas" aria-controls="addIssueOffcanvas">
+      <button type="button" class="project_quick_action primary">
+        <span class="project_quick_action_icon">
+          <i class="bi bi-plus-circle"></i>
+        </span>
+        <span class="project_quick_action_text"> Log Issue</span>
+      </button>
+     </a>
+
+    <!-- Create Task -->
+    <a
+      data-bs-toggle="offcanvas" href="#addTasksOffcanvas" aria-controls="addTasksOffcanvas"
+      class="project_quick_action"
+    >
+      <span class="project_quick_action_icon">
+        <i class="bi bi-list-check"></i>
+      </span>
+
+      <span class="project_quick_action_text"> Create Task </span>
+    </a>
+
+    <!-- Log Delivery-->
+     <a data-bs-toggle="offcanvas" href="#addProjectDeliveryOffvanvas" aria-controls="addProjectDeliveryOffvanvas">
+      <button type="button" class="project_quick_action">
+        <span class="project_quick_action_icon">
+          <i class="bi bi-truck"></i>
+        </span>
+
+        <span class="project_quick_action_text"> Log Delivery</span>
+      </button>
+    </a>
+
+    <!-- Log Delivery-->
+     <a data-bs-toggle="offcanvas" href="#addProjectAttachmentsOffcanvas" aria-controls="addProjectAttachmentsOffcanvas">
+      <button type="button" class="project_quick_action">
+        <span class="project_quick_action_icon">
+         <i class="bi bi-camera"></i>
+        </span>
+
+        <span class="project_quick_action_text"> Add Photos</span>
+      </button>
+    </a>
+        
+
+    <a
+      href="#"
+      class="tw-project-action tw-project-action-primary d-none"
+      data-bs-toggle="modal"
+      data-bs-target="#contractorLimitModal"
+    >
+        <i class="bi bi-person-plus"></i>
+        <span>Contractor Limit Reached</span>
+    </a>
+
+
+    <a
+      href="#"
+      class="tw-project-action tw-project-action-primary d-none"
+      data-bs-toggle="modal"
+      data-bs-target="#subcontractorPortalModal"
+  >
+      <i class="bi bi-person-badge"></i>
+      <span>Enable Contractor Portal</span>
+  </a>
+
+
+  <a
+    href="#"
+    class="tw-project-action tw-project-action-primary d-none"
+    data-bs-toggle="modal"
+    data-bs-target="#teamLimitModal"
+  >
+      <i class="bi bi-person-plus"></i>
+      <span>Team Limit Reached</span>
+  </a>
+
+    
+  </div>
+</section>
+
+<!-- ======= LARGE SCREEN PROJECT DETAILS ======= -->
+<section class="d-none d-md-block">
+  {% include 'project_details/lg_project_details.html' %}
+</section>
+
+<!-- ======= SMALL SCREEN PROJECT DETAILS ======= -->
+<section class="d-block d-md-none scroll-section" id="workspace">
+  <div class="project_quick_actions_header mt-5">
+    <div>
+      <h4 class="new_section_title mb-1">Project workspace</h4>
+      <p class="project_management_subtitle mb-0">Everything you need to manage this project.</p>
+    </div>
+  </div>
+  {% include 'project_details/sm_project_details.html' %}
+</section>
+
+
+<!-- ======= OFFCANVAS FORMS ======= -->
+ <!-- Add Issue Offcanvas  -->
+{% include 'issues_templates/add_issue_offcanvas.html' %}
+<!-- Add Task Offcanvas  -->
+{% include 'tasks_templates/add_task_offcanvas.html' %}
+<!-- Add Incident Offcanvas  -->
+{% include 'incidents/deepseek_incident_offcanvas.html' %}
+<!-- Add Delivery Offcanvas  -->
+{% include 'deliveries/add_delivery_offcanvas.html' %}
+<!-- Add Photos Offcanvas  -->
+{% include 'project_attachments/add_attachments_offcanvas.html' %}
+
+
+<!-- ======== FEEDBACK BOX ======== -->
+<section class="mt-5 mb-4 d-none">
+  <div class="feedback-box">
+    <div class="feedback-icon">
+      <i class="bi bi-chat-square-heart"></i>
+    </div>
+
+    <div class="feedback-content">
+      <div class="feedback-label">YOUR FEEDBACK MATTERS</div>
+
+      <h4 class="fw-bold mb-2">Help us make Coreva better</h4>
+
+      <p class="mb-0">
+        Using Coreva on site and noticed something we could improve? We'd love
+        to hear from you.
+      </p>
+    </div>
+
+    <div class="feedback-action">
+      <button
+        type="button"
+        class="btn feedback-btn"
+        data-bs-toggle="modal"
+        data-bs-target="#feedbackModal"
+      >
+        <i class="bi bi-send me-2"></i>
+        Give Feedback
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ======== FAB FLOATING ACTION BUTTONS  ======== -->
+<div class="d-block d-lg-none">
+  <div class="floating-actions">
+    <button
+      class="action-btn"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#offcanvasExample"
+      aria-controls="offcanvasExample"
+    >
+      <i class="bi bi-plus-lg"></i>
+    </button>
+  </div>
+</div>
+
+<!-- ======== FAB OFFCANVAS  ======== -->
+ {% include 'partials/fab_offcanvas_partial.html' %}
+
+<!-- ======== PROJECT BOTTOM NAVBAR ======== -->
+{% if show_project_bottom_nav is not False %}
+<div class="d-block d-lg-none">{% include 'partials/project_bottom_navbar.html' %}</div>
+{% endif %}
+
+
+<!-- ======== FEEDBACK MODAL ======== -->
+<div
+  class="modal fade"
+  id="feedbackModal"
+  tabindex="-1"
+  aria-labelledby="feedbackModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <div class="feedback-modal-icon">
+            <i class="bi bi-chat-square-heart"></i>
+        </div>
+
+        <div>
+            <h5 class="modal-title" id="feedbackModalLabel">
+                Help us improve Coreva
+            </h5>
+
+            <p class="mb-0">
+                Your feedback helps us improve the experience for you and your team.
+            </p>
+        </div>
+
+        <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+        ></button>
+
+    </div>
+
+      <div class="modal-body pt-4">
+        <!-- Feedback Type -->
+        <div class="mb-4">
+          <label class="form-label fw-semibold">
+            What would you like to tell us?
+          </label>
+          <div class="mb-2">
+            <label class="feedback-type d-flex gap-3">
+              <input type="radio" name="feedback_type" value="suggestion" />
+              <div class="feedback-type-content">
+                <i class="bi bi-lightbulb"></i>
+                <span>Suggestion</span>
+              </div>
+            </label>
+          </div>
+          <div class="mb-2">
+            <label class="feedback-type d-flex gap-3">
+              <input type="radio" name="feedback_type" value="problem" />
+              <div class="feedback-type-content">
+                <i class="bi bi-exclamation-circle"></i>
+                <span>Something isn't working</span>
+              </div>
+            </label>
+          </div>
+          <div class="mb-2">
+            <label class="feedback-type d-flex gap-3">
+              <input type="radio" name="feedback_type" value="feedback" />
+              <div class="feedback-type-content">
+                <i class="bi bi-chat-left-text"></i>
+                <span>General feedback</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Rating -->
+        <div class="mb-4">
+          <label class="form-label fw-semibold">
+            How are you finding Coreva?
+          </label>
+
+          <div class="feedback-rating">
+            <label>
+              <input type="radio" name="rating" value="1" />
+              <span>😕</span>
+              <small>Not great</small>
+            </label>
+
+            <label>
+              <input type="radio" name="rating" value="2" />
+              <span>😐</span>
+              <small>Okay</small>
+            </label>
+
+            <label>
+              <input type="radio" name="rating" value="3" />
+              <span>🙂</span>
+              <small>Good</small>
+            </label>
+
+            <label>
+              <input type="radio" name="rating" value="4" />
+              <span>😄</span>
+              <small>Great</small>
+            </label>
+
+            <label>
+              <input type="radio" name="rating" value="5" />
+              <span>🤩</span>
+              <small>Excellent</small>
+            </label>
+          </div>
+        </div>
+
+        <!-- Message -->
+        <div class="mb-3">
+          <label for="feedbackMessage" class="form-label fw-semibold">
+            Tell us more
+          </label>
+
+          <textarea
+            class="form-control"
+            id="feedbackMessage"
+            name="message"
+            rows="4"
+            placeholder="What could we improve, or what would you like to see in Coreva?"
+          ></textarea>
+
+          <div class="form-text">Even a quick sentence is helpful.</div>
+        </div>
+
+        <!-- Screenshot -->
+        <div class="mb-2">
+          <label for="feedbackScreenshot" class="form-label fw-semibold">
+            Add a screenshot
+            <span class="text-muted fw-normal">(optional)</span>
+          </label>
+
+          <input
+            type="file"
+            class="form-control"
+            id="feedbackScreenshot"
+            name="screenshot"
+            accept="image/*"
+          />
+        </div>
+      </div>
+
+      <div class="modal-footer border-0 pt-0">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">
+          Cancel
+        </button>
+
+        <button type="submit" class="btn btn-primary px-4">
+          Send Feedback
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function closeOffcanvas() {
+    var offcanvasElement = document.getElementById("offcanvasExample");
+    var offcanvasInstance = bootstrap.Offcanvas.getInstance(offcanvasElement);
+
+    if (!offcanvasInstance) {
+      offcanvasInstance = new bootstrap.Offcanvas(offcanvasElement);
+    }
+    offcanvasInstance.hide();
+    console.log("close offcanvas");
+  }
+</script>

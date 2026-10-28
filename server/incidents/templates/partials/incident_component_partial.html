@@ -1,0 +1,123 @@
+<!-- INCIDENTS HEADER -->
+<div class="portal-work-section portal-work-section--incidents mb-3">
+    <div class="portal-work-header">
+        <div class="portal-work-icon">
+            <i class="bi bi-asterisk" style="color: rgb(234, 88, 12) !important;"></i>
+        </div>
+        <div class="portal-work-heading">
+            <h3>Incidents</h3>
+            <span>{{ incidents_count }} Incident{% if incidents_count > 1%}s{% endif %} recorded today</span>
+        </div>
+        <!-- ALL INCIDENTS ACTION  -->
+        <div class="d-flex gap-2">
+            <a href="{% url 'incidents:project-incidents' project.uuid %}?next={{ request.get_full_path|urlencode }}">
+                <div class="portal-work-count">
+                    <div class="d-flex gap-1">
+                        <span class="text-capitalize">See All</span>
+                    </div>
+                </div>
+            </a>
+            <!-- ADD INCIDENT ACTION  -->
+            <a data-bs-toggle="offcanvas" href="#addIncidentOffcanvas" aria-controls="addIncidentOffcanvas">
+                <div class="portal-work-count">
+                    <div class="d-flex gap-1">
+                        <strong><i class="bi bi-plus"></i></strong>
+                        <span class="text-capitalize">Incident</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+<!-- DATABASE INCIDENTS -->
+<div class="cpd-list-section">
+    <div class="cpd-items">
+        {% for data in incidents %}
+        <article class="cpd-item cpd-task-item cpd-item-incidents">
+            <div class="cpd-item-main">
+                <div class="cpd-item-icon cpd-item-icon-orange" >
+                    <i class="bi bi-asterisk"></i>
+                </div>
+
+                <div class="cpd-item-content">
+
+                    <div class="cpd-item-title-row">
+
+                        <h4 class="text-capitalize">
+                            {{ data.incident_type }} 
+                        </h4>
+
+                        {% if data.severity == 'high'%}
+                        <span class="cpd-priority cpd-priority-high" style="font-size: 11.5px;">
+                            High severity
+                        </span>
+                        {% elif data.severity == 'Critical' %}
+                        <span class="cpd-priority cpd-priority-high" style="font-size: 11.5px;">
+                            Critical severity
+                        </span>
+                        {% elif data.severity == 'medium' %}
+                        <span class="cpd-priority cpd-priority-medium" style="font-size: 11.5px;">
+                            Medium severity
+                        </span>
+                        {% elif data.severity == 'low' %}
+                        <span class="cpd-priority cpd-priority-low" style="font-size: 11.5px;">
+                            Low severity
+                        </span>
+                        {% endif %}
+
+                    </div>
+
+                        <p class="cpd-item-description" style="font-size: 12.5px !important;">
+                        {{ data.title }}
+                    </p>
+
+                    <div class="cpd-item-meta">
+
+                        <span class="cpd-meta-overdue">
+                            <i class="bi bi-clock"></i>
+                            {{ data.incident_time|time:"g:i A" }}
+                        </span>
+
+                        <!-- {% if data.comment_count > 0 %}
+                        <span class="text-primary">
+                            <i class="bi bi-chat-dots"></i>
+                            {{data.comment_count}} new comment{% if data.comment_count > 1%}s{% endif %}
+                        </span>
+                        {% endif %} -->
+
+                        <!-- ASSIGNED TO YOU  -->
+                         <!-- {% if data.task.assigned_to == current_user %}
+                        <span class="text-success">
+                            <i class="bi bi-person-check-fill"></i>
+                            Assigned to you
+                        </span>
+                        {% else %}
+                        <span style="
+                            color: rgb(111, 118, 125) !important;
+                            ">
+                            <i class="bi bi-person-fill"></i>
+                            Unassigned
+                        </span>
+                        {% endif %} -->
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="cpd-item-action">
+
+                <a href="{% url 'incidents:incident' data.uuid %}?next={{ next_url|urlencode }}&section=IncidentsSession" class="cpd-view-btn">
+                    View
+                    <i class="bi bi-chevron-right"></i>
+                </a>
+
+            </div>
+
+        </article>
+        {% endfor %}
+    </div>
+</div>
+

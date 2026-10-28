@@ -1,0 +1,697 @@
+    /* =========================================================
+   ADD TEAM MEMBER OFFCANVAS
+   ========================================================= */
+
+.ptm-add-member-offcanvas {
+    width: 500px !important;
+    max-width: 100%;
+    border: 0;
+    box-shadow: -8px 0 30px rgba(15, 23, 42, 0.10);
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.ptm-add-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 22px 22px 18px;
+
+    border-bottom: 1px solid #e8edf3;
+    background: #ffffff;
+}
+
+.ptm-add-header-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.ptm-add-icon {
+    width: 42px;
+    height: 42px;
+
+    flex: 0 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.ptm-add-icon .material-symbols-outlined {
+    font-size: 21px;
+}
+
+.ptm-add-header h5 {
+    margin: 0 0 3px;
+
+    color: #172a46;
+
+    font-size: 16px;
+    font-weight: 750;
+}
+
+.ptm-add-header p {
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 12px;
+}
+
+.ptm-add-close {
+    width: 34px;
+    height: 34px;
+
+    flex: 0 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 0;
+    border-radius: 8px;
+
+    background: #f8fafc;
+    color: #64748b;
+
+    cursor: pointer;
+}
+
+.ptm-add-close:hover {
+    background: #f1f5f9;
+    color: #172a46;
+}
+
+.ptm-add-close .material-symbols-outlined {
+    font-size: 19px;
+}
+
+
+/* =========================================================
+   BODY
+   ========================================================= */
+
+.ptm-add-body {
+    padding: 20px 22px 25px;
+
+    background: #f8fafc;
+}
+
+
+/* =========================================================
+   PROJECT CONTEXT
+   ========================================================= */
+
+.ptm-project-context {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    margin-bottom: 17px;
+    padding: 12px;
+
+    border: 1px solid #dbeafe;
+    border-radius: 11px;
+
+    background: #eff6ff;
+}
+
+.ptm-project-context-icon {
+    width: 34px;
+    height: 34px;
+
+    flex: 0 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+
+    background: #ffffff;
+    color: #2563eb;
+}
+
+.ptm-project-context-icon .material-symbols-outlined {
+    font-size: 18px;
+}
+
+.ptm-project-context > div:last-child {
+    min-width: 0;
+}
+
+.ptm-project-context span {
+    display: block;
+
+    margin-bottom: 2px;
+
+    color: #64748b;
+
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.ptm-project-context strong {
+    display: block;
+
+    overflow: hidden;
+
+    color: #172a46;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+.ptm-member-search {
+    position: relative;
+
+    margin-bottom: 12px;
+}
+
+.ptm-member-search > .material-symbols-outlined {
+    position: absolute;
+
+    top: 50%;
+    left: 13px;
+
+    transform: translateY(-50%);
+
+    color: #94a3b8;
+
+    font-size: 20px;
+}
+
+.ptm-member-search input {
+    width: 100%;
+    height: 45px;
+
+    padding: 0 13px 0 41px;
+
+    border: 1px solid #dce3ea;
+    border-radius: 10px;
+
+    outline: none;
+
+    background: #ffffff;
+    color: #172a46;
+
+    font-size: 13px;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.ptm-member-search input::placeholder {
+    color: #94a3b8;
+}
+
+.ptm-member-search input:focus {
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.08);
+}
+
+
+/* =========================================================
+   HELPER
+   ========================================================= */
+
+.ptm-add-helper {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+
+    margin-bottom: 16px;
+
+    color: #64748b;
+
+    font-size: 11px;
+    line-height: 1.45;
+}
+
+.ptm-add-helper .material-symbols-outlined {
+    flex: 0 0 auto;
+
+    color: #2563eb;
+
+    font-size: 16px;
+}
+
+
+/* =========================================================
+   MEMBER LIST
+   ========================================================= */
+
+.ptm-available-members {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.ptm-member-option {
+    display: block;
+
+    margin: 0;
+
+    cursor: pointer;
+}
+
+.ptm-member-option > input {
+    position: absolute;
+
+    opacity: 0;
+    pointer-events: none;
+}
+
+.ptm-member-option-card {
+    display: flex;
+    align-items: center;
+
+    gap: 11px;
+
+    padding: 12px;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 11px;
+
+    background: #ffffff;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.ptm-member-option:hover .ptm-member-option-card {
+    border-color: #bfdbfe;
+    background: #ffffff;
+}
+
+
+/* Selected */
+
+.ptm-member-option > input:checked
+    + .ptm-member-option-card {
+    border-color: #2563eb;
+
+    background: #eff6ff;
+
+    box-shadow:
+        0 0 0 2px rgba(37, 99, 235, 0.08);
+}
+
+
+/* =========================================================
+   AVATAR
+   ========================================================= */
+
+.ptm-member-avatar {
+    width: 42px;
+    height: 42px;
+
+    flex: 0 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #eff6ff;
+    color: #2563eb;
+
+    font-size: 14px;
+    font-weight: 750;
+}
+
+
+/* =========================================================
+   MEMBER DETAILS
+   ========================================================= */
+
+.ptm-member-details {
+    min-width: 0;
+    flex: 1;
+}
+
+.ptm-member-name-line {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    min-width: 0;
+}
+
+.ptm-member-name-line strong {
+    overflow: hidden;
+
+    color: #172a46;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.ptm-member-job {
+    display: block;
+
+    margin-top: 2px;
+
+    overflow: hidden;
+
+    color: #64748b;
+
+    font-size: 11px;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.ptm-member-email {
+    display: block;
+
+    margin-top: 2px;
+
+    overflow: hidden;
+
+    color: #94a3b8;
+
+    font-size: 10px;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   ROLE
+   ========================================================= */
+
+.ptm-member-role {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 3px 6px;
+
+    flex: 0 0 auto;
+
+    border-radius: 5px;
+
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.ptm-member-role.admin {
+    background: #f5f3ff;
+    color: #7c3aed;
+}
+
+.ptm-member-role.user {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+
+/* =========================================================
+   RADIO ICON
+   ========================================================= */
+
+.ptm-member-radio {
+    width: 24px;
+    height: 24px;
+
+    flex: 0 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #cbd5e1;
+}
+
+.ptm-member-radio .material-symbols-outlined {
+    font-size: 22px;
+}
+
+.ptm-member-option > input:checked
+    + .ptm-member-option-card
+    .ptm-member-radio {
+    color: #2563eb;
+}
+
+.ptm-member-option > input:checked
+    + .ptm-member-option-card
+    .ptm-member-radio
+    .material-symbols-outlined {
+    font-variation-settings:
+        'FILL' 1;
+}
+
+
+/* =========================================================
+   ALREADY ADDED
+   ========================================================= */
+
+.ptm-member-option.disabled {
+    cursor: default;
+}
+
+.ptm-member-option.disabled .ptm-member-option-card {
+    background: #f8fafc;
+    border-color: #edf1f5;
+}
+
+.ptm-member-option.disabled .ptm-member-avatar {
+    background: #e2e8f0;
+    color: #94a3b8;
+}
+
+.ptm-member-option.disabled .ptm-member-name-line strong {
+    color: #64748b;
+}
+
+.ptm-already-added {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    flex: 0 0 auto;
+
+    color: #059669;
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.ptm-already-added .material-symbols-outlined {
+    font-size: 16px;
+}
+
+
+/* =========================================================
+   EMPTY SEARCH
+   ========================================================= */
+
+.ptm-member-empty {
+    padding: 35px 20px;
+
+    text-align: center;
+
+    background: #ffffff;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 11px;
+}
+
+.ptm-member-empty-icon {
+    width: 45px;
+    height: 45px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 10px;
+
+    border-radius: 11px;
+
+    background: #f1f5f9;
+    color: #94a3b8;
+}
+
+.ptm-member-empty-icon .material-symbols-outlined {
+    font-size: 22px;
+}
+
+.ptm-member-empty strong {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #475569;
+
+    font-size: 13px;
+}
+
+.ptm-member-empty p {
+    margin: 0;
+
+    color: #94a3b8;
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.ptm-add-footer {
+    padding: 13px 20px;
+
+    border-top: 1px solid #e8edf3;
+
+    background: #ffffff;
+}
+
+.ptm-selected-member {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    margin-bottom: 10px;
+
+    color: #94a3b8;
+
+    font-size: 11px;
+}
+
+.ptm-selected-member .material-symbols-outlined {
+    font-size: 17px;
+}
+
+.ptm-footer-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ptm-cancel-btn {
+    min-height: 42px;
+
+    padding: 0 15px;
+
+    border: 1px solid #dce3ea;
+    border-radius: 9px;
+
+    background: #ffffff;
+    color: #475569;
+
+    font-size: 13px;
+    font-weight: 650;
+
+    cursor: pointer;
+}
+
+.ptm-cancel-btn:hover {
+    background: #f8fafc;
+}
+
+
+.ptm-add-submit {
+    min-height: 42px;
+
+    flex: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    border: 0;
+    border-radius: 9px;
+
+    background: #172a46;
+    color: #ffffff;
+
+    font-size: 13px;
+    font-weight: 650;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.ptm-add-submit:not(:disabled):hover {
+    background: #0f1f36;
+}
+
+.ptm-add-submit:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.ptm-add-submit .material-symbols-outlined {
+    font-size: 18px;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 576px) {
+
+    .ptm-add-member-offcanvas {
+        width: 100% !important;
+    }
+
+    .ptm-add-header {
+        padding: 18px 16px 15px;
+    }
+
+    .ptm-add-body {
+        padding: 17px 14px 22px;
+    }
+
+    .ptm-member-option-card {
+        padding: 11px;
+    }
+
+    .ptm-member-name-line {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 3px;
+    }
+
+    .ptm-add-footer {
+        padding: 12px 14px;
+    }
+
+}

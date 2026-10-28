@@ -1,0 +1,806 @@
+{% load static %}
+<!-- divider  -->
+
+
+<div class="contractor_form_page">
+  <form
+    method="POST"
+    action="@"
+  >
+    {% csrf_token %}
+    <div class="row d-flex justify-content-center">
+      <div class="col-12 col-md-10 col-lg-7">
+         <!-- =====================================
+            BACK
+        ====================================== -->
+        {% url 'contractors:contractor' project_contractor.uuid  as back_url %}
+        <!-- -------------------------------------------  -->
+        {% include 'partials/page_topbar.html' with next_url=next_url back_url=back_url brand_name='Edit Contractor' brand_url=back_url %}
+          
+        <!-- ===================================================== PAGE HEADER ====================================================== -->
+        <div class="dashboard_main_card mb-3">
+          <div class="contractor_form_header mb-0">
+            <div class="contractor_page_icon mb-3">
+              <span class="material-symbols-outlined"> groups_2 </span>
+            </div>
+            <h5 class="form_heading mb-2">Edit {{contractor.company_name}}</h5>
+          </div>
+        </div>
+        <!-- ===================================================== CONTRACTOR INFORMATION ====================================================== -->
+        <div class="contractor_form_card mb-3 mt-4">
+          <div class="contractor_form_section">
+            <div class="contractor_form_number">
+              <span class="fw-bold">1</span>
+            </div>
+            <h6 class="contractor_form_section_title">
+              Contractor Information
+            </h6>
+          </div>
+          <div class="row g-3">
+            <!-- Company Name -->
+            <div class="col-12 col-md-6">
+              <label for="company_name" class="form-label">
+                Company Name <span class="text-danger">*</span>
+              </label>
+              <input
+                type="text"
+                name="company_name"
+                id="company_name"
+                required
+                value="{{contractor.company_name}}"
+                class="form-control grey_input"
+                placeholder="ABC Construction"
+              />
+            </div>
+            <!-- Phone -->
+            <div class="col-12 col-md-6">
+              <label for="phone" class="form-label"> Phone </label>
+              <input
+                type="tel"
+                name="phone"
+                id="phone"
+                value="{{contractor.phone}}"
+                class="form-control grey_input"
+                placeholder="083 123 4567"
+              />
+            </div>
+            <!-- Email -->
+            <div class="col-12 col-md-6">
+              <label for="email" class="form-label"> Email Address </label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                value="{{contractor.email}}"
+                class="form-control grey_input"
+                placeholder="info@abcconstruction.co.za"
+              />
+            </div>
+            <!-- Start Date -->
+            <div class="col-12 col-md-6">
+              <label for="start_date" class="form-label"> Start Date </label>
+              <input
+                type="date"
+                name="start_date"
+                id="start_date"
+                onfocus="this.showPicker()"
+                onclick="this.showPicker()"
+                 value="{{ project_contractor.start_date|date:'Y-m-d' }}"
+                class="form-control grey_input"
+              />
+            </div>
+            <!-- Street Address -->
+            <div class="col-12">
+              <label for="street_address" class="form-label">
+                Street Address
+              </label>
+              <input
+                type="text"
+                name="street"
+                id="street_address"
+                class="form-control grey_input"
+                placeholder="Enter street address"
+                value="{{contractor.address.street_address}}"
+              />
+            </div>
+            <!-- City -->
+            <div class="col-12 col-md-6">
+              <label for="city" class="form-label"> City </label>
+              <input
+                type="text"
+                name="city"
+                id="city"
+                class="form-control grey_input"
+                placeholder="Enter city"
+                value="{{contractor.address.city}}"
+              />
+            </div>
+            <!-- Province -->
+            <div class="col-12 col-md-6">
+              <label for="province" class="form-label"> Province </label>
+              <input
+                type="text"
+                name="province"
+                id="province"
+                class="form-control grey_input"
+                placeholder="Enter province"
+                value="{{contractor.address.province}}"
+              />
+            </div>
+            <!-- Country -->
+            <div class="col-12">
+              <label for="country" class="form-label"> Country </label>
+              <input
+                type="text"
+                name="country"
+                id="country"
+                class="form-control grey_input"
+                value="South Africa"
+                placeholder="Enter country"
+                value="{{contractor.address.country}}"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- =====================================================
+            LINKED COREVA ACCOUNT
+        ===================================================== -->
+        {% if linked_contractor %}
+        <section class="eca-card mb-3 mt-3">
+
+            <!-- Header -->
+            <div class="eca-header">
+
+                <div class="eca-status-icon">
+                    <i class="bi bi-check-lg"></i>
+                </div>
+
+                <div class="eca-header-content">
+
+                    <span class="eca-label">
+                        Coreva account linked
+                    </span>
+
+                    <h3 class="eca-title">
+                        Connected company
+                    </h3>
+
+                </div>
+
+                <div class="eca-action">
+
+                    <a
+                        href="{% url 'contractors:link-contractor-account' project_contractor.uuid %}"
+                        class="eca-change-btn"
+                    >
+                        <i class="bi bi-arrow-repeat"></i>
+                        <span>Change account</span>
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- Connected company -->
+            <div class="eca-company">
+
+                <div class="eca-company-icon">
+                    <i class="bi bi-buildings"></i>
+                </div>
+
+                <div class="eca-company-details">
+
+                    <span class="eca-company-label">
+                        Coreva company
+                    </span>
+
+                    <strong class="eca-company-name">
+                        {{ linked_contractor.company_name }}
+                    </strong>
+
+                    {% if linked_contractor.email %}
+                        <span class="eca-company-email">
+                            {{ linked_contractor.email }}
+                        </span>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </section>
+        {% endif %}
+
+        <!-- =====================================================
+            LINK TO COREVA ACCOUNT REMOVE
+        ====================================================== -->
+        <section class="ec-link-account-card mb-3 d-none">
+
+            <div class="ec-link-account-content">
+
+                <div class="ec-link-account-icon">
+                    <i class="bi bi-link-45deg"></i>
+                </div>
+
+                <div class="ec-link-account-info">
+                    <h3>Link to Coreva account</h3>
+
+                    <p>
+                        If this contractor has created their own Coreva account,
+                        you can link their company profile to this contractor.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="ec-link-account-action">
+
+                <a
+                    href="{% url 'contractors:link-contractor-account' project_contractor.uuid %}"
+                    class="ec-link-account-btn"
+                >
+                    <i class="bi bi-link-45deg"></i>
+                    Link Coreva account
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+            PROJECT ACCESS REMOVE
+        ===================================================== -->
+        <div class="contractor_form_card mb-3 d-none">
+
+            <div class="contractor_form_section">
+                <div class="contractor_form_number">
+                    <span class="fw-bold">2</span>
+                </div>
+
+                <h6 class="contractor_form_section_title">
+                    Project Access
+                </h6>
+            </div>
+
+            <p class="text-secondary small mb-3">
+                Choose how this contractor will access their work and assignments through Coreva.
+            </p>
+
+
+            <!-- =================================================
+                PORTAL OPTIONS
+            ================================================== -->
+            <div class="contractor_portal_options">
+
+                <!-- CREATE NEW PORTAL -->
+                <label class="contractor_portal_option">
+
+                    <input
+                        type="radio"
+                        name="portal_option"
+                        value="new"
+                        checked
+                    >
+
+                    <div class="contractor_portal_option_content">
+
+                        <div class="contractor_portal_option_icon">
+                            <i class="bi bi-person-plus"></i>
+                        </div>
+
+                        <div class="contractor_portal_option_text">
+
+                            <strong>
+                                Create new portal
+                            </strong>
+
+                            <span>
+                                Create a contractor portal for this subcontractor
+                                and give them access to their assigned work.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="contractor_portal_radio">
+                        <span></span>
+                    </div>
+
+                </label>
+
+
+                <!-- CONNECT EXISTING PORTAL -->
+                <label class="contractor_portal_option">
+
+                    <input
+                        type="radio"
+                        name="portal_option"
+                        value="existing"
+                    >
+
+                    <div class="contractor_portal_option_content">
+
+                        <div class="contractor_portal_option_icon">
+                            <i class="bi bi-link-45deg"></i>
+                        </div>
+
+                        <div class="contractor_portal_option_text">
+
+                            <strong>
+                                Connect existing portal
+                            </strong>
+
+                            <span>
+                                Connect this contractor to an existing portal
+                                using their Contractor Portal ID.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="contractor_portal_radio">
+                        <span></span>
+                    </div>
+
+                </label>
+
+
+                <!-- NO PORTAL -->
+                <label class="contractor_portal_option">
+
+                    <input
+                        type="radio"
+                        name="portal_option"
+                        value="none"
+                    >
+
+                    <div class="contractor_portal_option_content">
+
+                        <div class="contractor_portal_option_icon">
+                            <i class="bi bi-person-x"></i>
+                        </div>
+
+                        <div class="contractor_portal_option_text">
+
+                            <strong>
+                                No portal access
+                            </strong>
+
+                            <span>
+                                Add the contractor to the project without
+                                creating or connecting a portal.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="contractor_portal_radio">
+                        <span></span>
+                    </div>
+
+                </label>
+
+            </div>
+
+
+            <!-- =================================================
+                EXISTING PORTAL SEARCH
+            ================================================== -->
+            <div
+                id="contractorExistingPortal"
+                class="contractor_existing_portal mt-3"
+                style="display: none;"
+            >
+
+                <label
+                    for="contractorPortalId"
+                    class="contractor_portal_field_label"
+                >
+                    Contractor Portal ID
+                </label>
+
+                <div class="contractor_portal_search">
+
+                    <div class="contractor_portal_input_wrap">
+
+                        <i class="bi bi-fingerprint"></i>
+
+                        <input
+                            type="text"
+                            id="contractorPortalId"
+                            name="contractor_portal_id"
+                            class="contractor_portal_input"
+                            placeholder="Enter contractor portal ID"
+                        >
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="contractor_portal_search_btn"
+                    >
+                        <i class="bi bi-search"></i>
+                        Find portal
+                    </button>
+
+                </div>
+
+                <div class="contractor_portal_help">
+                    <i class="bi bi-info-circle"></i>
+                    Ask the subcontractor for their Contractor Portal ID.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+            PROJECT ACCESS
+        ===================================================== -->
+        <div class="contractor_form_card mb-3">
+
+            <div class="contractor_form_section">
+
+                <div class="contractor_form_number">
+                    <span class="fw-bold">2</span>
+                </div>
+
+                <h6 class="contractor_form_section_title">
+                    Project Access
+                </h6>
+
+            </div>
+
+            <p class="text-secondary small mb-3">
+                Choose how this contractor will access their work on this project.
+            </p>
+
+
+            <!-- =================================================
+                ACCESS OPTIONS
+            ================================================== -->
+            <div class="contractor_portal_options">
+
+
+                <!-- LINK COREVA ACCOUNT -->
+                {% if linked_contractor == None %}
+                <a
+                    href="{% url 'contractors:link-contractor-account' project_contractor.uuid %}"
+                    class="contractor_portal_option contractor_portal_link_option"
+                >
+
+                    <div class="contractor_portal_option_content">
+
+                        <div class="contractor_portal_option_icon">
+                            <i class="bi bi-building-check"></i>
+                        </div>
+
+                        <div class="contractor_portal_option_text">
+
+                            <strong>
+                                Link Coreva account
+                            </strong>
+
+                            <span>
+                                Connect this contractor to their existing Coreva
+                                company account and give them access to this project.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="contractor_portal_link_arrow">
+                        <i class="bi bi-chevron-right"></i>
+                    </div>
+
+                </a>
+                {% endif %}
+
+
+                <!-- CREATE NEW PORTAL -->
+                <label class="contractor_portal_option">
+
+                    <input
+                        type="radio"
+                        name="portal_option"
+                        value="new"
+                        checked
+                    >
+
+                    <div class="contractor_portal_option_content">
+
+                        <div class="contractor_portal_option_icon">
+                            <i class="bi bi-person-plus"></i>
+                        </div>
+
+                        <div class="contractor_portal_option_text">
+
+                            <strong>
+                                Create contractor portal
+                            </strong>
+
+                            <span>
+                                Create a Coreva portal for this contractor
+                                so they can access their assigned work on this project.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="contractor_portal_radio">
+                        <span></span>
+                    </div>
+
+                </label>
+
+
+                <!-- CONNECT EXISTING PORTAL -->
+                <label class="contractor_portal_option">
+
+                    <input
+                        type="radio"
+                        name="portal_option"
+                        value="existing"
+                    >
+
+                    <div class="contractor_portal_option_content">
+
+                        <div class="contractor_portal_option_icon">
+                            <i class="bi bi-link-45deg"></i>
+                        </div>
+
+                        <div class="contractor_portal_option_text">
+
+                            <strong>
+                                Connect existing portal
+                            </strong>
+
+                            <span>
+                                Connect this contractor to an existing Coreva
+                                contractor portal using their Portal ID.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="contractor_portal_radio">
+                        <span></span>
+                    </div>
+
+                </label>
+
+
+                <!-- NO PORTAL -->
+                <label class="contractor_portal_option">
+
+                    <input
+                        type="radio"
+                        name="portal_option"
+                        value="none"
+                    >
+
+                    <div class="contractor_portal_option_content">
+
+                        <div class="contractor_portal_option_icon">
+                            <i class="bi bi-person-x"></i>
+                        </div>
+
+                        <div class="contractor_portal_option_text">
+
+                            <strong>
+                                No portal access
+                            </strong>
+
+                            <span>
+                                Add this contractor to the project without
+                                giving them access to Coreva.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="contractor_portal_radio">
+                        <span></span>
+                    </div>
+
+                </label>
+
+            </div>
+
+
+            <!-- =================================================
+                EXISTING PORTAL SEARCH
+            ================================================== -->
+            <div
+                id="contractorExistingPortal"
+                class="contractor_existing_portal mt-3"
+                style="display: none;"
+            >
+
+                <label
+                    for="contractorPortalId"
+                    class="contractor_portal_field_label"
+                >
+                    Contractor Portal ID
+                </label>
+
+                <div class="contractor_portal_search">
+
+                    <div class="contractor_portal_input_wrap">
+
+                        <i class="bi bi-fingerprint"></i>
+
+                        <input
+                            type="text"
+                            id="contractorPortalId"
+                            name="contractor_portal_id"
+                            class="contractor_portal_input"
+                            placeholder="Enter Contractor Portal ID"
+                        >
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="contractor_portal_search_btn"
+                    >
+                        <i class="bi bi-search"></i>
+                        Find portal
+                    </button>
+
+                </div>
+
+                <div class="contractor_portal_help">
+                    <i class="bi bi-info-circle"></i>
+                    Ask the contractor for their Contractor Portal ID.
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                COREVA ACCOUNT SEARCH
+            ================================================== -->
+            <div
+                id="contractorCorevaAccount"
+                class="contractor_existing_portal mt-3"
+                style="display: none;"
+            >
+
+                <label
+                    for="contractorCorevaUuid"
+                    class="contractor_portal_field_label"
+                >
+                    Coreva Company UUID
+                </label>
+
+                <div class="contractor_portal_search">
+
+                    <div class="contractor_portal_input_wrap">
+
+                        <i class="bi bi-building"></i>
+
+                        <input
+                            type="text"
+                            id="contractorCorevaUuid"
+                            name="coreva_company_uuid"
+                            class="contractor_portal_input"
+                            placeholder="Enter Coreva company UUID"
+                        >
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="contractor_portal_search_btn"
+                    >
+                        <i class="bi bi-search"></i>
+                        Find company
+                    </button>
+
+                </div>
+
+                <div class="contractor_portal_help">
+                    <i class="bi bi-info-circle"></i>
+                    Ask the contractor for their Coreva company UUID.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ===================================================== DESKTOP ACTIONS ====================================================== -->
+        <div class="d-none d-md-block">
+           <!-- =====================================
+             ACTIONS
+            ====================================== -->
+            <div class="form_actions">
+              <button
+                type="button"
+                onclick="history.back()"
+                class="form_cancel_button"
+              >
+                Cancel
+              </button>
+
+              <button type="submit" class="form_save_button">
+                <i class="bi bi-check-lg"></i>
+                <i class="bi bi-floppy"></i> Save changes
+              </button>
+            </div>
+        </div>
+      </div>
+    </div>
+    <!-- ========================================================= MOBILE ACTIONS ========================================================== -->
+    <section
+      class="fixed-bottom contractor_mobile_actions px-2 d-block d-md-none"
+    >
+      <div class="form_actions">
+              <button
+                type="button"
+                onclick="history.back()"
+                class="form_cancel_button"
+              >
+                Cancel
+              </button>
+
+              <button type="submit" class="form_save_button">
+                <i class="bi bi-check-lg"></i>
+                <i class="bi bi-floppy"></i> Save Changes
+              </button>
+            </div>
+    </section>
+  </form>
+</div>
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const portalOptions = document.querySelectorAll(
+            'input[name="portal_option"]'
+        );
+
+        const existingPortal = document.getElementById(
+            "contractorExistingPortal"
+        );
+
+        function updatePortalOption() {
+
+            const selected = document.querySelector(
+                'input[name="portal_option"]:checked'
+            );
+
+            if (!selected) {
+                existingPortal.style.display = "none";
+                return;
+            }
+
+            if (selected.value === "existing") {
+                existingPortal.style.display = "block";
+            } else {
+                existingPortal.style.display = "none";
+            }
+        }
+
+        portalOptions.forEach(function (option) {
+            option.addEventListener("change", updatePortalOption);
+        });
+
+        updatePortalOption();
+
+    });
+</script>

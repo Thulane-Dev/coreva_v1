@@ -1,0 +1,1642 @@
+{% load static %}
+<!-- divider  -->
+
+<style>
+/* =========================================================
+   COREVA — ADD CONTRACTOR
+   ========================================================= */
+
+/* .cv-add-contractor-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 32px 20px 60px;
+} */
+
+
+/* =========================================================
+   PAGE HEADER
+   ========================================================= */
+
+.cv-page-header {
+    margin-bottom: 32px;
+}
+
+.cv-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 28px;
+
+    color: #64748b;
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    transition: color 0.2s ease;
+}
+
+.cv-back-link:hover {
+    color: #0f172a;
+}
+
+.cv-back-link .material-symbols-rounded {
+    font-size: 19px;
+}
+
+.cv-page-heading {
+    max-width: 650px;
+}
+
+.cv-page-eyebrow,
+.cv-form-eyebrow {
+    display: block;
+    margin-bottom: 7px;
+
+    color: #2563eb;
+
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.cv-page-heading h1 {
+    margin: 0;
+
+    color: #0f172a;
+
+    font-size: 32px;
+    line-height: 1.2;
+    font-weight: 700;
+}
+
+.cv-page-heading p {
+    margin: 10px 0 0;
+
+    color: #64748b;
+
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   CONTRACTOR OPTIONS
+   ========================================================= */
+
+.cv-contractor-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.cv-contractor-option {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    padding: 20px;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+
+    background: #ffffff;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.cv-contractor-option:hover {
+    border-color: #cbd5e1;
+
+    box-shadow:
+        0 4px 12px rgba(15, 23, 42, 0.06);
+
+    transform: translateY(-1px);
+}
+
+.cv-contractor-option:focus-visible {
+    outline: 3px solid rgba(37, 99, 235, 0.15);
+    outline-offset: 2px;
+}
+
+.cv-contractor-option.cv-option-selected {
+    border-color: #2563eb;
+    background: #f8fbff;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.06);
+}
+
+
+/* =========================================================
+   OPTION ICON
+   ========================================================= */
+
+.cv-option-icon {
+    flex: 0 0 48px;
+
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+}
+
+.cv-option-icon .material-symbols-rounded {
+    font-size: 24px;
+}
+
+.cv-option-icon-blue {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.cv-option-icon-green {
+    background: #ecfdf5;
+    color: #059669;
+}
+
+.cv-option-icon-purple {
+    background: #f5f3ff;
+    color: #7c3aed;
+}
+
+
+/* =========================================================
+   OPTION CONTENT
+   ========================================================= */
+
+.cv-option-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.cv-option-content h2 {
+    margin: 0 0 4px;
+
+    color: #0f172a;
+
+    font-size: 15px;
+    line-height: 1.4;
+    font-weight: 650;
+}
+
+.cv-option-content p {
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.cv-option-arrow {
+    flex: 0 0 auto;
+
+    color: #94a3b8;
+    font-size: 21px;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.cv-contractor-option:hover .cv-option-arrow {
+    color: #2563eb;
+    transform: translateX(2px);
+}
+
+
+/* =========================================================
+   FORMS
+   ========================================================= */
+
+.cv-contractor-form-wrapper {
+    margin-top: 16px;
+}
+
+.cv-contractor-form {
+    display: none;
+
+    padding: 24px;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+
+    background: #ffffff;
+
+    animation: cvFormIn 0.2s ease;
+}
+
+.cv-contractor-form.cv-form-active {
+    display: block;
+}
+
+@keyframes cvFormIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* =========================================================
+   FORM HEADER
+   ========================================================= */
+
+.cv-form-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+
+    margin-bottom: 24px;
+}
+
+.cv-form-header h2 {
+    margin: 0;
+
+    color: #0f172a;
+
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.cv-form-header p {
+    max-width: 600px;
+
+    margin: 6px 0 0;
+
+    color: #64748b;
+
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.cv-close-form {
+    flex: 0 0 auto;
+
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 0;
+    border-radius: 8px;
+
+    background: #f8fafc;
+
+    color: #64748b;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.cv-close-form:hover {
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+.cv-close-form .material-symbols-rounded {
+    font-size: 19px;
+}
+
+
+/* =========================================================
+   FORM FIELDS
+   ========================================================= */
+
+.cv-form-group {
+    margin-bottom: 18px;
+}
+
+.cv-form-group label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #334155;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.cv-form-group .form-control,
+.cv-form-group .form-select {
+    min-height: 44px;
+
+    border-color: #dbe2ea;
+    border-radius: 8px;
+
+    color: #0f172a;
+
+    font-size: 14px;
+
+    box-shadow: none;
+}
+
+.cv-form-group .form-control::placeholder {
+    color: #94a3b8;
+}
+
+.cv-form-group .form-control:focus,
+.cv-form-group .form-select:focus {
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+.cv-form-help {
+    margin-top: 6px;
+
+    color: #94a3b8;
+
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   INFO MESSAGE
+   ========================================================= */
+
+.cv-form-info {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+
+    margin-top: 4px;
+    margin-bottom: 22px;
+    padding: 12px 14px;
+
+    border: 1px solid #dbeafe;
+    border-radius: 8px;
+
+    background: #eff6ff;
+}
+
+.cv-form-info .material-symbols-rounded {
+    flex: 0 0 auto;
+
+    margin-top: 1px;
+
+    color: #2563eb;
+
+    font-size: 18px;
+}
+
+.cv-form-info p {
+    margin: 0;
+
+    color: #475569;
+
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+.cv-search-box {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    min-height: 48px;
+
+    padding: 0 14px;
+
+    border: 1px solid #dbe2ea;
+    border-radius: 9px;
+
+    background: #ffffff;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.cv-search-box:focus-within {
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+.cv-search-box .material-symbols-rounded {
+    color: #94a3b8;
+    font-size: 21px;
+}
+
+.cv-search-box input {
+    width: 100%;
+
+    padding: 0;
+
+    border: 0;
+    outline: 0;
+
+    color: #0f172a;
+
+    font-size: 14px;
+}
+
+.cv-search-box input::placeholder {
+    color: #94a3b8;
+}
+
+.cv-search-help {
+    margin-bottom: 20px;
+}
+
+
+/* =========================================================
+   FORM ACTIONS
+   ========================================================= */
+
+.cv-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+
+    margin-top: 24px;
+    padding-top: 20px;
+
+    border-top: 1px solid #f1f5f9;
+}
+
+.cv-btn {
+    min-height: 42px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    padding: 0 16px;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.cv-btn .material-symbols-rounded {
+    font-size: 18px;
+}
+
+.cv-btn-primary {
+    border: 1px solid #2563eb;
+
+    background: #2563eb;
+
+    color: #ffffff;
+}
+
+.cv-btn-primary:hover {
+    border-color: #1d4ed8;
+    background: #1d4ed8;
+}
+
+.cv-btn-secondary {
+    border: 1px solid #dbe2ea;
+
+    background: #ffffff;
+
+    color: #475569;
+}
+
+.cv-btn-secondary:hover {
+    border-color: #cbd5e1;
+    background: #f8fafc;
+    color: #0f172a;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 576px) {
+
+    /* .cv-add-contractor-page {
+        padding: 20px 14px 40px;
+    } */
+
+    .cv-back-link {
+        margin-bottom: 22px;
+    }
+
+    .cv-page-heading h1 {
+        font-size: 26px;
+    }
+
+    .cv-page-heading p {
+        font-size: 14px;
+    }
+
+    .cv-contractor-option {
+        padding: 16px;
+        gap: 12px;
+    }
+
+    .cv-option-icon {
+        flex-basis: 42px;
+
+        width: 42px;
+        height: 42px;
+    }
+
+    .cv-option-icon .material-symbols-rounded {
+        font-size: 21px;
+    }
+
+    .cv-option-content h2 {
+        font-size: 14px;
+    }
+
+    .cv-option-content p {
+        font-size: 12px;
+    }
+
+    .cv-contractor-form {
+        padding: 18px;
+    }
+
+    .cv-form-header h2 {
+        font-size: 18px;
+    }
+
+    .cv-form-actions {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+
+    .cv-btn {
+        width: 100%;
+    }
+
+}
+
+</style>
+
+
+<div class="row d-flex justify-content-center">
+    <div class="col-12 col-lg-8">
+        <div class="cv-add-contractor-page mt-0">
+
+            <!-- Page Header -->
+            <div class="cv-page-header">
+                <!-- =========================================================
+                COREVA MOBILE TOP NAVBAR AND LARGE SCREEN BACK BUTTON
+                ========================================================= -->
+                {% include 'partials/page_topbar.html' with next_url=next_url brand_name='Add Subcontractor' brand_url='#' %}
+
+                <div class="cv-page-heading">
+                    <h1>Add Subcontractor</h1>
+                    <p>
+                        Add a subcontractor to this project by selecting an existing
+                        contractor, creating a new one, or finding them on Coreva.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Add Contractor Options -->
+            <div class="cv-contractor-options">
+
+                <!-- Select Existing -->
+                <button type="button"
+                        class="cv-contractor-option"
+                        data-cv-form="cv-existing-contractor-form">
+
+                    <div class="cv-option-icon cv-option-icon-blue">
+                        <span class="material-symbols-outlined">
+                        group
+                        </span>
+                    </div>
+
+                    <div class="cv-option-content">
+
+                        <h2>Select from my contractors</h2>
+
+                        <p>
+                            Choose a contractor you've already added to your
+                            company.
+                        </p>
+
+                    </div>
+
+
+                    <span class="material-symbols-outlined cv-option-arrow">
+                    arrow_forward
+                    </span>
+
+                </button>
+
+
+                <!-- Create New -->
+                <button type="button"
+                        class="cv-contractor-option"
+                        data-cv-form="cv-create-contractor-form">
+
+                    <div class="cv-option-icon cv-option-icon-green">
+                        <span class="material-symbols-outlined">
+                        person_add
+                        </span>
+                    </div>
+
+                    <div class="cv-option-content">
+
+                        <h2>Create new contractor</h2>
+
+                        <p>
+                            Add a contractor that isn't in your contractor
+                            list yet.
+                        </p>
+
+                    </div>
+
+                    <span class="material-symbols-outlined cv-option-arrow">
+                    arrow_forward
+                    </span>
+
+                </button>
+
+
+                <!-- Search Coreva -->
+                <button type="button"
+                        class="cv-contractor-option"
+                        data-cv-form="cv-search-coreva-form">
+
+                    <div class="cv-option-icon cv-option-icon-purple">
+                        <span class="material-symbols-outlined">
+                        search
+                        </span>
+                    </div>
+
+                    <div class="cv-option-content">
+
+                        <h2>Find on Coreva</h2>
+
+                        <p>
+                            Find a contractor that already has a Coreva
+                            account and connect them to this project.
+                        </p>
+
+                    </div>
+
+                    <span class="material-symbols-outlined cv-option-arrow">
+                    arrow_forward
+                    </span>
+
+                </button>
+
+            </div>
+
+
+            <!-- =====================================================
+                FORMS
+                ===================================================== -->
+
+            <div class="cv-contractor-form-wrapper">
+
+
+                <!-- Select Existing Contractor -->
+
+                <div id="cv-existing-contractor-form"
+                    class="cv-contractor-form">
+
+                    <div class="cv-form-header">
+
+                        <div>
+
+                            <span class="cv-form-eyebrow">
+                                Existing contractor
+                            </span>
+
+                            <h2>Select a contractor</h2>
+
+                            <p>
+                                Choose a contractor from your company's
+                                existing contractor list.
+                            </p>
+
+                        </div>
+
+                        <button type="button"
+                                class="cv-close-form"
+                                aria-label="Close">
+
+                            <span class="material-symbols-outlined">
+                                close
+                            </span>
+
+                        </button>
+
+                    </div>
+
+
+                    <form method="post"
+                        action="{% url 'contractors:save-select-existing-contractor' project.uuid %}">
+                        {% csrf_token %}
+                        <input type="hidden"
+                            name="action"
+                            value="select_existing">
+
+
+                        <div class="cv-form-group">
+
+                            <label for="cv-contractor-select">
+                                Contractor
+                            </label>
+
+                            <select name="contractor_uuid"
+                                    id="cv-contractor-select"
+                                    class="form-select">
+
+                                <option value="">
+                                    Select contractor
+                                </option>
+
+                                {% for contractor in contractors %}
+
+                                    <option value="{{ contractor.subcontractor.uuid}}">
+                                        {{ contractor.subcontractor.company_name }}
+                                    </option>
+
+                                {% empty %}
+
+                                    <option value="" disabled>
+                                        No contractors available
+                                    </option>
+
+                                {% endfor %}
+
+                                <!-- divider  -->
+                                 {% for assigned_contractor in project_contractors %}
+                                <option disabled>
+                                    {{assigned_contractor.contractor.company_name}} (Already assigned)
+                                </option>
+                                {% endfor %}
+
+                            </select>
+
+                            <div class="cv-form-help">
+                                Select a contractor already belonging to your
+                                company.
+                            </div>
+
+                        </div>
+
+
+                        <div class="cv-form-actions">
+
+                            <button type="button"
+                                    class="cv-btn cv-btn-secondary cv-cancel-form">
+                                Cancel
+                            </button>
+
+                            <button type="submit"
+                                    class="cv-btn cv-btn-primary">
+
+                                <span class="material-symbols-outlined">
+                                    add
+                                </span>
+
+                                Add contractor
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+
+                <!-- Create New Contractor -->
+
+                <div id="cv-create-contractor-form"
+                    class="cv-contractor-form">
+
+                    <div class="cv-form-header">
+
+                        <div>
+
+                            <span class="cv-form-eyebrow">
+                                New contractor
+                            </span>
+
+                            <h2>Create contractor</h2>
+
+                            <p>
+                                Add a contractor that isn't currently in
+                                your contractor list.
+                            </p>
+
+                        </div>
+
+                        <button type="button"
+                                class="cv-close-form"
+                                aria-label="Close">
+
+                            <span class="material-symbols-outlined">
+                                close
+                            </span>
+
+                        </button>
+
+                    </div>
+
+
+                    <form method="post"
+                        action="{% url 'contractors:save-new-contractor' project.uuid %}">
+
+                        {% csrf_token %}
+
+                        <input type="hidden"
+                            name="action"
+                            value="create">
+
+
+                        <div class="row g-3">
+
+                            <div class="col-12">
+
+                                <div class="cv-form-group">
+
+                                    <label for="cv-company-name">
+                                        Company name
+                                    </label>
+
+                                    <input type="text"
+                                        name="company_name"
+                                        id="cv-company-name"
+                                        class="form-control"
+                                        placeholder="e.g. ABC Electrical"
+                                        required>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-6">
+
+                                <div class="cv-form-group">
+
+                                    <label for="cv-contact-name">
+                                        Contact person
+                                    </label>
+
+                                    <input type="text"
+                                        name="contact_name"
+                                        id="cv-contact-name"
+                                        class="form-control"
+                                        placeholder="Full name">
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-6">
+
+                                <div class="cv-form-group">
+
+                                    <label for="cv-contact-email">
+                                        Email address
+                                    </label>
+
+                                    <input type="email"
+                                        name="email"
+                                        id="cv-contact-email"
+                                        class="form-control"
+                                        placeholder="name@company.co.za">
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-6">
+
+                                <div class="cv-form-group">
+
+                                    <label for="cv-contact-phone">
+                                        Phone number
+                                    </label>
+
+                                    <input type="tel"
+                                        name="phone"
+                                        id="cv-contact-phone"
+                                        class="form-control"
+                                        placeholder="e.g. 082 123 4567">
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-6">
+
+                                <div class="cv-form-group">
+
+                                    <label for="cv-trade">
+                                        Trade / scope
+                                    </label>
+
+                                    <input type="text"
+                                        name="trade"
+                                        id="cv-trade"
+                                        class="form-control"
+                                        placeholder="e.g. Electrical">
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="cv-form-info">
+
+                            <span class="material-symbols-outlined">
+                                info
+                            </span>
+
+                            <p>
+                                The contractor will be added to your
+                                contractor list. They can later create a
+                                Coreva account and be linked to this record.
+                            </p>
+
+                        </div>
+
+
+                        <div class="cv-form-actions">
+
+                            <button type="button"
+                                    class="cv-btn cv-btn-secondary cv-cancel-form">
+                                Cancel
+                            </button>
+
+                            <button type="submit"
+                                    class="cv-btn cv-btn-primary">
+
+                                <span class="material-symbols-outlined">
+                                    add
+                                </span>
+
+                                Create contractor
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+
+                <!-- Search Coreva -->
+                <div id="cv-search-coreva-form"
+                    class="cv-contractor-form">
+
+                    <div class="cv-form-header">
+
+                        <div>
+
+                            <span class="cv-form-eyebrow">
+                                Coreva network
+                            </span>
+
+                            <h2>Find a contractor on Coreva</h2>
+
+                            <p>
+                                Search for a contractor that already has
+                                a Coreva account.
+                            </p>
+
+                        </div>
+
+                        <button type="button"
+                                class="cv-close-form"
+                                aria-label="Close">
+
+                            <span class="material-symbols-outlined">
+                                close
+                            </span>
+
+                        </button>
+
+                    </div>
+
+
+                    <form method="get"
+                        hx-post="{% url 'contractors:search-coreva-contractor' project.uuid %}"
+                        hx-target="#cv-coreva-search-results"
+                        hx-swap="innerHTML"
+                        hx-push-url="false">
+
+                        {% csrf_token %}
+
+                        <div class="cv-search-box">
+
+                            <span class="material-symbols-outlined">
+                                search
+                            </span>
+
+                            <input type="text"
+                                name="contractor_uuid"
+                                placeholder="Search Coreva ID"
+                                autocomplete="off">
+
+                        </div>
+
+
+                        <div class="cv-form-help cv-search-help">
+                            Search by the contractor's Coreva
+                            ID. exm: 12345678-1234-1234-1234-123456789012
+                        </div>
+
+                        <!-- HTMX search results -->
+                        <div id="cv-coreva-search-results">
+                            {% include 'partials/add_contractor_search_result_partial.html' %}
+                        </div>
+
+
+                        <div class="cv-form-actions">
+
+                            <button type="button"
+                                    class="cv-btn cv-btn-secondary cv-cancel-form">
+                                Cancel
+                            </button>
+
+                            <button type="submit"
+                                    class="cv-btn cv-btn-primary">
+
+                                <span class="material-symbols-outlined">
+                                    search
+                                </span>
+
+                                Search Coreva
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="contractor_form_page d-none">
+  <form
+    method="POST"
+    action="#"
+  >
+    {% csrf_token %}
+    <div class="row d-flex justify-content-center">
+      <div class="col-12 col-md-10 col-lg-7">
+         <!-- =====================================
+              BACK
+          ====================================== -->
+          <a href="javascript:history.back()" class="form_back_button">
+              <i class="bi bi-chevron-left"></i>
+              <span>Back</span>
+          </a>
+          
+        <!-- ===================================================== PAGE HEADER ====================================================== -->
+        <div class="dashboard_main_card mb-3">
+          <div class="contractor_form_header mb-0">
+            <div class="contractor_page_icon mb-3">
+              <span class="material-symbols-outlined"> groups_2 </span>
+            </div>
+            <h5 class="form_heading mb-2">Add Subcontractor</h5>
+            <p class="text-secondary mb-0">
+              Add a subcontractor to this project so they can start managing
+              their tasks and issues assigned to them.
+            </p>
+          </div>
+        </div>
+        <!-- ===================================================== CONTRACTOR INFORMATION ====================================================== -->
+        <div class="contractor_form_card mb-3 mt-4">
+          <div class="contractor_form_section">
+            <div class="contractor_form_number">
+              <span class="fw-bold">1</span>
+            </div>
+            <h6 class="contractor_form_section_title">
+              Contractor Information
+            </h6>
+          </div>
+          <div class="row g-3">
+            <!-- Company Name -->
+            <div class="col-12 col-md-6">
+              <label for="company_name" class="form-label">
+                Company Name <span class="text-danger">*</span>
+              </label>
+              <input
+                type="text"
+                name="company_name"
+                id="company_name"
+                required
+                class="form-control grey_input"
+                placeholder="ABC Construction"
+              />
+            </div>
+            <!-- Phone -->
+            <div class="col-12 col-md-6">
+              <label for="phone" class="form-label"> Phone </label>
+              <input
+                type="tel"
+                name="phone"
+                id="phone"
+                class="form-control grey_input"
+                placeholder="083 123 4567"
+              />
+            </div>
+            <!-- Email -->
+            <div class="col-12 col-md-6">
+              <label for="email" class="form-label"> Email Address </label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                class="form-control grey_input"
+                placeholder="info@abcconstruction.co.za"
+              />
+            </div>
+            <!-- Start Date -->
+            <div class="col-12 col-md-6">
+              <label for="start_date" class="form-label"> Start Date </label>
+              <input
+                type="date"
+                name="start_date"
+                id="start_date"
+                onfocus="this.showPicker()"
+                onclick="this.showPicker()"
+                class="form-control grey_input"
+              />
+            </div>
+            <!-- Street Address -->
+            <div class="col-12">
+              <label for="street_address" class="form-label">
+                Street Address
+              </label>
+              <input
+                type="text"
+                name="street"
+                id="street_address"
+                class="form-control grey_input"
+                placeholder="Enter street address"
+              />
+            </div>
+            <!-- City -->
+            <div class="col-12 col-md-6">
+              <label for="city" class="form-label"> City </label>
+              <input
+                type="text"
+                name="city"
+                id="city"
+                class="form-control grey_input"
+                placeholder="Enter city"
+              />
+            </div>
+            <!-- Province -->
+            <div class="col-12 col-md-6">
+              <label for="province" class="form-label"> Province </label>
+              <input
+                type="text"
+                name="province"
+                id="province"
+                class="form-control grey_input"
+                placeholder="Enter province"
+              />
+            </div>
+            <!-- Country -->
+            <div class="col-12">
+              <label for="country" class="form-label"> Country </label>
+              <input
+                type="text"
+                name="country"
+                id="country"
+                class="form-control grey_input"
+                value="South Africa"
+                placeholder="Enter country"
+              />
+            </div>
+          </div>
+        </div>
+        <!-- =====================================================
+            PROJECT ACCESS
+        ===================================================== -->
+        <div class="contractor_form_card mb-3">
+
+            <div class="contractor_form_section">
+                <div class="contractor_form_number">
+                    <span class="fw-bold">2</span>
+                </div>
+
+                <h6 class="contractor_form_section_title">
+                    Project Access
+                </h6>
+            </div>
+
+            <p class="text-secondary small mb-3">
+                Choose how this contractor will access their work and assignments through Coreva.
+            </p>
+
+
+            <!-- =================================================
+                PORTAL OPTIONS
+            ================================================== -->
+            <div class="contractor_portal_options">
+
+                <!-- CREATE NEW PORTAL -->
+                <label class="contractor_portal_option">
+
+                    <input
+                        type="radio"
+                        name="portal_option"
+                        value="new"
+                        checked
+                    >
+
+                    <div class="contractor_portal_option_content">
+
+                        <div class="contractor_portal_option_icon">
+                            <i class="bi bi-person-plus"></i>
+                        </div>
+
+                        <div class="contractor_portal_option_text">
+
+                            <strong>
+                                Create new portal
+                            </strong>
+
+                            <span>
+                                Create a contractor portal for this subcontractor
+                                and give them access to their assigned work.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="contractor_portal_radio">
+                        <span></span>
+                    </div>
+
+                </label>
+
+
+                <!-- CONNECT EXISTING PORTAL -->
+                <label class="contractor_portal_option">
+
+                    <input
+                        type="radio"
+                        name="portal_option"
+                        value="existing"
+                    >
+
+                    <div class="contractor_portal_option_content">
+
+                        <div class="contractor_portal_option_icon">
+                            <i class="bi bi-link-45deg"></i>
+                        </div>
+
+                        <div class="contractor_portal_option_text">
+
+                            <strong>
+                                Connect existing portal
+                            </strong>
+
+                            <span>
+                                Connect this contractor to an existing portal
+                                using their Contractor Portal ID.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="contractor_portal_radio">
+                        <span></span>
+                    </div>
+
+                </label>
+
+
+                <!-- NO PORTAL -->
+                <label class="contractor_portal_option">
+
+                    <input
+                        type="radio"
+                        name="portal_option"
+                        value="none"
+                    >
+
+                    <div class="contractor_portal_option_content">
+
+                        <div class="contractor_portal_option_icon">
+                            <i class="bi bi-person-x"></i>
+                        </div>
+
+                        <div class="contractor_portal_option_text">
+
+                            <strong>
+                                No portal access
+                            </strong>
+
+                            <span>
+                                Add the contractor to the project without
+                                creating or connecting a portal.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="contractor_portal_radio">
+                        <span></span>
+                    </div>
+
+                </label>
+
+            </div>
+
+
+            <!-- =================================================
+                EXISTING PORTAL SEARCH
+            ================================================== -->
+            <div
+                id="contractorExistingPortal"
+                class="contractor_existing_portal mt-3"
+                style="display: none;"
+            >
+
+                <label
+                    for="contractorPortalId"
+                    class="contractor_portal_field_label"
+                >
+                    Contractor Portal ID
+                </label>
+
+                <div class="contractor_portal_search">
+
+                    <div class="contractor_portal_input_wrap">
+
+                        <i class="bi bi-fingerprint"></i>
+
+                        <input
+                            type="text"
+                            id="contractorPortalId"
+                            name="contractor_portal_id"
+                            class="contractor_portal_input"
+                            placeholder="Enter contractor portal ID"
+                        >
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="contractor_portal_search_btn"
+                    >
+                        <i class="bi bi-search"></i>
+                        Find portal
+                    </button>
+
+                </div>
+
+                <div class="contractor_portal_help">
+                    <i class="bi bi-info-circle"></i>
+                    Ask the subcontractor for their Contractor Portal ID.
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ===================================================== DESKTOP ACTIONS ====================================================== -->
+        <div class="d-none d-md-block">
+           <!-- =====================================
+             ACTIONS
+            ====================================== -->
+            <div class="form_actions">
+              <button
+                type="button"
+                onclick="history.back()"
+                class="form_cancel_button"
+              >
+                Cancel
+              </button>
+
+              <button type="submit" class="form_save_button">
+                <i class="bi bi-check-lg"></i>
+                <i class="bi bi-floppy"></i> Save Contractor
+              </button>
+            </div>
+        </div>
+      </div>
+    </div>
+    <!-- ========================================================= MOBILE ACTIONS ========================================================== -->
+    <section
+      class="fixed-bottom contractor_mobile_actions px-2 d-block d-md-none"
+    >
+      <div class="form_actions">
+              <button
+                type="button"
+                onclick="history.back()"
+                class="form_cancel_button"
+              >
+                Cancel
+              </button>
+
+              <button type="submit" class="form_save_button">
+                <i class="bi bi-check-lg"></i>
+                <i class="bi bi-floppy"></i> Save Contractor
+              </button>
+            </div>
+    </section>
+  </form>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const portalOptions = document.querySelectorAll(
+        'input[name="portal_option"]'
+    );
+
+    const existingPortal = document.getElementById(
+        "contractorExistingPortal"
+    );
+
+    function updatePortalOption() {
+
+        const selected = document.querySelector(
+            'input[name="portal_option"]:checked'
+        );
+
+        if (!selected) {
+            existingPortal.style.display = "none";
+            return;
+        }
+
+        if (selected.value === "existing") {
+            existingPortal.style.display = "block";
+        } else {
+            existingPortal.style.display = "none";
+        }
+    }
+
+    portalOptions.forEach(function (option) {
+        option.addEventListener("change", updatePortalOption);
+    });
+
+    updatePortalOption();
+
+});
+</script>
+
+<!-- NEW SCRIPT  -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const options = document.querySelectorAll(
+        ".cv-contractor-option"
+    );
+
+    const forms = document.querySelectorAll(
+        ".cv-contractor-form"
+    );
+
+    const cancelButtons = document.querySelectorAll(
+        ".cv-cancel-form"
+    );
+
+    const closeButtons = document.querySelectorAll(
+        ".cv-close-form"
+    );
+
+
+    function closeForms() {
+
+        forms.forEach(function (form) {
+            form.classList.remove("cv-form-active");
+        });
+
+        options.forEach(function (option) {
+            option.classList.remove("cv-option-selected");
+        });
+
+    }
+
+
+    options.forEach(function (option) {
+
+        option.addEventListener("click", function () {
+
+            const formId = option.dataset.cvForm;
+            const selectedForm = document.getElementById(formId);
+
+            const wasAlreadyOpen =
+                selectedForm.classList.contains("cv-form-active");
+
+
+            closeForms();
+
+
+            if (!wasAlreadyOpen) {
+
+                selectedForm.classList.add(
+                    "cv-form-active"
+                );
+
+                option.classList.add(
+                    "cv-option-selected"
+                );
+
+
+                setTimeout(function () {
+
+                    selectedForm.scrollIntoView({
+                        behavior: "smooth",
+                        block: "start"
+                    });
+
+                }, 50);
+
+            }
+
+        });
+
+    });
+
+
+    cancelButtons.forEach(function (button) {
+
+        button.addEventListener("click", function () {
+            closeForms();
+        });
+
+    });
+
+
+    closeButtons.forEach(function (button) {
+
+        button.addEventListener("click", function () {
+            closeForms();
+        });
+
+    });
+
+});
+
+</script>

@@ -1,0 +1,83 @@
+<!-- =========================
+    ATTACHMENTS
+========================== -->
+<section class="work-card">
+
+    <div class="section-heading">
+
+        <div class="section-icon">
+            <span class="material-symbols-outlined">
+                attach_file
+            </span>
+        </div>
+
+        <div>
+            <h2>Attachments</h2>
+            <p>Files shared on this work item</p>
+        </div>
+
+    </div>
+    
+    <div class="attachment-grid">
+        {% for file in attachments %}
+        <!-- Image -->
+        {% if file.photo %}
+        <a href="{{ file.photo.url }}" target="_blank">
+            <div class="attachment-card">
+
+                <div class="attachment-preview image-preview">
+                    <img
+                        src="{{ file.photo.url }}"
+                        alt="Construction site"
+                    >
+                </div>
+
+                <div class="attachment-info">
+
+                    <strong>
+                        {{ file.photo.name|cut:"media/project_photos/"|truncatechars:30 }}
+                        
+                    </strong>
+
+                    <span>
+                        {{file.filesize}} · {{file.created_at|date:"d M Y" }}
+                    </span>
+
+                </div>
+
+            </div>
+        </a>
+        {% else %}
+        <!-- Document -->
+         <a href="{{ file.file.url }}" target="_blank">
+        <div class="attachment-card">
+            <div class="attachment-preview document-preview">
+                <span class="material-symbols-outlined">
+                    description
+                </span>
+
+            </div>
+
+            <div class="attachment-info">
+
+                <strong>
+                    {{ file.file.name|cut:"media/project_files/"|truncatechars:30 }}
+                    
+                </strong>
+
+                <span>
+                    {{file.filesize}} · {{file.created_at|date:"d M Y" }}
+                </span>
+
+            </div>
+
+        </div>
+        </a>
+        {% endif %}
+        <!-- divider  -->
+        {% endfor %}
+
+    </div>
+    
+
+</section>

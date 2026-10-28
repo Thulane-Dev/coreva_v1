@@ -1,0 +1,50 @@
+<!-- LEFT COMPONENTS UPDATE -->
+<div
+  class="inspection_category_left"
+  id="category-count-{{ response.question.category.id }}"
+  hx-swap-oob="true"
+>
+  <div
+    class="inspection_category_icon {% if failed_items > 0 %} failed {% elif total_answered == total_questions %} complete {% else %} pending {% endif %}"
+  >
+    {% if failed_items > 0 %}
+    <i class="bi bi-exclamation-triangle-fill"></i>
+    {% elif total_answered == total_questions %}
+    <i class="bi bi-check-lg"></i>
+    {% else %}
+    <i class="bi bi-clipboard-check"></i>
+    {% endif %}
+  </div>
+
+  <div class="inspection_category_info">
+    <h5 class="font_size_14">{{ response.question.category.name }}</h5>
+    <span class="font_size_12">
+      {{ total_answered }} /
+      <!-- divider  -->
+      {{ total_questions}} answered
+    </span>
+  </div>
+</div>
+
+<!-- RIGHT COMPONENTS UPDATE  -->
+<div
+  class="inspection_category_right"
+  id="failed-count-{{ response.question.category.id }}"
+  hx-swap-oob="true"
+>
+  {% if failed_items > 0 %}
+  <span class="inspection_category_badge failed font_size_11">
+    {{ failed_items }} Failed
+  </span>
+  {% elif total_answered == total_questions %}
+  <span class="inspection_category_badge complete font_size_11">
+    Complete
+  </span>
+  {% else %}
+  <span class="inspection_category_badge pending font_size_11">
+    Incomplete
+  </span>
+  {% endif %}
+
+  <i class="bi bi-chevron-down inspection_category_chevron"></i>
+</div>

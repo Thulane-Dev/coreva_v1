@@ -1,0 +1,559 @@
+/* =========================================================
+    MISSED DAILY REPORTS
+========================================================= */
+
+.missed_reports_page {
+  padding: 8px 0 40px;
+  /* background: #f7f8fa; */
+}
+
+.missed_reports_container {
+  width: 100%;
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+/* =========================================================
+         HEADER
+      ========================================================= */
+
+.missed_reports_header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  margin-bottom: 20px;
+}
+
+.missed_reports_header_icon {
+  width: 52px;
+  height: 52px;
+
+  flex: 0 0 52px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 14px;
+
+  background: #f5f3ff;
+  color: #7c3aed;
+
+  font-size: 22px;
+}
+
+.missed_reports_eyebrow {
+  margin-bottom: 3px;
+
+  color: #8a94a3;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.missed_reports_title {
+  color: #172a46;
+
+  font-size: 23px;
+  line-height: 1.2;
+  font-weight: 750;
+}
+
+.missed_reports_count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 24px;
+  height: 24px;
+  padding: 0 7px;
+
+  border-radius: 999px;
+
+  background: #f5f3ff;
+  color: #7c3aed;
+
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.missed_reports_subtitle {
+  margin-top: 4px;
+
+  color: #727d8b;
+
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* =========================================================
+         MAIN CARD
+      ========================================================= */
+
+.missed_reports_card {
+  background: #fff;
+
+  border: 1px solid #e5e9ef;
+  border-radius: 16px;
+
+  overflow: hidden;
+}
+
+.missed_reports_card_header {
+  padding: 20px 22px;
+
+  border-bottom: 1px solid #edf0f3;
+}
+
+.missed_reports_card_header h2 {
+  margin: 0 0 3px;
+
+  color: #172a46;
+
+  font-size: 15px;
+  font-weight: 750;
+}
+
+.missed_reports_card_header p {
+  margin: 0;
+
+  color: #7a8492;
+
+  font-size: 12px;
+}
+
+/* =========================================================
+         REPORT LIST
+      ========================================================= */
+
+.missed_report_list {
+  padding: 0 22px;
+}
+
+.missed_report_item {
+  display: grid;
+
+  grid-template-columns: 42px minmax(0, 1fr) auto;
+
+  align-items: center;
+
+  gap: 13px;
+
+  min-height: 82px;
+
+  border-bottom: 1px solid #edf0f3;
+}
+
+.missed_report_item:last-child {
+  border-bottom: 0;
+}
+
+/* =========================================================
+         ICON
+      ========================================================= */
+
+.missed_report_status_icon {
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  background: #f5f3ff;
+  color: #7c3aed;
+
+  font-size: 16px;
+}
+
+/* =========================================================
+         DATE
+      ========================================================= */
+
+.missed_report_date {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+
+  min-width: 0;
+}
+
+.missed_report_label {
+  color: #7c3aed;
+
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.07em;
+}
+
+.missed_report_date strong {
+  color: #27364b;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* =========================================================
+         ACTION
+      ========================================================= */
+
+.missed_report_action {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.missed_report_button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  min-height: 38px;
+
+  padding: 0 13px;
+
+  border: 1px solid #ddd6fe;
+  border-radius: 9px;
+
+  background: #f5f3ff;
+  color: #7c3aed;
+
+  font-size: 11px;
+  font-weight: 750;
+
+  white-space: nowrap;
+
+  transition: all 0.15s ease;
+}
+
+.missed_report_button > .bi-arrow-right {
+  margin-left: 2px;
+
+  font-size: 13px;
+}
+
+.missed_report_button:hover {
+  background: #7c3aed;
+  border-color: #7c3aed;
+  color: #fff;
+}
+
+/* =========================================================
+         EMPTY STATE
+      ========================================================= */
+
+.missed_reports_empty {
+  padding: 55px 25px;
+
+  text-align: center;
+}
+
+.missed_reports_empty_icon {
+  width: 52px;
+  height: 52px;
+
+  margin: 0 auto 13px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 14px;
+
+  background: #ecfdf3;
+  color: #15803d;
+
+  font-size: 21px;
+}
+
+.missed_reports_empty h3 {
+  margin: 0 0 5px;
+
+  color: #344054;
+
+  font-size: 15px;
+  font-weight: 750;
+}
+
+.missed_reports_empty p {
+  margin: 0;
+
+  color: #8a94a3;
+
+  font-size: 12px;
+}
+
+/* =========================================================
+         MOBILE
+      ========================================================= */
+
+@media (max-width: 767.98px) {
+  .missed_reports_page {
+    padding: 4px 0 25px;
+  }
+
+  .missed_reports_header {
+    gap: 11px;
+    margin-bottom: 14px;
+  }
+
+  .missed_reports_header_icon {
+    width: 44px;
+    height: 44px;
+    flex-basis: 44px;
+
+    border-radius: 11px;
+
+    font-size: 18px;
+  }
+
+  .missed_reports_title {
+    font-size: 19px;
+  }
+
+  .missed_reports_subtitle {
+    font-size: 11px;
+  }
+
+  .missed_reports_card {
+    border-radius: 14px;
+  }
+
+  .missed_reports_card_header {
+    padding: 16px;
+  }
+
+  .missed_reports_card_header h2 {
+    font-size: 14px;
+  }
+
+  .missed_reports_card_header p {
+    font-size: 11px;
+  }
+
+  .missed_report_list {
+    padding: 0 16px;
+  }
+
+  .missed_report_item {
+    grid-template-columns: 38px minmax(0, 1fr);
+
+    gap: 11px;
+
+    padding: 14px 0;
+  }
+
+  .missed_report_status_icon {
+    width: 36px;
+    height: 36px;
+
+    border-radius: 9px;
+  }
+
+  .missed_report_action {
+    grid-column: 1 / -1;
+
+    width: 100%;
+
+    padding-left: 49px;
+  }
+
+  .missed_report_button {
+    width: 100%;
+
+    justify-content: center;
+
+    min-height: 42px;
+  }
+
+  .missed_reports_empty {
+    padding: 45px 20px;
+  }
+}
+
+@media (max-width: 380px) {
+  .missed_reports_header_icon {
+    display: none;
+  }
+
+  .missed_reports_title {
+    font-size: 18px;
+  }
+}
+
+/* ALERT STYLE  */
+.delivery-success-alert {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 13px 15px;
+
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 12px;
+
+  color: #166534;
+
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+
+  animation: deliveryAlertIn 0.3s ease-out;
+}
+
+.delivery-success-icon {
+  flex: 0 0 32px;
+
+  width: 32px;
+  height: 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #22c55e;
+  color: #ffffff;
+
+  border-radius: 50%;
+
+  font-size: 17px;
+}
+
+.delivery-success-content {
+  min-width: 0;
+}
+
+.delivery-success-title {
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 2px;
+}
+
+.delivery-success-message {
+  font-size: 13px;
+  font-weight: 500;
+  color: #15803d;
+  line-height: 1.4;
+}
+
+/* Appear */
+@keyframes deliveryAlertIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+.drp-pdf-section {
+    margin-top: 24px;
+    padding: 20px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+}
+
+.drp-pdf-content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.drp-pdf-icon {
+    width: 46px;
+    height: 46px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background: #fef2f2;
+    color: #dc2626;
+    font-size: 22px;
+}
+
+.drp-pdf-info {
+    flex: 1;
+}
+
+.drp-pdf-info h3 {
+    margin: 0 0 4px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #172A46;
+}
+
+.drp-pdf-info p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #64748b;
+}
+
+.drp-pdf-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 42px;
+    padding: 0 16px;
+    border: none;
+    border-radius: 8px;
+    background: #172A46;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: 0.2s ease;
+}
+
+.drp-pdf-btn:hover {
+    color: #ffffff;
+    background: #223957;
+}
+
+.drp-pdf-btn-disabled {
+    background: #e5e7eb;
+    color: #94a3b8;
+    cursor: not-allowed;
+}
+
+.drp-pdf-btn-disabled:hover {
+    background: #e5e7eb;
+    color: #94a3b8;
+}
+
+@media (max-width: 576px) {
+    .drp-pdf-content {
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .drp-pdf-info {
+        min-width: 0;
+        flex: 1;
+    }
+
+    .drp-pdf-action {
+        width: 100%;
+        margin-top: 4px;
+    }
+
+    .drp-pdf-btn {
+        width: 100%;
+    }
+}

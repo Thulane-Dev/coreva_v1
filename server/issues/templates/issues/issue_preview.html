@@ -1,0 +1,964 @@
+{% load static %}
+<!-- divider  -->
+
+
+<!-- =====================================
+      PAGE HEADER
+====================================== -->
+<section class="issue_details_page mt-0 pt-0">
+  <div class="issue_details_container">
+    
+  <!-- =========================================================
+  COREVA MOBILE TOP NAVBAR AND LARGE SCREEN BACK BUTTON
+  ========================================================= -->
+  {% include 'partials/page_topbar.html' with back_url=back_url brand_name='Issue Details' brand_url=back_url %}
+
+
+    <!-- ===================================================== ISSUE HEADER ===================================================== -->
+    <section class="issue_details_header">
+      <div class="issue_header_top">
+        <div class="issue_header_icon">
+          {% if issue.type == "task" %}
+          <i class="bi bi-check2-square"></i>
+          {% else %}
+          <i class="bi bi-exclamation-triangle-fill"></i>
+          {% endif %}
+        </div>
+        <div class="issue_header_info">
+          <div class="issue_header_badges">
+            {% if issue.type == "task" %}
+            <span class="issue_type_badge task"> Task </span>
+            {% else %}
+            <span class="issue_type_badge"> Issue </span>
+            {% endif %}
+            <!-- divider  -->
+            {% if issue.status == "open" %}
+            <span class="issue_status_badge open">
+              <span class="issue_status_dot"></span> Open
+            </span>
+            {% else %}
+            <span class="issue_status_badge closed">
+              <i class="bi bi-check-circle-fill"></i> Closed
+            </span>
+            {% endif %}
+          </div>
+          <h1 class="issue_details_title">
+            {{ issue.title|default:"Untitled Issue" }}
+          </h1>
+          {% if issue.project %}
+          <a
+            href="#"
+            class="issue_project_link"
+            hx-boost="true"
+            hx-target="#content"
+            hx-push-url="true"
+          >
+            <i class="bi bi-folder2-open"></i> {{ issue.project.project_name }}
+            <i class="bi bi-arrow-up-right"></i>
+          </a>
+          {% endif %}
+        </div>
+      </div>
+      <!-- PRIORITY -->
+      <div class="issue_priority_row">
+        <div class="issue_priority_item">
+          <span class="issue_meta_label"> Priority </span>
+
+          {% if issue.priority == "high" %}
+          <span class="issue_priority_badge high">
+            <i class="bi bi-arrow-up"></i> High
+          </span>
+          {% elif issue.priority == "medium" %}
+          <span class="issue_priority_badge medium">
+            <i class="bi bi-dash"></i> Medium
+          </span>
+          {% else %}
+          <span class="issue_priority_badge low">
+            <i class="bi bi-arrow-down"></i> Low
+          </span>
+          {% endif %}
+        </div>
+        <div class="issue_meta_separator"></div>
+
+        <!-- DUE DATE AND CLOSED DATE  -->
+        {% if issue.closed_at %}
+        <div class="issue_priority_item">
+          <span class="issue_meta_label text-primary"> Closed Date </span>
+          <span class="issue_due_value"> {{issue.closed_at|date:"d M Y, H:i"}}</span>
+        </div>
+        {% else %}
+        <div class="issue_priority_item">
+          <span class="issue_meta_label"> Due </span>
+          {% if issue.due_date %}
+          <span
+            class="issue_due_value {% if issue.status == 'open' and issue.due_date < today %} overdue {% endif %}"
+          >
+            <i class="bi bi-calendar3"></i> {{ issue.due_date|date:"d M Y" }}
+            <!-- divider  -->
+            {% if issue.due_time %}
+            <span> · {{ issue.due_time|time:"g:i A" }} </span>
+            {% endif %}
+          </span>
+          {% else %} <span class="issue_due_value muted"> No due date </span>
+          <!-- divider  -->
+          {%endif %}
+        </div>
+        {% endif %}
+      </div>
+    </section>
+    <!-- ===================================================== MAIN CONTENT ===================================================== -->
+    <div class="issue_details_grid">
+      <!-- ================================================= LEFT / MAIN ================================================= -->
+      <main class="issue_details_main">
+        <!-- DESCRIPTION -->
+        <section class="issue_content_card">
+          <div class="issue_card_header">
+            <div>
+              <h2>Description</h2>
+              <p>Details about this {{ issue.type }}.</p>
+            </div>
+          </div>
+          <div class="issue_description">
+            {% if issue.description %}
+            <!-- divider  -->
+            {{ issue.description|linebreaksbr }}
+            <!-- divider  -->
+            {% else %}
+            <span class="issue_empty_text">
+              No description has been added.
+            </span>
+            {% endif %}
+          </div>
+        </section>
+        <!-- ================================================= SOURCE ================================================= -->
+        {% if issue.inspection or issue.daily_report %}
+        <section class="issue_content_card">
+          <div class="issue_card_header">
+            <div>
+              <h2>Source</h2>
+              <p>Where this item came from.</p>
+            </div>
+          </div>
+          {% if issue.inspection %}
+          <div class="issue_source_item">
+            <div class="issue_source_icon inspection">
+              <i class="bi bi-clipboard-check"></i>
+            </div>
+            <div class="issue_source_content">
+              <span class="issue_source_label"> Daily Inspection </span>
+              <strong> {{ issue.inspection }} </strong>
+              <!-- divider  -->
+              {% if issue.inspection_response %}
+              <span class="issue_source_question">
+                {{ issue.inspection_response.question.question }}
+              </span>
+              {% endif %}
+            </div>
+            <i class="bi bi-chevron-right issue_source_arrow"></i>
+          </div>
+          {% elif issue.daily_report %}
+          <div class="issue_source_item">
+            <div class="issue_source_icon report">
+              <i class="bi bi-file-earmark-text"></i>
+            </div>
+            <div class="issue_source_content">
+              <span class="issue_source_label"> Daily Report </span>
+              <strong>
+                {{ issue.daily_report.report_date|date:"l, d F Y" }}
+              </strong>
+            </div>
+            <i class="bi bi-chevron-right issue_source_arrow"></i>
+          </div>
+          {% endif %}
+        </section>
+        {% endif %}
+        <!-- ================================================= COMMENTS ================================================= -->
+        <section class="issue_content_card d-none">
+          <div class="issue_card_header">
+            <div>
+              <h2>Comments</h2>
+              <p>Updates and discussion about this item.</p>
+            </div>
+            <span class="issue_comments_count"> {{ comments|length }} </span>
+          </div>
+          <div id="issueComments">
+            {% include 'partials/issue_comments_partial.html' %}
+          </div>
+          <!-- ADD COMMENT -->
+          <form
+            class="issue_comment_form"
+            enctype="multipart/form-data"
+            hx-post="{% url 'issues:save-issue-comment' issue.uuid %}"
+            hx-target="#issueComments"
+            hx-swap="innerHTML"
+            hx-push-url="false"
+            hx-on::after-request="
+                if (event.detail.successful) {
+                  this.reset();
+                  clearCommentAttachments();
+                }
+              "
+          >
+            {% csrf_token %}
+            <textarea
+              name="comment"
+              class="issue_comment_input new_inputs_css"
+              rows="3"
+              placeholder="Add an update or comment..."
+              required
+              style="font-size: 16px !important"
+            ></textarea>
+            <!-- ================= Photos & Attachments ================= -->
+            <section class="incident_form_section border-0 px-0">
+              <div class="incident_section_header">
+                <div>
+                  <h2>Photos & Attachments</h2>
+                  <p>Attach photos or documents that help explain the issue.</p>
+                  
+                </div>
+              </div>
+
+              <input
+                type="file"
+                name="comment_attachments"
+                id="comment_attachments"
+                class="d-none"
+                accept="image/*,.pdf,.doc,.docx,.xls,.xlsx"
+                multiple
+              />
+              <div
+                id="comment-attachment-preview"
+                class="incident_photo_preview row g-2 mb-3"
+              ></div>
+
+              <label for="comment_attachments" class="incident_upload">
+                <div class="incident_upload_icon">
+                  <i class="bi bi-paperclip"></i>
+                </div>
+
+                <div class="incident_upload_content">
+                  <strong>Add task photos or attachments</strong>
+
+                  <span>Take photos or choose files from your device</span>
+
+                  <small id="comment_file_count">No files selected</small>
+                </div>
+
+                <i class="bi bi-plus-lg incident_upload_plus"></i>
+              </label>
+            </section>
+
+            <div class="issue_comment_actions">
+              <button type="submit" class="issue_comment_button">
+                <i class="bi bi-send-fill"></i> Add Comment
+              </button>
+            </div>
+          </form>
+        </section>
+
+        <!-- =========================
+        ATTACHMENTS
+        ========================== -->
+        {% if attachments %}
+        <div>
+            {% include 'partials/issue_task_attachments_partial.html' %}
+        </div>
+        {% endif %}
+
+        <!-- =========================
+          WORK PROGRESS
+          ========================== -->
+          <div class="d-none" id="WorkProgressUpdate">
+              {% include 'partials/work_progress.html' %}
+          </div>
+        
+        <!-- =========================
+        ITEM COMMENTS
+        ========================== -->
+        <div class="d-none" id="ItemCommentPartial">
+            {% include 'partials/item_comments_partial.html' %}
+        </div>
+
+
+      <!-- =========================
+       ISSUE ACTIVITY
+      ========================== -->
+      <div id="issue_activity">
+          {% include 'issues_templates/issue_activity_partial.html' %}
+      </div>
+
+
+
+        
+      </main>
+      <!-- ================================================= RIGHT / SIDEBAR ================================================= -->
+      <aside class="issue_details_sidebar">
+        <!-- ASSIGNMENT -->
+        <section class="issue_sidebar_card">
+          <div class="issue_sidebar_header">
+            <div class="issue_sidebar_icon blue">
+              <i class="bi bi-person-check"></i>
+            </div>
+            <div>
+              <h3>Assignment</h3>
+              <span>Who is responsible</span>
+            </div>
+          </div>
+          <div class="issue_assignee">
+            <div class="issue_assignee_avatar">
+              {% if issue.assigned_to %}
+              <!-- divider  -->
+
+              {{ issue.assigned_to.first_name|first|upper }} {% else %}
+              <i class="bi bi-person"></i> {% endif %}
+            </div>
+            <div class="issue_assignee_info">
+              {% if issue.assigned_to %}
+              <strong>
+                {{ issue.assigned_to.first_name }}
+                <!-- divider  -->
+                {{issue.assigned_to.last_name }}
+              </strong>
+              <span> Assigned to this item </span> {% else %}
+              <strong> Unassigned </strong>
+              <span> No team member assigned </span> {% endif %}
+            </div>
+          </div>
+
+          <!-- Contractor Assignment -->
+           {% if issue.assigned_contractor %}
+           <div class="issue_assignee mt-3">
+            <div class="issue_assignee_avatar">
+              {{ issue.assigned_contractor.contractor.company_name|first|upper }}
+            </div>
+            <div class="issue_assignee_info">
+              <strong>
+                {{ issue.assigned_contractor.contractor.company_name }}
+              </strong>
+              <span>Contractor assigned to this item </span>
+            </div>
+          </div>
+          {% endif %}
+        </section>
+
+        {% if issue.closed_at %}
+        <!-- CLOSED DATE -->
+        <section class="issue_sidebar_card">
+          <div class="issue_sidebar_header">
+            <div class="issue_sidebar_icon green">
+              <i class="bi bi-calendar-event"></i>
+            </div>
+            <div>
+              <h3>Closed Date</h3>
+              <span>completion</span>
+            </div>
+          </div>
+
+          <div class="issue_due_card">
+            <strong> {{ issue.closed_at|date:"d F Y" }} </strong>
+            <span>
+              <i class="bi bi-clock"></i> {{ issue.closed_at|time:"H:i" }}
+            </span>
+          </div>
+          
+        </section>
+        {% else %}
+        <!-- DUE DATE -->
+        <section class="issue_sidebar_card">
+          <div class="issue_sidebar_header">
+            <div class="issue_sidebar_icon orange">
+              <i class="bi bi-calendar-event"></i>
+            </div>
+            <div>
+              <h3>Due Date</h3>
+              <span>Target completion</span>
+            </div>
+          </div>
+          {% if issue.due_date %}
+          <div class="issue_due_card">
+            <strong> {{ issue.due_date|date:"d F Y" }} </strong>
+            <!-- divider  -->
+            {% if issue.due_time %}
+            <span>
+              <i class="bi bi-clock"></i> {{ issue.due_time|time:"g:i A" }}
+            </span>
+            {% endif %}
+            <!-- divider  -->
+            {% if issue.status == "open" %}
+            <small
+              class="{% if issue.due_date < today %} overdue {% else %} on_time {% endif %}"
+            >
+              {% if issue.due_date < today %}
+              <i class="bi bi-exclamation-circle-fill"></i>
+              {{ issue.due_status}}
+              <!-- divider  -->
+              {% else %}
+              <i class="bi bi-calendar-check"></i>
+              {{issue.due_status }}
+              <!-- divider  -->
+              {% endif %}
+            </small>
+            {% endif %}
+          </div>
+          {% else %}
+          <div class="issue_no_due_date">
+            <i class="bi bi-calendar-x"></i> <span>No due date set</span>
+          </div>
+          {% endif %}
+        </section>
+        {% endif %}
+        <!-- CREATED BY -->
+        <section class="issue_sidebar_card">
+          <div class="issue_sidebar_header">
+            <div class="issue_sidebar_icon purple">
+              <i class="bi bi-person-plus"></i>
+            </div>
+            <div>
+              <h3>Created By</h3>
+              <span>Item information</span>
+            </div>
+          </div>
+          <div class="issue_created_by">
+            <div class="issue_created_avatar">
+              {% if issue.created_by %}
+              <!-- divider   -->
+              {{issue.created_by.first_name|first|upper }}
+              <!-- divider  -->
+              {% else %}
+              <!-- divider  -->
+              ? {% endif%}
+            </div>
+            <div>
+              <strong>
+                {% if issue.created_by %}
+                <!-- divider  -->
+                {{ issue.created_by.first_name }}
+                <!-- divider  -->
+                {{issue.created_by.last_name}}
+                <!-- divider  -->
+                {% else %} Unknown User
+                <!-- divider  -->
+                {% endif%}
+              </strong>
+              <span>
+                {{ issue.created_at|date:"d F Y" }} ·
+                <!-- divider  -->
+                {{issue.created_at|time:"g:i A" }}
+              </span>
+            </div>
+          </div>
+        </section>
+        <!-- ================================================= UPDATE ISSUE ================================================= -->
+        <section class="issue_sidebar_card issue_update_card">
+          <div class="issue_sidebar_header">
+            <div class="issue_sidebar_icon green">
+              <i class="bi bi-pencil-square"></i>
+            </div>
+            <div>
+              <h3>Update Issue</h3>
+              <span>Change the current item</span>
+            </div>
+          </div>
+          <form
+            method="POST"
+            action="{% url 'issues:update-issue-status' issue.uuid %}"
+            enctype="multipart/form-data"
+            class="issue_update_form"
+          >
+            {% csrf_token %}
+            <!-- STATUS -->
+            <div class="issue_form_group">
+              <label> Status </label>
+              <select name="status" class="issue_form_input">
+                <option value="open" {% if issue.status == 'open' %}selected{% endif %}>Open</option>
+                <option value="closed" {% if issue.status == 'closed' %}selected{% endif %}>Closed</option>
+              </select>
+            </div>
+            <!-- PRIORITY -->
+            <div class="issue_form_group">
+              <label> Priority </label>
+              <select name="priority" class="issue_form_input">
+                <option
+                  value="high"
+                  {%
+                  if
+                  issue.priority=""
+                  ="high"
+                  %}selected{%
+                  endif
+                  %}
+                >
+                  High
+                </option>
+                <option
+                  value="medium"
+                  {%
+                  if
+                  issue.priority=""
+                  ="medium"
+                  %}selected{%
+                  endif
+                  %}
+                >
+                  Medium
+                </option>
+                <option
+                  value="low"
+                  {%
+                  if
+                  issue.priority=""
+                  ="low"
+                  %}selected{%
+                  endif
+                  %}
+                >
+                  Low
+                </option>
+              </select>
+            </div>
+            <!-- ASSIGNED TO -->
+            <div class="issue_form_group">
+              <label> Assign To </label>
+               <select name="assigned_to_id" class="issue_form_input">
+                <option value="None">Unassigned</option>
+                {% for user in team_members %}
+                <option
+                  value="{{ user.id }}"
+                  {% if issue.assigned_to.id == user.id %}selected{% endif%}
+                >
+                  {{ user.first_name }} {{ user.last_name }}
+                </option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <!-- ASSIGNED CONTRACTOR -->
+            <div class="issue_form_group">
+              <label> Assigned Contractor </label>
+              <select name="assigned_to_id" class="issue_form_input">
+                <option value="None">Unassigned</option>
+                {% for contractor_data in contractors %}
+                <option
+                  value="{{ contractor_data.id }}"
+                  {% if issue.assigned_contractor.id == contractor_data.id %}selected{% endif%}
+                >
+                  {{contractor_data.contractor.company_name}}
+                </option>
+                {% endfor %}
+              </select>
+            </div>
+
+            
+            <!-- DUE DATE -->
+            <div class="issue_form_group">
+              <label> Due Date </label>
+              <input
+                type="date"
+                name="due_date"
+                value="{% if issue.due_date %}{{ issue.due_date|date:'Y-m-d' }}{% endif %}"
+                class="issue_form_input"
+                onfocus="this.showPicker()"
+                onclick="this.showPicker()"
+              />
+            </div>
+            <button type="submit" class="issue_update_button">
+              <i class="bi bi-check-lg"></i> Save Changes
+            </button>
+          </form>
+        </section>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- LOAD ATTACHMENTS SCRIPT INCIDENT AND COMMENT -->
+<script>
+  let clearCommentAttachments = function () {};
+
+  function CommentAttachments() {
+    const attachmentInput = document.getElementById("comment_attachments");
+
+    const attachmentPreview = document.getElementById(
+      "comment-attachment-preview",
+    );
+
+    const fileCount = document.getElementById("comment_file_count");
+
+    if (!attachmentInput || !attachmentPreview) {
+      return;
+    }
+
+    if (attachmentInput.dataset.initialized === "true") {
+      return;
+    }
+
+    attachmentInput.dataset.initialized = "true";
+
+    let selectedFiles = [];
+
+    // Make clear function available outside this function
+    clearCommentAttachments = function () {
+      selectedFiles = [];
+
+      // Clear actual file input
+      attachmentInput.value = "";
+
+      // Clear generated previews
+      attachmentPreview.innerHTML = "";
+
+      // Reset file count
+      if (fileCount) {
+        fileCount.textContent = "No files selected";
+      }
+    };
+
+    attachmentInput.addEventListener("change", function () {
+      const newFiles = Array.from(this.files);
+
+      selectedFiles = [...selectedFiles, ...newFiles];
+
+      updateInputFiles();
+      renderPreviews();
+      updateFileCount();
+    });
+
+    function updateInputFiles() {
+      const dataTransfer = new DataTransfer();
+
+      selectedFiles.forEach(function (file) {
+        dataTransfer.items.add(file);
+      });
+
+      attachmentInput.files = dataTransfer.files;
+    }
+
+    function updateFileCount() {
+      if (!fileCount) {
+        return;
+      }
+
+      if (selectedFiles.length === 0) {
+        fileCount.textContent = "No files selected";
+      } else if (selectedFiles.length === 1) {
+        fileCount.textContent = "1 file selected";
+      } else {
+        fileCount.textContent = selectedFiles.length + " files selected";
+      }
+    }
+
+    function renderPreviews() {
+      attachmentPreview.innerHTML = "";
+
+      selectedFiles.forEach(function (file, index) {
+        const col = document.createElement("div");
+
+        col.className = "col-4";
+
+        if (file.type.startsWith("image/")) {
+          const reader = new FileReader();
+
+          reader.onload = function (event) {
+            col.innerHTML = `
+              <div
+                class="position-relative"
+                style="aspect-ratio: 1 / 1;"
+              >
+                <img
+                  src="${event.target.result}"
+                  class="w-100 h-100 rounded report_image"
+                  style="object-fit: cover;"
+                  alt="${file.name}"
+                >
+
+                <button
+                  type="button"
+                  class="btn btn-dark btn-sm position-absolute top-0 end-0 m-1 rounded-circle"
+                  data-index="${index}"
+                  aria-label="Remove attachment"
+                >
+                  <i class="bi bi-x-lg"></i>
+                </button>
+              </div>
+            `;
+
+            addRemoveListener(col);
+          };
+
+          reader.readAsDataURL(file);
+        } else {
+          col.innerHTML = `
+            <div
+              class="position-relative border rounded p-3 h-100 bg-light"
+            >
+              <div class="text-center">
+                <i class="bi bi-file-earmark-text fs-2"></i>
+
+                <div
+                  class="small text-truncate mt-2"
+                  title="${file.name}"
+                >
+                  ${file.name}
+                </div>
+              </div>
+
+              <button
+                type="button"
+                class="btn btn-dark btn-sm position-absolute top-0 end-0 m-1 rounded-circle"
+                data-index="${index}"
+                aria-label="Remove attachment"
+              >
+                <i class="bi bi-x-lg"></i>
+              </button>
+            </div>
+          `;
+
+          addRemoveListener(col);
+        }
+
+        attachmentPreview.appendChild(col);
+      });
+    }
+
+    function addRemoveListener(element) {
+      const button = element.querySelector("button");
+
+      if (!button) {
+        return;
+      }
+
+      button.addEventListener("click", function () {
+        const index = Number(this.dataset.index);
+
+        selectedFiles.splice(index, 1);
+
+        updateInputFiles();
+        renderPreviews();
+        updateFileCount();
+      });
+    }
+  }
+
+  // Normal page load
+  document.addEventListener("DOMContentLoaded", function () {
+    CommentAttachments();
+  });
+
+  // HTMX navigation
+  document.body.addEventListener("htmx:afterSwap", function () {
+    CommentAttachments();
+  });
+</script>
+
+
+<script>
+
+(() => {
+    const form = document.getElementById("corevaIssueActivityForm");
+
+    if (!form || form.dataset.iaInitialized === "true") return;
+    form.dataset.iaInitialized = "true";
+
+    const fileInput = form.querySelector("#corevaIaFileInput");
+    const preview = form.querySelector("#corevaIaPreview");
+    const errorBox = form.querySelector("#corevaIaFileError");
+    const statusLabel = form.querySelector("#corevaIaStatusLabel");
+
+    if (!fileInput || !preview || !errorBox || !statusLabel) return;
+
+    const maxFileSize = 10 * 1024 * 1024;
+
+    const allowedExtensions = new Set([
+        "pdf", "doc", "docx", "xls", "xlsx", "txt", "csv"
+    ]);
+
+    let selectedFiles = [];
+    let previewUrls = [];
+
+    function getExtension(file) {
+        return file.name.split(".").pop().toLowerCase();
+    }
+
+    function isAllowed(file) {
+        return file.type.startsWith("image/") ||
+            allowedExtensions.has(getExtension(file));
+    }
+
+    function formatSize(bytes) {
+        if (bytes < 1024) return `${bytes} B`;
+        if (bytes < 1024 * 1024) {
+            return `${(bytes / 1024).toFixed(1)} KB`;
+        }
+        return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+    }
+
+    function iconFor(file) {
+        const extension = getExtension(file);
+
+        if (extension === "pdf") return "bi-file-earmark-pdf";
+        if (["doc", "docx"].includes(extension)) {
+            return "bi-file-earmark-word";
+        }
+        if (["xls", "xlsx", "csv"].includes(extension)) {
+            return "bi-file-earmark-spreadsheet";
+        }
+        if (extension === "txt") return "bi-file-earmark-text";
+
+        return "bi-file-earmark";
+    }
+
+    function showErrors(messages) {
+        errorBox.replaceChildren();
+        errorBox.hidden = messages.length === 0;
+
+        if (!messages.length) return;
+
+        const list = document.createElement("ul");
+        list.style.margin = "0";
+        list.style.paddingLeft = "18px";
+
+        messages.forEach(message => {
+            const item = document.createElement("li");
+            item.textContent = message;
+            list.appendChild(item);
+        });
+
+        errorBox.appendChild(list);
+    }
+
+    function syncInput() {
+        const transfer = new DataTransfer();
+
+        selectedFiles.forEach(file => transfer.items.add(file));
+        fileInput.files = transfer.files;
+    }
+
+    function renderFiles() {
+        preview.replaceChildren();
+
+        // Release image URLs from the previous rendering.
+        previewUrls.forEach(url => URL.revokeObjectURL(url));
+        previewUrls = [];
+
+        selectedFiles.forEach((file, index) => {
+            const card = document.createElement("div");
+            card.className = "coreva-ia-file-card";
+
+            if (file.type.startsWith("image/")) {
+                const image = document.createElement("img");
+                const url = URL.createObjectURL(file);
+
+                previewUrls.push(url);
+                image.src = url;
+                image.alt = file.name;
+                image.className = "coreva-ia-file-image";
+
+                card.appendChild(image);
+            } else {
+                const iconBox = document.createElement("div");
+                iconBox.className = "coreva-ia-file-icon";
+
+                const icon = document.createElement("i");
+                icon.className = `bi ${iconFor(file)}`;
+
+                iconBox.appendChild(icon);
+                card.appendChild(iconBox);
+            }
+
+            const remove = document.createElement("button");
+            remove.type = "button";
+            remove.className = "coreva-ia-file-remove";
+            remove.setAttribute("aria-label", `Remove ${file.name}`);
+
+            const removeIcon = document.createElement("i");
+            removeIcon.className = "bi bi-x-lg";
+            remove.appendChild(removeIcon);
+
+            remove.addEventListener("click", () => {
+                selectedFiles.splice(index, 1);
+                syncInput();
+                renderFiles();
+            });
+
+            card.appendChild(remove);
+
+            const details = document.createElement("div");
+            details.className = "coreva-ia-file-details";
+
+            const name = document.createElement("div");
+            name.className = "coreva-ia-file-name";
+            name.textContent = file.name;
+            name.title = file.name;
+
+            const size = document.createElement("small");
+            size.className = "coreva-ia-file-size";
+            size.textContent = formatSize(file.size);
+
+            details.append(name, size);
+            card.appendChild(details);
+            preview.appendChild(card);
+        });
+    }
+
+    fileInput.addEventListener("change", () => {
+        const messages = [];
+
+        for (const file of Array.from(fileInput.files)) {
+            if (!isAllowed(file)) {
+                messages.push(`${file.name}: unsupported file type.`);
+                continue;
+            }
+
+            if (file.size > maxFileSize) {
+                messages.push(`${file.name}: exceeds the 10 MB limit.`);
+                continue;
+            }
+
+            const duplicate = selectedFiles.some(existing =>
+                existing.name === file.name &&
+                existing.size === file.size &&
+                existing.lastModified === file.lastModified
+            );
+
+            if (!duplicate) selectedFiles.push(file);
+        }
+
+        // Keep all previous valid selections, even when a new file is invalid.
+        syncInput();
+        renderFiles();
+        showErrors(messages);
+    });
+
+    form.querySelectorAll('input[name="status"]').forEach(input => {
+        input.addEventListener("change", () => {
+            const labels = {
+                "": "No status change",
+                "in_progress": "In Progress",
+                "resolved": "Resolved"
+            };
+
+            statusLabel.textContent = labels[input.value] ?? "No status change";
+        });
+    });
+
+    // Prevent an empty activity from being posted.
+    form.addEventListener("submit", event => {
+        const message = form.querySelector('[name="update"]').value.trim();
+        const status = form.querySelector('input[name="status"]:checked')?.value ?? "";
+
+        if (!message && !selectedFiles.length && !status) {
+            event.preventDefault();
+            showErrors(["Write an update, attach a file, or select a status change."]);
+        }
+    });
+
+    // Release temporary preview URLs when the form is reset.
+    form.addEventListener("reset", () => {
+        selectedFiles = [];
+        syncInput();
+        renderFiles();
+        showErrors([]);
+        statusLabel.textContent = "No status change";
+    });
+})();
+
+</script>

@@ -1,0 +1,1054 @@
+{% load static %}
+<!-- divider  -->
+
+
+
+<div class="row d-flex justify-content-center">
+    <div class="col-12 col-lg-8">
+        <!-- =========================================================
+        COREVA MOBILE TOP NAVBAR AND LARGE SCREEN BACK BUTTON
+        ========================================================= -->
+        {% include 'partials/page_topbar.html' with next_url=next_url brand_name='Delivery Details' brand_url='#' %}
+
+
+        <!-- =========================================================
+            DELIVERY HEADER
+        ========================================================== -->
+
+        <section class="delivery-header mt-0">
+
+            <div class="delivery-header-main">
+
+            <div class="delivery-header-icon">
+                <span class="material-symbols-outlined">
+                local_shipping
+                </span>
+            </div>
+
+            <div class="delivery-header-content">
+
+                <div class="delivery-header-meta">
+
+                <span class="delivery-reference">
+                    {{ delivery.reference }}
+                </span>
+
+                {% if delivery.status %}
+                    <span class="delivery-status-badge">
+                    <span class="delivery-status-dot"></span>
+                    {{ delivery.status }}
+                    </span>
+                {% endif %}
+
+                </div>
+
+                <h1 class="delivery-title">
+                {% if delivery.item %}
+                <!-- divider  -->
+                    {{ delivery.item }}
+                    <!-- divider  -->
+                {% else %}
+                    Delivery
+                {% endif %}
+                </h1>
+
+                {% if delivery.project %}
+
+                <a
+                href="#"
+                class="delivery-project-link"
+                hx-boost="true"
+                hx-target="#content"
+                hx-push-url="true"
+                >
+                <i class="bi bi-building"></i>
+                {{ delivery.project.project_name }}
+                <i class="bi bi-arrow-up-right"></i>
+                </a>
+
+                {% endif %}
+
+            </div>
+
+            </div>
+
+
+            <div class="delivery-header-actions">
+
+            <button
+                type="button"
+                class="btn delivery-edit-btn"
+                data-bs-toggle="modal"
+                data-bs-target="#updateDeliveryModal"
+            >
+                <i class="bi bi-pencil"></i>
+                Edit Delivery
+            </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================================
+            MAIN CONTENT
+        ========================================================== -->
+
+        <div class="delivery-content-grid">
+
+
+            <!-- =======================================================
+                MAIN COLUMN
+            ======================================================== -->
+
+            <main class="delivery-main-column">
+
+
+            <!-- DELIVERY OVERVIEW -->
+
+            <section class="delivery-card">
+
+                <div class="delivery-card-header">
+
+                <div>
+                    <h5>Delivery Overview</h5>
+                    <p>Key information about this delivery.</p>
+                </div>
+
+                </div>
+
+
+                <div class="delivery-info-grid">
+
+                <!-- DATE -->
+
+                <div class="delivery-info-item">
+
+                    <span class="delivery-info-label">
+                    Delivery Date
+                    </span>
+
+                    <span class="delivery-info-value">
+
+                    <i class="bi bi-calendar3"></i>
+
+                    {{ delivery.delivery_date|date:"d F Y" }}
+
+                    </span>
+
+                </div>
+
+
+                <!-- TIME -->
+
+                <div class="delivery-info-item">
+
+                    <span class="delivery-info-label">
+                    Delivery Time
+                    </span>
+
+                    <span class="delivery-info-value">
+
+                    <i class="bi bi-clock"></i>
+
+                    {% if delivery.delivery_time %}
+                    <!-- divider  -->
+                        {{ delivery.delivery_time|time:"g:i A" }}
+                        <!-- divider  -->
+                    {% else %}
+                        <span class="delivery-muted">
+                        Not recorded
+                        </span>
+                    {% endif %}
+
+                    </span>
+
+                </div>
+
+
+                <!-- SUPPLIER -->
+
+                <div class="delivery-info-item">
+
+                    <span class="delivery-info-label">
+                    Supplier
+                    </span>
+
+                    <span class="delivery-info-value">
+
+                    <i class="bi bi-truck"></i>
+
+                    {% if delivery.supplier %}
+                    <!-- divider  -->
+                        {{ delivery.supplier }}
+                        <!-- divider  -->
+                    {% else %}
+                        <span class="delivery-muted">
+                        Not recorded
+                        </span>
+                    {% endif %}
+
+                    </span>
+
+                </div>
+
+
+                <!-- ITEM -->
+
+                <div class="delivery-info-item d-none">
+
+                    <span class="delivery-info-label">
+                    Main Item
+                    </span>
+
+                    <span class="delivery-info-value">
+
+                    <i class="bi bi-box-seam"></i>
+
+                    {% if delivery.item %}
+                    <!-- divider  -->
+                        {{ delivery.item }}
+                        <!-- divider  -->
+                    {% else %}
+                        <span class="delivery-muted">
+                        Not recorded
+                        </span>
+                    {% endif %}
+
+                    </span>
+
+                </div>
+
+
+                <!-- QUANTITY -->
+
+                <div class="delivery-info-item d-none">
+
+                    <span class="delivery-info-label">
+                    Quantity
+                    </span>
+
+                    <span class="delivery-info-value">
+
+                    <i class="bi bi-boxes"></i>
+
+                    {% if delivery.quantity %}
+                    <!-- divider  -->
+                        {{ delivery.quantity }}
+                        <!-- divider  -->
+                    {% else %}
+                        <span class="delivery-muted">
+                        Not recorded
+                        </span>
+                    {% endif %}
+
+                    </span>
+
+                </div>
+
+
+                <!-- REFERENCE -->
+
+                <div class="delivery-info-item">
+
+                    <span class="delivery-info-label">
+                    Reference
+                    </span>
+
+                    <span class="delivery-info-value">
+
+                    <i class="bi bi-hash"></i>
+
+                    {{ delivery.reference }}
+
+                    </span>
+
+                </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- DELIVERED ITEMS -->
+
+            <section class="delivery-card">
+
+                <div class="delivery-card-header">
+
+                <div>
+
+                    <h5>Delivered Items</h5>
+
+                    <p>
+                    Items recorded as part of this delivery.
+                    </p>
+
+                </div>
+
+
+                {% if delivered_items %}
+
+                <span class="delivery-count-badge">
+
+                    {{ delivered_items|length }}
+                    <!-- divider  -->
+                    {% if delivered_items|length == 1 %}
+                    Item
+                    {% else %}
+                    Items
+                    {% endif %}
+
+                </span>
+
+                {% endif %}
+
+                </div>
+
+
+                {% if delivered_items %}
+
+                <div class="delivered-items-table">
+
+                <div class="delivered-items-header">
+
+                    <span>Item</span>
+                    <span>Quantity</span>
+                    <span>Unit</span>
+
+                </div>
+
+
+                {% for item in delivered_items %}
+
+                <div class="delivered-item-row">
+
+                    <div class="delivered-item-name">
+
+                    <div class="delivered-item-icon">
+                        <i class="bi bi-box"></i>
+                    </div>
+
+                    <span>
+                        {{ item.item }}
+                    </span>
+
+                    </div>
+
+
+                    <div class="delivered-item-quantity">
+
+                    {{ item.quantity }}
+
+                    </div>
+
+
+                    <div class="delivered-item-unit">
+
+                    {% if item.unit %}
+                    <!-- divider  -->
+                        {{ item.unit }}
+                        <!-- divider  -->
+                    {% else %}
+                        —
+                    {% endif %}
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+                </div>
+
+
+                {% else %}
+
+                <div class="delivery-empty-state">
+
+                <div class="delivery-empty-icon">
+                    <i class="bi bi-box-seam"></i>
+                </div>
+
+                <div>
+
+                    <strong>
+                    No individual items recorded
+                    </strong>
+
+                    <span>
+                    This delivery does not have any additional item records.
+                    </span>
+
+                </div>
+
+                </div>
+
+                {% endif %}
+
+            </section>
+
+
+            <!-- NOTES -->
+
+            <section class="delivery-card">
+
+                <div class="delivery-card-header">
+
+                <div>
+
+                    <h5>Delivery Notes</h5>
+
+                    <p>
+                    Additional information recorded for this delivery.
+                    </p>
+
+                </div>
+
+                </div>
+
+
+                {% if delivery.notes %}
+
+                <div class="delivery-notes">
+
+                <i class="bi bi-chat-left-text"></i>
+
+                <div>
+                    {{ delivery.notes|linebreaksbr }}
+                </div>
+
+                </div>
+
+                {% else %}
+
+                <div class="delivery-empty-state">
+
+                <i class="bi bi-file-text"></i>
+
+                <span>
+                    No notes have been recorded for this delivery.
+                </span>
+
+                </div>
+
+                {% endif %}
+
+            </section>
+
+
+            <!-- ATTACHMENTS -->
+
+            <section class="delivery-card">
+
+                <div class="delivery-card-header">
+
+                <div>
+
+                    <h5>Photos & Attachments</h5>
+
+                    <p>
+                    Delivery photos, documents and supporting files.
+                    </p>
+
+                </div>
+
+
+                {% if attachments %}
+
+                <span class="delivery-count-badge">
+                    {{ attachments|length }}
+                </span>
+
+                {% endif %}
+
+                </div>
+
+
+                {% if attachments %}
+
+                <div class="delivery-attachments-grid">
+
+                {% for attachment in attachments %}
+                    <!-- divider  -->
+
+                    {% if attachment.photo %}
+
+                    <div class="delivery-photo">
+
+                    <a
+                        href="{{ attachment.photo.url }}"
+                        target="_blank"
+                    >
+
+                        <img
+                        src="{{ attachment.photo.url }}"
+                        alt="{{ attachment.caption|default:'Delivery photo' }}"
+                        >
+
+                    </a>
+
+
+                    {% if attachment.caption %}
+
+                    <div class="delivery-photo-caption">
+                        {{ attachment.caption }}
+                    </div>
+
+                    {% endif %}
+
+                    </div>
+
+
+                    {% elif attachment.file %}
+
+                    <a
+                    href="{{ attachment.file.url }}"
+                    target="_blank"
+                    class="delivery-file"
+                    >
+
+                    <div class="delivery-file-icon">
+
+                        <i class="bi bi-file-earmark-text"></i>
+
+                    </div>
+
+
+                    <div class="delivery-file-content">
+
+                        <strong>
+                        {{ attachment.file.name|cut:"media/project_files/" }}
+                        </strong>
+
+                        {% if attachment.caption %}
+
+                        <span>
+                        {{ attachment.caption }}
+                        </span>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <i class="bi bi-box-arrow-up-right"></i>
+
+                    </a>
+
+                    {% endif %}
+
+                {% endfor %}
+
+                </div>
+
+
+                {% else %}
+
+                <div class="delivery-empty-state">
+
+                <i class="bi bi-paperclip"></i>
+
+                <span>
+                    No photos or attachments have been added.
+                </span>
+
+                </div>
+
+                {% endif %}
+
+            </section>
+
+
+            </main>
+
+
+            <!-- =======================================================
+                SIDEBAR
+            ======================================================== -->
+
+            <aside class="delivery-sidebar">
+
+
+            <!-- DELIVERY STATUS -->
+
+            <section class="delivery-side-card">
+
+                <div class="delivery-side-card-header">
+                Delivery Status
+                </div>
+
+
+                <div class="delivery-status-display">
+
+                <div class="delivery-status-large-icon">
+                    <i class="bi bi-check2-circle"></i>
+                </div>
+
+                <div>
+
+                    <strong>
+                    {% if delivery.status %}
+                    <!-- divider  -->
+                        {{ delivery.status }}
+                        <!-- divider  -->
+                    {% else %}
+                        No status
+                    {% endif %}
+                    </strong>
+
+                    <span>
+                    Current delivery status
+                    </span>
+
+                </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- SUPPLIER -->
+
+            <section class="delivery-side-card">
+
+                <div class="delivery-side-card-header">
+                Supplier
+                </div>
+
+
+                <div class="delivery-supplier">
+
+                <div class="delivery-supplier-icon">
+                    <i class="bi bi-truck"></i>
+                </div>
+
+                <div>
+
+                    {% if delivery.supplier %}
+
+                    <strong>
+                        {{ delivery.supplier }}
+                    </strong>
+
+                    <span>
+                        Delivery supplier
+                    </span>
+
+                    {% else %}
+
+                    <strong>
+                        Not recorded
+                    </strong>
+
+                    <span>
+                        No supplier specified
+                    </span>
+
+                    {% endif %}
+
+                </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- DELIVERY DATE -->
+
+            <section class="delivery-side-card">
+
+                <div class="delivery-side-card-header">
+                Delivery Schedule
+                </div>
+
+
+                <div class="delivery-schedule">
+
+                <div class="delivery-schedule-icon">
+                    <i class="bi bi-calendar-event"></i>
+                </div>
+
+
+                <div>
+
+                    <strong>
+                    {{ delivery.delivery_date|date:"d M Y" }}
+                    </strong>
+
+                    <span>
+
+                    {% if delivery.delivery_time %}
+                    <!-- divider  -->
+                        {{ delivery.delivery_time|time:"g:i A" }}
+                        <!-- divider  -->
+                    {% else %}
+                        Time not recorded
+                    {% endif %}
+
+                    </span>
+
+                </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- RECORD INFORMATION -->
+
+            <section class="delivery-side-card">
+
+                <div class="delivery-side-card-header">
+                Record Information
+                </div>
+
+
+                <div class="delivery-record-list">
+
+
+                <div class="delivery-record-row">
+
+                    <span>
+                    Reference
+                    </span>
+
+                    <strong>
+                    {{ delivery.reference }}
+                    </strong>
+
+                </div>
+
+
+                <div class="delivery-record-row">
+
+                    <span>
+                    Created by
+                    </span>
+
+                    <strong>
+
+                    {% if delivery.created_by %}
+                        <!-- divider  -->
+                        {{ delivery.created_by.first_name }} {{ delivery.created_by.last_name }}
+                        <!-- divider  -->
+                    {% else %}
+
+                        —
+
+                    {% endif %}
+
+                    </strong>
+
+                </div>
+
+
+                <div class="delivery-record-row">
+
+                    <span>
+                    Created
+                    </span>
+
+                    <strong>
+                    {{ delivery.created_at|date:"d M Y, g:i A" }}
+                    </strong>
+
+                </div>
+
+
+                </div>
+
+            </section>
+
+
+            <!-- QUICK ACTIONS -->
+
+            <section class="delivery-side-card">
+
+                <div class="delivery-side-card-header">
+                Quick Actions
+                </div>
+
+
+                <div class="delivery-quick-actions">
+
+
+                <button
+                    type="button"
+                    class="delivery-quick-action"
+                    data-bs-toggle="modal"
+                    data-bs-target="#updateDeliveryModal"
+                >
+
+                    <i class="bi bi-pencil"></i>
+
+                    <span>
+                    Edit delivery
+                    </span>
+
+                    <i class="bi bi-chevron-right"></i>
+
+                </button>
+
+
+                {% if delivery.project %}
+
+                <a
+                    href="#"
+                    class="delivery-quick-action"
+                    hx-boost="true"
+                    hx-target="#content"
+                    hx-push-url="true"
+                >
+
+                    <i class="bi bi-building"></i>
+
+                    <span>
+                    View project
+                    </span>
+
+                    <i class="bi bi-chevron-right"></i>
+
+                </a>
+
+                {% endif %}
+
+
+                </div>
+
+            </section>
+
+
+            </aside>
+
+        </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- =========================================================
+     UPDATE DELIVERY MODAL
+========================================================== -->
+
+<div
+  class="modal fade"
+  id="updateDeliveryModal"
+  tabindex="-1"
+  aria-hidden="true"
+>
+
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+
+    <div class="modal-content delivery-update-modal">
+
+
+      <div class="modal-header">
+
+        <div>
+
+          <h5 class="modal-title">
+            Update Delivery
+          </h5>
+
+          <p class="mb-0">
+            Update the delivery information.
+          </p>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+
+      </div>
+
+
+      <form
+        method="POST"
+        action="#"
+      >
+
+        {% csrf_token %}
+
+
+        <div class="modal-body">
+
+          <div class="row g-3">
+
+
+            <!-- STATUS -->
+
+            <div class="col-md-6">
+
+              <label class="delivery-form-label">
+                Status
+              </label>
+
+              <input
+                type="text"
+                name="status"
+                class="form-control"
+                value="{{ delivery.status }}"
+                placeholder="e.g. Received"
+              >
+
+            </div>
+
+
+            <!-- DATE -->
+
+            <div class="col-md-6">
+
+              <label class="delivery-form-label">
+                Delivery Date
+              </label>
+
+              <input
+                type="date"
+                name="delivery_date"
+                class="form-control"
+                value="{{ delivery.delivery_date|date:'Y-m-d' }}"
+              >
+
+            </div>
+
+
+            <!-- TIME -->
+
+            <div class="col-md-6">
+
+              <label class="delivery-form-label">
+                Delivery Time
+              </label>
+
+              <input
+                type="time"
+                name="delivery_time"
+                class="form-control"
+
+                {% if delivery.delivery_time %}
+                  value="{{ delivery.delivery_time|time:'H:i' }}"
+                {% endif %}
+
+              >
+
+            </div>
+
+
+            <!-- SUPPLIER -->
+
+            <div class="col-md-6">
+
+              <label class="delivery-form-label">
+                Supplier
+              </label>
+
+              <input
+                type="text"
+                name="supplier"
+                class="form-control"
+                value="{{ delivery.supplier }}"
+                placeholder="Supplier name"
+              >
+
+            </div>
+
+
+            <!-- ITEM -->
+
+            <div class="col-md-6">
+
+              <label class="delivery-form-label">
+                Main Item
+              </label>
+
+              <input
+                type="text"
+                name="item"
+                class="form-control"
+                value="{{ delivery.item }}"
+                placeholder="What was delivered?"
+              >
+
+            </div>
+
+
+            <!-- QUANTITY -->
+
+            <div class="col-md-6">
+
+              <label class="delivery-form-label">
+                Quantity
+              </label>
+
+              <input
+                type="text"
+                name="quantity"
+                class="form-control"
+                value="{{ delivery.quantity }}"
+                placeholder="e.g. 20"
+              >
+
+            </div>
+
+
+            <!-- NOTES -->
+
+            <div class="col-12">
+
+              <label class="delivery-form-label">
+                Notes
+              </label>
+
+              <textarea
+                name="notes"
+                class="form-control"
+                rows="4"
+                placeholder="Add any additional delivery notes..."
+              >{{ delivery.notes }}</textarea>
+
+            </div>
+
+
+          </div>
+
+        </div>
+
+
+        <div class="modal-footer">
+
+          <button
+            type="button"
+            class="btn btn-light"
+            data-bs-dismiss="modal"
+          >
+            Cancel
+          </button>
+
+
+          <button
+            type="submit"
+            class="btn btn-primary"
+          >
+
+            <i class="bi bi-check2"></i>
+
+            Save Changes
+
+          </button>
+
+        </div>
+
+
+      </form>
+
+    </div>
+
+  </div>
+
+</div>

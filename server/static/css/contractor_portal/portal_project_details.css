@@ -1,0 +1,1067 @@
+/* =========================================================
+   CONTRACTOR PROJECT DETAILS PAGE
+========================================================= */
+
+.cpd-page {
+    width: 100%;
+    /* max-width: 1200px; */
+    /* margin: 0 auto; */
+    /* padding: 24px; */
+    color: #0f172a;
+    /* box-sizing: border-box; */
+}
+
+/* .cpd-page *,
+.cpd-page *::before,
+.cpd-page *::after {
+    box-sizing: border-box;
+} */
+
+
+/* =========================================================
+   TOP BAR
+========================================================= */
+
+.cpd-topbar {
+    margin-bottom: 18px;
+}
+
+.cpd-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    color: #64748b;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition: color 0.2s ease;
+}
+
+.cpd-back-link:hover {
+    color: #2563eb;
+}
+
+.cpd-back-link i {
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   PROJECT HEADER
+========================================================= */
+
+.cpd-project-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    padding: 22px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5eaf0;
+    border-radius: 14px;
+
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+
+    min-width: 0;
+}
+
+.cpd-project-header-main {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    min-width: 0;
+}
+
+.cpd-project-icon {
+    width: 52px;
+    height: 52px;
+
+    flex: 0 0 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #eff6ff;
+    color: #2563eb;
+
+    border-radius: 12px;
+
+    font-size: 21px;
+}
+
+.cpd-project-info {
+    min-width: 0;
+}
+
+.cpd-eyebrow {
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: #64748b;
+
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+}
+
+.cpd-project-title {
+    margin: 0;
+
+    color: #172a46;
+
+    font-size: 23px;
+    line-height: 1.25;
+    font-weight: 750;
+
+    overflow-wrap: anywhere;
+}
+
+.cpd-project-location {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    margin-top: 6px;
+
+    color: #64748b;
+
+    font-size: 12px;
+}
+
+.cpd-project-location i {
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+.cpd-project-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    flex: 0 0 auto;
+
+    padding: 7px 11px;
+
+    background: #f0fdf4;
+
+    border: 1px solid #bbf7d0;
+    border-radius: 999px;
+
+    color: #166534;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.cpd-status-dot {
+    width: 7px;
+    height: 7px;
+
+    background: #22c55e;
+
+    border-radius: 50%;
+}
+
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+.cpd-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+
+    margin-top: 16px;
+}
+
+.cpd-summary-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    min-width: 0;
+
+    padding: 16px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5eaf0;
+    border-radius: 12px;
+}
+
+.cpd-summary-icon {
+    width: 40px;
+    height: 40px;
+
+    flex: 0 0 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    font-size: 17px;
+}
+
+.cpd-summary-red {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.cpd-summary-blue {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.cpd-summary-purple {
+    background: #faf5ff;
+    color: #9333ea;
+}
+
+.cpd-summary-green {
+    background: #EDF8F2;
+    color: #08855f;
+}
+
+.cpd-summary-content {
+    min-width: 0;
+}
+
+.cpd-summary-label {
+    display: block;
+
+    color: #64748b;
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.cpd-summary-value {
+    display: inline-block;
+
+    margin-top: 1px;
+
+    color: #172a46;
+
+    font-size: 22px;
+    line-height: 1.1;
+    font-weight: 750;
+}
+
+.cpd-summary-detail {
+    display: block;
+
+    margin-top: 2px;
+
+    color: #94a3b8;
+
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.cpd-detail-danger {
+    color: #dc2626;
+}
+
+.cpd-detail-warning {
+    color: #d97706;
+}
+
+
+/* =========================================================
+   WORK AREA
+========================================================= */
+
+.cpd-work-area {
+    margin-top: 28px;
+}
+
+.cpd-section-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 15px;
+
+    margin-bottom: 14px;
+}
+
+.cpd-section-title-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cpd-section-title {
+    margin: 0;
+
+    color: #172a46;
+
+    font-size: 17px;
+    font-weight: 750;
+}
+
+.cpd-section-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 24px;
+    height: 22px;
+
+    padding: 0 7px;
+
+    background: #f1f5f9;
+
+    border-radius: 999px;
+
+    color: #475569;
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.cpd-section-subtitle {
+    margin: 3px 0 0;
+
+    color: #64748b;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   FILTER BAR
+========================================================= */
+
+.cpd-filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    margin-bottom: 20px;
+
+    padding: 4px;
+
+    background: #f8fafc;
+
+    border: 1px solid #e5eaf0;
+    border-radius: 9px;
+
+    width: fit-content;
+    max-width: 100%;
+
+    overflow-x: auto;
+}
+
+.cpd-filter-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+
+    padding: 7px 11px;
+
+    border: 0;
+    border-radius: 6px;
+
+    background: transparent;
+
+    color: #64748b;
+
+    font-size: 11px;
+    font-weight: 650;
+
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.cpd-filter-btn span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 18px;
+    height: 18px;
+
+    padding: 0 5px;
+
+    background: #e2e8f0;
+
+    border-radius: 999px;
+
+    color: #64748b;
+
+    font-size: 9px;
+}
+
+.cpd-filter-btn:hover {
+    color: #172a46;
+}
+
+.cpd-filter-active {
+    background: #ffffff;
+
+    color: #2563eb;
+
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
+}
+
+.cpd-filter-active span {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+
+/* =========================================================
+   LIST SECTION
+========================================================= */
+
+.cpd-list-section {
+    margin-bottom: 28px;
+}
+
+.cpd-list-heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-bottom: 10px;
+
+    min-width: 0;
+}
+
+.cpd-list-heading-icon {
+    width: 34px;
+    height: 34px;
+
+    flex: 0 0 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9px;
+
+    font-size: 14px;
+}
+
+.cpd-heading-red {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.cpd-heading-blue {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.cpd-list-heading h3 {
+    margin: 0;
+
+    color: #172a46;
+
+    font-size: 13px;
+    font-weight: 750;
+}
+
+.cpd-list-heading span:not(.cpd-list-count) {
+    display: block;
+
+    margin-top: 1px;
+
+    color: #94a3b8;
+
+    font-size: 10px;
+}
+
+.cpd-list-count {
+    margin-left: auto;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 25px;
+    height: 22px;
+
+    padding: 0 7px;
+
+    background: #f1f5f9;
+
+    border-radius: 999px;
+
+    color: #64748b;
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   ITEMS
+========================================================= */
+
+.cpd-items {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.cpd-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+
+    padding: 14px 15px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5eaf0;
+    border-radius: 10px;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.cpd-item:hover {
+    border-color: #cbd5e1;
+
+    box-shadow: 0 3px 10px rgba(15, 23, 42, 0.04);
+}
+
+.cpd-item-overdue {
+    border-left: 3px solid #ef4444;
+}
+
+.cpd-item-delivery {
+    border-left: 3px solid #198754;
+}
+
+.cpd-item-incidents {
+    border-left: 3px solid rgb(234, 88, 12);
+}
+
+.cpd-item-tasks {
+    /* border-left: 3px solid rgb(147, 197, 253); */
+    border-left: 3px solid rgb(13, 110, 253);
+}
+
+.cpd-item-main {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+
+    min-width: 0;
+}
+
+.cpd-item-icon {
+    width: 34px;
+    height: 34px;
+
+    flex: 0 0 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+}
+
+.cpd-item-icon-red {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.cpd-item-icon-orange {
+    background: #fff7ed;
+    color: #ea580c;
+}
+
+.cpd-item-icon-blue {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.cpd-item-icon-green {
+    background: #EDF8F2;
+    color: rgb(21, 115, 71);
+}
+
+.cpd-item-content {
+    min-width: 0;
+}
+
+.cpd-item-title-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+.cpd-item-title-row h4 {
+    margin: 0;
+
+    color: #172a46;
+
+    font-size: 13px;
+    line-height: 1.4;
+    font-weight: 700;
+
+    overflow-wrap: anywhere;
+}
+
+.cpd-item-description {
+    max-width: 720px;
+
+    margin: 4px 0 0;
+
+    color: #64748b;
+
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.cpd-item-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    margin-top: 7px;
+
+    color: #94a3b8;
+
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.cpd-item-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.cpd-item-meta i {
+    font-size: 11px;
+}
+
+.cpd-meta-overdue {
+    color: #dc2626;
+}
+
+
+/* =========================================================
+   PRIORITY
+========================================================= */
+
+.cpd-priority {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 3px 7px;
+
+    border-radius: 999px;
+
+    font-size: 9px;
+    line-height: 1;
+    font-weight: 750;
+}
+
+.cpd-priority-high {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.cpd-priority-medium {
+    background: #fff7ed;
+    color: #c2410c;
+}
+
+.cpd-priority-low {
+    background: #f1f5f9;
+    color: #64748b;
+}
+
+
+/* =========================================================
+   VIEW BUTTON
+========================================================= */
+
+.cpd-item-action {
+    flex: 0 0 auto;
+}
+
+.cpd-view-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+
+    padding: 7px 10px;
+
+    background: #f8fafc;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 7px;
+
+    color: #475569;
+
+    /* font-size: 10px; */
+    font-size: 12px;
+    font-weight: 700;
+
+    text-decoration: none;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.cpd-view-btn:hover {
+    background: #eff6ff;
+    border-color: #bfdbfe;
+    color: #2563eb;
+}
+
+.cpd-view-btn i {
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   COMMENTS
+========================================================= */
+
+.cpd-comments-section {
+    margin-top: 32px;
+}
+
+.cpd-comments-header {
+    margin-bottom: 12px;
+}
+
+.cpd-new-badge {
+    display: inline-flex;
+
+    padding: 3px 7px;
+
+    background: #eff6ff;
+
+    border-radius: 999px;
+
+    color: #2563eb !important;
+
+    font-size: 9px !important;
+    font-weight: 750 !important;
+}
+
+.cpd-comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.cpd-comment-card {
+    position: relative;
+
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+
+    padding: 14px 15px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5eaf0;
+    border-radius: 10px;
+
+    min-width: 0;
+}
+
+.cpd-comment-unread {
+    background: #f8fbff;
+
+    border-color: #dbeafe;
+}
+
+.cpd-comment-avatar {
+    width: 34px;
+    height: 34px;
+
+    flex: 0 0 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #dbeafe;
+
+    border-radius: 50%;
+
+    color: #1d4ed8;
+
+    font-size: 10px;
+    font-weight: 750;
+}
+
+.cpd-avatar-green {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.cpd-avatar-purple {
+    background: #f3e8ff;
+    color: #7e22ce;
+}
+
+.cpd-comment-content {
+    min-width: 0;
+    flex: 1;
+}
+
+.cpd-comment-top {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 7px;
+}
+
+.cpd-comment-top strong {
+    color: #172a46;
+
+    font-size: 11px;
+    font-weight: 750;
+}
+
+.cpd-comment-top span {
+    color: #94a3b8;
+
+    font-size: 10px;
+}
+
+.cpd-comment-reference {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    margin-top: 5px;
+
+    color: #2563eb;
+
+    font-size: 10px;
+    font-weight: 650;
+
+    min-width: 0;
+}
+
+.cpd-comment-reference i {
+    flex: 0 0 auto;
+}
+
+.cpd-comment-reference span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cpd-comment-content p {
+    margin: 5px 0 0;
+
+    color: #64748b;
+
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.cpd-comment-indicator {
+    width: 7px;
+    height: 7px;
+
+    flex: 0 0 7px;
+
+    margin-top: 5px;
+
+    background: #2563eb;
+
+    border-radius: 50%;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 768px) {
+
+    /* .cpd-page {
+        padding: 18px 14px;
+    } */
+
+    .cpd-project-header {
+        align-items: flex-start;
+    }
+
+    .cpd-project-title {
+        font-size: 20px;
+    }
+
+    .cpd-summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cpd-summary-card {
+        padding: 13px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    /* .cpd-page {
+        padding: 14px 10px 24px;
+    } */
+
+    .cpd-project-header {
+        flex-direction: column;
+        align-items: stretch;
+
+        padding: 16px;
+    }
+
+    .cpd-project-status {
+        width: fit-content;
+    }
+
+    .cpd-project-icon {
+        width: 44px;
+        height: 44px;
+        flex-basis: 44px;
+
+        font-size: 18px;
+    }
+
+    .cpd-project-title {
+        font-size: 18px;
+    }
+
+    .cpd-project-location {
+        align-items: flex-start;
+    }
+
+    .cpd-work-area {
+        margin-top: 24px;
+    }
+
+    .cpd-filter-bar {
+        width: 100%;
+    }
+
+    .cpd-filter-btn {
+        flex: 1 0 auto;
+        justify-content: center;
+    }
+
+    .cpd-item {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 11px;
+
+        padding: 13px;
+    }
+
+    .cpd-item-action {
+        width: 100%;
+    }
+
+    .cpd-view-btn {
+        width: 100%;
+
+        justify-content: center;
+    }
+
+    .cpd-item-description {
+        font-size: 10px;
+    }
+
+    .cpd-comment-card {
+        padding: 12px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 400px) {
+
+    /* .cpd-page {
+        padding-left: 8px;
+        padding-right: 8px;
+    } */
+
+    .cpd-project-header-main {
+        align-items: flex-start;
+    }
+
+    .cpd-project-title {
+        font-size: 17px;
+    }
+
+    .cpd-summary-card {
+        padding: 12px;
+    }
+
+    .cpd-summary-icon {
+        width: 36px;
+        height: 36px;
+        flex-basis: 36px;
+    }
+
+    .cpd-section-title {
+        font-size: 16px;
+    }
+
+    .cpd-item-main {
+        gap: 9px;
+    }
+
+    .cpd-item-icon {
+        width: 31px;
+        height: 31px;
+        flex-basis: 31px;
+
+        font-size: 13px;
+    }
+
+    .cpd-item-title-row h4 {
+        font-size: 12px;
+    }
+
+}

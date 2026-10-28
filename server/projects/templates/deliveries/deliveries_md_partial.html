@@ -1,0 +1,28 @@
+{% if deliveries %}
+<!-- divider  -->
+{% include 'partials/deliveries_component_partial.html' %}
+<!-- divider  -->
+{% else %}
+<!-- ========================= EMPTY STATE ========================== -->
+<section class="deliveries_empty_section">
+    <div class="delivery_empty_icon">
+        <span class="material-symbols-outlined"> local_shipping </span>
+    </div>
+    <h5 class="delivery_empty_title">No deliveries today</h5>
+    <p class="delivery_empty_text">
+        No deliveries have been recorded for this project today.
+    </p>
+    <div class="delivery_empty_actions">
+        <a data-bs-toggle="offcanvas" href="#addProjectDeliveryOffvanvas" aria-controls="addProjectDeliveryOffvanvas">
+        <button type="button" class="btn deliveries_add_btn w-100">
+            <i class="bi bi-plus-lg"></i> Add Delivery
+        </button>
+        </a>
+        <a href="{% url 'projects:project-deliveries' project.uuid %}?next={{ request.get_full_path|urlencode }}">
+        <button type="button" class="btn deliveries_history_btn w-100">
+            View all deliveries <i class="bi bi-arrow-right"></i>
+        </button>
+        </a>
+    </div>
+</section>
+{% endif %}

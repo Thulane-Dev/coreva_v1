@@ -1,0 +1,475 @@
+<div id="response-container-{{ response.id }}">
+  {% if response.answer == 'fail' %}
+  <!-- ======== ADD ISSUE BUTTON ======== -->
+  {% if not response.inspection_response.exists %}
+  <button
+    type="button"
+    data-bs-toggle="modal"
+    data-bs-target="#addIssueModal{{ response.id }}"
+    class="btn add_issue_button w-100 d-flex align-items-center justify-content-center gap-2"
+  >
+    <i class="bi bi-plus-lg"></i>
+    Add Issue
+  </button>
+  {% else %}
+  <!-- ======== ISSUE ALREADY CREATED ======== -->
+  {% for issue in response.inspection_response.all %}
+  <a
+    data-bs-toggle="modal"
+    data-bs-target="#addIssueModal{{ response.id }}"
+    class="text-decoration-none"
+  >
+    <div class="issue_created_alert mt-4" role="alert">
+      <div class="issue_created_icon">
+        <i class="bi bi-check-lg"></i>
+      </div>
+
+      <div class="issue_created_content">
+        <div>
+          <h6 class="fw-bold mb-1">Issue Created</h6>
+
+          <p class="mb-0">
+            A corrective action has been created for this failed inspection.
+          </p>
+        </div>
+
+        <div class="issue_created_action">
+          <span class="d-none d-md-inline"> View Issue </span>
+
+          <i class="bi bi-chevron-right"></i>
+        </div>
+      </div>
+    </div>
+  </a>
+  {% endfor %}
+  <!-- divider  -->
+  {% endif%}
+  <!-- divider  -->
+  {% endif %}
+
+  <!-- ADD ISSUE MODAL  -->
+  <div
+    class="modal fade"
+    id="addIssueModal{{ response.id }}"
+    tabindex="-1"
+    aria-labelledby="addIssueModalLabel{{ response.id }}"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content add_issue_modal">
+        <!-- Header -->
+        <div class="modal-header add_issue_modal_header">
+          <div>
+            <div class="d-flex align-items-center gap-2 mb-1">
+              <div class="add_issue_modal_icon">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+              </div>
+
+              <h5 class="modal-title fw-bold mb-0">Add Issue</h5>
+            </div>
+
+            <p class="text-secondary mb-0 add_issue_modal_subtitle">
+              Create a corrective action for this failed inspection.
+            </p>
+          </div>
+
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+
+        <!-- Body -->
+        <div class="modal-body">
+          <!-- Failed Question -->
+          <div class="failed_question_box mb-4">
+            <div class="failed_question_label">
+              <i class="bi bi-x-circle-fill"></i>
+              Failed Inspection
+            </div>
+
+            <h6 class="fw-bold mb-0">{{ response.question.question }}</h6>
+          </div>
+
+          <form
+            hx-post="{% url 'inspections:add-issue' response.id %}"
+            hx-target="#response-{{ response.id }}"
+            hx-swap="outerHTML"
+            hx-push-url="false"
+            hx-on="htmx:afterRequest: closeOffcanvas()"
+          >
+            {% csrf_token %}
+
+            <!-- Description -->
+            <div class="mb-3">
+              <label
+                for="issue-description-{{ response.id }}"
+                class="form-label"
+              >
+                Description
+              </label>
+
+              <textarea
+                class="form-control add_issue_input"
+                id="issue-description-{{ response.id }}"
+                name="description"
+                rows="4"
+                placeholder="Describe the issue and what needs to be corrected..."
+                required
+              ></textarea>
+            </div>
+
+            <!-- Priority -->
+            <div class="mb-3">
+              <label for="issue-priority-{{ response.id }}" class="form-label">
+                Priority
+              </label>
+
+              <select
+                class="form-select add_issue_input"
+                id="issue-priority-{{ response.id }}"
+                name="priority"
+                required
+              >
+                <option value="" selected>Select priority</option>
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+              </select>
+            </div>
+
+            <!-- Assigned Team Member -->
+            <div class="mb-3">
+              <label for="issue-assigned-{{ response.id }}" class="form-label">
+                Assign To
+              </label>
+
+              <select
+                name="assigned_to_id"
+                id="issue-assigned-{{ response.id }}"
+                class="form-select add_issue_input"
+              >
+                <option value="None">Unassigned</option>
+
+                {% for user in team_members %}
+                <option value="{{ user.id }}">
+                  {{ user.first_name }} {{ user.last_name }}
+                </option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <!-- Due Date -->
+            <div class="mb-4">
+              <label for="issue-due-date-{{ response.id }}" class="form-label">
+                Due Date
+              </label>
+
+              <input
+                type="date"
+                class="form-control add_issue_input"
+                id="issue-due-date-{{ response.id }}"
+                name="due_date"
+                value="{{ today|date:'Y-m-d' }}"
+                required
+                onfocus="this.showPicker()"
+                onclick="this.showPicker()"
+              />
+            </div>
+
+            <!-- Submit -->
+            <button
+              type="submit"
+              onclick="closeCreateIssueModal('{{ response.id }}')"
+              class="btn btn-primary w-100 primary_button d-flex align-items-center justify-content-center gap-2 border-0"
+            >
+              <i class="bi bi-plus-lg"></i>
+              Create Issue
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NEW ISSUE CSS  -->
+<style>
+  /* =========================================
+   ADD ISSUE MODAL
+========================================= */
+
+  .add_issue_modal {
+    border: 0;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+  }
+
+  .add_issue_modal_header {
+    padding: 1.25rem 1.25rem 1rem;
+    border-bottom: 1px solid #eeeeee;
+    background: #ffffff;
+  }
+
+  .add_issue_modal_subtitle {
+    font-size: 13px;
+    margin-left: 38px;
+  }
+
+  .add_issue_modal_icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff4d6;
+    color: #b77900;
+  }
+
+  .add_issue_modal_icon i {
+    font-size: 15px;
+  }
+
+  /* =========================================
+   FAILED QUESTION
+========================================= */
+
+  .failed_question_box {
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: #fff8e8;
+    border: 1px solid #f5dfad;
+  }
+
+  .failed_question_label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 7px;
+    color: #a66b00;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+
+  .failed_question_label i {
+    font-size: 13px;
+  }
+
+  .failed_question_box h6 {
+    color: #343434;
+    line-height: 1.5;
+  }
+
+  /* =========================================
+   FORM INPUTS
+========================================= */
+
+  .add_issue_input {
+    min-height: 46px;
+    border-radius: 10px;
+    border: 1px solid #dcdcdc;
+    padding: 0.7rem 0.85rem;
+    font-size: 14px;
+    box-shadow: none;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  textarea.add_issue_input {
+    min-height: 105px;
+    resize: vertical;
+  }
+
+  .add_issue_input:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.08);
+  }
+
+  .add_issue_modal .form-label {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 7px;
+    color: #343434;
+  }
+
+  /* =========================================
+   MOBILE
+========================================= */
+
+  @media (max-width: 575.98px) {
+    .add_issue_modal {
+      margin: 10px;
+      border-radius: 14px;
+    }
+
+    .add_issue_modal_header {
+      padding: 1rem;
+    }
+
+    .add_issue_modal_subtitle {
+      margin-left: 0;
+      margin-top: 5px;
+    }
+
+    .add_issue_modal .modal-body {
+      padding: 1rem;
+    }
+  }
+</style>
+
+<style>
+  /* =========================================
+   FAILED INSPECTION - ADD ISSUE BUTTON
+========================================= */
+
+  .add_issue_button {
+    min-height: 42px;
+    padding: 0.55rem 1.1rem;
+    border: 1px solid #f0b429;
+    border-radius: 10px;
+    background: #fff8e1;
+    color: #9a6700;
+    font-size: 14px;
+    font-weight: 700;
+    transition: all 0.2s ease;
+  }
+
+  .add_issue_button i {
+    font-size: 15px;
+    transition: transform 0.2s ease;
+  }
+
+  .add_issue_button:hover {
+    background: #fff1c2;
+    border-color: #d99a00;
+    color: #7a5200;
+    transform: translateY(-1px);
+  }
+
+  .add_issue_button:hover i {
+    transform: rotate(90deg);
+  }
+
+  .add_issue_button:active {
+    transform: translateY(0);
+  }
+</style>
+
+<style>
+  /* =========================================
+   ISSUE CREATED ALERT
+========================================= */
+
+  .issue_created_alert {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: #eef9f1;
+    border: 1px solid #ccebd5;
+    color: #246b3a;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .issue_created_alert:hover {
+    background: #e6f6ea;
+    border-color: #b8e1c4;
+    transform: translateY(-1px);
+  }
+
+  .issue_created_icon {
+    flex: 0 0 auto;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #d7f1de;
+    color: #278044;
+  }
+
+  .issue_created_icon i {
+    font-size: 17px;
+    font-weight: bold;
+  }
+
+  .issue_created_content {
+    min-width: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+  }
+
+  .issue_created_content h6 {
+    color: #245c36;
+    font-size: 14px;
+  }
+
+  .issue_created_content p {
+    color: #5d8068;
+    font-size: 12px;
+  }
+
+  .issue_created_action {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #278044;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .issue_created_action i {
+    font-size: 16px;
+    transition: transform 0.2s ease;
+  }
+
+  .issue_created_alert:hover .issue_created_action i {
+    transform: translateX(3px);
+  }
+
+  /* Mobile */
+  @media (max-width: 575.98px) {
+    .issue_created_alert {
+      padding: 11px 12px;
+    }
+
+    .issue_created_content p {
+      display: none;
+    }
+
+    .issue_created_action i {
+      font-size: 18px;
+    }
+  }
+</style>
+
+<script>
+  function closeCreateIssueModal(responseId) {
+    const modalElement = document.getElementById(`addIssueModal${responseId}`);
+
+    if (!modalElement) {
+      console.log("Modal not found");
+      return;
+    }
+
+    const modal = bootstrap.Modal.getInstance(modalElement);
+
+    if (modal) {
+      modal.hide();
+    }
+  }
+</script>

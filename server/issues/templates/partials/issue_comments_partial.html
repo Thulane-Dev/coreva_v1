@@ -1,0 +1,222 @@
+{% if message %}
+<div
+  id="delivery-success-alert"
+  class="delivery-success-alert mb-4"
+  role="alert"
+>
+  <div class="delivery-success-icon">
+    <i class="bi bi-check-lg"></i>
+  </div>
+
+  <div class="delivery-success-content">
+    <div class="delivery-success-title">Success</div>
+    <div class="delivery-success-message">{{ message }}</div>
+  </div>
+</div>
+{% endif %}
+
+<!-- divider  -->
+
+{% if comments %}
+<div class="issue_comments_list">
+  {% for comment in comments %}
+  <div
+    class="issue_comment {% if comment.is_read == False %} alert_card {% endif %}"
+  >
+    <div class="issue_comment_avatar">
+      {% if comment.comment_by %}
+      <!-- divider  -->
+      {{ comment.comment_by.first_name|first|upper }}
+      <!-- divider  -->
+      {% else %} ?
+      <!-- divider  -->
+      {% endif %}
+    </div>
+    <div class="issue_comment_body">
+      <div class="issue_comment_header">
+        <strong>
+          {% if comment.comment_by %}
+          <!-- divider  -->
+          {{comment.comment_by.first_name }}
+          <!-- divider   -->
+          {{comment.comment_by.last_name }}
+          <!-- divider  -->
+          {% else %} Unknown User {%endif %}
+        </strong>
+        <span style="font-weight: 600 !important;">
+          {{ comment.created_at|date:"d M Y, H:i" }} 
+          <!-- divider  -->
+        </span>
+        {% if comment.is_read == False %}
+        ·
+        <span>
+          <i class="bi bi-bell-fill text-danger"></i>
+        </span>
+        {% endif %}
+      </div>
+      {% if comment.is_read == False %}
+      <form
+        hx-post="{% url 'issues:mark-issue-read' issue.uuid %}"
+        hx-target="#issueComments"
+        hx-swap="innerHTML"
+        hx-push-url="false"
+      >
+        {% csrf_token %}
+        <input
+          type="text"
+          value="{{comment.uuid}}"
+          name="comment_uuid"
+          hidden
+        />
+        <p>
+          {{ comment.comment|linebreaksbr }}
+          <button
+            class="p-0 m-0 border-0"
+            style="background-color: transparent !important"
+            type="submit"
+          >
+            <span
+              class="text-primary"
+              style="font-weight: 500; margin-left: 4px"
+              >Mark as read
+            </span>
+          </button>
+        </p>
+      </form>
+      {% else %}
+      <p>{{ comment.comment|linebreaksbr }}</p>
+      {% endif %}
+
+      <!-- Attachments  -->
+      <div class="row">
+        {% for attachment in comment.comment_attachments.all %}
+        <!-- divider  -->
+         {% if attachment.photo %}
+        <div class="col-4 col-md-2">
+          <div class="comment_attachments">
+            <button
+              type="button"
+              class="comment_attachment_image border"
+              data-bs-toggle="modal"
+              data-bs-target="#commentImageModal{{attachment.uuid}}"
+              data-image-url="{{ attachment.photo.url }}"
+              data-image-caption="{{ attachment.caption }}"
+            >
+              <img
+                src="{{ attachment.photo.url }}"
+                alt="{{ attachment.caption|default:'Comment photo' }}"
+              />
+
+              <span class="comment_attachment_zoom">
+                <i class="bi bi-arrows-fullscreen"></i>
+              </span>
+            </button>
+            <!-- PREVIEW ATTACHMENT MODAL  -->
+            <div
+              class="modal fade"
+              id="commentImageModal{{attachment.uuid}}"
+              tabindex="-1"
+              aria-hidden="true"
+            >
+              <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-content comment_image_modal">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="commentImageModalCaption">
+                      Comment photo
+                    </h5>
+
+                    <button
+                      type="button"
+                      class="btn-close"
+                      data-bs-dismiss="modal"
+                      aria-label="Close"
+                    ></button>
+                  </div>
+
+                  <div class="modal-body">
+                    <img
+                      id="commentImageModalImage"
+                      src="{{ attachment.photo.url }}"
+                      alt=""
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        <!-- divider  -->
+        {% if attachment.file %}
+        <div class="col-12 col-md-5">
+          <div class="comment_attachments">
+          <a
+              href="{{ attachment.file.url }}"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="comment_attachment_file"
+            >
+              <div class="comment_attachment_file_icon">
+                {% if attachment.file.name|lower|slice:"-4:" == ".pdf" %}
+                <i class="bi bi-file-earmark-pdf"></i>
+                {% elif attachment.file.name|lower|slice:"-5:" == ".xlsx" %}
+                <i class="bi bi-file-earmark-spreadsheet"></i>
+                {% elif attachment.file.name|lower|slice:"-5:" == ".docx" %}
+                <i class="bi bi-file-earmark-word"></i>
+                {% else %}
+                <i class="bi bi-file-earmark-text"></i>
+                {% endif %}
+              </div>
+
+              <div class="comment_attachment_file_info">
+                <strong>
+                  {{ attachment.file.name|cut:"media/project_files/" }}
+                </strong>
+
+                {% if attachment.caption %}
+                <span>{{ attachment.caption }}</span>
+                {% else %}
+                <span>Open attachment</span>
+                {% endif %}
+              </div>
+
+              <i class="bi bi-box-arrow-up-right comment_attachment_open"></i>
+          </a>
+          </div>
+        </div>
+         {% endif %}
+         <!-- divider  -->
+        {% endfor %}
+      </div>
+      <!-- Attachments End -->
+    </div>
+  </div>
+  <hr class="my-2">
+  {% endfor %}
+  
+</div>
+{% else %}
+<div class="issue_comments_empty">
+  <div class="issue_comments_empty_icon">
+    <i class="bi bi-chat-left-text"></i>
+  </div>
+  <strong> No comments yet </strong>
+  <span> Add a comment to keep the team updated. </span>
+</div>
+{% endif %}
+
+<script>
+  setTimeout(function () {
+    const alert = document.getElementById("delivery-success-alert");
+
+    if (alert) {
+      alert.style.transition = "opacity 0.5s ease";
+      alert.style.opacity = "0";
+
+      setTimeout(function () {
+        alert.remove();
+      }, 500);
+    }
+  }, 3000);
+</script>
+

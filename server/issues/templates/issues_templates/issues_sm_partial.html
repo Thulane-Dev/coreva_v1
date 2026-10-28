@@ -1,0 +1,22 @@
+<a
+    id="IssuesSectionSM"
+    href="{% url 'issues:project-issues' project.uuid %}?next={{ request.get_full_path|urlencode }}&section=workspace"
+    class="d-block d-md-none"
+    hx-swap-oob="outerHTML"
+>
+    <div class="coreva-action-block">
+        <div class="coreva-action-icon coreva-icon-red">
+            <i class="bi bi-flag"></i>
+        </div>
+
+        <div class="coreva-action-content">
+            <span class="coreva-action-title">Issues</span>
+            <span class="coreva-action-subtitle">Open issues</span>
+        </div>
+        {% if project_data.open_issues %}
+        <span class="coreva-action-badge coreva-action-badge-red">
+            {{ project_data.open_issues_count }}
+        </span>
+        {% endif %}
+    </div>
+</a>

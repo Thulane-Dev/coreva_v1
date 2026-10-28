@@ -1,0 +1,159 @@
+{% load static %}
+
+<section
+  class="fixed-bottom bottom_navbar d-flex justify-content-around d-block d-lg-none"
+>
+  <a href="#">
+    <div
+      class="nav-item {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}"
+    >
+      <center>
+        <i class="bi bi-house bottom_nav_icon"></i>
+        <p class="navbar_p mb-0">Today</p>
+      </center>
+    </div>
+  </a>
+
+  <!-- Projects  -->
+  <a href="#">
+    <div
+      class="nav-item {% if request.resolver_match.namespace == 'projects' %}active{% endif %}"
+    >
+      <center>
+        <i class="bi bi-buildings bottom_nav_icon"></i>
+        <p class="navbar_p mb-0">Projects</p>
+      </center>
+    </div>
+  </a>
+
+  <!-- Contractors  -->
+  <a href="#">
+    <div
+      class="nav-item {% if request.resolver_match.namespace == 'contractors' %}active{% endif %}"
+    >
+      <center>
+        <i class="bi bi-person bottom_nav_icon smaller_icons"></i>
+        <p class="navbar_p mb-0">Contractors</p>
+      </center>
+    </div>
+  </a>
+
+  <!-- Workers  -->
+  <a href="#">
+    <div
+      class="nav-item {% if request.resolver_match.namespace == 'workers' %}active{% endif %}"
+    >
+      <center>
+        <i class="bi bi-people bottom_nav_icon smaller_icons"></i>
+        <p class="navbar_p mb-0">Workers</p>
+      </center>
+    </div>
+  </a>
+
+  <a
+    data-bs-toggle="offcanvas"
+    href="#bottomNavbarNavigation"
+    role="button"
+    aria-controls="bottomNavbarNavigation"
+  >
+    <div class="nav-item">
+      <center>
+        <i class="bi bi-list bottom_nav_icon smaller_icons"></i>
+        <p class="navbar_p mb-0">More</p>
+      </center>
+    </div>
+  </a>
+</section>
+
+<!-- Bottom Navbar Menu  -->
+<div
+  class="offcanvas offcanvas-start"
+  tabindex="-1"
+  id="bottomNavbarNavigation"
+  aria-labelledby="bottomNavbarNavigationLabel"
+>
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="bottomNavbarNavigationLabel"></h5>
+    <button
+      type="button"
+      class="btn-close text-reset"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="offcanvas-body">
+    <center>
+      <p class="mb-5 page_sub_grey">Compliance Made Simple.</p>
+    </center>
+
+    <div
+      class="d-flex align-items-center d-flex align-items-center gap-3 bottom_nav_menu_links px-2"
+    >
+      <i class="bi bi-building-check"></i>
+      <div
+        class="d-flex justify-content-between d-flex align-items-center w-100"
+      >
+        <p class="mb-0" style="font-weight: 500">Subcontractor Portal</p>
+        <i class="bi bi-chevron-right"></i>
+      </div>
+    </div>
+    <hr class="my-4 divider_line_bg" />
+    <!-- end link  -->
+    <div
+      class="d-flex align-items-center d-flex align-items-center gap-3 bottom_nav_menu_links px-2"
+    >
+      <i class="bi bi-shield-check"></i>
+      <div
+        class="d-flex justify-content-between d-flex align-items-center w-100"
+      >
+        <p class="mb-0" style="font-weight: 500">Reports</p>
+        <i class="bi bi-chevron-right"></i>
+      </div>
+    </div>
+    <hr class="my-4 divider_line_bg" />
+    <!-- end link  -->
+    <div
+      class="d-flex align-items-center d-flex align-items-center gap-3 bottom_nav_menu_links px-2"
+    >
+      <i class="bi bi-shield-check"></i>
+      <div
+        class="d-flex justify-content-between d-flex align-items-center w-100"
+      >
+        <p class="mb-0" style="font-weight: 500">My Company Compliance</p>
+        <i class="bi bi-chevron-right"></i>
+      </div>
+    </div>
+    <hr class="my-4 divider_line_bg" />
+    <!-- Settings -->
+    <a href="#">
+      <div
+        class="d-flex align-items-center d-flex align-items-center gap-3 bottom_nav_menu_links px-2"
+      >
+        <i class="bi bi-gear"></i>
+        <div
+          class="d-flex justify-content-between d-flex align-items-center w-100"
+        >
+          <p class="mb-0" style="font-weight: 500">Settings</p>
+          <i class="bi bi-chevron-right"></i>
+        </div>
+      </div>
+    </a>
+    <hr class="my-4 divider_line_bg" />
+    <!-- Logout  -->
+    <a href="#">
+      <div
+        class="d-flex align-items-center d-flex align-items-center gap-3 bottom_nav_menu_links px-2"
+      >
+        <i class="bi bi-box-arrow-right"></i>
+        <div
+          class="d-flex justify-content-between d-flex align-items-center w-100"
+        >
+          <p class="mb-0" style="font-weight: 500">Logout</p>
+          <i class="bi bi-chevron-right"></i>
+        </div>
+      </div>
+    </a>
+    <hr class="my-4 divider_line_bg" />
+    <!-- end link  -->
+  </div>
+</div>

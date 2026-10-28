@@ -1,0 +1,162 @@
+/* ========================================================= ADD SUBCONTRACTOR PAGE ========================================================== */
+.contractor_form_page {
+  padding-bottom: 40px;
+}
+.contractor_form_header {
+  text-align: center;
+  margin-bottom: 10px;
+}
+.contractor_form_header p {
+  max-width: 620px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+} /* Header icon */
+.contractor_page_icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  background: rgba(13, 110, 253, 0.08);
+  color: #0d6efd;
+}
+.contractor_page_icon span {
+  font-size: 30px;
+} /* Main cards */
+.contractor_form_card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+}
+.contractor_form_section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+.contractor_form_number {
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+  border-radius: 10px;
+  background: #eef4ff;
+  color: #0d6efd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.contractor_form_section_title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #202124;
+} /* Labels */
+.contractor_form_page .form-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #343a40;
+  margin-bottom: 7px;
+} /* Inputs */
+.contractor_form_page .grey_input {
+  min-height: 48px;
+  border: 1px solid #d9dde3;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  font-size: 14px;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+.contractor_form_page .grey_input:focus {
+  background-color: #ffffff;
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
+}
+.contractor_form_page .grey_input::placeholder {
+  color: #adb5bd;
+} /* Project access info */
+.contractor_access_box {
+  border: 1px solid #e1e5ea;
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 16px;
+}
+.contractor_access_icon {
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  color: #0d6efd;
+  border: 1px solid #e1e5ea;
+}
+.contractor_access_box p {
+  line-height: 1.5;
+} /* Buttons */
+.contractor_form_page .primary_button,
+.contractor_form_page .secondary_outline_btn {
+  min-height: 48px;
+  border-radius: 10px;
+  font-weight: 600;
+} /* Mobile bottom navigation */
+.contractor_mobile_actions {
+  background: rgba(255, 255, 255, 0.97);
+  border-top: 1px solid #e5e7eb;
+  box-shadow: 0 -4px 18px rgba(0, 0, 0, 0.06);
+  backdrop-filter: blur(8px);
+} /* ========================================================= MOBILE ========================================================== */
+@media (max-width: 767.98px) {
+  .contractor_form_page {
+    padding-bottom: 110px;
+  }
+  .contractor_form_card {
+    padding: 18px;
+    border-radius: 15px;
+  }
+  .contractor_form_header {
+    padding: 0 10px;
+  }
+  .contractor_form_header h5 {
+    font-size: 18px;
+  }
+  .contractor_form_header p {
+    font-size: 14px;
+  }
+  .contractor_page_icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+  }
+  .contractor_page_icon span {
+    font-size: 27px;
+  }
+  .contractor_form_section {
+    margin-bottom: 20px;
+  }
+  .contractor_form_page .grey_input {
+    min-height: 46px;
+  }
+  .contractor_form_page .form-label {
+    font-size: 13px;
+  }
+  .contractor_access_box {
+    padding: 14px;
+  }
+  .contractor_mobile_actions {
+    padding-top: 12px !important;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom)) !important;
+  }
+  .contractor_mobile_actions button {
+    min-height: 46px;
+    font-size: 14px;
+  }
+}

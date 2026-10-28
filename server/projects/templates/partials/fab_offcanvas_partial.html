@@ -1,0 +1,314 @@
+<!-- =========================================
+     COREVA PROJECT ACTION SHEET
+========================================= -->
+
+<div
+    class="offcanvas offcanvas-bottom cv-project-actions"
+    tabindex="-1"
+    id="offcanvasExample"
+    aria-labelledby="cvProjectActionsLabel"
+>
+
+    <!-- Handle -->
+    <div class="cv-project-actions-handle"></div>
+
+
+    <!-- Header -->
+    <div class="cv-project-actions-header">
+
+        <div class="cv-project-actions-heading">
+            <span class="cv-project-actions-eyebrow">
+                PROJECT ACTIONS
+            </span>
+
+            <h5
+                class="cv-project-actions-title"
+                id="cvProjectActionsLabel"
+            >
+                What do you want to do?
+            </h5>
+        </div>
+
+        <button
+            type="button"
+            class="cv-project-actions-close"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+        >
+            <i class="bi bi-x-lg"></i>
+        </button>
+
+    </div>
+
+
+    <!-- Body -->
+    <div class="cv-project-actions-body">
+
+
+        <!-- =================================
+             DAILY WORK
+        ================================== -->
+
+        <div class="cv-project-actions-section">
+
+            <div class="cv-project-actions-section-title">
+                Daily Work
+            </div>
+
+
+            <!-- Inspection -->
+            <a
+                href="{% url 'inspections:checklist' project.uuid %}?next={{ request.get_full_path|urlencode }}&section=workspace"
+                class="cv-project-action"
+                onclick="closeOffcanvas()"
+            >
+                <div class="cv-project-action-icon cv-project-action-icon-blue">
+                    <span class="material-symbols-outlined">
+                        fact_check
+                    </span>
+                </div>
+
+                <div class="cv-project-action-content">
+                    <strong>{{ project_data.inspection_btn }}</strong>
+                    <span>Complete today's site inspection</span>
+                </div>
+
+                <i class="bi bi-chevron-right cv-project-action-arrow"></i>
+            </a>
+
+
+            <!-- Daily Report -->
+            <a
+                href="{% url 'report:create-report' project.uuid %}?next={{ request.get_full_path|urlencode }}&section=workspace"
+                class="cv-project-action"
+                onclick="closeOffcanvas()"
+            >
+                <div class="cv-project-action-icon cv-project-action-icon-purple">
+                    <span class="material-symbols-outlined">
+                        description
+                    </span>
+                </div>
+
+                <div class="cv-project-action-content">
+
+                    {% if project_data.report %}
+
+                        {% if project_data.report.status == 'submitted' %}
+                            <strong>View Report</strong>
+                            <span>Review today's submitted report</span>
+                        {% else %}
+                            <strong>Continue Report</strong>
+                            <span>Continue today's daily report</span>
+                        {% endif %}
+
+                    {% else %}
+
+                        <strong>Create Daily Report</strong>
+                        <span>Record today's site activity</span>
+
+                    {% endif %}
+
+                </div>
+
+                <i class="bi bi-chevron-right cv-project-action-arrow"></i>
+            </a>
+
+
+            <!-- Add Issue -->
+            <a
+                data-bs-toggle="offcanvas" href="#addIssueOffcanvas" aria-controls="addIssueOffcanvas"
+                class="cv-project-action"
+                onclick="closeOffcanvas()"
+            >
+                <div class="cv-project-action-icon cv-project-action-icon-red">
+                    <span class="material-symbols-outlined">
+                        warning
+                    </span>
+                </div>
+
+                <div class="cv-project-action-content">
+                    <strong>Add Issue</strong>
+                    <span>Log a site issue or corrective action</span>
+                </div>
+
+                <i class="bi bi-chevron-right cv-project-action-arrow"></i>
+            </a>
+
+
+            <!-- Add Task -->
+            <a
+                data-bs-toggle="offcanvas" href="#addTasksOffcanvas" aria-controls="addTasksOffcanvas"
+                class="cv-project-action"
+                onclick="closeOffcanvas()"
+            >
+                <div class="cv-project-action-icon cv-project-action-icon-green">
+                    <span class="material-symbols-outlined">
+                        task_alt
+                    </span>
+                </div>
+
+                <div class="cv-project-action-content">
+                    <strong>Add Task</strong>
+                    <span>Create a task for the project</span>
+                </div>
+
+                <i class="bi bi-chevron-right cv-project-action-arrow"></i>
+            </a>
+
+
+            <!-- Add Incident -->
+            <a
+                data-bs-toggle="offcanvas" href="#addIncidentOffcanvas" aria-controls="addIncidentOffcanvas"
+                class="cv-project-action"
+                onclick="closeOffcanvas()"
+            >
+                <div class="cv-project-action-icon cv-project-action-icon-orange">
+                    <span class="material-symbols-outlined">
+                        emergency
+                    </span>
+                </div>
+
+                <div class="cv-project-action-content">
+                    <strong>Add Incident</strong>
+                    <span>Record a site incident</span>
+                </div>
+
+                <i class="bi bi-chevron-right cv-project-action-arrow"></i>
+            </a>
+
+
+            <!-- Add Delivery -->
+            <a
+                data-bs-toggle="offcanvas" href="#addProjectDeliveryOffvanvas" aria-controls="addProjectDeliveryOffvanvas"
+                class="cv-project-action"
+                onclick="closeOffcanvas()"
+            >
+                <div class="cv-project-action-icon cv-project-action-icon-teal">
+                    <span class="material-symbols-outlined">
+                        local_shipping
+                    </span>
+                </div>
+
+                <div class="cv-project-action-content">
+                    <strong>Add Delivery</strong>
+                    <span>Record a delivery to site</span>
+                </div>
+
+                <i class="bi bi-chevron-right cv-project-action-arrow"></i>
+            </a>
+
+
+            <!-- Add Photos -->
+            <a
+                data-bs-toggle="offcanvas" href="#addProjectAttachmentsOffcanvas" aria-controls="addProjectAttachmentsOffcanvas"
+                class="cv-project-action"
+                onclick="closeOffcanvas()"
+            >
+                <div class="cv-project-action-icon cv-project-action-icon-indigo">
+                    <span class="material-symbols-outlined">
+                        photo_camera
+                    </span>
+                </div>
+
+                <div class="cv-project-action-content">
+                    <strong>Add Photos</strong>
+                    <span>Capture and attach site photos</span>
+                </div>
+
+                <i class="bi bi-chevron-right cv-project-action-arrow"></i>
+            </a>
+
+        </div>
+
+
+        <!-- =================================
+             PROJECT & PEOPLE
+        ================================== -->
+
+        <div class="cv-project-actions-section">
+
+            <div class="cv-project-actions-section-title">
+                Project & People
+            </div>
+
+
+            <!-- Team -->
+            <a
+                href="{% url 'team:project-team' project.uuid %}?next={{ request.get_full_path|urlencode }}"
+                class="cv-project-action"
+                onclick="closeOffcanvas()"
+            >
+                <div class="cv-project-action-icon cv-project-action-icon-blue">
+                    <span class="material-symbols-outlined">
+                        group
+                    </span>
+                </div>
+
+                <div class="cv-project-action-content">
+                    <strong>Team Members</strong>
+                    <span>View people assigned to this project</span>
+                </div>
+
+                <i class="bi bi-chevron-right cv-project-action-arrow"></i>
+            </a>
+
+
+            <!-- Subcontractors -->
+            <a
+                href="{% url 'contractors:project-contractors' project.uuid %}?next={{ request.get_full_path|urlencode }}"
+                class="cv-project-action"
+                onclick="closeOffcanvas()"
+            >
+                <div class="cv-project-action-icon cv-project-action-icon-purple">
+                    <span class="material-symbols-outlined">
+                        groups_2
+                    </span>
+                </div>
+
+                <div class="cv-project-action-content">
+                    <strong>Subcontractors</strong>
+                    <span>Manage contractors working on this project</span>
+                </div>
+
+                <i class="bi bi-chevron-right cv-project-action-arrow"></i>
+            </a>
+
+        </div>
+
+
+        <!-- =================================
+             PROJECT SETTINGS
+        ================================== -->
+
+        <div class="cv-project-actions-section cv-project-actions-section-last">
+
+            <div class="cv-project-actions-section-title">
+                Project
+            </div>
+
+
+            <!-- Project Settings -->
+            <a
+                href="{% url 'projects:project-activity' project.uuid %}?next={{ request.get_full_path|urlencode }}"
+                class="cv-project-action"
+                onclick="closeOffcanvas()"
+            >
+                <div class="cv-project-action-icon cv-project-action-icon-slate">
+                    <span class="material-symbols-outlined">
+                        settings
+                    </span>
+                </div>
+
+                <div class="cv-project-action-content">
+                    <strong>Project Settings</strong>
+                    <span>Manage project details and preferences</span>
+                </div>
+
+                <i class="bi bi-chevron-right cv-project-action-arrow"></i>
+            </a>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,109 @@
+{% load static %}
+
+<!-- =====================================================
+     INSPECTION EDITOR
+====================================================== -->
+
+<div class="row d-flex justify-content-center pt-0 mt-0">
+    <div class="col-12 col-lg-8">
+        <div class="insp-editor pt-0 mt-0">
+
+            <!-- =========================================================
+            COREVA MOBILE TOP NAVBAR AND LARGE SCREEN BACK BUTTON
+            ========================================================= -->
+            {% include 'partials/page_topbar.html' with next_url=next_url brand_name='Customize inspection templates' brand_url='#' %}
+
+
+            <!-- Header -->
+            <div class="insp-editor-header">
+
+                <div class="insp-editor-heading">
+                    <div class="insp-editor-icon">
+                        <i class="bi bi-ui-checks-grid"></i>
+                    </div>
+
+                    <div>
+                        <h1>Inspection Checklist</h1>
+                        <p>
+                            Manage inspection categories and checklist questions.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="insp-editor-summary">
+                    <div class="insp-summary-item">
+                        <strong>{{ inspection_categories|length }}</strong>
+                        <span>Categories</span>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- Categories -->
+            <div class="insp-category-list" id="inspectionCategories">
+                {% include 'edit_inspections/inspections_categories_partial.html' %}
+            </div>
+
+            <!-- Add Category -->
+            <div class="insp-add-category mt-4">
+
+                <div class="insp-add-category-main">
+
+                    <div class="insp-add-category-icon">
+                        <i class="bi bi-folder-plus"></i>
+                    </div>
+
+                    <div class="insp-add-category-content">
+                        <h3>Add inspection category</h3>
+
+                        <p>
+                            Create a new category for your inspection checklist.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <form
+                    hx-post="{% url 'inspections:save-category' project.uuid %}"
+                    hx-target="#inspectionCategories"
+                    hx-swap="innerHTML"
+                    hx-push-url="false"
+                    hx-on::after-request="if(event.detail.successful) this.querySelector('input[name=category]').value = ''"
+                    class="insp-add-category-form"
+                >
+                    {% csrf_token %}
+
+                    <div class="insp-category-field">
+
+                        <label for="inspectionCategoryName">
+                            Category name
+                        </label>
+
+                        <input
+                            type="text"
+                            name="category"
+                            id="inspectionCategoryName"
+                            class="insp-category-input"
+                            placeholder="e.g. Site Security"
+                            required
+                        >
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="insp-add-category-btn"
+                    >
+                        <i class="bi bi-plus-lg"></i>
+                        Add category
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
+</div>

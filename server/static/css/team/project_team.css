@@ -1,0 +1,892 @@
+/* =========================================================
+   PROJECT TEAM MEMBERS PAGE
+   ========================================================= */
+
+.project-team-page {
+    width: 100%;
+    /* max-width: 1400px; */
+    margin: 0 auto;
+    /* padding: 24px; */
+    color: #172a46;
+}
+
+
+/* =========================================================
+   TOP BAR
+   ========================================================= */
+
+.ptm-topbar {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.ptm-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    margin-bottom: 14px;
+
+    color: #64748b;
+    text-decoration: none;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    transition: color 0.2s ease;
+}
+
+.ptm-back-link:hover {
+    color: #2563eb;
+}
+
+.ptm-back-link .material-symbols-outlined {
+    font-size: 18px;
+}
+
+
+.ptm-heading {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.ptm-heading-icon {
+    width: 46px;
+    height: 46px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.ptm-heading-icon .material-symbols-outlined {
+    font-size: 25px;
+}
+
+.ptm-heading h1 {
+    margin: 0;
+
+    color: #172a46;
+
+    font-size: 26px;
+    font-weight: 750;
+    letter-spacing: -0.4px;
+}
+
+.ptm-heading p {
+    margin: 3px 0 0;
+
+    color: #64748b;
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
+.ptm-primary-btn {
+    min-height: 42px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 0 16px;
+
+    border-radius: 9px;
+    border: 1px solid #172a46;
+
+    background: #172a46;
+    color: #ffffff;
+
+    text-decoration: none;
+
+    font-size: 13px;
+    font-weight: 650;
+
+    transition:
+        background 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.ptm-primary-btn:hover {
+    background: #0f1f36;
+    color: #ffffff;
+
+    box-shadow: 0 5px 14px rgba(23, 42, 70, 0.16);
+}
+
+.ptm-primary-btn .material-symbols-outlined {
+    font-size: 19px;
+}
+
+
+/* =========================================================
+   SUMMARY
+   ========================================================= */
+
+.ptm-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+
+    margin-bottom: 22px;
+}
+
+.ptm-summary-card {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+
+    padding: 17px 18px;
+
+    background: #ffffff;
+    border: 1px solid #e5eaf0;
+    border-radius: 13px;
+}
+
+.ptm-summary-icon {
+    width: 42px;
+    height: 42px;
+
+    flex: 0 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+}
+
+.ptm-summary-icon .material-symbols-outlined {
+    font-size: 21px;
+}
+
+.ptm-summary-icon.blue {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.ptm-summary-icon.purple {
+    background: #f5f3ff;
+    color: #7c3aed;
+}
+
+.ptm-summary-icon.green {
+    background: #ecfdf5;
+    color: #059669;
+}
+
+.ptm-summary-label {
+    display: block;
+
+    margin-bottom: 2px;
+
+    color: #64748b;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.ptm-summary-card strong {
+    color: #172a46;
+    font-size: 22px;
+    font-weight: 750;
+}
+
+
+/* =========================================================
+   CONTENT CARD
+   ========================================================= */
+
+.ptm-content-card {
+    overflow: hidden;
+
+    background: #ffffff;
+    border: 1px solid #e5eaf0;
+    border-radius: 15px;
+}
+
+
+/* =========================================================
+   TOOLBAR
+   ========================================================= */
+
+.ptm-toolbar {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 25px;
+
+    padding: 21px 22px;
+
+    border-bottom: 1px solid #e8edf3;
+}
+
+.ptm-toolbar-title h2 {
+    margin: 0 0 4px;
+
+    color: #172a46;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.ptm-toolbar-title p {
+    margin: 0;
+
+    color: #64748b;
+    font-size: 12px;
+}
+
+.ptm-filters {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+
+/* =========================================================
+   SEARCH
+   ========================================================= */
+
+.ptm-search {
+    position: relative;
+}
+
+.ptm-search .material-symbols-outlined {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+
+    transform: translateY(-50%);
+
+    color: #94a3b8;
+    font-size: 19px;
+}
+
+.ptm-search input {
+    width: 230px;
+    height: 40px;
+
+    padding: 0 12px 0 38px;
+
+    border: 1px solid #dce3ea;
+    border-radius: 9px;
+
+    outline: none;
+
+    color: #172a46;
+    background: #ffffff;
+
+    font-size: 13px;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.ptm-search input::placeholder {
+    color: #94a3b8;
+}
+
+.ptm-search input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+}
+
+
+/* =========================================================
+   ROLE FILTER
+   ========================================================= */
+
+.ptm-role-filter {
+    height: 40px;
+
+    padding: 0 32px 0 11px;
+
+    border: 1px solid #dce3ea;
+    border-radius: 9px;
+
+    color: #475569;
+    background: #ffffff;
+
+    font-size: 13px;
+    outline: none;
+
+    cursor: pointer;
+}
+
+.ptm-role-filter:focus {
+    border-color: #2563eb;
+}
+
+.ptm-clear-filter {
+    display: inline-flex;
+    align-items: center;
+
+    height: 40px;
+
+    padding: 0 10px;
+
+    color: #64748b;
+    text-decoration: none;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.ptm-clear-filter:hover {
+    color: #2563eb;
+}
+
+
+/* =========================================================
+   MEMBER LIST
+   ========================================================= */
+
+.ptm-member-list {
+    width: 100%;
+}
+
+
+/* =========================================================
+   MEMBER ROW
+   ========================================================= */
+
+.ptm-member {
+    display: grid;
+
+    grid-template-columns:
+        minmax(260px, 1.7fr)
+        minmax(220px, 1.3fr)
+        100px
+        90px
+        45px;
+
+    align-items: center;
+
+    gap: 18px;
+
+    padding: 17px 22px;
+
+    border-bottom: 1px solid #edf1f5;
+
+    transition: background 0.2s ease;
+}
+
+.ptm-member:last-child {
+    border-bottom: 0;
+}
+
+.ptm-member:hover {
+    background: #fafcff;
+}
+
+
+/* =========================================================
+   PERSON
+   ========================================================= */
+
+.ptm-person {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    min-width: 0;
+}
+
+.ptm-avatar {
+    width: 42px;
+    height: 42px;
+
+    flex: 0 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #eff6ff;
+    color: #2563eb;
+
+    font-size: 15px;
+    font-weight: 750;
+}
+
+.ptm-person-info {
+    min-width: 0;
+}
+
+.ptm-name-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    min-width: 0;
+}
+
+.ptm-name {
+    overflow: hidden;
+
+    color: #172a46;
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.ptm-name:hover {
+    color: #2563eb;
+}
+
+.ptm-job-title {
+    margin-top: 3px;
+
+    overflow: hidden;
+
+    color: #64748b;
+
+    font-size: 12px;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   ROLE BADGES
+   ========================================================= */
+
+.ptm-role-badge {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 3px 7px;
+
+    border-radius: 5px;
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.ptm-role-badge.admin {
+    background: #f5f3ff;
+    color: #7c3aed;
+}
+
+.ptm-role-badge.user {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+
+/* =========================================================
+   CONTACT
+   ========================================================= */
+
+.ptm-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    min-width: 0;
+}
+
+.ptm-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    min-width: 0;
+
+    color: #64748b;
+    font-size: 12px;
+}
+
+.ptm-contact-item .material-symbols-outlined {
+    flex: 0 0 auto;
+    font-size: 16px;
+    color: #94a3b8;
+}
+
+.ptm-contact-item span:last-child {
+    overflow: hidden;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+/* =========================================================
+   ADDED
+   ========================================================= */
+
+.ptm-added {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.ptm-meta-label {
+    color: #94a3b8;
+
+    font-size: 10px;
+    font-weight: 650;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.ptm-meta-value {
+    color: #475569;
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   STATUS
+   ========================================================= */
+
+.ptm-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+
+    font-size: 11px;
+    font-weight: 650;
+}
+
+.ptm-status-badge > span {
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+}
+
+.ptm-status-badge.active {
+    color: #059669;
+}
+
+.ptm-status-badge.active > span {
+    background: #10b981;
+}
+
+.ptm-status-badge.inactive {
+    color: #64748b;
+}
+
+.ptm-status-badge.inactive > span {
+    background: #94a3b8;
+}
+
+
+/* =========================================================
+   ACTION
+   ========================================================= */
+
+.ptm-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.ptm-action-btn {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #e1e7ee;
+    border-radius: 8px;
+
+    background: #ffffff;
+    color: #64748b;
+
+    text-decoration: none;
+
+    transition:
+        color 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+.ptm-action-btn:hover {
+    border-color: #bfdbfe;
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.ptm-action-btn .material-symbols-outlined {
+    font-size: 18px;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+   ========================================================= */
+
+.ptm-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 340px;
+
+    padding: 50px 25px;
+
+    text-align: center;
+}
+
+.ptm-empty-icon {
+    width: 58px;
+    height: 58px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 16px;
+
+    border-radius: 15px;
+
+    background: #f1f5f9;
+    color: #64748b;
+}
+
+.ptm-empty-icon .material-symbols-outlined {
+    font-size: 28px;
+}
+
+.ptm-empty h3 {
+    margin: 0 0 7px;
+
+    color: #172a46;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.ptm-empty p {
+    max-width: 440px;
+
+    margin: 0 0 20px;
+
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.ptm-secondary-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 40px;
+
+    padding: 0 15px;
+
+    border: 1px solid #dce3ea;
+    border-radius: 9px;
+
+    background: #ffffff;
+    color: #475569;
+
+    text-decoration: none;
+
+    font-size: 13px;
+    font-weight: 650;
+}
+
+.ptm-secondary-btn:hover {
+    border-color: #bfdbfe;
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1100px) {
+
+    .ptm-member {
+        grid-template-columns:
+            minmax(220px, 1.5fr)
+            minmax(180px, 1.2fr)
+            90px
+            80px
+            40px;
+
+        gap: 12px;
+
+        padding-left: 17px;
+        padding-right: 17px;
+    }
+
+    .ptm-contact-item {
+        font-size: 11px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE / CARD LAYOUT
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    /* .project-team-page {
+        padding: 17px 14px;
+    } */
+
+    .ptm-topbar {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 17px;
+    }
+
+    .ptm-header-action {
+        width: 100%;
+    }
+
+    .ptm-header-action .ptm-primary-btn {
+        width: 100%;
+    }
+
+
+    /* Summary */
+
+    .ptm-summary-grid {
+        grid-template-columns: 1fr;
+        gap: 9px;
+    }
+
+    .ptm-summary-card {
+        padding: 14px;
+    }
+
+
+    /* Toolbar */
+
+    .ptm-toolbar {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 17px;
+
+        padding: 18px 15px;
+    }
+
+    .ptm-filters {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .ptm-search input {
+        width: 100%;
+    }
+
+    .ptm-role-filter {
+        width: 100%;
+    }
+
+    .ptm-clear-filter {
+        justify-content: center;
+    }
+
+
+    /* Members */
+
+    .ptm-member {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 13px;
+
+        padding: 17px 15px;
+    }
+
+    .ptm-person {
+        width: 100%;
+    }
+
+    .ptm-contact {
+        padding-left: 54px;
+    }
+
+    .ptm-added {
+        padding-left: 54px;
+    }
+
+    .ptm-status {
+        padding-left: 54px;
+    }
+
+    .ptm-actions {
+        position: absolute;
+        align-self: flex-end;
+
+        margin-top: -48px;
+    }
+
+    .ptm-member {
+        position: relative;
+    }
+
+    .ptm-action-btn {
+        width: 36px;
+        height: 36px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    .ptm-heading h1 {
+        font-size: 23px;
+    }
+
+    .ptm-heading p {
+        font-size: 13px;
+    }
+
+    .ptm-heading-icon {
+        width: 42px;
+        height: 42px;
+    }
+
+    .ptm-heading-icon .material-symbols-outlined {
+        font-size: 22px;
+    }
+
+    .ptm-name-row {
+        padding-right: 40px;
+    }
+
+    .ptm-role-badge {
+        font-size: 9px;
+    }
+
+}

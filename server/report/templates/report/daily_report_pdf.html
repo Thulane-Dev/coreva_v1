@@ -1,0 +1,1409 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>
+        Daily Report - {{ report.reference }}
+    </title>
+
+    <!-- PDF PAGE css -->
+    <link rel="stylesheet" href="{% static '/css/report/deep_seek_pdf.css' %}"/>
+    <link rel="stylesheet" href="{% static '/css/report/dark_headers_pdf_report.css' %}"/>
+
+
+
+</head>
+
+
+<body>
+
+<div class="drp-document">
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <header class="drp-header">
+
+        <div class="drp-brand">
+
+            <div class="drp-logo">
+                C
+            </div>
+
+            <div>
+                <div class="drp-brand-name">
+                    COREVA
+                </div>
+
+                <div class="drp-brand-subtitle">
+                    Construction Operations
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="drp-report-title">
+
+            <span class="drp-report-label">
+                DAILY SITE REPORT
+            </span>
+
+            <h1>
+                {{ report.project.project_name }}
+            </h1>
+
+            <div class="drp-report-meta">
+
+                <span>
+                    Report date:
+                    <strong>
+                        {{ report.report_date|date:"d F Y" }}
+                    </strong>
+                </span>
+
+                <span class="drp-meta-divider"></span>
+
+                <span>
+                    Ref:
+                    <strong>
+                        {{ report.reference|default:"DR-000001" }}
+                    </strong>
+                </span>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         PROJECT INFORMATION
+    ====================================================== -->
+
+    <section class="drp-section">
+
+        <div class="drp-section-heading" >
+
+            <div class="drp-section-icon">
+                01
+            </div>
+
+            <div>
+                <h2>
+                    Report Information
+                </h2>
+
+                <p>
+                    Project and daily site management details
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="drp-info-grid">
+
+            <div class="drp-info-item">
+
+                <span class="drp-label">
+                    Project
+                </span>
+
+                <strong>
+                    {{ report.project.project_name }}
+                </strong>
+
+            </div>
+
+
+            <div class="drp-info-item">
+
+                <span class="drp-label">
+                    Client
+                </span>
+
+                <strong>
+                    {{ report.project.client_name|default:"—" }}
+                </strong>
+
+            </div>
+
+
+            <div class="drp-info-item">
+
+                <span class="drp-label">
+                    Foreman
+                </span>
+
+                <strong>
+                    {{ report.foreman|default:"—" }}
+                </strong>
+
+            </div>
+
+
+            <div class="drp-info-item">
+
+                <span class="drp-label">
+                    Superintendent
+                </span>
+
+                <strong>
+                    {{ report.superintendent|default:"—" }}
+                </strong>
+
+            </div>
+
+
+            <div class="drp-info-item">
+
+                <span class="drp-label">
+                    Work started
+                </span>
+
+                <strong>
+                    {{ report.work_start_time|default:"—" }}
+                </strong>
+
+            </div>
+
+
+            <div class="drp-info-item">
+
+                <span class="drp-label">
+                    Work ended
+                </span>
+
+                <strong>
+                    {{ report.work_end_time|default:"—" }}
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         WEATHER
+    ====================================================== -->
+
+    <section class="drp-section">
+
+        <div class="drp-section-heading" >
+
+            <div class="drp-section-icon">
+                02
+            </div>
+
+            <div>
+                <h2>
+                    Weather Conditions
+                </h2>
+
+                <p>
+                    Recorded conditions for the reporting day
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="drp-weather">
+
+            <div class="drp-weather-main">
+
+                <div class="drp-weather-symbol">
+                    ☀
+                </div>
+
+                <div>
+
+                    <span class="drp-weather-condition">
+                        {{ report.weather_condition}}
+                    </span>
+
+                    <strong class="drp-weather-temperature">
+                        {{ report.weather_temperature}}°C
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="drp-weather-stats">
+
+                <div>
+                    <span>
+                        Min
+                    </span>
+
+                    <strong>
+                        {{ report.weather_min_temperature }}°C
+                    </strong>
+                </div>
+
+                <div>
+                    <span>
+                        Max
+                    </span>
+
+                    <strong>
+                        {{ report.weather_max_temperature}}°C
+                    </strong>
+                </div>
+
+                <div>
+                    <span>
+                        Rain
+                    </span>
+
+                    <strong>
+                        {{ report.weather_rain_probability}}%
+                    </strong>
+                </div>
+
+                <div>
+                    <span>
+                        Rainfall
+                    </span>
+
+                    <strong>
+                        {{ report.weather_rainfall }} mm
+                    </strong>
+                </div>
+
+                <div>
+                    <span>
+                        Wind
+                    </span>
+
+                    <strong>
+                        {{ report.weather_wind_speed}} km/h
+                    </strong>
+                </div>
+
+                <div>
+                    <span>
+                        Humidity
+                    </span>
+
+                    <strong>
+                        {{ report.weather_humidity}}%
+                    </strong>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        {% if report.weather_comment %}
+
+            <div class="drp-note">
+                {{ report.weather_comment }}
+            </div>
+
+        {% endif %}
+
+    </section>
+
+
+    <!-- =====================================================
+         SITE ATTENDANCE
+    ====================================================== -->
+
+    <section class="drp-section">
+
+        <div class="drp-section-heading" >
+
+            <div class="drp-section-icon">
+                03
+            </div>
+
+            <div>
+                <h2>
+                    Site Attendance
+                </h2>
+
+                <p>
+                    Personnel recorded on site
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="drp-attendance-grid">
+
+            <div class="drp-attendance-card">
+
+                <span class="drp-attendance-label">
+                    Workers
+                </span>
+
+                <strong>
+                    {{ report.workers_count}}
+                </strong>
+
+                <span class="drp-attendance-unit">
+                    people
+                </span>
+
+            </div>
+
+
+            <div class="drp-attendance-card">
+
+                <span class="drp-attendance-label">
+                    Contractors
+                </span>
+
+                <strong>
+                    {{ report.contractors_count}}
+                </strong>
+
+                <span class="drp-attendance-unit">
+                    people
+                </span>
+
+            </div>
+
+
+            <div class="drp-attendance-card">
+
+                <span class="drp-attendance-label">
+                    Visitors
+                </span>
+
+                <strong>
+                    {{ report.visitors_count}}
+                </strong>
+
+                <span class="drp-attendance-unit">
+                    people
+                </span>
+
+            </div>
+
+
+            <div class="drp-attendance-card drp-attendance-total">
+
+                <span class="drp-attendance-label">
+                    Total on site
+                </span>
+
+                <strong>
+                    {{total_on_site}}
+                </strong>
+
+                <span class="drp-attendance-unit">
+                    people
+                </span>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         SAFETY
+    ====================================================== -->
+
+    <section class="drp-section">
+
+        <div class="drp-section-heading" >
+
+            <div class="drp-section-icon">
+                04
+            </div>
+
+            <div>
+                <h2>
+                    Safety & Toolbox Talk
+                </h2>
+
+                <p>
+                    Daily safety activities and observations
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="drp-safety-grid">
+
+            <div class="drp-safety-status">
+
+                <div class="drp-check-icon">
+                    ✓
+                </div>
+
+                <div>
+
+                    <span class="drp-label">
+                        Toolbox talk
+                    </span>
+                    {% if report.toolbox_attendees_count > 1 %}
+                    <strong>
+                        Held
+                    </strong>
+                    {% else %}
+                    <strong>
+                        Not Held
+                    </strong>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <div class="drp-safety-item">
+
+                <span class="drp-label">
+                    Topic
+                </span>
+
+                <strong>
+                    {{report.toolbox_talk_topic}}
+                </strong>
+
+            </div>
+
+
+            <div class="drp-safety-item">
+
+                <span class="drp-label">
+                    Attendees
+                </span>
+
+                <strong>
+                    {{report.toolbox_attendees_count}} people
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="drp-text-block">
+
+            <span class="drp-label">
+                Safety observations
+            </span>
+
+            <p>
+                {{report.safety_issues}}
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         DAILY INSPECTION
+    ====================================================== -->
+
+    <section class="drp-section drp-keep-together">
+
+        <div class="drp-section-heading" >
+
+            <div class="drp-section-icon">
+                05
+            </div>
+
+            <div>
+                <h2>
+                    Daily Inspection
+                </h2>
+
+                <p>
+                    Site inspection completed for {{ report.report_date|date:"d F Y" }}
+                </p>
+            </div>
+
+            {% if report_data.inspection_status == 'Complete'%}
+            <span class="drp-status drp-status-complete">
+                COMPLETE
+            </span>
+            {% elif report_data.inspection_status == 'Incomplete' %}
+            <span class="drp-status drp-status-incomplete">
+                INCOMPLETE
+            </span>
+            {% else %}
+            <span class="drp-status drp-status-not-started">
+                NOT-STARTED
+            </span>
+            {% endif %}
+        </div>
+
+
+        <div class="drp-inspection-summary">
+
+            <div>
+                <strong>{{report_data.total_checks}}</strong>
+                <span>Checks</span>
+            </div>
+
+            <div class="drp-inspection-pass">
+                <strong>{{report_data.total_pass_questions}}</strong>
+                <span>Passed</span>
+            </div>
+
+            <div>
+                <strong>{{report_data.total_na_questions}}</strong>
+                <span>N/A</span>
+            </div>
+
+            <div class="drp-inspection-fail">
+                <strong>{{report_data.total_failed_questions}}</strong>
+                <span>Failed</span>
+            </div>
+
+        </div>
+
+
+        <div class="drp-check-list">
+            
+            {% for category in report_data.inspections %}
+            <div class="drp-check-row">
+
+                <span>
+                    {{category.name}}
+                </span>
+
+                <!-- INCOMPLETE CATEGORY  -->
+                {% if category.status == 'Pending' %}
+                <strong class="drp-check-not-started">
+                    NOT-STARTED
+                </strong>
+                {% elif category.status == 'Incomplete' %}
+                <strong class="drp-check-incomplete">
+                    INCOMPLETE
+                </strong>
+                {% else %}
+                <!-- COMPLETE CATEGORY  -->
+                    {% if category.failed_questions > 0 %}
+                    <strong class="drp-check-fail">
+                        {{category.failed_questions}} FAILED
+                    </strong>
+                    {% else %}
+                    <strong class="drp-check-pass">
+                        PASS
+                    </strong>
+                    {% endif %}
+                {% endif %}
+
+            </div>
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         WORK COMPLETED
+    ====================================================== -->
+
+    <section class="drp-section">
+
+        <div class="drp-section-heading" >
+
+            <div class="drp-section-icon">
+                06
+            </div>
+
+            <div>
+                <h2>
+                    Work Completed
+                </h2>
+
+                <p>
+                    Work activities recorded during the day
+                </p>
+            </div>
+
+        </div>
+
+        {% if report.work_completed %}
+        <div class="drp-work-list">
+            <div class="drp-work-item">
+
+                <span class="drp-work-number">
+                    01
+                </span>
+
+                <div>
+                    <p>
+                        {{report.work_completed}}
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="drp-work-list">
+            <div class="drp-work-item">
+                <div>
+                    <p>
+                      No work completed recorded for this report.
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+    </section>
+
+
+    <!-- =====================================================
+         ISSUES
+    ====================================================== -->
+
+    <section class="drp-section">
+
+        <div class="drp-section-heading" >
+
+            <div class="drp-section-icon">
+                07
+            </div>
+
+            <div>
+                <h2>
+                    Issues & Corrective Actions
+                </h2>
+
+                <p>
+                    Open issues requiring attention
+                </p>
+            </div>
+
+        </div>
+
+        {% if report_data.issues  %}
+        <div class="drp-item-list">
+            
+            {% for issue in report_data.issues %}
+            <div class="drp-item-card">
+
+                <div class="drp-item-top">
+
+                    <div>
+
+                        <span class="drp-item-type drp-type-issue">
+                            ISSUE
+                        </span>
+
+                        <strong>
+                            {{issue.title}}
+                        </strong>
+
+                    </div>
+
+                    <span class="drp-priority {% if issue.priority == 'high'%} drp-priority-high {% elif issue.priority == 'medium'%} drp-priority-medium {% else %} drp-priority-low {% endif %}">
+                        {{issue.priority}}
+                    </span>
+
+                </div>
+
+
+                <p>
+                    {{issue.description}}
+                </p>
+
+
+                <div class="drp-item-meta">
+
+                    {% if issue.assigned_to %}
+                    <span>
+                        Assigned to:
+                        <strong>
+                            {{issue.assigned_to.first_name}} {{issue.assigned_to.last_name}}
+                        </strong>
+                    </span>
+                    {% else %}
+                    <span>
+                        Assigned to:
+                        <strong>
+                            Unassigned
+                        </strong>
+                    </span>
+                    {% endif %}
+
+                    <span>
+                        Due:
+                        <strong>
+                            {{issue.due_date|date:"d M Y" }}
+                        </strong>
+                    </span>
+                    
+
+                    {% if issue.closed_at %}
+                    <span class="drp-closed">
+                        CLOSED
+                    </span>
+                    {% else %}
+                    <span class="drp-open">
+                        OPEN
+                    </span>
+                    {% endif %}
+
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="drp-work-list">
+            <div class="drp-work-item">
+                <div>
+                    <p>
+                      No issues or corrective actions recorded for this report.
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </section>
+
+
+    <!-- =====================================================
+         TASKS
+    ====================================================== -->
+
+    <section class="drp-section">
+
+        <div class="drp-section-heading" >
+
+            <div class="drp-section-icon">
+                08
+            </div>
+
+            <div>
+                <h2>
+                    Tasks
+                </h2>
+
+                <p>
+                    Work planned or assigned for follow-up
+                </p>
+            </div>
+
+        </div>
+
+        {% if report_data.tasks %}
+        <table class="drp-table">
+
+            <thead>
+
+                <tr>
+                    <th>
+                        Task
+                    </th>
+
+                    <th>
+                        Assigned to
+                    </th>
+
+                    <th>
+                        Due
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for task in report_data.tasks %}
+                <tr>
+
+                    <td>
+                        {{task.description}}
+                    </td>
+
+                    {% if task.assigned_to %}
+                    <td>
+                        {{task.assigned_to.first_name}} {{task.assigned_to.last_name}}
+                    </td>
+                    {% else %}
+                    <td>
+                        Unassigned
+                    </td>
+                    {% endif %}
+
+                    <td>
+                        {{task.due_date|date:"d M Y" }}
+                    </td>
+
+                    {% if task.closed_at %}
+                    <td>
+                        <span class="drp-table-status drp-task-complete">
+                            COMPLETE
+                        </span>
+                    </td>
+                    {% else %}
+                    <td>
+                        <span class="drp-table-status drp-task-open">
+                            OPEN
+                        </span>
+                    </td>
+                    {% endif %}
+
+                </tr>
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+        {% else %}
+        <div class="drp-work-list">
+            <div class="drp-work-item">
+                <div>
+                    <p>
+                      No tasks recorded for this report.
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </section>
+
+
+    <!-- =====================================================
+         INCIDENTS
+    ====================================================== -->
+
+    <section class="drp-section">
+
+        <div class="drp-section-heading" >
+
+            <div class="drp-section-icon">
+                09
+            </div>
+
+            <div>
+                <h2>
+                    Incidents
+                </h2>
+
+                <p>
+                    Safety and site incidents recorded today
+                </p>
+            </div>
+
+        </div>
+
+        {% if report_data.incidents %}
+        <!-- incidents data  -->
+        {% for incident in report_data.incidents %}
+            <div class="drp-incident-card">
+
+                <div class="drp-incident-header">
+
+                    <div>
+
+                        <span class="drp-item-type drp-type-incident">
+                            {{ incident.get_incident_type_display }}
+                        </span>
+
+                        <strong>
+                            {{ incident.title }}
+                        </strong>
+
+                    </div>
+
+                    {% if incident.incident_time %}
+                        <span class="drp-incident-time">
+                            {{ incident.incident_time|time:"H:i" }}
+                        </span>
+                    {% endif %}
+
+                </div>
+
+
+                <div class="drp-incident-grid">
+
+                    <div>
+                        <span class="drp-label">
+                            Severity
+                        </span>
+
+                        <strong>
+                            {{ incident.get_severity_display }}
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span class="drp-label">
+                            Location
+                        </span>
+
+                        <strong>
+                            {{ incident.location|default:"—" }}
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span class="drp-label">
+                            Incident type
+                        </span>
+
+                        <strong>
+                            {{ incident.get_incident_type_display }}
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                {% if incident.injured_person.all %}
+
+                <div class="drp-incident-injured">
+
+                    <span class="drp-label">
+                        Injured / Affected People
+                    </span>
+
+                    <div class="drp-injured-list">
+
+                        {% for person in incident.injured_person.all %}
+
+                            <div class="drp-injured-person">
+
+                                <div class="drp-injured-person-name">
+                                    <strong>
+                                        {{ person.first_name }} {{ person.last_name }}
+                                    </strong>
+                                </div>
+
+                                <div class="drp-injured-person-details">
+
+                                    {% if person.injury %}
+                                        <span>
+                                            {{ person.injury }}
+                                        </span>
+                                    {% endif %}
+
+                                    {% if person.body_part %}
+                                        <span>
+                                            {{ person.body_part }}
+                                        </span>
+                                    {% endif %}
+
+                                    {% if person.treatment %}
+                                        <span>
+                                            {{ person.treatment }}
+                                        </span>
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+                {% endif %}
+
+
+                {% if incident.description %}
+
+                <div class="drp-incident-description">
+
+                    <span class="drp-label">
+                        Description
+                    </span>
+
+                    <p>
+                        {{ incident.description }}
+                    </p>
+
+                </div>
+
+                {% endif %}
+
+            </div>
+        {% endfor %}
+        <!-- divider  -->
+        {% else %}
+        <div class="drp-work-list">
+            <div class="drp-work-item">
+                <div>
+                    <p>
+                      No incidents recorded for this report.
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+    </section>
+
+
+    <!-- =====================================================
+         DELIVERIES
+    ====================================================== -->
+
+    <section class="drp-section">
+
+        <div class="drp-section-heading" >
+
+            <div class="drp-section-icon">
+                10
+            </div>
+
+            <div>
+                <h2>
+                    Deliveries
+                </h2>
+
+                <p>
+                    Materials and equipment delivered to site
+                </p>
+            </div>
+
+        </div>
+
+
+        {% if report_data.deliveries  %}
+        <table class="drp-table">
+
+            <thead>
+
+                <tr>
+                    <th>
+                        Reference
+                    </th>
+
+                    <th>
+                        Item
+                    </th>
+
+                    <th>
+                        Quantity
+                    </th>
+
+                    <th>
+                        Time
+                    </th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for delivery in report_data.deliveries %}
+                {% for item in delivery.delivered_item.all %}
+                <tr>
+
+                    <td>
+                        {{delivery.reference}}
+                    </td>
+
+                    <td>
+                        {{item.item}}
+                    </td>
+
+                    <td>
+                        {{item.quantity}} {{item.unit}}
+                    </td>
+
+                    <td>
+                        {{delivery.delivery_time}}
+                    </td>
+
+                </tr>
+                {% endfor %}
+                {% endfor %}
+            </tbody>
+
+        </table>
+        {% else %}
+        <div class="drp-work-list">
+            <div class="drp-work-item">
+                <div>
+                    <p>
+                      No deliveries recorded for this report.
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </section>
+
+
+    <!-- =====================================================
+         DELAYS
+    ====================================================== -->
+
+    <section class="drp-section drp-keep-together">
+
+        <div class="drp-section-heading" >
+
+            <div class="drp-section-icon">
+                11
+            </div>
+
+            <div>
+                <h2>
+                    Delays
+                </h2>
+
+                <p>
+                    Events affecting planned site progress
+                </p>
+            </div>
+
+        </div>
+
+        {% if report.delays %}
+        <div class="drp-delay-card">
+
+            <div class="drp-delay-icon">
+                !
+            </div>
+
+            <div>
+                <p>
+                    {{report.delays}}
+                </p>
+
+            </div>
+
+        </div>
+        {% else %}
+        <div class="drp-work-list">
+            <div class="drp-work-item">
+                <div>
+                    <p>
+                      No delays recorded for this report.
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+    </section>
+
+
+    <!-- =====================================================
+         NOTES
+    ====================================================== -->
+
+    <section class="drp-section drp-keep-together">
+
+        <div class="drp-section-heading" >
+
+            <div class="drp-section-icon">
+                12
+            </div>
+
+            <div>
+                <h2>
+                    Additional Notes
+                </h2>
+
+                <p>
+                    Other relevant information for the reporting day
+                </p>
+            </div>
+
+        </div>
+
+
+        {% if report.notes%}
+        <div class="drp-notes">
+
+            <p>
+                {{report.notes}}
+            </p>
+
+        </div>
+        {% else %}
+        <div class="drp-work-list">
+            <div class="drp-work-item">
+                <div>
+                    <p>
+                      No delays recorded for this report.
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+    </section>
+
+
+    <!-- =====================================================
+         ATTACHMENTS / PHOTOS
+    ====================================================== -->
+
+    <section class="drp-section">
+
+        <div class="drp-section-heading" >
+
+            <div class="drp-section-icon">
+                13
+            </div>
+
+            <div>
+                <h2>
+                    Site Photos & Attachments
+                </h2>
+
+                <p>
+                    Supporting documentation attached to this report
+                </p>
+            </div>
+
+        </div>
+
+
+        {% if report_data.files  %}
+        <div class="drp-photo-grid">
+
+            {% for file in report_data.files %}
+                {% if file.photo %}
+                <div class="drp-photo-attachment">
+                    <img
+                        src="{{ file.photo.url }}"
+                        alt="Report photo"
+                        class="drp-photo-attachment-image"
+                    >
+
+                    <div class="drp-photo-attachment-caption">
+                        {{ file.photo.name|cut:"media/project_photos/"|truncatechars:30 }}
+                    </div>
+                </div>
+                {% else %}
+                <div class="drp-attachment-list">
+                    <div>
+                        <span>{{ file.file.name|cut:"media/project_files/"|truncatechars:30 }}</span>
+                        <small>{{file.filesize}}</small>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="drp-work-list">
+            <div class="drp-work-item">
+                <div>
+                    <p>
+                      No delays recorded for this report.
+                    </p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </section>
+
+
+    <!-- =====================================================
+         SIGN OFF
+    ====================================================== -->
+
+    <section class="drp-signoff">
+
+        <div>
+
+            <span class="drp-label">
+                Prepared by
+            </span>
+
+            <strong>
+                {{report.created_by.first_name}} {{report.created_by.last_name}}
+            </strong>
+
+            <small>
+                Site Manager
+            </small>
+
+        </div>
+
+
+        <div>
+
+            <span class="drp-label">
+                Admin Signoff
+            </span>
+
+            {% if report.admin_sign_off %}
+            <strong class="drp-signoff-status">
+                {{report.admin_sign_off.first_name}} {{report.admin_sign_off.last_name}}
+            </strong>
+            <small>
+                {{report.signed_off_at|date:"j F Y · H:i" }}
+            </small>
+            {% else %}
+            <strong class="drp-signoff-status">
+                PENDING
+            </strong>
+            {% endif %}
+            
+        </div>
+
+        <div>
+
+            <span class="drp-label">
+                Completed by
+            </span>
+            
+            <strong>
+                {{report.completed_by.first_name}} {{report.completed_by.last_name}}
+            </strong>
+
+            <small>
+                {{report.completed_at|date:"j F Y · H:i" }}
+            </small>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="drp-footer">
+
+        <span>
+            Generated by Coreva
+        </span>
+
+        <span>
+            {{ report.reference}}
+        </span>
+
+    </footer>
+
+
+</div>
+
+</body>
+
+</html>

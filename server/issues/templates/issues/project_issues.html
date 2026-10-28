@@ -1,0 +1,513 @@
+{% load static %}
+
+
+<div class="row d-flex justify-content-center">
+  <div class="col-12 col-lg-8">
+    <!-- =====================================================
+      HEADER
+    ====================================================== -->
+    <section class="mb-3">
+
+    <!-- =========================================================
+    COREVA MOBILE TOP NAVBAR AND LARGE SCREEN BACK BUTTON
+    ========================================================= -->
+    {% url 'projects:project-view' project.uuid  as back_url %}
+    <!-- -------------------------------------------  -->
+    {% include 'partials/page_topbar.html' with next_url=next_url back_url=back_url brand_name='Project Issues' brand_url=back_url %}
+
+
+      <!-- ISSUES HEADER -->
+      <div class="portal-work-section portal-work-section--issues mb-0 mt-0">
+          <div class="portal-work-header">
+
+              <div class="portal-work-icon">
+                  <i class="bi bi-exclamation-triangle-fill"></i>
+              </div>
+
+              <div class="portal-work-heading">
+                  <h3>Issues</h3>
+                  <span>Record an issue that needs attention, tracking or resolution.</span>
+              </div>
+
+                <!-- ADD ISSUE ACTION  -->
+                <a data-bs-toggle="offcanvas" href="#addIssueOffcanvas" aria-controls="addIssueOffcanvas">
+                    <div class="portal-work-count">
+                        <div class="d-flex gap-1">
+                            <strong><i class="bi bi-plus"></i></strong>
+                            <span class="text-capitalize">Issue</span>
+                        </div>
+                    </div>
+                </a>
+          </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+      PROJECT SUMMARY
+    ====================================================== -->
+    <section class="mb-4">
+        <div class="row g-2">
+            <!-- Open Issues -->
+            <div class="col-6 col-md">
+                <div class="cpd-summary-card h-100">
+                    <div class="cpd-summary-icon cpd-summary-red">
+                        <i class="bi bi-exclamation-circle"></i>
+                    </div>
+                    <div class="cpd-summary-content">
+
+                        <span class="cpd-summary-label">
+                            Open Issues
+                        </span>
+
+                        <strong class="cpd-summary-value">
+                            {{project_issues.open_issues_count}}
+                        </strong>
+
+                        <span class="cpd-summary-detail cpd-detail-danger">
+                            {{project_issues.overdue_issues_count}} overdue
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- Open Tasks -->
+            <div class="col-6 col-md">
+                <div class="cpd-summary-card h-100">
+                    <div class="cpd-summary-icon cpd-summary-green">
+                        <i class="bi bi-check-circle"></i>
+                    </div>
+                    <div class="cpd-summary-content">
+                        <span class="cpd-summary-label">
+                            Resolved Issues
+                        </span>
+
+                        <strong class="cpd-summary-value">
+                            {{project_issues.closed_issues_count}}
+                        </strong>
+                        <span class="cpd-summary-detail">
+                            Everything good
+                        </span>
+                    </div>
+                </div>
+            </div>
+              <!-- New Comments -->
+              {% if project_issues.main_comments_count > 0 %}
+              <div class="col-12 col-md">
+                  <div class="cpd-summary-card h-100">
+                      <div class="cpd-summary-icon cpd-summary-purple">
+                          <i class="bi bi-chat-dots"></i>
+                      </div>
+
+                      <div class="cpd-summary-content">
+
+                          <span class="cpd-summary-label">
+                              New Comments
+                          </span>
+
+                          <strong class="cpd-summary-value">
+                              {{project_issues.main_comments_count}}
+                          </strong>
+
+                          <span class="cpd-summary-detail">
+                              On your items
+                          </span>
+                      </div>
+                  </div>
+              </div>
+              {% endif %}
+        </div>
+    </section>
+
+
+    <!-- =====================================================
+    COREVA  FILTER PANEL
+    ====================================================== -->
+    <section class="cp-issues-filter-panel">
+
+        <form>
+            {% csrf_token %}
+            <!-- =============================================
+                SEARCH + FILTER TOGGLE
+            ============================================== -->
+            <div class="cp-issues-filter-toolbar">
+
+                <!-- Search -->
+                <div class="cp-issues-filter-search">
+
+                    <i class="bi bi-search cp-issues-filter-search-icon"></i>
+
+                    <input
+                        type="search"
+                        name="query"
+                        class="cp-issues-filter-search-input"
+                        placeholder="Search issue title..."
+                        aria-label="Search issues"
+
+                        hx-post="{% url 'issues:filter-issues' project.uuid %}"
+                        hx-trigger="keyup changed delay:300ms"
+                        hx-target="#project_issues_partial"
+                        hx-indicator=".loading"
+                        hx-swap="innerHTML"
+                    />
+
+                    <span class="cp-issues-filter-search-shortcut">
+                        /
+                    </span>
+
+                </div>
+
+
+                <!-- Filters Toggle -->
+                <button
+                    type="button"
+                    class="cp-issues-filter-toggle"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#cpMoreIssueFilters"
+                    aria-expanded="false"
+                    aria-controls="cpMoreIssueFilters"
+                >
+
+                    <i class="bi bi-sliders2"></i>
+
+                    <span>
+                        Filters
+                    </span>
+
+                    <i class="bi bi-chevron-down cp-issues-filter-toggle-chevron"></i>
+
+                </button>
+
+            </div>
+
+
+            <!-- =============================================
+                EXPANDABLE FILTERS
+            ============================================== -->
+            <div
+                class="collapse"
+                id="cpMoreIssueFilters"
+            >
+
+                <div class="cp-issues-filter-panel-inner">
+
+                    <!-- Filter Header -->
+                    <div class="cp-issues-filter-header">
+
+                        <div class="cp-issues-filter-header-content">
+
+                            <strong>
+                                Filter issues
+                            </strong>
+
+                            <span>
+                                Refine the issues shown below
+                            </span>
+
+                        </div>
+
+                        <button
+                            type="button"
+                            class="cp-issues-filter-clear"
+                            hx-post="{% url 'issues:filter-issues' project.uuid %}"
+                            hx-target="#project_issues_partial"
+                            hx-swap="innerHTML"
+                            hx-vals='{"query": "", "status": "", "priority": "", "assignee": "", "created_date": "", "specific_date": "", "comments": ""}'
+                            onclick="
+                                document.querySelector('[name=query]').value = '';
+                                document.querySelector('[name=status]').value = '';
+                                document.querySelector('[name=priority]').value = '';
+                                document.querySelector('[name=assignee]').value = '';
+                                document.querySelector('[name=created_date]').value = '';
+                                document.querySelector('[name=specific_date]').value = '';
+                                document.querySelector('[name=comments]').value = '';
+                            "
+                        >
+                            Clear all
+                        </button>
+
+                    </div>
+
+
+                    <!-- Filter Grid -->
+                    <div class="cp-issues-filter-grid">
+
+                        <!-- Status -->
+                        <div class="cp-issues-filter-control">
+
+                            <label
+                                for="cpIssueStatus"
+                                class="cp-issues-filter-label"
+                            >
+                                Statuses
+                            </label>
+
+                            <div class="cp-issues-filter-select-wrap">
+
+                                <select
+                                    id="cpIssueStatus"
+                                    class="cp-issues-filter-select"
+                                    name="status"
+                                    hx-post="{% url 'issues:filter-issues' project.uuid %}"
+                                    hx-trigger="change"
+                                    hx-target="#project_issues_partial"
+                                    hx-swap="innerHTML"
+                                    hx-indicator=".loading"
+                                >
+                                    <option value="" selected>
+                                        All status
+                                    </option>
+
+                                    <option value="open">
+                                        Open
+                                    </option>
+
+                                    <option value="in_progress">
+                                        In Progress
+                                    </option>
+                            
+                                    <option value="closed">
+                                        Closed
+                                    </option>
+                                </select>
+
+                                <i class="bi bi-chevron-down"></i>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Priority -->
+                        <div class="cp-issues-filter-control">
+
+                            <label
+                                for="cpIssuePriority"
+                                class="cp-issues-filter-label"
+                            >
+                                Priority
+                            </label>
+
+                            <div class="cp-issues-filter-select-wrap">
+
+                                <select
+                                    id="cpIssuePriority"
+                                    class="cp-issues-filter-select"
+                                    name="priority"
+                                    hx-post="{% url 'issues:filter-issues' project.uuid %}"
+                                    hx-trigger="change"
+                                    hx-target="#project_issues_partial"
+                                    hx-swap="innerHTML"
+                                    hx-indicator=".loading"
+                                >
+                                    <option value="" selected>
+                                        All priorities
+                                    </option>
+
+                                    <option value="high">
+                                        High
+                                    </option>
+
+                                    <option value="medium">
+                                        Medium
+                                    </option>
+
+                                    <option value="low">
+                                        Low
+                                    </option>
+                                </select>
+
+                                <i class="bi bi-chevron-down"></i>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Assigned To -->
+                        <div class="cp-issues-filter-control">
+
+                            <label
+                                for="cpIssueAssignee"
+                                class="cp-issues-filter-label"
+                            >
+                                Assigned to
+                            </label>
+
+                            <div class="cp-issues-filter-select-wrap">
+
+                                <select
+                                    id="cpIssueAssignee"
+                                    class="cp-issues-filter-select"
+
+                                    name="assignee"
+                                    hx-post="{% url 'issues:filter-issues' project.uuid %}"
+                                    hx-trigger="change"
+                                    hx-target="#project_issues_partial"
+                                    hx-swap="innerHTML"
+                                    hx-indicator=".loading"
+                                >
+                                    <option value="" selected>
+                                        All
+                                    </option>
+
+                                    <option value="unassigned">
+                                        Unassigned
+                                    </option>
+
+                                    <option value="me">
+                                        Assigned to me
+                                    </option>
+                                </select>
+
+                                <i class="bi bi-chevron-down"></i>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Date -->
+                        <div class="cp-issues-filter-control">
+
+                            <label
+                                for="cpIssueDate"
+                                class="cp-issues-filter-label"
+                            >
+                                Date
+                            </label>
+
+                            <div class="cp-issues-filter-select-wrap">
+
+                                <select
+                                    id="cpIssueDate"
+                                    class="cp-issues-filter-select"
+
+                                    name="created_date"
+                                    hx-post="{% url 'issues:filter-issues' project.uuid %}"
+                                    hx-trigger="change"
+                                    hx-target="#project_issues_partial"
+                                    hx-swap="innerHTML"
+                                    hx-indicator=".loading"
+                                >
+                                    <option value="" selected>
+                                        Any date
+                                    </option>
+
+                                    <option value="today">
+                                        Created today
+                                    </option>
+
+                                    <option value="week">
+                                        Created this week
+                                    </option>
+                                </select>
+
+                                <i class="bi bi-chevron-down"></i>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Specific Date -->
+                        <div class="cp-issues-filter-control">
+
+                            <label
+                                for="cpIssueSpecificDate"
+                                class="cp-issues-filter-label"
+                            >
+                                Specific date
+                            </label>
+
+                            <div class="cp-issues-filter-date-wrap">
+
+                                <i class="bi bi-calendar3"></i>
+
+                                <input
+                                    type="date"
+                                    id="cpIssueSpecificDate"
+                                    name="specific_date"
+                                    class="cp-issues-filter-date"
+
+                                    hx-post="{% url 'issues:filter-issues' project.uuid %}"
+                                    hx-trigger="change"
+                                    hx-target="#project_issues_partial"
+                                    hx-swap="innerHTML"
+                                    hx-indicator=".loading"
+                                    onfocus="this.showPicker()"
+                                    onclick="this.showPicker()"
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Comments -->
+                        <div class="cp-issues-filter-control">
+
+                            <label
+                                for="cpIssueComments"
+                                class="cp-issues-filter-label"
+                            >
+                                Comments
+                            </label>
+
+                            <div class="cp-issues-filter-select-wrap">
+
+                                <select
+                                    id="cpIssueComments"
+                                    class="cp-issues-filter-select"
+
+                                    name="comments"
+                                    hx-post="{% url 'issues:filter-issues' project.uuid %}"
+                                    hx-trigger="change"
+                                    hx-target="#project_issues_partial"
+                                    hx-swap="innerHTML"
+                                    hx-indicator=".loading"
+                                >
+                                    <option value="" selected>
+                                        All
+                                    </option>
+
+                                    <option value="unread">
+                                        Unread comments
+                                    </option>
+                                </select>
+
+                                <i class="bi bi-chevron-down"></i>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </section>
+
+
+    <!-- =====================================================
+      ISSUES LIST
+    ====================================================== -->
+    <section class="section-spacing">
+      <div id="ProjectIssuesSection">
+        {% include 'partials/all_issues_partial.html' %}
+      </div>
+    </section>
+
+    </div>
+</div>
+
+
+<!-- ======== PROJECT BOTTOM NAVBAR ======== -->
+{% if show_project_bottom_nav is not False %}
+<div class="d-block d-lg-none">{% include 'partials/project_bottom_navbar.html' %}</div>
+{% endif %}
+
+
+<!-- Add Issue Offcanvas  -->
+{% include 'issues_templates/add_issue_offcanvas.html' %}

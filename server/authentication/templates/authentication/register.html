@@ -1,0 +1,890 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+
+    <!-- Google Icons  -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+    />
+
+    <!-- bootstrap-icons  -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    />
+
+    <!-- Inter Google Font  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Poppins  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Archivo+Black  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap"
+      rel="stylesheet"
+    />
+
+
+    <style>
+
+      .form-control {
+          font-size: 16px !important;
+      }
+
+      .input{
+        font-size: 16px !important;
+      }
+
+      button:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+      /* =========================================================
+     PAGE
+  ========================================================= */
+
+      .coreva_register_page {
+        min-height: 100vh;
+        background: #000637;
+        /* background: #172a46;  */
+        padding: 40px 20px 60px;
+        display: flex;
+        justify-content: center;
+      }
+
+      .coreva_register_container {
+        width: 100%;
+        max-width: 480px;
+      }
+
+      /* =========================================================
+     BRAND
+  ========================================================= */
+
+      .coreva_register_brand {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .coreva_register_logo {
+        width: 150px;
+        height: auto;
+        object-fit: contain;
+      }
+
+      /* =========================================================
+     CARD
+  ========================================================= */
+
+      .coreva_register_card {
+        background: #ffffff;
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
+      }
+
+      /* =========================================================
+     HEADER
+  ========================================================= */
+
+      .coreva_register_header {
+        display: flex;
+        gap: 15px;
+        align-items: flex-start;
+        margin-bottom: 28px;
+      }
+
+      .coreva_register_icon {
+        width: 46px;
+        height: 46px;
+        min-width: 46px;
+
+        border-radius: 12px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        background: #eff6ff;
+        color: #2563eb;
+
+        font-size: 21px;
+      }
+
+      .coreva_register_eyebrow {
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        color: #2563eb;
+        margin-bottom: 3px;
+      }
+
+      .coreva_register_header h1 {
+        margin: 0;
+        color: #172a46;
+        font-size: 25px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+      }
+
+      .coreva_register_header p {
+        color: #687386;
+        font-size: 14px;
+        line-height: 1.5;
+        margin: 5px 0 0;
+      }
+
+      /* =========================================================
+     ERRORS
+  ========================================================= */
+
+      .coreva_register_errors {
+        background: #fff7ed;
+        border: 1px solid #fed7aa;
+        border-radius: 12px;
+        padding: 13px 14px;
+        margin-bottom: 22px;
+        color: #9a3412;
+      }
+
+      .coreva_error_header {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 13px;
+      }
+
+      .coreva_error_content {
+        margin-top: 7px;
+        font-size: 12px;
+      }
+
+      /* =========================================================
+     SECTION
+  ========================================================= */
+
+      .register_section {
+        margin-bottom: 25px;
+      }
+
+      .register_section_heading {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+        padding-bottom: 18px;
+        border-bottom: 1px solid #edf0f4;
+        margin-bottom: 20px;
+      }
+
+      .register_section_heading > span {
+        width: 30px;
+        height: 30px;
+        min-width: 30px;
+
+        border-radius: 8px;
+
+        background: #f1f5f9;
+        color: #64748b;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 11px;
+        font-weight: 800;
+      }
+
+      .register_section_heading h2 {
+        margin: 0;
+        color: #172a46;
+        font-size: 15px;
+        font-weight: 800;
+      }
+
+      .register_section_heading p {
+        margin: 3px 0 0;
+        color: #7a8494;
+        font-size: 12px;
+      }
+
+      /* =========================================================
+     FIELDS
+  ========================================================= */
+
+      .register_field {
+        margin-bottom: 18px;
+      }
+
+      .register_field label {
+        display: block;
+        margin-bottom: 7px;
+
+        color: #27364d;
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .register_field label span {
+        color: #dc2626;
+      }
+
+      /* =========================================================
+     INPUT
+  ========================================================= */
+
+      .register_input_wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+
+      .register_input_wrapper > i:first-child {
+        position: absolute;
+        left: 14px;
+        z-index: 2;
+
+        color: #8b95a5;
+        font-size: 16px;
+        pointer-events: none;
+      }
+
+      .register_input_wrapper input {
+        width: 100%;
+        height: 48px;
+
+        border: 1px solid #dfe4eb;
+        border-radius: 10px;
+
+        background: #f9fafb;
+
+        color: #172a46;
+
+        font-size: 14px;
+
+        padding: 0 44px 0 42px;
+
+        outline: none;
+
+        transition: all 0.2s ease;
+      }
+
+      .register_input_wrapper input::placeholder {
+        color: #a4acb8;
+      }
+
+      .register_input_wrapper input:focus {
+        background: #ffffff;
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+      }
+
+      /* =========================================================
+     PASSWORD TOGGLE
+  ========================================================= */
+
+      .register_password_toggle {
+        position: absolute;
+        right: 7px;
+
+        width: 34px;
+        height: 34px;
+
+        border: 0;
+        border-radius: 8px;
+
+        background: transparent;
+
+        color: #7b8493;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        cursor: pointer;
+      }
+
+      .register_password_toggle:hover {
+        background: #f1f5f9;
+        color: #172a46;
+      }
+
+      /* =========================================================
+     PASSWORD HINT
+  ========================================================= */
+
+      .register_password_hint {
+        margin-top: 6px;
+        color: #8a94a3;
+        font-size: 11px;
+      }
+
+      /* =========================================================
+     FIELD ERRORS
+  ========================================================= */
+
+      .register_field_error {
+        margin-top: 6px;
+        color: #dc2626;
+        font-size: 12px;
+      }
+
+      /* =========================================================
+     TERMS
+  ========================================================= */
+
+      .register_terms {
+        margin-bottom: 20px;
+      }
+
+      .register_terms_label {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        cursor: pointer;
+      }
+
+      .register_terms_label input {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .register_checkbox {
+        width: 19px;
+        height: 19px;
+        min-width: 19px;
+
+        border: 1px solid #cbd3df;
+        border-radius: 5px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        color: #ffffff;
+
+        margin-top: 1px;
+
+        transition: all 0.15s ease;
+      }
+
+      .register_checkbox i {
+        font-size: 12px;
+        opacity: 0;
+      }
+
+      .register_terms_label input:checked + .register_checkbox {
+        background: #2563eb;
+        border-color: #2563eb;
+      }
+
+      .register_terms_label input:checked + .register_checkbox i {
+        opacity: 1;
+      }
+
+      .register_terms_text {
+        color: #687386;
+        font-size: 12px;
+        line-height: 1.5;
+      }
+
+      .register_terms_text a {
+        color: #2563eb;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      /* =========================================================
+     SUBMIT
+  ========================================================= */
+
+      .register_submit {
+        width: 100%;
+        height: 50px;
+
+        border: 0;
+        border-radius: 11px;
+
+        background: #2563eb;
+        color: #ffffff;
+
+        font-size: 14px;
+        font-weight: 700;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+
+        cursor: pointer;
+
+        transition: all 0.2s ease;
+      }
+
+      .register_submit:not(:disabled):hover {
+        background: #1d4ed8;
+        transform: translateY(-1px);
+        box-shadow: 0 7px 18px rgba(37, 99, 235, 0.22);
+      }
+
+      .register_submit:disabled {
+        background: #d8dee8;
+        color: #8b95a5;
+        cursor: not-allowed;
+      }
+
+      .register_submit i {
+        font-size: 16px;
+      }
+
+      /* =========================================================
+     LOGIN
+  ========================================================= */
+
+      .register_login {
+        text-align: center;
+        margin-top: 20px;
+
+        color: #7a8494;
+        font-size: 13px;
+      }
+
+      .register_login a {
+        color: #2563eb;
+        font-weight: 800;
+        text-decoration: none;
+        margin-left: 4px;
+      }
+
+      .register_login a i {
+        font-size: 11px;
+        margin-left: 2px;
+      }
+
+      /* =========================================================
+     FOOTER
+  ========================================================= */
+
+      .coreva_register_footer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+
+        margin-top: 20px;
+
+        color: rgba(255, 255, 255, 0.62);
+        font-size: 11px;
+      }
+
+      /* =========================================================
+     MOBILE
+  ========================================================= */
+
+      @media (max-width: 575.98px) {
+        .coreva_register_page {
+          padding: 25px 12px 35px;
+        }
+
+        .coreva_register_brand {
+          margin-bottom: 22px;
+        }
+
+        .coreva_register_logo {
+          width: 130px;
+        }
+
+        .coreva_register_card {
+          padding: 22px 18px;
+          border-radius: 17px;
+        }
+
+        .coreva_register_header {
+          gap: 12px;
+          margin-bottom: 23px;
+        }
+
+        .coreva_register_icon {
+          width: 40px;
+          height: 40px;
+          min-width: 40px;
+          border-radius: 10px;
+          font-size: 18px;
+        }
+
+        .coreva_register_header h1 {
+          font-size: 22px;
+        }
+
+        .coreva_register_header p {
+          font-size: 13px;
+        }
+
+        .register_section_heading {
+          margin-bottom: 17px;
+        }
+
+        .register_field {
+          margin-bottom: 16px;
+        }
+
+        .register_input_wrapper input {
+          height: 47px;
+        }
+
+        .register_submit {
+          height: 50px;
+        }
+      }
+    </style>
+
+    <title>Coreva</title>
+  </head>
+  <body>
+    <!-- account_page py-5  -->
+    <!-- ======= Page Loading spinner  ======= -->
+    <div
+      id="loading-spinner"
+      style="
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+      "
+    >
+      <div class="spinner"></div>
+    </div>
+
+    <!-- ======= NEW REGISTER PAGE ======= -->
+    <section class="coreva_register_page">
+      <div class="coreva_register_container">
+        <!-- ========================= LOGO ========================== -->
+        <div class="coreva_register_brand">
+          <img
+            src="{% static 'images/coreva_logo.png' %}"
+            alt="Coreva"
+            class="coreva_register_logo"
+          />
+        </div>
+        <!-- ========================= REGISTER CARD ========================== -->
+        <div class="coreva_register_card">
+          <!-- Header -->
+          <div class="coreva_register_header">
+            <div class="coreva_register_icon">
+              <i class="bi bi-person-plus"></i>
+            </div>
+            <div>
+              <div class="coreva_register_eyebrow">GET STARTED</div>
+              <h1>Create your account</h1>
+              <p>
+                Set up your Coreva account and start keeping your construction
+                sites organised.
+              </p>
+            </div>
+          </div>
+          <!-- ========================= FORM ERRORS ========================== -->
+          {% if form.errors %}
+          <div class="coreva_register_errors">
+            <div class="coreva_error_header">
+              <i class="bi bi-exclamation-circle-fill"></i>
+              <strong>Please check the following:</strong>
+            </div>
+            <div class="coreva_error_content">{{ form.errors }}</div>
+          </div>
+          {% endif %}
+          <!-- ========================= FORM ========================== -->
+          <form method="POST" autocomplete="off">
+            {% csrf_token %}
+            <!-- ========================= ACCOUNT DETAILS ========================== -->
+            <div class="register_section">
+              <div class="register_section_heading">
+                <span>01</span>
+                <div>
+                  <h2>Account details</h2>
+                  <p>These details will be used to access Coreva.</p>
+                </div>
+              </div>
+              
+            <!-- First Name -->
+            <div class="register_field">
+                <label for="{{ form.first_name.id_for_label }}">
+                    First name <span>*</span>
+                </label>
+
+                <div class="register_input_wrapper">
+                    <i class="bi bi-person"></i>
+                    {{ form.first_name }}
+                </div>
+
+                {% if form.first_name.errors %}
+                    <div class="register_field_error">
+                        {{ form.first_name.errors }}
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Last Name -->
+            <div class="register_field">
+                <label for="{{ form.last_name.id_for_label }}">
+                    Last name
+                </label>
+
+                <div class="register_input_wrapper">
+                    <i class="bi bi-person"></i>
+                    {{ form.last_name }}
+                </div>
+
+                {% if form.last_name.errors %}
+                    <div class="register_field_error">
+                        {{ form.last_name.errors }}
+                    </div>
+                {% endif %}
+            </div>
+
+              <!-- Email -->
+              <div class="register_field">
+                <label for="{{ form.email.id_for_label }}">
+                  Email address <span>*</span>
+                </label>
+                <div class="register_input_wrapper">
+                  <i class="bi bi-envelope"></i> {{ form.email }}
+                </div>
+                {% if form.email.errors %}
+                <div class="register_field_error">{{ form.email.errors }}</div>
+                {% endif %}
+              </div>
+              <!-- Password -->
+              <div class="register_field">
+                <label for="{{ form.password1.id_for_label }}">
+                  Password <span>*</span>
+                </label>
+                <div class="register_input_wrapper">
+                  <i class="bi bi-lock"></i> {{ form.password1 }}
+                  <button
+                    type="button"
+                    class="register_password_toggle"
+                    onclick="toggleRegisterPassword( '{{ form.password1.id_for_label }}', this )"
+                    aria-label="Show password"
+                  >
+                    <i class="bi bi-eye"></i>
+                  </button>
+                </div>
+                <div class="register_password_hint">
+                  Use at least 8 characters with a mix of letters and numbers.
+                </div>
+                {% if form.password1.errors %}
+                <div class="register_field_error">
+                  {{ form.password1.errors }}
+                </div>
+                {% endif %}
+              </div>
+              <!-- Confirm Password -->
+              <div class="register_field">
+                <label for="{{ form.password2.id_for_label }}">
+                  Confirm password <span>*</span>
+                </label>
+                <div class="register_input_wrapper">
+                  <i class="bi bi-lock"></i> {{ form.password2 }}
+                  <button
+                    type="button"
+                    class="register_password_toggle"
+                    onclick="toggleRegisterPassword( '{{ form.password2.id_for_label }}', this )"
+                    aria-label="Show password"
+                  >
+                    <i class="bi bi-eye"></i>
+                  </button>
+                </div>
+                {% if form.password2.errors %}
+                <div class="register_field_error">
+                  {{ form.password2.errors }}
+                </div>
+                {% endif %}
+              </div>
+            </div>
+            <!-- ========================= TERMS ========================== -->
+            <div class="register_terms">
+              <label class="register_terms_label">
+                <input type="checkbox" id="agreeTerms" />
+                <span class="register_checkbox">
+                  <i class="bi bi-check"></i>
+                </span>
+                <span class="register_terms_text">
+                  I agree to the <a href="#">Terms of Service</a> and
+                  <a href="#">Privacy Policy</a>.
+                </span>
+              </label>
+            </div>
+            <!-- ========================= SUBMIT ========================== -->
+            <button
+              id="createBtn"
+              name="create-account"
+              type="submit"
+              class="register_submit"
+              disabled
+            >
+              <span>Create Account</span> <i class="bi bi-arrow-right"></i>
+            </button>
+            <!-- Login -->
+            <div class="register_login">
+              Already have an account?
+              <a href="{% url 'login' %}">
+                Log in <i class="bi bi-arrow-right"></i>
+              </a>
+            </div>
+          </form>
+        </div>
+        <!-- Footer -->
+        <div class="coreva_register_footer">
+          <i class="bi bi-shield-check"></i> Your information is securely
+          protected.
+        </div>
+      </div>
+    </section>
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      function registerPassword1(event) {
+        event.preventDefault();
+        var x = document.getElementById("registerInput");
+        if (x.type === "password") {
+          x.type = "text";
+        } else {
+          x.type = "password";
+        }
+      }
+
+      function password2register(event) {
+        event.preventDefault();
+        var x = document.getElementById("inputRegistertwo");
+        if (x.type === "password") {
+          x.type = "text";
+        } else {
+          x.type = "password";
+        }
+      }
+    </script>
+
+    <script>
+      window.addEventListener("load", function () {
+        const spinner = document.getElementById("loading-spinner");
+        spinner.style.display = "none";
+      });
+    </script>
+
+    <script>
+      function LoadingSpinner() {
+        document.getElementById("loading_spinner").style.display = "block";
+      }
+    </script>
+
+    <script>
+      const checkbox = document.getElementById("agreeTerms");
+      const button = document.getElementById("createBtn");
+
+      checkbox.addEventListener("change", function () {
+        button.disabled = !this.checked;
+      });
+    </script>
+
+    <!-- NEW REGISTER SCRIPT  -->
+
+    <script>
+      /* =========================================================
+     PASSWORD VISIBILITY
+  ========================================================== */
+
+      function toggleRegisterPassword(inputId, button) {
+        const input = document.getElementById(inputId);
+        const icon = button.querySelector("i");
+
+        if (!input) return;
+
+        if (input.type === "password") {
+          input.type = "text";
+
+          icon.classList.remove("bi-eye");
+          icon.classList.add("bi-eye-slash");
+
+          button.setAttribute("aria-label", "Hide password");
+        } else {
+          input.type = "password";
+
+          icon.classList.remove("bi-eye-slash");
+          icon.classList.add("bi-eye");
+
+          button.setAttribute("aria-label", "Show password");
+        }
+      }
+
+      /* =========================================================
+     TERMS → ENABLE CREATE ACCOUNT
+  ========================================================== */
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const terms = document.getElementById("agreeTerms");
+        const createBtn = document.getElementById("createBtn");
+
+        if (!terms || !createBtn) return;
+
+        terms.addEventListener("change", function () {
+          createBtn.disabled = !this.checked;
+        });
+      });
+
+      /* =========================================================
+     LOADING STATE
+  ========================================================== */
+
+      document
+        .getElementById("registerForm")
+        ?.addEventListener("submit", function () {
+          const button = document.getElementById("createBtn");
+
+          if (!button) return;
+
+          button.disabled = true;
+
+          button.innerHTML = `
+        <span>Creating account...</span>
+        <i class="bi bi-arrow-repeat"></i>
+      `;
+        });
+    </script>
+  </body>
+</html>

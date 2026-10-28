@@ -1,0 +1,442 @@
+{% load static %}
+<!-- divider  -->
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Coreva</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  
+  <!-- Google Icons  -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+    />
+
+    <!-- bootstrap-icons  -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    />
+
+
+    <!-- Material+Symbols+Outlined -->
+      <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet"
+    />
+
+    <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    >
+
+    <!-- Inter Google Font  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+
+    <!-- HTMX SCRIPT  -->
+    <script src="https://unpkg.com/htmx.org@1.9.4"></script>
+
+    <!-- Inter  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- todays_portal css -->
+    <link rel="stylesheet" href="{% static '/css/contractor_portal/todays_portal.css' %}"/>
+    <!-- Project Details css -->
+    <link rel="stylesheet" href="{% static '/css/contractor_portal/portal_project_details.css' %}"/>
+    <!-- View Work Details css -->
+    <link rel="stylesheet" href="{% static '/css/contractor_portal/view_work_details.css' %}"/>
+
+    <!-- incidents css  -->
+    <link rel="stylesheet" href="{% static '/css/incidents/incidents.css' %}" />
+
+  </head>
+  <body>
+
+    <!-- ======= PORTAL NAVBAR  ======= -->
+     <div style="padding-bottom: 90px;">
+    {% include 'partials/portal_navbar.html' %}
+    </div>
+
+    <div class="contractor-work-page mt-0 pt-0">
+
+        <!-- =========================
+            TOP NAV
+        ========================== -->
+        <div class="work-topbar">
+
+            <!-- =====================================
+              BACK
+          ====================================== -->
+          <a href="javascript:history.back()" class="form_back_button mb-0" style="color: #2563eb !important; font-size: 14px !important;">
+              <i class="bi bi-chevron-left"></i>
+              <span>Back</span>
+          </a>
+
+            <button class="more-button d-none" type="button">
+                <span class="material-symbols-rounded">more_vert</span>
+            </button>
+
+        </div>
+
+
+        <!-- =========================
+            MAIN CONTENT
+        ========================== -->
+        <div class="work-layout">
+
+            <main class="work-main">
+
+                <!-- =========================
+                    WORK ITEM HEADER
+                ========================== -->
+                <section class="work-card work-header-card">
+
+                    <div class="work-type-row">
+                        {% if issue.type == 'issue' %}
+                        <span class="work-type task">
+                            <span class="material-symbols-rounded">error</span>
+                            Issue 
+                        </span>
+                        {% else %}
+                        <span class="work-type task">
+                            <span class="material-symbols-outlined">
+                            checklist
+                            </span>
+                            Task 
+                        </span>
+                        {% endif %}
+
+                        {% if issue.priority == 'high' %}
+                        <span class="priority high">
+                            High Priority
+                        </span>
+                        {% elif issue.priority == 'medium' %}
+                        <span class="priority medium">
+                            Medium Priority
+                        </span>
+                        {% else %}
+                        <span class="priority low">
+                            Low Priority
+                        </span>
+                        {% endif %}
+
+                    </div>
+
+
+                    <h1 class="mb-3">
+                        {{issue.title}}
+                    </h1>
+
+
+                    <p class="work-reference d-none">
+                        Issue #ISS-00428
+                    </p>
+
+
+                    <div class="work-meta">
+
+                        <div class="meta-item">
+
+                            <span class="material-symbols-rounded">
+                                calendar_today
+                            </span>
+
+                            <div>
+                                <span class="meta-label">Due date</span>
+                                <strong>{{issue.due_date|date:"d M Y" }}</strong>
+                            </div>
+
+                        </div>
+
+
+                        <div class="meta-item">
+
+                            <span class="material-symbols-rounded">
+                                person
+                            </span>
+
+                            <div>
+                                <span class="meta-label">Assigned to</span>
+                                <strong>{{issue.assigned_contractor.contractor.company_name}}</strong>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+                <!-- =========================
+                    DESCRIPTION
+                ========================== -->
+                <section class="work-card">
+
+                    <div class="section-heading">
+
+                        <div class="section-icon">
+                            <span class="material-symbols-rounded">
+                                description
+                            </span>
+                        </div>
+
+                        <div>
+                            <h2>Description</h2>
+                            <p>What needs to be done</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="description-content">
+
+                        <p>
+                            {{issue.description}}
+                        </p>
+
+                    </div>
+
+                </section>
+
+                <!-- =========================
+                    ATTACHMENTS
+                ========================== -->
+                <section class="work-card">
+
+                    <div class="section-heading">
+
+                        <div class="section-icon">
+                            <span class="material-symbols-rounded">
+                                attach_file
+                            </span>
+                        </div>
+
+                        <div>
+                            <h2>Attachments</h2>
+                            <p>Files shared on this work item</p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="attachment-grid">
+                        {% for file in attachments %}
+                        <!-- Image -->
+                        {% if file.photo %}
+                        <a href="{{ file.photo.url }}" target="_blank">
+                            <div class="attachment-card">
+
+                                <div class="attachment-preview image-preview">
+                                    <img
+                                        src="{{ file.photo.url }}"
+                                        alt="Construction site"
+                                    >
+                                </div>
+
+                                <div class="attachment-info">
+
+                                    <strong>
+                                        {{ file.photo.name|cut:"media/project_photos/"|truncatechars:30 }}
+                                    </strong>
+
+                                    <span>
+                                        {{file.filesize}} · {{file.created_at|date:"d M Y" }}
+                                    </span>
+
+                                </div>
+
+                            </div>
+                        </a>
+                        {% else %}
+                        <!-- Document -->
+                         <a href="{{ file.file.url }}" target="_blank">
+                            <div class="attachment-card">
+
+                                <div class="attachment-preview document-preview">
+
+                                    <span class="material-symbols-rounded">
+                                        description
+                                    </span>
+
+                                </div>
+
+                                <div class="attachment-info">
+
+                                    <strong>
+                                        {{ file.file.name|cut:"media/project_files/"|truncatechars:30 }}
+                                    </strong>
+
+                                    <span>
+                                        {{file.filesize}} · {{file.created_at|date:"d M Y" }}
+                                    </span>
+
+                                </div>
+
+                            </div>
+                        </a>
+                        {% endif %}
+                        <!-- divider  -->
+                        {% endfor %}
+
+                    </div>
+
+                </section>
+
+                    <div>
+                </div>
+
+
+                <!-- =========================
+                CONTRACTOR WORK PROGRESS PARTIAL
+                ========================== -->
+                <div id="ContractorWorkProgress">
+                    {% include 'partials/contractor_work_progress_partial.html' %}
+                </div>
+
+                <!-- =========================
+                CONTRACTOR COMMENTS PARTIAL
+                ========================== -->
+                <div id="NewContractorCommentsList">
+                    {% include 'partials/contractor_comments_partial.html' %}
+                </div>
+
+                
+            </main>
+
+
+            <!-- =========================
+                RIGHT SIDEBAR
+            ========================== -->
+            <aside class="work-sidebar">
+
+                <!-- PROJECT -->
+                <div class="sidebar-card">
+
+                    <span class="sidebar-label">
+                        PROJECT
+                    </span>
+
+                    <h3>
+                        {{issue.project.project_name}}
+                    </h3>
+
+                    <p>
+                        {{issue.project.location.street_address}},
+                        {{issue.project.location.city}},
+                        {{issue.project.location.province}}
+                    </p>
+
+                    <a href="#" class="project-link d-none">
+                        View project
+                        <span class="material-symbols-rounded">
+                            arrow_forward
+                        </span>
+                    </a>
+
+                </div>
+
+
+                <!-- STATUS -->
+                <div class="sidebar-card">
+
+                    <span class="sidebar-label">
+                        CURRENT STATUS
+                    </span>
+
+                    <div class="sidebar-status text-capitalize">
+                        <span class="status-dot in-progress "></span>
+                        {{issue.type}} {{issue.status}}
+                    </div>
+
+                    <div class="status-date d-none">
+                        Updated today at 15:04
+                    </div>
+
+                </div>
+
+
+                <!-- ACTIVITY -->
+                <div class="sidebar-card d-none">
+
+                    <span class="sidebar-label">
+                        ACTIVITY
+                    </span>
+
+                    <div class="activity-list">
+
+                        <div class="activity-item">
+
+                            <span class="activity-dot"></span>
+
+                            <div>
+                                <strong>
+                                    Work started
+                                </strong>
+
+                                <span>
+                                    Today · 09:21
+                                </span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="activity-item">
+
+                            <span class="activity-dot"></span>
+
+                            <div>
+                                <strong>
+                                    Comment added
+                                </strong>
+
+                                <span>
+                                    Today · 15:04
+                                </span>
+                            </div>
+
+                        </div>
+
+
+                        <div class="activity-item">
+
+                            <span class="activity-dot"></span>
+
+                            <div>
+                                <strong>
+                                    Attachment added
+                                </strong>
+
+                                <span>
+                                    Today · 15:05
+                                </span>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </aside>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+  
+    
+</body>
+</html>

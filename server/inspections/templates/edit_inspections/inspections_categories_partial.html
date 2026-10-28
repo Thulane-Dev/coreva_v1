@@ -1,0 +1,228 @@
+{% for category in inspection_categories %}
+<a href="" data-bs-toggle="offcanvas" data-bs-target="#inspEditCategory{{ category.id }}" aria-controls="inspEditCategory{{ category.id }}">
+    <div class="insp-category-card">
+
+        <!-- Category number -->
+        <div class="insp-category-number">
+            {{ forloop.counter }}
+        </div>
+
+
+        <!-- Category information -->
+        <div class="insp-category-main">
+
+            <div class="insp-category-top">
+
+                <div>
+                    <h3 class="insp-category-title">
+                        {{ category.name }}
+                    </h3>
+
+                    <div class="insp-category-meta">
+                        <span>
+                            <i class="bi bi-list-check"></i>
+                            {{ category.inspection_questions|length }} questions
+                        </span>
+                    </div>
+                </div>
+
+                <button
+                    type="button"
+                    class="insp-category-edit"
+                    >
+                    <i class="bi bi-pencil"></i>
+                    <span>Edit</span>
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+</a>
+
+<!-- =====================================================
+        EDIT CATEGORY OFFCANVAS
+====================================================== -->
+<div
+    class="offcanvas offcanvas-end insp-question-drawer"
+    tabindex="-1"
+    id="inspEditCategory{{ category.id }}"
+    aria-labelledby="inspEditCategoryLabel{{ category.id }}"
+>
+
+    <!-- Drawer header -->
+    <div class="insp-drawer-header">
+
+        <div>
+            <span class="insp-drawer-eyebrow">
+                Inspection Category
+            </span>
+
+            <h2 id="inspEditCategoryLabel{{ category.id }}">
+                {{ category.name }}
+            </h2>
+
+            <p>
+                Manage the checklist questions for this category.
+            </p>
+        </div>
+
+        <button
+            type="button"
+            class="insp-drawer-close"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+        >
+            <i class="bi bi-x-lg"></i>
+        </button>
+
+    </div>
+
+
+    <!-- Drawer content -->
+    <div class="insp-drawer-body">
+        <!-- Existing questions -->
+        <div class="insp-existing-section" id="ExistingQuestions{{ category.id }}">
+            {% include 'edit_inspections/inspection_category_question_partial.html' %}
+        </div>
+
+        <!-- Add question -->
+         <hr class="my-3">
+        <div class="insp-add-question mt-3">
+
+            <div class="insp-section-heading">
+                <div class="insp-section-icon">
+                    <i class="bi bi-plus-lg"></i>
+                </div>
+
+                <div>
+                    <h3>Add checklist question</h3>
+                    <p>
+                        Add a question inspectors should check.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Add Question -->
+            <form 
+                hx-post="{% url 'inspections:save-question' category.uuid project.uuid %}"
+                hx-target="#ExistingQuestions{{ category.id }}"
+                hx-swap="innerHTML"
+                hx-push-url="false"
+                hx-on::after-request="if(event.detail.successful) this.querySelector('textarea[name=question]').value = ''"
+                >
+                {% csrf_token %}
+                <div class="insp-question-field">
+
+                    <label for="inspectionQuestion{{ category.id }}">
+                        Checklist question
+                    </label>
+
+                    <textarea
+                        name="question"
+                        id="inspectionQuestion{{ category.id }}"
+                        class="insp-question-input"
+                        rows="3"
+                        placeholder="e.g. Are workers wearing the required PPE?"
+                    ></textarea>
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="insp-add-question-btn"
+                >
+                    <i class="bi bi-plus-lg"></i>
+                    Add question
+                </button>
+
+            </form>
+        </div>  
+
+        <!-- DELETE CATEGORY -->
+         <hr class="my-3">
+        <section class="insp-delete-category mt-4">
+
+            <div class="insp-delete-category-header">
+
+                <div class="insp-delete-category-icon">
+                    <i class="bi bi-trash3"></i>
+                </div>
+
+                <div class="insp-delete-category-content">
+                    <span class="insp-delete-category-label">
+                        Danger zone
+                    </span>
+
+                    <h3>Delete this category</h3>
+
+                    <p>
+                        Permanently remove this inspection category and its checklist questions.
+                        This action cannot be undone.
+                    </p>
+                </div>
+
+            </div>
+
+            <form
+                hx-post="{% url 'inspections:remove-category' project.uuid category.uuid %}"
+                hx-target="#inspectionCategories"
+                hx-swap="innerHTML"
+                hx-push-url="false"
+                class="insp-delete-category-form"
+            >
+                {% csrf_token %}
+
+                <button
+                    type="submit"
+                    class="insp-delete-category-btn"
+                    onclick="closeCategoryOffcanvas('{{ category.id }}')"
+                >
+                    <i class="bi bi-trash3"></i>
+                    Delete category
+                </button>
+
+            </form>
+
+
+            <!-- CLOSE COMMENT OFFCANVAS  -->
+        <script>
+            function closeCategoryOffcanvas(commentId) {
+
+                const offcanvasElement = document.getElementById(
+                    "inspEditCategory" + commentId
+                );
+
+                if (!offcanvasElement) {
+                    return;
+                }
+
+                const offcanvasInstance =
+                    bootstrap.Offcanvas.getInstance(offcanvasElement);
+
+                if (offcanvasInstance) {
+                    offcanvasInstance.hide();
+                }
+            }
+        </script>
+        </section>
+    </div>
+
+</div>
+{% empty %}
+<!-- No categories -->
+<div class="insp-empty-state">
+
+    <div class="insp-empty-icon">
+        <i class="bi bi-ui-checks"></i>
+    </div>
+
+    <h3>No inspection categories</h3>
+
+    <p>
+        Add an inspection category to start building your checklist.
+    </p>
+
+</div>
+{% endfor %}

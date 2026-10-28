@@ -1,0 +1,46 @@
+{% if data.icon_type == 'inspection' %}
+<div class="time_line_icon timeline_blue_avatar">
+  <span class="material-symbols-outlined">fact_check</span>
+</div>
+
+{% elif data.icon_type == 'report' %}
+<div class="time_line_icon timeline_purple_avatar">
+  <span class="material-symbols-outlined">assignment</span>
+</div>
+
+{% elif data.icon_type == 'issue' %}
+<div class="time_line_icon timeline_red_avatar">
+  <span class="material-symbols-outlined">warning</span>
+</div>
+
+{% elif data.icon_type == 'tasks' %}
+<div class="time_line_icon timeline_green_avatar">
+  <span class="material-symbols-outlined">task_alt</span>
+</div>
+
+{% elif data.icon_type == 'incident' %}
+<div class="time_line_icon timeline_orange_avatar">
+  <span class="material-symbols-outlined">emergency</span>
+  <!-- <span class="material-symbols-outlined"> add_alert </span> -->
+</div>
+
+{% elif data.icon_type == 'jamal' %}
+<div class="time_line_icon timeline_yellow_avatar">
+  <span class="material-symbols-outlined">inventory_2</span>
+</div>
+
+{% elif data.icon_type == 'delivery' %}
+<div class="time_line_icon timeline_teal_avatar">
+  <span class="material-symbols-outlined">local_shipping</span>
+</div>
+
+{% elif data.icon_type == 'comment' %}
+<div class="time_line_icon timeline_gray_avatar">
+  <span class="material-symbols-outlined">chat</span>
+</div>
+
+{% else %}
+<div class="time_line_icon timeline_default_avatar">
+  <span class="material-symbols-outlined">push_pin</span>
+</div>
+{% endif %}

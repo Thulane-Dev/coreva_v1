@@ -1,0 +1,1 @@
+from .inspections_view import get_project_details_inspection_data, get_project_details_daily_inspection, get_project_daily_inspection_new,get_pdf_inspections_data

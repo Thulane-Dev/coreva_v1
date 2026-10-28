@@ -1,0 +1,20 @@
+<a
+    id="TasksSectionSM"
+    href="{% url 'issues:project-tasks' project.uuid %}?next={{ request.get_full_path|urlencode }}&section=workspace"
+    class="d-block d-md-none"
+    hx-swap-oob="outerHTML"
+>
+    <div class="coreva-action-block">
+        <div class="coreva-action-icon coreva-icon-amber">
+            <i class="bi bi-check2-square"></i>
+        </div>
+
+        <div class="coreva-action-content">
+            <span class="coreva-action-title">Tasks</span>
+            <span class="coreva-action-subtitle">Work to complete</span>
+        </div>
+        {% if project_data.open_tasks  %}
+        <span class="coreva-action-badge coreva-action-badge-red">{{project_data.tasks_count}}</span>
+        {% endif %}
+    </div>
+</a>

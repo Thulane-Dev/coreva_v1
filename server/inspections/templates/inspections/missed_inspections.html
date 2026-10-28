@@ -1,0 +1,111 @@
+{% load static %}
+<!-- divider  -->
+
+<div class="row d-flex justify-content-center">
+  <div class="col-12  col-lg-6">
+    <!-- NEW LIST  -->
+    <section class="missed_inspections_page">
+      <a href="javascript:history.back()" class="delivery_back">
+        <i class="bi bi-chevron-left"></i>
+        <span>Back</span>
+      </a>
+      <div class="missed_inspections_container">
+        <!-- ================= HEADER ================= -->
+        <div class="dashboard_main_card mb-3">
+          <div class="missed_inspections_header mb-0">
+            <div class="missed_inspections_header_icon">
+              <i class="bi bi-clipboard-x"></i>
+            </div>
+
+            <div>
+              <div class="missed_inspections_eyebrow">INSPECTIONS</div>
+
+              <div class="d-flex align-items-center gap-2 flex-wrap">
+                <h1 class="missed_inspections_title mb-0">
+                  Missed Inspections
+                </h1>
+
+                <span class="missed_inspections_count">
+                  {{ missed_inspection_days|length }}
+                </span>
+              </div>
+
+              <p class="missed_inspections_subtitle mb-0">
+                Review and complete inspections that were missed on previous
+                days.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= CONTENT ================= -->
+        <div class="missed_inspections_card">
+          <div class="missed_inspections_card_header">
+            <div>
+              <h2>Outstanding Inspections</h2>
+
+              <p>
+                Complete these inspections to keep your project records up to
+                date.
+              </p>
+            </div>
+          </div>
+
+          {% if missed_inspection_days %}
+
+          <div class="missed_inspection_list">
+            {% for day in missed_inspection_days %}
+
+            <div class="missed_inspection_item">
+              <!-- Status -->
+              <div class="missed_inspection_status">
+                <div class="missed_inspection_status_icon">
+                  <i class="bi bi-exclamation-lg"></i>
+                </div>
+              </div>
+
+              <!-- Date -->
+              <div class="missed_inspection_date">
+                <span class="missed_inspection_label"> MISSED </span>
+
+                <strong> {{ day|date:"l, d F Y" }} </strong>
+              </div>
+
+              <!-- Action -->
+              <div class="missed_inspection_action">
+                <form method="POST" action="{% url 'inspections:create-missed-inspection' project.uuid %}">
+                  {% csrf_token %}
+                  <input type="text" value="{{ day|date:'Y-m-d' }}" name="missed_date" hidden>
+                  <button type="submit" class="missed_inspection_button">
+                    <i class="bi bi-clipboard-check"></i>
+
+                    <span>Complete Inspection</span>
+
+                    <i class="bi bi-arrow-right"></i>
+                  </button>
+                 </form>
+              </div>
+            </div>
+
+            {% endfor %}
+          </div>
+
+          {% else %}
+
+          <!-- ================= EMPTY STATE ================= -->
+          <div class="missed_inspections_empty">
+            <div class="missed_inspections_empty_icon">
+              <i class="bi bi-clipboard-check"></i>
+            </div>
+
+            <h3>No missed inspections</h3>
+
+            <p>All scheduled inspections have been completed.</p>
+          </div>
+
+          {% endif %}
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

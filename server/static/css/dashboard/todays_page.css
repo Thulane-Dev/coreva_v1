@@ -1,0 +1,1015 @@
+/* =========================================================
+   TODAY'S WORK
+   New namespace: tw-
+========================================================= */
+
+
+/* =========================================================
+   HEADER SECTION
+========================================================= */
+
+.tw-header-section {
+    width: 100%;
+    margin-bottom: 22px;
+}
+
+
+/* =========================================================
+   GREETING CARD
+========================================================= */
+
+.tw-greeting-card {
+    position: relative;
+    width: 100%;
+    padding: 22px 24px;
+    margin-bottom: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    background: #ffffff;
+    overflow: hidden;
+}
+
+.tw-greeting-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: #2563eb;
+}
+
+.tw-greeting-main {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+}
+
+.tw-greeting-icon {
+    width: 46px;
+    height: 46px;
+    min-width: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: #eff6ff;
+    color: #2563eb;
+    font-size: 20px;
+}
+
+.tw-greeting-content {
+    min-width: 0;
+}
+
+.tw-eyebrow {
+    display: block;
+    margin-bottom: 4px;
+    color: #2563eb;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.09em;
+}
+
+.tw-greeting-title {
+    margin: 0;
+    color: #172a46;
+    font-size: 22px;
+    font-weight: 750;
+    line-height: 1.25;
+    letter-spacing: -0.02em;
+}
+
+.tw-greeting-date {
+    margin: 4px 0 0;
+    color: #64748b;
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   SUMMARY GRID
+========================================================= */
+
+.tw-summary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    width: 100%;
+}
+
+.tw-summary-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+    padding: 15px 16px;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    background: #ffffff;
+}
+
+.tw-summary-icon {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: 17px;
+}
+
+.tw-summary-blue {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.tw-summary-red {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.tw-summary-green {
+    background: #ecfdf5;
+    color: #059669;
+}
+
+.tw-summary-content {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.tw-summary-label {
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.tw-summary-value {
+    margin-top: 2px;
+    color: #172a46;
+    font-size: 20px;
+    font-weight: 750;
+    line-height: 1.2;
+}
+
+
+/* =========================================================
+   PROJECTS HEADER
+========================================================= */
+
+.tw-projects-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+    padding: 17px 19px;
+    margin-bottom: 18px;
+    border: 1px solid #e2e8f0;
+    border-radius: 13px;
+    background: #ffffff;
+}
+
+
+/* =========================================================
+   PROJECT HEADING
+========================================================= */
+
+.tw-projects-heading {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    min-width: 0;
+}
+
+.tw-projects-heading-icon {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9px;
+    background: #f1f5f9;
+    color: #475569;
+    font-size: 16px;
+}
+
+.tw-projects-heading-content {
+    min-width: 0;
+}
+
+.tw-projects-title-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tw-projects-title {
+    margin: 0;
+    color: #172a46;
+    font-size: 15px;
+    font-weight: 750;
+    line-height: 1.3;
+}
+
+.tw-projects-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 22px;
+    height: 21px;
+    padding: 0 7px;
+    border-radius: 20px;
+    background: #f1f5f9;
+    color: #64748b;
+    font-size: 10px;
+    font-weight: 750;
+}
+
+.tw-projects-subtitle {
+    margin: 3px 0 0;
+    color: #94a3b8;
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.tw-projects-actions {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    flex-shrink: 0;
+}
+
+.tw-project-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 38px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+    transition:
+        background 0.15s ease,
+        border-color 0.15s ease,
+        color 0.15s ease;
+}
+
+.tw-project-action i {
+    font-size: 14px;
+}
+
+.tw-project-action-primary {
+    border: 1px solid #2563eb;
+    background: #2563eb;
+    color: #ffffff;
+}
+
+.tw-project-action-primary:hover {
+    border-color: #1d4ed8;
+    background: #1d4ed8;
+    color: #ffffff;
+}
+
+.tw-project-action-secondary {
+    border: 1px solid #dfe5ec;
+    background: #ffffff;
+    color: #475569;
+}
+
+.tw-project-action-secondary:hover {
+    border-color: #cbd5e1;
+    background: #f8fafc;
+    color: #172a46;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 800px) {
+
+    .tw-summary-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .tw-summary-card {
+        padding: 13px;
+    }
+
+    .tw-summary-icon {
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+    }
+
+    .tw-summary-value {
+        font-size: 18px;
+    }
+
+    .tw-projects-header {
+        align-items: flex-start;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .tw-header-section {
+        margin-bottom: 16px;
+    }
+
+
+    /* Greeting */
+
+    .tw-greeting-card {
+        padding: 17px;
+        margin-bottom: 9px;
+        border-radius: 12px;
+    }
+
+    .tw-greeting-main {
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .tw-greeting-icon {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        border-radius: 10px;
+        font-size: 17px;
+    }
+
+    .tw-greeting-title {
+        font-size: 18px;
+    }
+
+    .tw-greeting-date {
+        font-size: 11px;
+    }
+
+
+    /* Summary */
+
+    .tw-summary-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .tw-summary-card {
+        width: 100%;
+        padding: 12px 13px;
+    }
+
+    .tw-summary-icon {
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+        border-radius: 9px;
+    }
+
+    .tw-summary-label {
+        font-size: 10px;
+    }
+
+    .tw-summary-value {
+        font-size: 17px;
+    }
+
+
+    /* Projects header */
+
+    .tw-projects-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px;
+        padding: 15px;
+        margin-bottom: 14px;
+        border-radius: 12px;
+    }
+
+    .tw-projects-heading {
+        width: 100%;
+    }
+
+    .tw-projects-heading-icon {
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+    }
+
+    .tw-projects-title {
+        font-size: 14px;
+    }
+
+    .tw-projects-subtitle {
+        font-size: 10px;
+    }
+
+
+    /* Actions */
+
+    .tw-projects-actions {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 7px;
+    }
+
+    .tw-project-action {
+        width: 100%;
+        min-height: 40px;
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .tw-projects-actions {
+        grid-template-columns: 1fr;
+    }
+
+    .tw-project-action-secondary {
+        min-height: 38px;
+    }
+
+}
+
+
+
+/* =====================================================
+   CONTRACTOR PORTAL — NO PROJECTS EMPTY STATE
+====================================================== */
+
+.cpe-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 52px 24px;
+    background: #ffffff;
+    border: 1px solid #e5eaf0;
+    border-radius: 14px;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.cpe-empty-icon {
+    width: 62px;
+    height: 62px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    background: #eff6ff;
+    border: 1px solid #dbeafe;
+    border-radius: 14px;
+    color: #2563eb;
+    font-size: 26px;
+}
+
+.cpe-empty-content {
+    width: 100%;
+    min-width: 0;
+}
+
+.cpe-empty-content h3 {
+    margin: 0;
+    color: #172a46;
+    font-size: 17px;
+    font-weight: 750;
+    line-height: 1.35;
+}
+
+.cpe-empty-content p {
+    max-width: 500px;
+    margin: 7px auto 0;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.65;
+}
+
+.cpe-empty-note {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 14px;
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.cpe-empty-note i {
+    color: #94a3b8;
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   MOBILE
+====================================================== */
+
+@media (max-width: 600px) {
+
+    .cpe-empty-state {
+        padding: 42px 20px;
+        border-radius: 12px;
+    }
+
+    .cpe-empty-icon {
+        width: 58px;
+        height: 58px;
+        margin-bottom: 14px;
+        border-radius: 13px;
+        font-size: 24px;
+    }
+
+    .cpe-empty-content h3 {
+        font-size: 16px;
+    }
+
+    .cpe-empty-content p {
+        max-width: 400px;
+        font-size: 12px;
+        line-height: 1.6;
+    }
+
+    .cpe-empty-note {
+        font-size: 10px;
+    }
+}
+
+
+
+/* NEW TODAYS PAGE HEADER  */
+/* =========================================
+   TODAY PAGE — HERO HEADER
+========================================= */
+
+.coreva-today-hero {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    background: #172A46;
+    border-radius: 18px;
+    padding: 28px 30px;
+    margin-bottom: 24px;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.10);
+}
+
+.coreva-today-hero-content {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    min-height: 145px;
+}
+
+.coreva-today-hero-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.coreva-today-hero-label {
+    display: inline-flex;
+    align-items: center;
+
+    margin-bottom: 8px;
+
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: rgba(255, 255, 255, 0.58);
+}
+
+.coreva-today-hero-title {
+    margin: 0;
+
+    font-size: 30px;
+    line-height: 1.15;
+    font-weight: 700;
+    letter-spacing: -0.025em;
+
+    color: #ffffff;
+}
+
+.coreva-today-hero-date {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    margin: 12px 0 0;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    color: rgba(255, 255, 255, 0.68);
+}
+
+.coreva-today-hero-date i {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.52);
+}
+
+
+/* =========================================
+   HERO VISUAL
+========================================= */
+
+.coreva-today-hero-visual {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 110px;
+    height: 110px;
+}
+
+.coreva-today-hero-icon {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 72px;
+    height: 72px;
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 22px;
+
+    background: rgba(255, 255, 255, 0.08);
+
+    color: #ffffff;
+    font-size: 30px;
+
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+.coreva-today-hero-glow {
+    position: absolute;
+
+    width: 110px;
+    height: 110px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.06);
+
+    filter: blur(2px);
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 576px) {
+
+    .coreva-today-hero {
+        padding: 24px 20px;
+        border-radius: 16px;
+    }
+
+    .coreva-today-hero-content {
+        min-height: 125px;
+    }
+
+    .coreva-today-hero-title {
+        max-width: 230px;
+
+        font-size: 25px;
+    }
+
+    .coreva-today-hero-date {
+        font-size: 13px;
+    }
+
+    .coreva-today-hero-visual {
+        width: 76px;
+        height: 76px;
+    }
+
+    .coreva-today-hero-icon {
+        width: 58px;
+        height: 58px;
+
+        border-radius: 18px;
+        font-size: 24px;
+    }
+
+    .coreva-today-hero-glow {
+        width: 76px;
+        height: 76px;
+    }
+}
+
+
+
+
+.cpe-empty-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    margin-top: 17px;
+    padding: 9px 14px;
+    background: #2563eb;
+    border: 1px solid #2563eb;
+    border-radius: 8px;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.cpe-empty-action:hover {
+    background: #1d4ed8;
+    border-color: #1d4ed8;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.cpe-empty-action i {
+    font-size: 12px;
+}
+
+
+
+/* =====================================================
+   PROJECT LIMIT MODAL
+   ====================================================== */
+
+.tw-project-limit-modal {
+    border: none;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #ffffff;
+    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.18);
+}
+
+
+/* =====================================================
+   HEADER
+   ====================================================== */
+
+.tw-project-limit-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 24px 24px 0;
+}
+
+.tw-project-limit-header .btn-close {
+    margin-top: 2px;
+    opacity: 0.55;
+}
+
+.tw-project-limit-header .btn-close:hover {
+    opacity: 0.85;
+}
+
+
+/* =====================================================
+   ICON
+   ====================================================== */
+
+.tw-project-limit-icon {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: #fff7ed;
+    color: #f59e0b;
+
+    font-size: 22px;
+}
+
+
+/* =====================================================
+   CONTENT
+   ====================================================== */
+
+.tw-project-limit-content {
+    padding: 18px 24px 8px;
+}
+
+.tw-project-limit-content h3 {
+    margin: 0 0 8px;
+
+    font-size: 20px;
+    line-height: 1.3;
+    font-weight: 700;
+
+    color: #0f172a;
+}
+
+.tw-project-limit-content > p {
+    margin: 0;
+
+    font-size: 14px;
+    line-height: 1.6;
+
+    color: #64748b;
+}
+
+.tw-project-limit-content strong {
+    color: #334155;
+    font-weight: 600;
+}
+
+
+/* =====================================================
+   USAGE
+   ====================================================== */
+
+.tw-project-limit-usage {
+    margin-top: 20px;
+    padding: 14px;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+
+    background: #f8fafc;
+}
+
+.tw-project-limit-usage-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 10px;
+}
+
+.tw-project-limit-usage-top span {
+    font-size: 13px;
+    font-weight: 500;
+    color: #64748b;
+}
+
+.tw-project-limit-usage-top strong {
+    font-size: 13px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+
+/* =====================================================
+   PROGRESS BAR
+   ====================================================== */
+
+.tw-project-limit-progress {
+    width: 100%;
+    height: 7px;
+
+    overflow: hidden;
+
+    border-radius: 999px;
+
+    background: #e2e8f0;
+}
+
+.tw-project-limit-progress-bar {
+    height: 100%;
+
+    border-radius: inherit;
+
+    background: #f59e0b;
+}
+
+
+/* =====================================================
+   DESCRIPTION
+   ====================================================== */
+
+.tw-project-limit-description {
+    margin-top: 16px !important;
+
+    font-size: 13px !important;
+    line-height: 1.55 !important;
+
+    color: #64748b;
+}
+
+
+/* =====================================================
+   ACTIONS
+   ====================================================== */
+
+.tw-project-limit-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+
+    padding: 18px 24px 24px;
+}
+
+
+/* Cancel */
+
+.tw-project-limit-cancel {
+    border: none;
+    background: transparent;
+
+    padding: 9px 14px;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    color: #64748b;
+
+    cursor: pointer;
+
+    transition: background 0.15s ease,
+                color 0.15s ease;
+}
+
+.tw-project-limit-cancel:hover {
+    background: #f8fafc;
+    color: #334155;
+}
+
+
+/* Upgrade */
+
+.tw-project-limit-upgrade {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    padding: 10px 16px;
+
+    border-radius: 9px;
+
+    background: #2563eb;
+    color: #ffffff;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition: background 0.15s ease,
+                transform 0.15s ease;
+}
+
+.tw-project-limit-upgrade:hover {
+    background: #1d4ed8;
+    color: #ffffff;
+
+    transform: translateY(-1px);
+}
+
+.tw-project-limit-upgrade i {
+    font-size: 14px;
+}

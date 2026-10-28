@@ -1,0 +1,929 @@
+/* ========================================= INCIDENTS SECTION ========================================= */
+.incidents_section {
+  width: 100%;
+} /* ========================================= HEADER ========================================= */
+.incidents_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+.incidents_title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #172033;
+}
+.incidents_count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26px;
+  height: 24px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: #f1f3f5;
+  color: #495057;
+  font-size: 12px;
+  font-weight: 700;
+}
+.incidents_subtitle {
+  margin-top: 4px;
+  color: #8a94a6;
+  font-size: 13px;
+}
+.incidents_header_actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+} /* ========================================= BUTTONS ========================================= */
+.incidents_add_btn {
+  min-height: 40px;
+  padding: 0 16px;
+  border: none;
+  border-radius: 10px;
+  background: #0d6efd;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+.incidents_add_btn:hover {
+  background: #0b5ed7;
+  color: #fff;
+}
+.incidents_history_btn {
+  min-height: 40px;
+  padding: 0 15px;
+  border: 1px solid #dee2e6;
+  border-radius: 10px;
+  background: #fff;
+  color: #495057;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+.incidents_history_btn:hover {
+  background: #f8f9fa;
+} /* ========================================= INCIDENT LIST ========================================= */
+.incidents_list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+} /* ========================================= INCIDENT CARD ========================================= */
+.incident_card {
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #e7eaf0;
+  border-radius: 14px;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.15s ease;
+}
+.incident_card:hover {
+  border-color: #d8dde6;
+  box-shadow: 0 4px 16px rgba(20, 30, 50, 0.06);
+  transform: translateY(-1px);
+} /* ========================================= SEVERITY BAR ========================================= */
+.incident_severity_bar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 4px;
+}
+.incident_severity_high {
+  background: #dc3545;
+}
+.incident_severity_medium {
+  background: #f59f00;
+}
+.incident_severity_low {
+  background: #0d6efd;
+} /* ========================================= CARD CONTENT ========================================= */
+.incident_card_content {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 17px 16px 20px;
+} /* ========================================= ICON ========================================= */
+.incident_icon {
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.incident_icon .material-symbols-outlined {
+  font-size: 22px;
+}
+.incident_icon_high {
+  background: #fff0f1;
+  color: #dc3545;
+}
+.incident_icon_medium {
+  background: #fff7e6;
+  color: #e67700;
+}
+.incident_icon_low {
+  background: #eef5ff;
+  color: #0d6efd;
+} /* ========================================= MAIN ========================================= */
+.incident_main {
+  flex: 1;
+  min-width: 0;
+}
+.incident_type {
+  margin-bottom: 3px;
+  color: #8a94a6;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.incident_title_text {
+  color: #172033;
+  font-size: 15px;
+  font-weight: 650;
+  line-height: 1.35;
+  overflow: hidden;
+  text-overflow: ellipsis;
+} /* ========================================= META ========================================= */
+.incident_meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 9px;
+}
+.incident_badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 650;
+}
+.incident_badge_dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+}
+.incident_badge_high {
+  background: #fff0f1;
+  color: #c92a2a;
+}
+.incident_badge_high .incident_badge_dot {
+  background: #dc3545;
+}
+.incident_badge_medium {
+  background: #fff7e6;
+  color: #d97706;
+}
+.incident_badge_medium .incident_badge_dot {
+  background: #f59f00;
+}
+.incident_badge_low {
+  background: #eef5ff;
+  color: #0d6efd;
+}
+.incident_badge_low .incident_badge_dot {
+  background: #0d6efd;
+}
+.incident_time {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #7b8494;
+  font-size: 11px;
+  font-weight: 600;
+}
+.incident_time i {
+  font-size: 11px;
+} /* ========================================= ARROW ========================================= */
+.incident_arrow {
+  flex: 0 0 auto;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #f7f8fa;
+  color: #7b8494;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.incident_arrow i {
+  font-size: 13px;
+} /* ========================================= MOBILE VIEW ALL ========================================= */
+.incidents_mobile_view_all {
+  width: 100%;
+  margin-top: 10px;
+  padding: 11px;
+  border: 1px solid #e3e6eb;
+  border-radius: 10px;
+  background: #fff;
+  color: #0d6efd;
+  font-size: 13px;
+  font-weight: 600;
+}
+.incidents_mobile_view_all i {
+  margin-left: 5px;
+} /* ========================================= EMPTY STATE ========================================= */
+.incidents_empty_section {
+  padding: 30px 20px;
+  text-align: center;
+  background: #fff;
+  border: 1px solid #e7eaf0;
+  border-radius: 16px;
+}
+.incident_empty_icon {
+  width: 54px;
+  height: 54px;
+  margin: 0 auto 14px;
+  border-radius: 15px;
+  background: #f1f5f9;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.incident_empty_icon .material-symbols-outlined {
+  font-size: 26px;
+}
+.incident_empty_title {
+  margin-bottom: 5px;
+  color: #172033;
+  font-size: 16px;
+  font-weight: 700;
+}
+.incident_empty_text {
+  max-width: 360px;
+  margin: 0 auto 20px;
+  color: #8a94a6;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.incident_empty_actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 360px;
+  margin: 0 auto;
+}
+.incident_empty_actions .incidents_history_btn {
+  min-height: 42px;
+} /* ========================================= TABLET ========================================= */
+@media (max-width: 767.98px) {
+  .incidents_header {
+    margin-bottom: 14px;
+  }
+  .incidents_subtitle {
+    font-size: 12px;
+  }
+  .incidents_add_btn {
+    min-height: 38px;
+    padding: 0 13px;
+  }
+  .incident_card_content {
+    padding: 14px 13px 14px 17px;
+    gap: 11px;
+  }
+  .incident_icon {
+    flex-basis: 40px;
+    width: 40px;
+    height: 40px;
+    border-radius: 11px;
+  }
+  .incident_icon .material-symbols-outlined {
+    font-size: 20px;
+  }
+  .incident_title_text {
+    font-size: 14px;
+  }
+  .incident_arrow {
+    width: 30px;
+    height: 30px;
+  }
+} /* ========================================= SMALL PHONES ========================================= */
+@media (max-width: 420px) {
+  .incidents_header {
+    align-items: flex-start;
+  }
+  .incidents_title {
+    font-size: 16px;
+  }
+  .incidents_count {
+    min-width: 24px;
+    height: 22px;
+  }
+  .incidents_subtitle {
+    display: none;
+  }
+  .incidents_add_btn {
+    min-width: 42px;
+    width: 42px;
+    padding: 0;
+    border-radius: 10px;
+  }
+  .incident_card_content {
+    padding: 13px 10px 13px 15px;
+  }
+  .incident_meta {
+    gap: 6px;
+  }
+  .incident_badge {
+    font-size: 10px;
+    padding: 4px 7px;
+  }
+  .incident_time {
+    font-size: 10px;
+  }
+  .incident_arrow {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+/* ADD INCIDENT FORM PAGE  */
+.incident_form_page {
+  padding: 0 0 40px;
+}
+
+.incident_form_container {
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+/* ================================
+   HEADER
+================================ */
+
+.incident_form_header {
+  margin-bottom: 22px;
+}
+
+.incident_back {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #667085;
+  text-decoration: none;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+.incident_back:hover {
+  color: #2563eb;
+}
+
+.incident_header_content {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.incident_header_icon {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 14px;
+  background: #fef2f2;
+  color: #dc2626;
+
+  font-size: 22px;
+}
+
+.incident_eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #667085;
+  margin-bottom: 4px;
+}
+
+.incident_header_content h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #172a46;
+  margin: 0 0 4px;
+}
+
+.incident_header_content p {
+  margin: 0;
+  color: #667085;
+  font-size: 12px;
+}
+
+/* ================================
+   SECTIONS
+================================ */
+
+.incident_form_section {
+  background: #fff;
+  border: 1px solid #e5e9ef;
+  border-radius: 16px;
+  padding: 22px;
+  margin-bottom: 16px;
+}
+
+.incident_section_header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.incident_section_header_action {
+  justify-content: space-between;
+}
+
+.incident_section_header_left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.incident_section_number {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+  background: #f2f4f7;
+  color: #667085;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.incident_section_header h2 {
+  margin: 0 0 2px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #172a46;
+}
+
+.incident_section_header p {
+  margin: 0;
+  color: #667085;
+  font-size: 12px;
+}
+
+/* ================================
+   FORM FIELDS
+================================ */
+
+.incident_form_grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.incident_field {
+  min-width: 0;
+}
+
+.incident_field_full {
+  grid-column: 1 / -1;
+}
+
+.incident_field label {
+  display: block;
+  margin-bottom: 7px;
+
+  color: #344054;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.incident_required {
+  color: #dc2626;
+  margin-left: 2px;
+}
+
+.incident_input {
+  width: 100%;
+  min-height: 45px;
+
+  padding: 10px 12px;
+
+  border: 1px solid #dce1e8;
+  border-radius: 9px;
+
+  /* background: #fff; */
+  /* background-color: #e9ecef; */
+  /* background-color: #F2F4F7; */
+  background-color: #f8fafc;
+  color: #1d2939;
+
+  font-size: 13px;
+  outline: none;
+}
+
+.incident_input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+}
+
+.incident_textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.incident_input_icon {
+  position: relative;
+}
+
+.incident_input_icon > i {
+  position: absolute;
+  left: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  color: #98a2b3;
+  font-size: 14px;
+  pointer-events: none;
+}
+
+.incident_input_icon input {
+  padding-left: 38px;
+  width: 100%;
+  min-height: 45px;
+
+  border: 1px solid #dce1e8;
+  border-radius: 9px;
+
+  background: #fff;
+  color: #1d2939;
+
+  font-size: 13px;
+  outline: none;
+}
+
+.incident_input_icon input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+}
+
+/* ================================
+   ADD BUTTONS
+================================ */
+
+.incident_add_button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  min-height: 38px;
+  padding: 0 13px;
+
+  border: 1px solid #dce1e8;
+  border-radius: 9px;
+
+  background: #fff;
+  color: #344054;
+
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.incident_add_button:hover {
+  color: #2563eb;
+  border-color: #bfdbfe;
+  background: #f8faff;
+}
+
+/* ================================
+   PEOPLE EMPTY STATE
+================================ */
+
+.incident_empty_people {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  padding: 28px 20px;
+
+  border: 1px dashed #dce1e8;
+  border-radius: 12px;
+  background: #fafbfc;
+
+  text-align: center;
+}
+
+.incident_empty_people > i {
+  font-size: 24px;
+  color: #98a2b3;
+  margin-bottom: 7px;
+}
+
+.incident_empty_people span {
+  color: #667085;
+  font-size: 12px;
+  margin-bottom: 9px;
+}
+
+.incident_empty_add {
+  border: 0;
+  background: transparent;
+  color: #2563eb;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* ================================
+   IMMEDIATE ACTION
+================================ */
+
+.incident_action_notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+
+  padding: 13px;
+  margin-bottom: 14px;
+
+  border-radius: 11px;
+  background: #f8fafc;
+  border: 1px solid #e5e9ef;
+}
+
+.incident_action_icon {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 9px;
+  background: #ecfdf3;
+  color: #15803d;
+}
+
+.incident_action_notice strong {
+  display: block;
+  font-size: 12px;
+  color: #344054;
+  margin-bottom: 2px;
+}
+
+.incident_action_notice span {
+  display: block;
+  font-size: 11px;
+  color: #667085;
+  line-height: 1.4;
+}
+
+/* ================================
+   PHOTOS
+================================ */
+
+.incident_upload {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+
+  padding: 17px;
+
+  border: 1px dashed #cbd5e1;
+  border-radius: 12px;
+
+  background: #fafbfc;
+
+  cursor: pointer;
+}
+
+.incident_upload:hover {
+  border-color: #2563eb;
+  background: #f8faff;
+}
+
+.incident_upload_icon {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 11px;
+  background: #edf4ff;
+  color: #2563eb;
+
+  font-size: 18px;
+}
+
+.incident_upload_content {
+  flex: 1;
+}
+
+.incident_upload_content strong {
+  display: block;
+  color: #172a46;
+  font-size: 13px;
+}
+
+.incident_upload_content span {
+  display: block;
+  color: #667085;
+  font-size: 11px;
+  margin-top: 2px;
+}
+
+.incident_upload_content small {
+  display: block;
+  color: #98a2b3;
+  font-size: 10px;
+  margin-top: 4px;
+}
+
+.incident_upload_plus {
+  color: #98a2b3;
+}
+
+/* ================================
+   ACTIONS
+================================ */
+
+.incident_form_actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.incident_cancel,
+.incident_submit {
+  min-height: 44px;
+  padding: 0 20px;
+
+  border-radius: 9px;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.incident_cancel {
+  border: 1px solid #dce1e8;
+  background: #fff;
+  color: #344054;
+}
+
+.incident_submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+
+  border: 1px solid #2563eb;
+  background: #2563eb;
+  color: #fff;
+}
+
+.incident_submit:hover {
+  background: #1d4ed8;
+}
+
+/* Mobile  */
+
+@media (max-width: 767.98px) {
+  .incident_form_page {
+    padding-bottom: 82px;
+  }
+
+  .incident_header_content {
+    align-items: flex-start;
+  }
+
+  .incident_header_icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 11px;
+    font-size: 19px;
+  }
+
+  .incident_header_content h1 {
+    font-size: 20px;
+  }
+
+  .incident_header_content p {
+    font-size: 11px;
+    line-height: 1.45;
+  }
+
+  .incident_form_section {
+    padding: 16px;
+    border-radius: 14px;
+    margin-bottom: 13px;
+  }
+
+  .incident_section_header {
+    margin-bottom: 18px;
+  }
+
+  .incident_section_header h2 {
+    font-size: 15px;
+  }
+
+  .incident_section_header p {
+    font-size: 11px;
+    line-height: 1.4;
+  }
+
+  .incident_form_grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .incident_field_full {
+    grid-column: auto;
+  }
+
+  .incident_section_number {
+    width: 31px;
+    height: 31px;
+    border-radius: 9px;
+    font-size: 10px;
+  }
+
+  .incident_add_button {
+    width: 38px;
+    height: 38px;
+    min-height: 38px;
+    padding: 0;
+  }
+
+  .incident_add_button span {
+    display: none;
+  }
+
+  .incident_form_actions {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    z-index: 1000;
+
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 8px;
+
+    margin: 0;
+    padding: 10px 12px;
+
+    background: rgba(255, 255, 255, 0.96);
+    border-top: 1px solid #e5e9ef;
+
+    backdrop-filter: blur(8px);
+  }
+
+  .incident_cancel,
+  .incident_submit {
+    width: 100%;
+  }
+}
+
+@media (max-width: 380px) {
+  /* .incident_header_icon {
+    display: block;
+  } */
+
+  .incident_form_section {
+    padding: 14px;
+  }
+
+  .incident_upload {
+    padding: 14px;
+  }
+
+  .incident_upload_icon {
+    width: 38px;
+    height: 38px;
+  }
+}

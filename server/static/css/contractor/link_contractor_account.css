@@ -1,0 +1,1273 @@
+/* =====================================================
+   LINK COREVA ACCOUNT
+===================================================== */
+
+.lca-page {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 28px 20px 50px;
+    box-sizing: border-box;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.lca-header {
+    margin-bottom: 24px;
+}
+
+.lca-breadcrumb {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-bottom: 10px;
+
+    color: #94a3b8;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.lca-breadcrumb a {
+    color: #64748b;
+    text-decoration: none;
+}
+
+.lca-breadcrumb a:hover {
+    color: #2563eb;
+}
+
+.lca-breadcrumb i {
+    font-size: 9px;
+}
+
+.lca-header h1 {
+    margin: 0;
+
+    color: #172a46;
+    font-size: 24px;
+    font-weight: 750;
+    line-height: 1.3;
+}
+
+.lca-header p {
+    max-width: 650px;
+    margin: 7px 0 0;
+
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+
+/* =====================================================
+   MAIN SEARCH CARD
+===================================================== */
+
+.lca-card {
+    width: 100%;
+    padding: 26px;
+
+    background: #ffffff;
+    border: 1px solid #e5eaf0;
+    border-radius: 14px;
+
+    box-sizing: border-box;
+}
+
+.lca-card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+
+    margin-bottom: 25px;
+}
+
+.lca-icon {
+    flex: 0 0 44px;
+
+    width: 44px;
+    height: 44px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #eff6ff;
+    border: 1px solid #dbeafe;
+    border-radius: 10px;
+
+    color: #2563eb;
+    font-size: 21px;
+}
+
+.lca-card-header h2 {
+    margin: 1px 0 0;
+
+    color: #172a46;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.lca-card-header p {
+    max-width: 600px;
+    margin: 5px 0 0;
+
+    color: #64748b;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+
+/* =====================================================
+   FORM
+===================================================== */
+
+.lca-field {
+    width: 100%;
+}
+
+.lca-field label {
+    display: block;
+    margin-bottom: 8px;
+
+    color: #334155;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.lca-input-row {
+    display: flex;
+    align-items: stretch;
+    gap: 10px;
+}
+
+.lca-input {
+    flex: 1;
+    min-width: 0;
+
+    height: 42px;
+    padding: 0 13px;
+
+    background: #ffffff;
+    border: 1px solid #d8dee8;
+    border-radius: 8px;
+    outline: none;
+
+    color: #172a46;
+    font-size: 12px;
+
+    box-sizing: border-box;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.lca-input::placeholder {
+    color: #94a3b8;
+}
+
+.lca-input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+}
+
+.lca-search-btn,
+.lca-connect-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    min-height: 42px;
+    padding: 10px 16px;
+
+    border-radius: 8px;
+
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+
+    line-height: 1;
+    cursor: pointer;
+    white-space: nowrap;
+
+    box-sizing: border-box;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.15s ease;
+}
+
+.lca-search-btn {
+    flex: 0 0 auto;
+
+    background: #2563eb;
+    border: 1px solid #2563eb;
+}
+
+.lca-search-btn:hover {
+    background: #1d4ed8;
+    border-color: #1d4ed8;
+}
+
+.lca-search-btn:active,
+.lca-connect-btn:active {
+    transform: translateY(1px);
+}
+
+.lca-search-btn i,
+.lca-connect-btn i {
+    font-size: 13px;
+}
+
+.lca-help {
+    display: flex;
+    align-items: flex-start;
+    gap: 7px;
+
+    margin-top: 10px;
+
+    color: #94a3b8;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.lca-help i {
+    flex: 0 0 auto;
+    margin-top: 2px;
+
+    font-size: 11px;
+}
+
+
+/* =====================================================
+   FOUND COMPANY
+===================================================== */
+
+.lca-result-card {
+    width: 100%;
+    margin-top: 20px;
+    padding: 26px;
+
+    background: #ffffff;
+    border: 1px solid #dbe3ec;
+    border-radius: 14px;
+
+    box-sizing: border-box;
+}
+
+.lca-result-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+}
+
+.lca-result-icon {
+    flex: 0 0 46px;
+
+    width: 46px;
+    height: 46px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 10px;
+
+    color: #16a34a;
+    font-size: 20px;
+}
+
+.lca-result-label {
+    display: block;
+    margin-bottom: 3px;
+
+    color: #16a34a;
+    font-size: 10px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.lca-result-header h2 {
+    margin: 0;
+
+    color: #172a46;
+    font-size: 16px;
+    font-weight: 750;
+    line-height: 1.4;
+}
+
+
+/* =====================================================
+   COMPANY DETAILS
+===================================================== */
+
+.lca-result-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+
+    margin-top: 22px;
+    padding-top: 20px;
+
+    border-top: 1px solid #edf0f4;
+}
+
+.lca-detail {
+    min-width: 0;
+}
+
+.lca-detail span {
+    display: block;
+    margin-bottom: 5px;
+
+    color: #94a3b8;
+    font-size: 10px;
+    font-weight: 600;
+
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+.lca-detail strong {
+    display: block;
+
+    overflow: hidden;
+
+    color: #334155;
+    font-size: 12px;
+    font-weight: 650;
+    line-height: 1.5;
+
+    text-overflow: ellipsis;
+    word-break: break-word;
+}
+
+
+/* =====================================================
+   CONFIRM
+===================================================== */
+
+.lca-confirm {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+
+    margin-top: 22px;
+    padding-top: 20px;
+
+    border-top: 1px solid #edf0f4;
+}
+
+.lca-confirm-text {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+
+    min-width: 0;
+}
+
+.lca-confirm-text > i {
+    flex: 0 0 auto;
+
+    margin-top: 2px;
+
+    color: #2563eb;
+    font-size: 17px;
+}
+
+.lca-confirm-text strong {
+    display: block;
+
+    color: #334155;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.5;
+}
+
+.lca-confirm-text span {
+    display: block;
+    max-width: 500px;
+
+    margin-top: 4px;
+
+    color: #64748b;
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+.lca-connect-btn {
+    flex: 0 0 auto;
+
+    background: #16a34a;
+    border: 1px solid #16a34a;
+}
+
+.lca-connect-btn:hover {
+    background: #15803d;
+    border-color: #15803d;
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 800px) {
+
+    .lca-result-details {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .lca-confirm {
+        align-items: flex-start;
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .lca-page {
+        padding: 24px 16px 45px;
+    }
+
+
+    /* Header */
+
+    .lca-header {
+        margin-bottom: 20px;
+    }
+
+    .lca-breadcrumb {
+        margin-bottom: 11px;
+        font-size: 10px;
+    }
+
+    .lca-header h1 {
+        font-size: 21px;
+        line-height: 1.35;
+    }
+
+    .lca-header p {
+        margin-top: 7px;
+        font-size: 12px;
+        line-height: 1.65;
+    }
+
+
+    /* Search card */
+
+    .lca-card {
+        padding: 21px 18px;
+        border-radius: 12px;
+    }
+
+    .lca-card-header {
+        gap: 12px;
+        margin-bottom: 23px;
+    }
+
+    .lca-icon {
+        flex-basis: 42px;
+        width: 42px;
+        height: 42px;
+        font-size: 20px;
+    }
+
+    .lca-card-header h2 {
+        font-size: 14px;
+    }
+
+    .lca-card-header p {
+        margin-top: 5px;
+        font-size: 11.5px;
+        line-height: 1.65;
+    }
+
+
+    /* Search form */
+
+    .lca-field label {
+        margin-bottom: 8px;
+        font-size: 11px;
+    }
+
+    .lca-input-row {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .lca-input {
+        width: 100%;
+        height: 44px;
+
+        padding: 0 13px;
+
+        font-size: 12px;
+    }
+
+    .lca-search-btn {
+        width: 100%;
+        min-height: 44px;
+    }
+
+    .lca-help {
+        margin-top: 10px;
+        font-size: 10.5px;
+        line-height: 1.55;
+    }
+
+
+    /* Result card */
+
+    .lca-result-card {
+        margin-top: 16px;
+        padding: 21px 18px;
+        border-radius: 12px;
+    }
+
+    .lca-result-header {
+        gap: 12px;
+    }
+
+    .lca-result-icon {
+        flex-basis: 43px;
+        width: 43px;
+        height: 43px;
+        font-size: 19px;
+    }
+
+    .lca-result-label {
+        margin-bottom: 4px;
+        font-size: 9px;
+    }
+
+    .lca-result-header h2 {
+        font-size: 15px;
+        line-height: 1.45;
+    }
+
+
+    /* Company details */
+
+    .lca-result-details {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+
+        margin-top: 21px;
+        padding-top: 0;
+
+        border-top: 1px solid #edf0f4;
+    }
+
+    .lca-detail {
+        padding: 14px 0;
+
+        border-bottom: 1px solid #edf0f4;
+    }
+
+    .lca-detail:last-child {
+        border-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    .lca-detail span {
+        margin-bottom: 4px;
+        font-size: 9px;
+    }
+
+    .lca-detail strong {
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+
+    /* Confirmation */
+
+    .lca-confirm {
+        display: flex;
+        align-items: stretch;
+        flex-direction: column;
+        gap: 17px;
+
+        margin-top: 21px;
+        padding-top: 20px;
+    }
+
+    .lca-confirm-text {
+        gap: 9px;
+    }
+
+    .lca-confirm-text > i {
+        font-size: 16px;
+    }
+
+    .lca-confirm-text strong {
+        font-size: 12px;
+    }
+
+    .lca-confirm-text span {
+        margin-top: 4px;
+        font-size: 10.5px;
+        line-height: 1.6;
+    }
+
+    .lca-connect-btn {
+        width: 100%;
+        min-height: 44px;
+    }
+
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 380px) {
+
+    .lca-page {
+        padding-left: 13px;
+        padding-right: 13px;
+    }
+
+    .lca-card,
+    .lca-result-card {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .lca-card-header {
+        gap: 10px;
+    }
+
+    .lca-icon {
+        flex-basis: 40px;
+        width: 40px;
+        height: 40px;
+    }
+
+    .lca-header h1 {
+        font-size: 20px;
+    }
+
+}
+
+
+
+/* =====================================================
+   COMPANY NOT FOUND
+===================================================== */
+
+.lca-not-found-card {
+    border-color: #e5e7eb;
+}
+
+.lca-not-found-icon {
+    background: #f8fafc;
+    border-color: #e2e8f0;
+    color: #64748b;
+}
+
+.lca-not-found-label {
+    color: #64748b;
+}
+
+.lca-not-found-message {
+    margin-top: 21px;
+    padding-top: 19px;
+
+    border-top: 1px solid #edf0f4;
+}
+
+.lca-not-found-message p {
+    margin: 0;
+
+    color: #475569;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+.lca-not-found-help {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+
+    margin-top: 13px;
+    padding: 11px 12px;
+
+    background: #f8fafc;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+
+    color: #64748b;
+    font-size: 11px;
+    line-height: 1.55;
+}
+
+.lca-not-found-help i {
+    flex: 0 0 auto;
+    margin-top: 2px;
+
+    color: #94a3b8;
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .lca-not-found-message {
+        margin-top: 20px;
+        padding-top: 18px;
+    }
+
+    .lca-not-found-message p {
+        font-size: 11.5px;
+        line-height: 1.65;
+    }
+
+    .lca-not-found-help {
+        margin-top: 14px;
+        padding: 11px;
+
+        font-size: 10.5px;
+        line-height: 1.6;
+    }
+
+}
+
+
+
+/* =====================================================
+   SUCCESSFULLY CONNECTED
+===================================================== */
+
+.lca-success-card {
+    width: 100%;
+    padding: 34px 26px;
+
+    background: #ffffff;
+    border: 1px solid #bbf7d0;
+    border-radius: 14px;
+
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.lca-success-icon {
+    width: 58px;
+    height: 58px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 17px;
+
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 50%;
+
+    color: #16a34a;
+    font-size: 27px;
+}
+
+.lca-success-content {
+    max-width: 560px;
+    margin: 0 auto;
+}
+
+.lca-success-label {
+    display: block;
+    margin-bottom: 5px;
+
+    color: #16a34a;
+    font-size: 10px;
+    font-weight: 750;
+
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.lca-success-content h2 {
+    margin: 0;
+
+    color: #172a46;
+    font-size: 20px;
+    font-weight: 750;
+    line-height: 1.4;
+}
+
+.lca-success-content > p {
+    max-width: 480px;
+    margin: 7px auto 0;
+
+    color: #64748b;
+    font-size: 12px;
+    line-height: 1.65;
+}
+
+
+/* =====================================================
+   CONNECTED COMPANY
+===================================================== */
+
+.lca-success-company {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    max-width: 420px;
+    margin: 22px auto 0;
+    padding: 13px 15px;
+
+    background: #f8fafc;
+    border: 1px solid #e5eaf0;
+    border-radius: 10px;
+
+    text-align: left;
+}
+
+.lca-success-company > i {
+    flex: 0 0 36px;
+
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #eff6ff;
+    border: 1px solid #dbeafe;
+    border-radius: 8px;
+
+    color: #2563eb;
+    font-size: 16px;
+}
+
+.lca-success-company div {
+    min-width: 0;
+}
+
+.lca-success-company span {
+    display: block;
+    margin-bottom: 3px;
+
+    color: #94a3b8;
+    font-size: 9px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.lca-success-company strong {
+    display: block;
+
+    overflow: hidden;
+
+    color: #334155;
+    font-size: 12px;
+    font-weight: 700;
+
+    line-height: 1.4;
+    text-overflow: ellipsis;
+}
+
+
+/* =====================================================
+   BACK BUTTON
+===================================================== */
+
+.lca-success-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    margin-top: 22px;
+    padding: 10px 16px;
+
+    background: #2563eb;
+    border: 1px solid #2563eb;
+    border-radius: 8px;
+
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+
+    text-decoration: none;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.lca-success-btn:hover {
+    background: #1d4ed8;
+    border-color: #1d4ed8;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.lca-success-btn i {
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .lca-success-card {
+        padding: 30px 18px;
+        border-radius: 12px;
+    }
+
+    .lca-success-icon {
+        width: 54px;
+        height: 54px;
+
+        margin-bottom: 15px;
+
+        font-size: 25px;
+    }
+
+    .lca-success-content h2 {
+        font-size: 18px;
+    }
+
+    .lca-success-content > p {
+        font-size: 11px;
+        line-height: 1.65;
+    }
+
+    .lca-success-company {
+        margin-top: 20px;
+        padding: 12px;
+    }
+
+    .lca-success-btn {
+        width: 100%;
+        min-height: 44px;
+        margin-top: 20px;
+    }
+}
+
+
+/* =========================================
+   LINKED COREVA ACCOUNT
+========================================= */
+
+.eca-card {
+    width: 100%;
+    padding: 20px;
+    background: #ffffff;
+    border: 1px solid #bbf7d0;
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.eca-header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.eca-status-icon {
+    width: 40px;
+    height: 40px;
+    flex: 0 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 9px;
+    color: #16a34a;
+    font-size: 17px;
+}
+
+.eca-header-content {
+    min-width: 0;
+    flex: 1;
+}
+
+.eca-label {
+    display: block;
+    margin-bottom: 3px;
+    color: #16a34a;
+    font-size: 10px;
+    font-weight: 750;
+    line-height: 1.4;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.eca-title {
+    margin: 0;
+    color: #172a46;
+    font-size: 15px;
+    font-weight: 750;
+    line-height: 1.4;
+}
+
+
+/* =========================================
+   CHANGE ACCOUNT
+========================================= */
+
+.eca-action {
+    flex: 0 0 auto;
+}
+
+.eca-change-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 38px;
+    padding: 9px 13px;
+    background: #ffffff;
+    border: 1px solid #dbe2ea;
+    border-radius: 8px;
+    color: #475569;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1;
+    text-decoration: none;
+    white-space: nowrap;
+    transition:
+        background-color 0.18s ease,
+        border-color 0.18s ease,
+        color 0.18s ease;
+}
+
+.eca-change-btn:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    color: #334155;
+    text-decoration: none;
+}
+
+.eca-change-btn i {
+    font-size: 13px;
+}
+
+
+/* =========================================
+   CONNECTED COMPANY
+========================================= */
+
+.eca-company {
+    width: 100%;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px;
+    padding: 13px 14px;
+    background: #f8fafc;
+    border: 1px solid #e5eaf0;
+    border-radius: 9px;
+    box-sizing: border-box;
+}
+
+.eca-company-icon {
+    width: 36px;
+    height: 36px;
+    flex: 0 0 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #eff6ff;
+    border: 1px solid #dbeafe;
+    border-radius: 8px;
+    color: #2563eb;
+    font-size: 16px;
+}
+
+.eca-company-details {
+    min-width: 0;
+    flex: 1;
+}
+
+.eca-company-label {
+    display: block;
+    margin-bottom: 2px;
+    color: #94a3b8;
+    font-size: 9px;
+    font-weight: 700;
+    line-height: 1.3;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.eca-company-name {
+    display: block;
+    overflow: hidden;
+    color: #334155;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.4;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.eca-company-email {
+    display: block;
+    margin-top: 2px;
+    overflow: hidden;
+    color: #64748b;
+    font-size: 10px;
+    line-height: 1.4;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+
+    .eca-card {
+        padding: 17px;
+    }
+
+    .eca-header {
+        align-items: flex-start;
+        gap: 11px;
+    }
+
+    .eca-status-icon {
+        width: 36px;
+        height: 36px;
+        flex-basis: 36px;
+        border-radius: 8px;
+        font-size: 15px;
+    }
+
+    .eca-title {
+        font-size: 14px;
+    }
+
+    .eca-action {
+        margin-left: auto;
+    }
+
+    .eca-change-btn {
+        min-height: 36px;
+        padding: 8px 10px;
+        font-size: 10px;
+    }
+
+    .eca-company {
+        margin-top: 13px;
+        padding: 11px 12px;
+    }
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 480px) {
+
+    .eca-card {
+        padding: 15px;
+    }
+
+    .eca-header {
+        flex-wrap: wrap;
+    }
+
+    .eca-header-content {
+        flex: 1;
+    }
+
+    .eca-action {
+        width: 100%;
+        margin-left: 0;
+        padding-top: 2px;
+    }
+
+    .eca-change-btn {
+        width: 100%;
+        min-height: 40px;
+    }
+
+    .eca-company {
+        gap: 10px;
+        padding: 10px 11px;
+    }
+
+    .eca-company-icon {
+        width: 34px;
+        height: 34px;
+        flex-basis: 34px;
+    }
+}
+
+
+.contractor_portal_link_option {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+.contractor_portal_link_option:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+.contractor_portal_link_arrow {
+    flex: 0 0 auto;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #64748b;
+    font-size: 14px;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.contractor_portal_link_option:hover .contractor_portal_link_arrow {
+    color: #2563eb;
+    transform: translateX(2px);
+}

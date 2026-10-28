@@ -1,0 +1,137 @@
+{% load static %}
+<!-- divider  -->
+
+<div class="row d-flex justify-content-center">
+  <div class="col-12 col-lg-8">
+    <section class="mb-2">
+      <!-- ================= HEADER ================= -->
+      <div class="delivery_form_header mt-0">
+        <!-- =========================================================
+      COREVA MOBILE TOP NAVBAR AND LARGE SCREEN BACK BUTTON
+      ========================================================= -->
+      {% url 'projects:project-view' project.uuid  as back_url %}
+      <!-- -------------------------------------------  -->
+      {% include 'partials/page_topbar.html' with next_url=next_url back_url=back_url brand_name='Project Activity' brand_url=back_url %}
+
+
+        <div class="dashboard_main_card">
+          <div class="delivery_header_content">
+            <div class="delivery_header_icon">
+              <i class="bi bi-calendar-week-fill"></i>
+            </div>
+
+            <div class="d-flex justify-content-between w-100">
+              <div>
+                <div class="delivery_eyebrow">PROJECT</div>
+                <h1>Project Activity</h1>
+                <p>Activity across this project</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="project_activity_section">
+      <div class="project_activity_accordion" id="projectActivityAccordion">
+        {% for group in project_activity %}
+        <div class="activity_date_group">
+          <!-- DATE HEADER -->
+          <h2 class="activity_date_header" id="activityHeading{{ group.id }}">
+            <button
+              class="activity_date_button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#activityCollapse{{ group.id }}"
+              aria-expanded="false"
+              aria-controls="activityCollapse{{ group.id }}"
+            >
+              <div class="activity_date_left">
+                <div class="activity_date_icon">
+                  <i class="bi bi-calendar3"></i>
+                </div>
+
+                <div class="activity_date_info">
+                  <span class="activity_date_label"> Activity </span>
+
+                  <span class="activity_date_value">
+                    {{ group.date|date:"d F Y" }}
+                  </span>
+                </div>
+              </div>
+
+              <div class="activity_date_right">
+                <span class="activity_count">
+                  {{ group.activities|length }}
+                  <!-- divider  -->
+                  {% if group.activities|length == 1 %} activity {% else %}
+                  activities {% endif %}
+                </span>
+
+                <span class="activity_expand_icon">
+                  <i class="bi bi-chevron-down"></i>
+                </span>
+              </div>
+            </button>
+          </h2>
+
+          <!-- ACTIVITIES -->
+          <div
+            id="activityCollapse{{ group.id }}"
+            class="accordion-collapse collapse"
+            aria-labelledby="activityHeading{{ group.id }}"
+            data-bs-parent="#projectActivityAccordion"
+          >
+            <div class="activity_date_body">
+              {% if group.activities %}
+
+              <div class="activity_timeline">
+                {% for data in group.activities %}
+                <div class="activity_item">
+                  <!-- TIME -->
+                  <div class="activity_time">
+                    {{ data.created_at|time:"g:i A" }}
+                  </div>
+
+                  <!-- TIMELINE -->
+                  <div class="activity_timeline_track">
+                    <div class="activity_icon_wrapper">
+                      {% include 'partials/timeline_icons.html' %}
+                    </div>
+                  </div>
+
+                  <!-- CONTENT -->
+                  <div class="activity_content">
+                    <div class="activity_content_header">
+                      <h6 class="activity_type">{{ data.activity_type }}</h6>
+                    </div>
+
+                    {% if data.description %}
+                    <p class="activity_description">{{ data.description }}</p>
+                    {% endif %}
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+
+              {% else %}
+
+              <div class="activity_empty">
+                <i class="bi bi-clock-history"></i>
+                <span>No activity recorded for this day.</span>
+              </div>
+
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ======== PROJECT BOTTOM NAVBAR ======== -->
+{% if show_project_bottom_nav is not False %}
+<div class="d-block d-lg-none">{% include 'partials/project_bottom_navbar.html' %}</div>
+{% endif %}

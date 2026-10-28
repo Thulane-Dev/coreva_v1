@@ -1,0 +1,109 @@
+{% load static %}
+<!-- divider  -->
+
+<div class="row d-flex justify-content-center">
+  <div class="col-12 col-lg-6">
+    <a href="javascript:history.back()" class="delivery_back">
+      <i class="bi bi-chevron-left"></i>
+      <span>Back</span>
+    </a>
+
+    <!-- NEW LIST  -->
+    <section class="missed_reports_page">
+      <div class="missed_reports_container">
+        <!-- ================= HEADER ================= -->
+        <div class="dashboard_main_card mb-3">
+          <div class="missed_reports_header mb-0">
+            <div class="missed_reports_header_icon">
+              <i class="bi bi-file-earmark-x"></i>
+            </div>
+
+            <div>
+              <div class="missed_reports_eyebrow">DAILY REPORTS</div>
+
+              <div class="d-flex align-items-center gap-2 flex-wrap">
+                <h1 class="missed_reports_title mb-0">Missed Daily Reports</h1>
+
+                <span class="missed_reports_count">
+                  {{ missed_reports_days|length }}
+                </span>
+              </div>
+
+              <p class="missed_reports_subtitle mb-0">
+                Review and complete daily reports that were missed on previous
+                days.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= MAIN CARD ================= -->
+        <div class="missed_reports_card">
+          <div class="missed_reports_card_header">
+            <div>
+              <h2>Outstanding Reports</h2>
+
+              <p>
+                Complete these reports to keep your project records up to date.
+              </p>
+            </div>
+          </div>
+
+          {% if missed_reports_days %}
+
+          <div class="missed_report_list">
+            {% for day in missed_reports_days %}
+
+            <div class="missed_report_item">
+              <!-- Status -->
+              <div class="missed_report_status">
+                <div class="missed_report_status_icon">
+                  <i class="bi bi-file-earmark-text"></i>
+                </div>
+              </div>
+
+              <!-- Date -->
+              <div class="missed_report_date">
+                <span class="missed_report_label"> MISSED </span>
+
+                <strong> {{ day|date:"l, d F Y" }} </strong>
+              </div>
+
+              <!-- Action -->
+              <div class="missed_report_action">
+                <form  method="POST" action="{% url 'report:create-missed-report' project.uuid %}">
+                  {% csrf_token %}
+                <input type="text" value="{{ day|date:'Y-m-d' }}" name="missed_date" hidden>
+                <button type="submit" class="missed_report_button">
+                  <i class="bi bi-file-earmark-plus"></i>
+
+                  <span>Complete Report</span>
+
+                  <i class="bi bi-arrow-right"></i>
+                </button>
+                </form>
+              </div>
+            </div>
+
+            {% endfor %}
+          </div>
+
+          {% else %}
+
+          <!-- ================= EMPTY STATE ================= -->
+          <div class="missed_reports_empty">
+            <div class="missed_reports_empty_icon">
+              <i class="bi bi-file-earmark-check"></i>
+            </div>
+
+            <h3>No missed daily reports</h3>
+
+            <p>All scheduled daily reports have been completed.</p>
+          </div>
+
+          {% endif %}
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

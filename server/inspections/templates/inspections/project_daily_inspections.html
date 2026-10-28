@@ -1,0 +1,430 @@
+{% load static %}
+<!-- divider  -->
+
+<section class="inspection_page mt-0 pt-0">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-10 col-xl-8">
+    
+    <!-- =========================================================
+    TODAYS DAILY INSPECTION BACK
+    ========================================================= -->
+    {% if inspection.inspection_date|date:"Y-m-d" == today|date:"Y-m-d" %}
+    
+    {% url 'projects:project-view' project.uuid  as back_url %}
+    <!-- -------------------------------------------  -->
+    {% include 'partials/page_topbar.html' with next_url=next_url back_url=back_url brand_name='Todays Inspection' brand_url=back_url %}
+
+    <!-- =========================================================
+    PAST DAILY INSPECTION BACK
+    ========================================================= -->
+    {% else %}
+
+    {% url 'inspections:project-inspections' project.uuid as back_url %}
+    <!-- -------------------------------------------  -->
+    {% include 'partials/page_topbar.html' with next_url=next_url back_url=back_url brand_name='Daily Inspection' brand_url=back_url %}
+
+
+    {% endif %}
+
+
+
+    <!-- ================================
+      SAVED AS DRAFT
+      ================================= -->
+      {% if inspection_data_new.inspection_status == 'Draft' %}
+      <div class="inspection-signoff-alert mb-3">
+          <div class="inspection-signoff-icon">
+              <i class="bi bi-file-earmark-text"></i>
+          </div>
+
+          <div class="inspection-signoff-content">
+              <span class="inspection-signoff-title">
+                  Daily Inspection Awaiting Completion
+              </span>
+
+              <span class="inspection-signoff-text">
+                  This daily inspection has been saved as a draft. Complete the remaining checks and submit the inspection when ready.
+              </span>
+          </div>
+      </div>
+      {% endif %}
+
+
+      <!-- ================================
+           ADMIN SIGN-OFF ALERT
+      ================================= -->
+      {% if inspection_data_new.inspection_status == 'Complete' %}
+        <!-- divider  -->
+        {% if inspection.admin_sign_off == None %}
+        <div class="inspection-signoff-alert mb-3">
+            <div class="inspection-signoff-icon">
+                <i class="bi bi-person-check"></i>
+            </div>
+
+            <div class="inspection-signoff-content">
+                <span class="inspection-signoff-title">
+                    Awaiting Admin Sign-Off
+                </span>
+
+                <span class="inspection-signoff-text">
+                    This inspection has been completed and is awaiting admin review and sign-off.
+                </span>
+            </div>
+
+              {% if current_user.role == 'admin' %}
+                  <form
+                      class="inspection-signoff-form"
+                      action="{% url 'inspections:admin-sign-off' project.uuid inspection_uuid %}"
+                      method="POST"
+                  >
+                      {% csrf_token %}
+
+                      <button
+                          type="submit"
+                          class="inspection-signoff-action"
+                      >
+                          <i class="bi bi-check2"></i>
+                          Sign Off Inspection
+                      </button>
+                  </form>
+              {% endif %}
+            
+        </div>
+        {% endif %}
+        <!-- divider  -->
+       {% endif %}
+
+      
+
+      <!-- ================================
+           LATE INSPECTION ALERT
+      ================================= -->
+      <!-- {% if inspection.is_late_submit %}
+          <div class="inspection-late-alert">
+              <i class="bi bi-clock-history"></i>
+              <div>
+                  <strong>Late submission</strong>
+                  <p>This inspection has being submitted after its scheduled date.</p>
+              </div>
+          </div>
+      {% endif %} -->
+
+      <!-- ================================
+           LATE INSPECTION ALERT
+      ================================= -->
+      {% if inspection_data_new.inspection_status == 'Incomplete' or inspection_data_new.inspection_status == 'Ready to Save' %}
+      <!-- divider  -->
+      {% if inspection.inspection_date|date:"Y-m-d" < today|date:"Y-m-d" %}
+          <div class="inspection-late-alert">
+              <i class="bi bi-clock-history"></i>
+
+              <div>
+                  <strong>Late submission</strong>
+                  <p>
+                      This inspection is being submitted after its scheduled date.
+                      It will be recorded as a late submission.
+                  </p>
+              </div>
+          </div>
+      {% endif %}
+      <!-- divider  -->
+      {% endif %}
+
+      <!-- ================================
+           INSPECTION HEADER
+      ================================= -->
+      <section class="inspection_header_card">
+        <div class="inspection_header_top">
+          <div>
+            <div class="inspection_label">DAILY INSPECTION</div>
+
+            <h1 class="inspection_project_name mb-1">
+              {{ inspection.project.project_name }}
+            </h1>
+            <p class="mb-0 text-light" style="font-size: 0.9rem;">
+              {{inspection.inspection_date|date:"l d F Y" }}
+            </p>
+          </div>
+
+          <div class="inspection_status">
+            {% if inspection_data_new.inspection_status == 'Incomplete' %}
+            <span class="inspection_status_badge in_progress">
+              <span class="inspection_status_dot"></span>
+              Incomplete
+            </span>
+            {% elif inspection_data_new.inspection_status == 'Ready to Save' %}
+            <span class="inspection_status_badge complete">
+              <span class="inspection_status_dot"></span>
+              Ready to Save
+            </span>
+            {% elif inspection_data_new.inspection_status == 'Draft' %}
+            <span class="inspection_status_badge in_progress">
+              <span class="inspection_status_dot"></span>
+              Saved as Draft
+            </span>
+            {% else %}
+            <span class="inspection_status_badge complete">
+              <i class="bi bi-check-circle-fill"></i>
+              Complete
+            </span>
+            {% endif %}
+          </div>
+        </div>
+
+        <!-- PROGRESS -->
+        <div class="inspection_progress_section">
+          <div class="inspection_progress_header">
+            <span>Inspection progress</span>
+
+            <strong>
+              {{ inspection_data_new.total_answered_count }} /
+              {{inspection_data_new.total_questions_count }}
+            </strong>
+          </div>
+
+          <div class="inspection_progress_bar">
+            <div
+              class="inspection_progress_fill"
+              style="--progress-bar: {{ inspection_data_new.inspection_percentage}}%;"
+            ></div>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- ================================
+        READY TO SAVE ALERT
+      ================================= -->
+      {% if inspection_data_new.inspection_status == 'Ready to Save' %}
+      <div class="inspection-ready-banner mb-3">
+        <div class="inspection-ready-icon">
+            <i class="bi bi-check-lg"></i>
+        </div>
+
+        <div class="inspection-ready-content">
+
+            <span class="inspection-ready-title">
+                Ready to Submit
+            </span>
+
+            <span class="inspection-ready-text">
+                All inspection items have been completed. Review and submit the inspection.
+            </span>
+
+        </div>
+
+        <i class="bi bi-exclamation-circle-fill inspection-ready-check"></i>
+
+    </div>
+      {% elif inspection_data_new.inspection_status == 'Complete' %}
+        <div class="inspection-complete-banner mb-3">
+            <div class="inspection-complete-icon">
+                <i class="bi bi-check-lg"></i>
+            </div>
+
+            <div class="inspection-complete-content">
+                <span class="inspection-complete-title">
+                    Inspection Complete
+                </span>
+
+                <span class="inspection-complete-text">
+                    All inspection items have been completed and submitted.
+                </span>
+            </div>
+
+            <i class="bi bi-check-circle-fill inspection-complete-check"></i>
+        </div>
+    {% endif %}
+
+
+
+    <!-- ================================
+           ADMIN SIGN-OFF ALERT
+      ================================= -->
+      {% if inspection.admin_sign_off %}
+      <div class="inspection-signedoff-alert mb-3">
+          <div class="inspection-signedoff-icon">
+              <i class="bi bi-patch-check"></i>
+          </div>
+
+          <div class="inspection-signedoff-content">
+              <span class="inspection-signedoff-title">
+                  Inspection Signed Off
+              </span>
+
+              <span class="inspection-signedoff-text">
+                  This inspection has been reviewed and signed off by {{inspection.admin_sign_off.first_name}} {{inspection.admin_sign_off.last_name}}.
+              </span>
+          </div>
+
+          <i class="bi bi-check-circle-fill inspection-signedoff-status-icon"></i>
+      </div>
+      {% endif %}
+
+      <!-- ================================
+           CATEGORIES
+      ================================= -->
+      <div class="inspection_categories">
+        {% for category in inspection_data_new.categories %}
+        <div class="inspection_category">
+          <!-- CATEGORY HEADER -->
+          <button
+            class="inspection_category_header collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#inspectionCategory{{ category.category.id }}"
+            aria-expanded="false"
+            aria-controls="inspectionCategory{{ category.category.id }}"
+            style="scroll-margin-top: 90px;"
+          >
+            <!-- LEFT COMPONENTS UPDATE  -->
+            <div
+              class="inspection_category_left"
+              id="category-count-{{ category.category.id }}"
+            >
+              <div
+                class="inspection_category_icon {% if category.failed_items > 0 %} failed {% elif category.total_answered == category.total_questions %} complete {% else %} pending {% endif %}"
+              >
+                {% if category.failed_items > 0 %}
+                <i class="bi bi-exclamation-triangle-fill"></i>
+                {% elif category.total_answered == category.total_questions %}
+                <i class="bi bi-check-lg"></i>
+                {% else %}
+                <i class="bi bi-clipboard-check"></i>
+                {% endif %}
+              </div>
+
+              <!-- RIGHT COMPONENTS UPDATE  -->
+              <div class="inspection_category_info">
+                <h5 class="font_size_14">{{ category.category.name }}</h5>
+                <span class="font_size_12">
+                  {{ category.total_answered }} /
+                  <!-- divider  -->
+                  {{ category.total_questions}} answered
+                </span>
+              </div>
+            </div>
+
+            <div
+              class="inspection_category_right"
+              id="failed-count-{{ category.category.id }}"
+            >
+              {% if category.failed_items > 0 %}
+              <span class="inspection_category_badge failed font_size_11">
+                {{ category.failed_items }} Failed
+              </span>
+              {% elif category.total_answered == category.total_questions %}
+              <span class="inspection_category_badge complete font_size_11">
+                Complete
+              </span>
+              {% else %}
+              <span class="inspection_category_badge pending font_size_11">
+                Incomplete
+              </span>
+              {% endif %}
+
+              <i class="bi bi-chevron-down inspection_category_chevron"></i>
+            </div>
+          </button>
+          <!-- QUESTIONS -->
+          <div
+            id="inspectionCategory{{ category.category.id }}"
+            class="accordion-collapse collapse"
+          >
+            <div class="inspection_questions">
+              {% for response in category.responses %}
+              <div class="inspection_question_card">
+                {% include "partials/inspection_response_partial.html" %}
+                <div id="response-container-{{ response.id }}">
+                  {% include "partials/created_issue_partial.html" %}
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <!-- ================================
+           BOTTOM ACTIONS
+      ================================= -->
+      <form
+        method="POST"
+        action="{% url 'inspections:save-inspection' inspection.uuid %}"
+        class="inspection_actions_form d-none d-md-block"
+      >
+        {% csrf_token %}
+        <div class="inspection_actions">
+          <button type="submit" name="save_draft" class="inspection_save_draft">
+            <i class="bi bi-floppy"></i>
+            <span>Save Draft</span>
+          </button>
+
+          <button type="submit" name="save_inspection" class="inspection_save">
+            <i class="bi bi-check-lg"></i>
+            <span>Save Inspection</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================
+MOBILE SUBMIT FORM
+========================= -->
+<nav class="cv-bottom-nav d-lg-none">
+
+     <!-- ================================
+           BOTTOM ACTIONS
+      ================================= -->
+      <form
+        method="POST"
+        action="{% url 'inspections:save-inspection' inspection.uuid %}"
+        class="inspection_actions_form mt-0 mt-2 w-100"
+      >
+        {% csrf_token %}
+        <div class="inspection_actions">
+          <button type="submit" name="save_draft" class="inspection_save_draft border-primary text-primary">
+            <i class="bi bi-floppy"></i>
+            <span>Save Draft</span>
+          </button>
+
+          <button type="submit" name="save_inspection" class="inspection_save">
+            <i class="bi bi-check-lg"></i>
+            <span>Save Inspection</span>
+          </button>
+        </div>
+      </form>
+
+</nav>
+
+<!-- <script>
+  document.querySelectorAll(".accordion-collapse").forEach((collapse) => {
+    collapse.addEventListener("shown.bs.collapse", function () {
+      this.previousElementSibling.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    });
+  });
+</script> -->
+
+
+<script>
+  document.querySelectorAll(".accordion-collapse").forEach((collapse) => {
+    collapse.addEventListener("shown.bs.collapse", function () {
+      const header = this.previousElementSibling;
+
+      setTimeout(() => {
+        header.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }, 50);
+    });
+  });
+</script>
+

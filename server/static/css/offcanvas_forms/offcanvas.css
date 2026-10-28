@@ -1,0 +1,344 @@
+.offcanvas_form{
+    width: 30% !important;
+}
+
+
+/* ========================================
+   COREVA - ADD ISSUE FORM
+======================================== */
+
+.coreva-issue-form {
+    color: #0F172A;
+    font-size: 14px;
+}
+
+.coreva-issue-form .form-section {
+    padding: 20px;
+}
+
+.coreva-issue-form .additional-section {
+    border-top: 1px solid #E2E8F0;
+    background: #F8FAFC;
+}
+
+ 
+
+.coreva-issue-form .section-heading {
+    margin-bottom: 22px;
+}
+
+.coreva-issue-form .section-heading h6 {
+    margin: 0 0 5px;
+    color: #0F172A;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.offcanvas_h6{
+    margin: 0 0 5px;
+    color: #0F172A;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.offcanvas_p_tag{
+    margin: 0;
+    color: #64748B;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.coreva-issue-form .section-heading p {
+    margin: 0;
+    color: #64748B;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+/* Labels */
+
+.coreva-issue-form .form-label {
+    display: block;
+    margin-bottom: 8px;
+    color: #334155;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.coreva-issue-form .required {
+    color: #DC2626;
+    margin-left: 2px;
+}
+
+.coreva-issue-form .optional-label {
+    color: #94A3B8;
+    font-size: 12px;
+    font-weight: 400;
+    margin-left: 4px;
+}
+
+/* Inputs */
+
+.coreva-issue-form .form-control,
+.coreva-issue-form .form-select {
+    min-height: 46px;
+    padding: 11px 13px;
+    border: 1px solid #CBD5E1;
+    border-radius: 9px;
+    background-color: #FFFFFF;
+    color: #0F172A;
+    font-size: 14px;
+    box-shadow: none;
+    transition: border-color 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+.coreva-issue-form .form-control::placeholder {
+    color: #94A3B8;
+    opacity: 1;
+}
+
+.coreva-issue-form textarea.form-control {
+    min-height: 100px;
+    resize: vertical;
+    line-height: 1.6;
+}
+
+.coreva-issue-form .form-control:focus,
+.coreva-issue-form .form-select:focus {
+    border-color: #2563EB;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.coreva-issue-form .form-text {
+    margin-top: 7px;
+    color: #64748B;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/* Photo upload */
+
+.coreva-issue-form .issue-upload {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    width: 100%;
+    min-height: 88px;
+    padding: 15px;
+    border: 1px dashed #CBD5E1;
+    border-radius: 10px;
+    background: #FFFFFF;
+    cursor: pointer;
+    transition: border-color 0.2s ease,
+                background-color 0.2s ease;
+}
+
+.coreva-issue-form .issue-upload:hover {
+    border-color: #2563EB;
+    background: #F8FAFF;
+}
+
+.coreva-issue-form .upload-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: #EFF6FF;
+    color: #2563EB;
+    font-size: 21px;
+}
+
+.coreva-issue-form .upload-content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.coreva-issue-form .upload-title {
+    color: #0F172A;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.coreva-issue-form .upload-description {
+    color: #64748B;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.coreva-issue-form .upload-action {
+    flex-shrink: 0;
+    color: #64748B;
+    font-size: 19px;
+}
+
+/* Priority options */
+
+.coreva-issue-form .priority-options {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 9px;
+}
+
+.coreva-issue-form .priority-option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 43px;
+    padding: 8px;
+    border: 1px solid #CBD5E1;
+    border-radius: 9px;
+    background: #FFFFFF;
+    color: #475569;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.coreva-issue-form .priority-option input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}
+
+.coreva-issue-form .priority-dot {
+    width: 8px;
+    height: 8px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #94A3B8;
+}
+
+.coreva-issue-form .priority-low .priority-dot {
+    background: #10B981;
+}
+
+.coreva-issue-form .priority-medium .priority-dot {
+    background: #F59E0B;
+}
+
+.coreva-issue-form .priority-high .priority-dot {
+    background: #EF4444;
+}
+
+.coreva-issue-form .priority-option:has(input:checked) {
+    border-color: #2563EB;
+    background: #EFF6FF;
+    color: #1D4ED8;
+    box-shadow: 0 0 0 1px #2563EB;
+}
+
+.coreva-issue-form .priority-option:has(input:focus-visible) {
+    outline: 2px solid #2563EB;
+    outline-offset: 3px;
+}
+
+/* Icons inside inputs */
+
+.coreva-issue-form .input-with-icon {
+    position: relative;
+}
+
+.coreva-issue-form .input-with-icon > i {
+    position: absolute;
+    top: 50%;
+    left: 13px;
+    z-index: 2;
+    color: #64748B;
+    font-size: 16px;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.coreva-issue-form .input-with-icon .form-control,
+.coreva-issue-form .input-with-icon .form-select {
+    padding-left: 39px;
+}
+
+/* Form actions */
+
+.coreva-issue-form .form-actions {
+    padding: 16px 20px 20px;
+    border-top: 1px solid #E2E8F0;
+    background: #FFFFFF;
+}
+
+.coreva-issue-form .create-issue-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 48px;
+    border: 1px solid #2563EB;
+    border-radius: 9px;
+    background: #2563EB;
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+.coreva-issue-form .create-issue-btn:hover {
+    border-color: #1D4ED8;
+    background: #1D4ED8;
+}
+
+.coreva-issue-form .create-issue-btn:focus-visible {
+    outline: 3px solid rgba(37, 99, 235, 0.25);
+    outline-offset: 3px;
+}
+
+.coreva-issue-form .create-issue-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.65;
+}
+
+/* Mobile adjustments */
+
+@media (max-width: 575.98px) {
+    .coreva-issue-form .form-section {
+        padding: 16px;
+    }
+
+    .coreva-issue-form .form-actions {
+        padding: 14px 16px 16px;
+    }
+
+    .coreva-issue-form .priority-options {
+        gap: 6px;
+    }
+
+    .coreva-issue-form .priority-option {
+        gap: 5px;
+        padding: 8px 4px;
+        font-size: 12px;
+    }
+
+    .coreva-issue-form .issue-upload {
+        min-height: 80px;
+        padding: 12px;
+    }
+}
+
+
+
+#IssuesSection,
+#IssuesSectionSM {
+    scroll-margin-top: 90px;
+}
+
+@media (max-width: 576px) {
+    .offcanvas_form{
+        width: 100% !important;
+    }
+}
+

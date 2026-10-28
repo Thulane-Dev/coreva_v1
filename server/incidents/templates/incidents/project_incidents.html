@@ -1,0 +1,101 @@
+{% load static %}
+
+<div class="row d-flex justify-content-center">
+  <div class="col-12 col-lg-8">
+    <!-- =====================================================
+      HEADER
+    ====================================================== -->
+    <section class="mb-3">
+      <!-- =========================================================
+    COREVA MOBILE TOP NAVBAR AND LARGE SCREEN BACK BUTTON
+    ========================================================= -->
+    {% include 'partials/page_topbar.html' with next_url=next_url brand_name='Project Incidents' brand_url='#' %}
+
+      <!-- INCIDENTS HEADER -->
+      <div class="portal-work-section portal-work-section--incidents mb-3 mt-0">
+          <div class="portal-work-header">
+              <div class="portal-work-icon">
+                  <i class="bi bi-asterisk" style="color: rgb(234, 88, 12) !important;"></i>
+              </div>
+              <div class="portal-work-heading">
+                  <h3>Incidents</h3>
+                  <span>{{ incidents|length }} Incident{% if incidents|length > 1%}s{% endif %}</span>
+              </div>
+              <!-- ADD INCIDENT ACTION  -->
+                <a data-bs-toggle="offcanvas" href="#addIncidentOffcanvas" aria-controls="addIncidentOffcanvas">
+                    <div class="portal-work-count">
+                        <div class="d-flex gap-1">
+                            <strong><i class="bi bi-plus"></i></strong>
+                            <span class="text-capitalize">Incident</span>
+                        </div>
+                    </div>
+                </a>
+          </div>
+      </div>
+    </section>
+
+
+    <!-- =====================================================
+      INCIDENTS SUMMARY
+    ====================================================== -->
+    <section class="mb-4">
+        <div class="row g-2">
+            <!-- INCIDENTS -->
+            <div class="col-6 col-md">
+                <div class="cpd-summary-card h-100">
+                    <div class="cpd-summary-icon cpd-summary-red">
+                        <i class="bi bi-exclamation-triangle"></i>
+                    </div>
+                    <div class="cpd-summary-content">
+
+                        <span class="cpd-summary-label">
+                            Total Incidents
+                        </span>
+
+                        <strong class="cpd-summary-value">
+                            {{incidents|length}}
+                        </strong>
+
+                    </div>
+                </div>
+            </div>
+            <!-- Open Tasks -->
+            <div class="col-6 col-md">
+                <div class="cpd-summary-card h-100">
+                    <div class="cpd-summary-icon cpd-summary-green">
+                        <i class="bi bi-exclamation-circle"></i>
+                    </div>
+                    <div class="cpd-summary-content">
+                        <span class="cpd-summary-label">
+                            Todays Incidents
+                        </span>
+
+                        <strong class="cpd-summary-value">
+                            {{todays_incidents_count}}
+                        </strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- =====================================================
+      INCIDENTS LIST
+    ====================================================== -->
+    <section class="section-spacing">
+      <div class="scroll-section" id="IncidentsSessionList">
+        {% include 'partials/all_incidents_partial.html' %}
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ======== PROJECT BOTTOM NAVBAR ======== -->
+{% if show_project_bottom_nav is not False %}
+<div class="d-block d-lg-none">{% include 'partials/project_bottom_navbar.html' %}</div>
+{% endif %}
+
+
+<!-- Add Incident Offcanvas  -->
+{% include 'incidents/deepseek_incident_offcanvas.html' %}

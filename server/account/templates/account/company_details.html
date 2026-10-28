@@ -1,0 +1,895 @@
+{% load static %}
+
+<div class="row d-flex justify-content-center">
+    <div class="col-12 col-lg-8">
+        <div class="company-details-page mt-0">
+
+            <!-- =========================
+            BRAND / PAGE NAME
+            ========================== -->
+            <nav class="cv-mobile-topbar fixed-top">
+                <a
+                    href="{{ brand_url|default:'#' }}"
+                    class="cv-mobile-topbar-brand"
+                    aria-label="{{company.company_name}}"
+                    >
+                    {{company.company_name}}
+                </a>
+            </nav>
+
+            <!-- Page Header -->
+            <div class="company-details-header">
+                <div>
+                    <h4 class="company-details-title">Company Details</h4>
+                    <p class="company-details-subtitle">
+                        View and manage your company information.
+                    </p>
+                </div>
+
+                <button
+                    type="button"
+                    class="btn btn-primary company-edit-btn"
+                    data-bs-toggle="modal"
+                    data-bs-target="#editCompanyModal">
+
+                    <i class="bi bi-pencil me-1"></i>
+                    Edit company
+
+                </button>
+            </div>
+
+
+            <!-- Company Overview -->
+            <section class="company-card">
+
+                <div class="company-card-header">
+                    <h6>Company</h6>
+                </div>
+
+                <div class="company-overview">
+
+                    <div class="company-logo-wrapper">
+
+                        {% if company.logo %}
+                            <img
+                                src="{{ company.logo.url }}"
+                                alt="{{ company.company_name }}"
+                                class="company-logo">
+                        {% else %}
+                            <div class="company-logo-placeholder">
+                                {{ company.company_name|first|upper }}
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+                    <div class="company-overview-info">
+
+                        <div class="company-name-row">
+                            <h5>{{ company.company_name }}</h5>
+
+                            <span class="company-status company-status-active">
+                                {{ company.get_status_display }}
+                            </span>
+                        </div>
+
+                        <p class="company-industry">
+                            {{ company.industry }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Company ID -->
+                <div class="company-id-box d-none">
+
+                    <div>
+                        <span class="company-field-label">
+                            Company ID
+                        </span>
+
+                        <span
+                            class="company-id-value"
+                            id="companyId">
+                            {{ company.uuid }}
+                        </span>
+                    </div>
+
+                    <button
+                        type="button"
+                        class="company-copy-btn"
+                        onclick="copyCompanyId()"
+                        title="Copy company ID">
+
+                        <i class="bi bi-copy"></i>
+                        <span>Copy</span>
+
+                    </button>
+
+                </div>
+
+            </section>
+
+            <!-- =====================================================
+                COMPANY PORTAL ID
+            ===================================================== -->
+            <section class="contractor_portal_id_card mb-3">
+
+                <div class="contractor_portal_id_main">
+
+                    <div class="contractor_portal_id_icon">
+                        <i class="bi bi-fingerprint"></i>
+                    </div>
+
+                    <div class="contractor_portal_id_content">
+                        <h3>
+                            Your Coreva Company ID
+                        </h3>
+
+                        <p>
+                            Share this ID with a company when they need to
+                            connect with you company.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="contractor_portal_id_value">
+
+                    <div class="contractor_portal_id_field">
+
+                        <span style="font-size: 16px;">
+                            {{ company.uuid }}
+                        </span>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="contractor_portal_id_copy"
+                        onclick="copyContractorPortalId('{{ company.uuid }}', this)"
+                    >
+                        <i class="bi bi-copy"></i>
+                        <span>Copy ID</span>
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- Contact Information -->
+            <section class="company-card">
+
+                <div class="company-card-header">
+                    <h6>Contact Information</h6>
+                </div>
+
+                <div class="company-info-grid">
+
+                    <div class="company-field">
+                        <span class="company-field-label">
+                            Contact person
+                        </span>
+
+                        <span class="company-field-value">
+                            {{ company.contact_name|default:"—" }}
+                        </span>
+                    </div>
+
+
+                    <div class="company-field">
+                        <span class="company-field-label">
+                            Phone
+                        </span>
+
+                        <span class="company-field-value">
+                            {{ company.phone|default:"—" }}
+                        </span>
+                    </div>
+
+
+                    <div class="company-field">
+                        <span class="company-field-label">
+                            WhatsApp
+                        </span>
+
+                        <span class="company-field-value">
+                            {{ company.whatsapp|default:"—" }}
+                        </span>
+                    </div>
+
+
+                    <div class="company-field">
+                        <span class="company-field-label">
+                            Email
+                        </span>
+
+                        <span class="company-field-value">
+                            {{ company.email|default:"—" }}
+                        </span>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- Address -->
+            <section class="company-card">
+
+                <div class="company-card-header">
+                    <h6>Company Address</h6>
+                </div>
+
+                {% if company.address %}
+
+                    <div class="company-address">
+
+                        <i class="bi bi-geo-alt company-address-icon"></i>
+
+                        <div>
+                            <div class="company-address-line">
+                                {{ company.address.street_address }}
+                            </div>
+
+                            <div class="company-address-line">
+                                {{ company.address.city }},
+                                {{ company.address.province }}
+                            </div>
+
+                            <div class="company-address-line">
+                                {{ company.address.postal_code }}
+                                {% if company.address.country %}
+                                    , {{ company.address.country }}
+                                {% endif %}
+                            </div>
+                        </div>
+
+                    </div>
+
+                {% else %}
+
+                    <div class="company-empty-state">
+                        <i class="bi bi-geo-alt"></i>
+
+                        <span>
+                            No company address has been added.
+                        </span>
+                    </div>
+
+                {% endif %}
+
+            </section>
+
+
+            <!-- Company Danger Zone -->
+            <section class="company-danger-section">
+
+                <div class="company-danger-header">
+                    <div>
+                        <h6 class="company-danger-title">
+                            Deactivate company
+                        </h6>
+
+                        <p class="company-danger-description">
+                            Deactivate this company and prevent its team members from
+                            accessing Coreva. Existing projects and company records will
+                            not be deleted.
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="company-danger-action">
+
+                    <div>
+                        <strong>Deactivate {{ company.company_name }}</strong>
+
+                        <span>
+                            This will deactivate the entire company account.
+                        </span>
+                    </div>
+
+                    <button
+                        type="button"
+                        class="btn btn-outline-danger company-danger-btn"
+                        data-bs-toggle="modal"
+                        data-bs-target="#deactivateCompanyModal">
+
+                        <i class="bi bi-building-x me-1"></i>
+                        Deactivate company
+
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- Deactivate Company Modal -->
+            <div
+                class="modal fade"
+                id="deactivateCompanyModal"
+                tabindex="-1"
+                aria-hidden="true">
+
+                <div class="modal-dialog modal-dialog-centered">
+
+                    <div class="modal-content company-deactivate-modal">
+
+                        <form
+                            method="POST"
+                            action="{% url 'account:deactivate-company'%}">
+
+                            {% csrf_token %}
+
+                            <div class="modal-header">
+
+                                <div>
+                                    <h5 class="modal-title">
+                                        Deactivate company?
+                                    </h5>
+
+                                    <p class="company-deactivate-subtitle">
+                                        This action affects the entire company.
+                                    </p>
+                                </div>
+
+                                <button
+                                    type="button"
+                                    class="btn-close"
+                                    data-bs-dismiss="modal"
+                                    aria-label="Close">
+                                </button>
+
+                            </div>
+
+
+                            <div class="modal-body">
+
+                                <div class="company-warning-box">
+
+                                    <i class="bi bi-exclamation-triangle"></i>
+
+                                    <div>
+                                        <strong>
+                                            {{ company.company_name }}
+                                        </strong>
+
+                                        <p>
+                                            All users belonging to this company will
+                                            lose access to Coreva while the company is
+                                            deactivated.
+                                        </p>
+                                    </div>
+
+                                </div>
+
+
+                                <p class="company-deactivate-text">
+                                    Your company's projects, inspections, issues,
+                                    reports and other records will remain stored.
+                                    The company can be reactivated later.
+                                </p>
+
+
+                                <div class="company-confirm-field">
+
+                                    <label
+                                        for="deactivateCompanyConfirmation"
+                                        class="company-confirm-label">
+
+                                        Type the company name to confirm
+
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="deactivateCompanyConfirmation"
+                                        class="form-control"
+                                        placeholder="{{ company.company_name }}"
+                                        autocomplete="off">
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="modal-footer">
+
+                                <button
+                                    type="button"
+                                    class="btn btn-light"
+                                    data-bs-dismiss="modal">
+
+                                    Cancel
+
+                                </button>
+
+                                <button
+                                    type="submit"
+                                    class="btn btn-danger"
+                                    id="confirmDeactivateCompanyBtn"
+                                    disabled>
+
+                                    Deactivate company
+
+                                </button>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Edit Company Modal -->
+<div class="modal fade" id="editCompanyModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content cedit-modal">
+
+            <form
+                method="POST"
+                action="{% url 'account:update-company-details' %}"
+                enctype="multipart/form-data">
+
+                {% csrf_token %}
+
+                <!-- Header -->
+                <div class="modal-header cedit-header">
+                    <div>
+                        <h5 class="modal-title">Edit company</h5>
+                        <p class="cedit-subtitle">
+                            Update your company's information.
+                        </p>
+                    </div>
+
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close">
+                    </button>
+                </div>
+
+
+                <!-- Body -->
+                <div class="modal-body cedit-body">
+
+                    <!-- Company Information -->
+                    <div class="cedit-section">
+
+                        <div class="cedit-section-title">
+                            Company information
+                        </div>
+
+                        <div class="cedit-logo-row">
+
+                            <div class="cedit-logo-preview">
+
+                                {% if company.logo %}
+                                    <img
+                                        src="{{ company.logo.url }}"
+                                        id="companyLogoPreview"
+                                        alt="{{ company.company_name }}">
+                                {% else %}
+                                    <div
+                                        class="cedit-logo-placeholder"
+                                        id="companyLogoPlaceholder">
+                                        {{ company.company_name|first|upper }}
+                                    </div>
+
+                                    <img
+                                        src=""
+                                        id="companyLogoPreview"
+                                        class="d-none"
+                                        alt="Company logo">
+                                {% endif %}
+
+                            </div>
+
+                            <div class="cedit-logo-actions">
+
+                                <label
+                                    for="company_logo"
+                                    class="btn btn-outline-secondary btn-sm">
+                                    <i class="bi bi-upload me-1"></i>
+                                    Change logo
+                                </label>
+
+                                <input
+                                    type="file"
+                                    name="logo"
+                                    id="company_logo"
+                                    class="d-none"
+                                    accept="image/*">
+
+                                <div class="cedit-help-text">
+                                    JPG, PNG or WebP. Recommended square image.
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="row g-3">
+
+                            <!-- Company Name -->
+                            <div class="col-md-8">
+
+                                <label
+                                    for="company_name"
+                                    class="cedit-label">
+                                    Company name
+                                </label>
+
+                                <input
+                                    type="text"
+                                    name="company_name"
+                                    id="company_name"
+                                    class="form-control cedit-input"
+                                    value="{{ company.company_name }}"
+                                    required>
+
+                            </div>
+
+
+                            <!-- Industry -->
+                            <div class="col-md-4">
+
+                                <label
+                                    for="industry"
+                                    class="cedit-label">
+                                    Industry
+                                </label>
+
+                                <input
+                                    type="text"
+                                    name="industry"
+                                    id="industry"
+                                    class="form-control cedit-input"
+                                    value="{{ company.industry }}">
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Contact -->
+                    <div class="cedit-section">
+
+                        <div class="cedit-section-title">
+                            Contact information
+                        </div>
+
+                        <div class="row g-3">
+
+                            <div class="col-md-6">
+
+                                <label
+                                    for="contact_name"
+                                    class="cedit-label">
+                                    Contact person
+                                </label>
+
+                                <input
+                                    type="text"
+                                    name="contact_name"
+                                    id="contact_name"
+                                    class="form-control cedit-input"
+                                    value="{{ company.contact_name|default:'' }}">
+
+                            </div>
+
+
+                            <div class="col-md-6">
+
+                                <label
+                                    for="company_email"
+                                    class="cedit-label">
+                                    Email
+                                </label>
+
+                                <input
+                                    type="email"
+                                    name="email"
+                                    id="company_email"
+                                    class="form-control cedit-input"
+                                    value="{{ company.email|default:'' }}">
+
+                            </div>
+
+
+                            <div class="col-md-6">
+
+                                <label
+                                    for="company_phone"
+                                    class="cedit-label">
+                                    Phone
+                                </label>
+
+                                <input
+                                    type="tel"
+                                    name="phone"
+                                    id="company_phone"
+                                    class="form-control cedit-input"
+                                    value="{{ company.phone|default:'' }}">
+
+                            </div>
+
+
+                            <div class="col-md-6">
+
+                                <label
+                                    for="company_whatsapp"
+                                    class="cedit-label">
+                                    WhatsApp
+                                </label>
+
+                                <input
+                                    type="tel"
+                                    name="whatsapp"
+                                    id="company_whatsapp"
+                                    class="form-control cedit-input"
+                                    value="{{ company.whatsapp|default:'' }}">
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Address -->
+                    <div class="cedit-section">
+
+                        <div class="cedit-section-title">
+                            Company address
+                        </div>
+
+                        <div class="row g-3">
+
+                            <div class="col-12">
+
+                                <label
+                                    for="street_address"
+                                    class="cedit-label">
+                                    Street address
+                                </label>
+
+                                <input
+                                    type="text"
+                                    name="street_address"
+                                    id="street_address"
+                                    class="form-control cedit-input"
+                                    value="{{ company.address.street_address|default:'' }}">
+
+                            </div>
+
+
+                            <div class="col-md-5">
+
+                                <label
+                                    for="city"
+                                    class="cedit-label">
+                                    City
+                                </label>
+
+                                <input
+                                    type="text"
+                                    name="city"
+                                    id="city"
+                                    class="form-control cedit-input"
+                                    value="{{ company.address.city|default:'' }}">
+
+                            </div>
+
+
+                            <div class="col-md-4">
+
+                                <label
+                                    for="province"
+                                    class="cedit-label">
+                                    Province
+                                </label>
+
+                                <input
+                                    type="text"
+                                    name="province"
+                                    id="province"
+                                    class="form-control cedit-input"
+                                    value="{{ company.address.province|default:'' }}">
+
+                            </div>
+
+
+                            <div class="col-md-3">
+
+                                <label
+                                    for="postal_code"
+                                    class="cedit-label">
+                                    Postal code
+                                </label>
+
+                                <input
+                                    type="text"
+                                    name="postal_code"
+                                    id="postal_code"
+                                    class="form-control cedit-input"
+                                    value="{{ company.address.postal_code|default:'' }}">
+
+                            </div>
+
+
+                            <div class="col-md-6">
+
+                                <label
+                                    for="country"
+                                    class="cedit-label">
+                                    Country
+                                </label>
+
+                                <input
+                                    type="text"
+                                    name="country"
+                                    id="country"
+                                    class="form-control cedit-input"
+                                    value="{{ company.address.country|default:'South Africa' }}">
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Company ID -->
+                    <div class="cedit-id-box">
+
+                        <div>
+                            <span class="cedit-id-label">
+                                Company ID
+                            </span>
+
+                            <span class="cedit-id-value">
+                                {{ company.uuid }}
+                            </span>
+                        </div>
+
+                        <span class="cedit-id-note">
+                            This ID cannot be changed.
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Footer -->
+                <div class="modal-footer cedit-footer">
+
+                    <button
+                        type="button"
+                        class="btn btn-light"
+                        data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary">
+                        <i class="bi bi-check2 me-1"></i>
+                        Save changes
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- ======== BOTTOM NAVBAR ======== -->
+{% if show_bottom_nav is not False %}
+<div class="d-block d-lg-none">{% include 'partials/bottom_navbar.html' %}</div>
+{% endif %}
+
+<script>
+    function copyCompanyId() {
+        const companyId = document.getElementById("companyId").textContent.trim();
+
+        navigator.clipboard.writeText(companyId).then(() => {
+
+            const button = document.querySelector(".company-copy-btn");
+            const original = button.innerHTML;
+
+            button.innerHTML = '<i class="bi bi-check2"></i><span>Copied</span>';
+
+            setTimeout(() => {
+                button.innerHTML = original;
+            }, 1500);
+        });
+    }
+</script>
+
+<script>
+document.getElementById("company_logo").addEventListener("change", function () {
+
+    const file = this.files[0];
+
+    if (!file) {
+        return;
+    }
+
+    const preview = document.getElementById("companyLogoPreview");
+    const placeholder = document.getElementById("companyLogoPlaceholder");
+
+    preview.src = URL.createObjectURL(file);
+    preview.classList.remove("d-none");
+
+    if (placeholder) {
+        placeholder.classList.add("d-none");
+    }
+
+});
+</script>
+
+
+<script>
+    const deactivateConfirmation =
+        document.getElementById("deactivateCompanyConfirmation");
+
+    const confirmDeactivateCompanyBtn =
+        document.getElementById("confirmDeactivateCompanyBtn");
+
+    const companyName = "{{ company.company_name|escapejs }}";
+
+    deactivateConfirmation.addEventListener("input", function () {
+
+        if (this.value.trim() === companyName) {
+            confirmDeactivateCompanyBtn.disabled = false;
+        } else {
+            confirmDeactivateCompanyBtn.disabled = true;
+        }
+
+    });
+</script>
+
+
+<script>
+function copyContractorPortalId(portalId, button) {
+
+    navigator.clipboard.writeText(portalId).then(function () {
+
+        const icon = button.querySelector("i");
+        const text = button.querySelector("span");
+
+        icon.className = "bi bi-check-lg";
+        text.textContent = "Copied";
+
+        setTimeout(function () {
+            icon.className = "bi bi-copy";
+            text.textContent = "Copy ID";
+        }, 2000);
+
+    });
+
+}
+</script>

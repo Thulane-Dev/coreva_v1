@@ -1,0 +1,535 @@
+{% load static %}
+
+<div class="ctm-page mt-0">
+
+    <!-- =====================================================
+         PAGE HEADER
+         ===================================================== -->
+
+    <div class="ctm-header">
+
+        <div class="ctm-header-left">
+
+            <!-- =========================
+            BRAND / PAGE NAME
+            ========================== -->
+            <nav class="cv-mobile-topbar fixed-top">
+                <a
+                    href="{{ brand_url|default:'#' }}"
+                    class="cv-mobile-topbar-brand"
+                    aria-label="{{ account_user.first_name }}"
+                    >
+                    Company Team Members
+                </a>
+            </nav>
+
+            <div class="ctm-title-row">
+
+                <div class="ctm-title-icon">
+                    <span class="material-symbols-outlined">
+                        groups
+                    </span>
+                </div>
+
+                <div class="ctm-title-content">
+
+                    <span class="ctm-eyebrow">
+                        People & Access
+                    </span>
+
+                    <h1>
+                        Company Team
+                    </h1>
+
+                    <p>
+                        Manage the people who have access to
+                        {{ company.company_name }}.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="ctm-header-action">
+
+            <a
+                href="{% url 'account:invite-team-member' %}?next={{ request.get_full_path|urlencode }}"
+                class="ctm-primary-btn"
+            >
+                <span class="material-symbols-outlined">
+                    person_add
+                </span>
+
+                <span>
+                    Invite Team Member
+                </span>
+            </a>
+
+            <a
+                href="#"
+                class="tw-project-action tw-project-action-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#teamLimitModal"
+            >
+                <i class="bi bi-person-plus"></i>
+                <span>Team Limit Reached</span>
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+    TEAM SUMMARY
+    ===================================================== -->
+    <div class="row g-2 mb-3">
+        <div class="col-6 col-md-4">
+            <!-- Total -->
+            <div class="ctm-summary-card">
+
+                <div class="ctm-summary-icon ctm-summary-icon-blue">
+                    <span class="material-symbols-outlined">
+                        groups
+                    </span>
+                </div>
+
+                <div class="ctm-summary-content">
+
+                    <span>
+                        Team members
+                    </span>
+
+                    <strong>
+                        {{ total_members }}
+                    </strong>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="col-6 col-md-4">
+            <!-- Admins -->
+            <div class="ctm-summary-card">
+
+                <div class="ctm-summary-icon ctm-summary-icon-purple">
+                    <span class="material-symbols-outlined">
+                        admin_panel_settings
+                    </span>
+                </div>
+
+                <div class="ctm-summary-content">
+
+                    <span>
+                        Admins
+                    </span>
+
+                    <strong>
+                        {{ admin_count }}
+                    </strong>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <!-- Team -->
+            <div class="ctm-summary-card">
+
+                <div class="ctm-summary-icon ctm-summary-icon-green">
+                    <span class="material-symbols-outlined">
+                        person
+                    </span>
+                </div>
+
+                <div class="ctm-summary-content">
+
+                    <span>
+                        Team members
+                    </span>
+
+                    <strong>
+                        {{ user_count }}
+                    </strong>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- =====================================================
+    TEAM CONTENT
+    ===================================================== -->
+    <div class="ctm-content-card">
+
+
+        <!-- =================================================
+             TOOLBAR
+             ================================================= -->
+
+        <div class="ctm-toolbar">
+
+            <div class="ctm-toolbar-heading">
+
+                <h2>
+                    Your team
+                </h2>
+
+                <p>
+                    People with access to your Coreva company account.
+                </p>
+
+            </div>
+
+
+            <form
+                method="GET"
+                class="ctm-filter-form d-none"
+            >
+
+                <!-- Search -->
+
+                <div class="ctm-search">
+
+                    <span class="material-symbols-outlined">
+                        search
+                    </span>
+
+                    <input
+                        type="text"
+                        name="search"
+                        value="{{ search }}"
+                        placeholder="Search team members..."
+                    />
+
+                </div>
+
+
+                <!-- Role -->
+
+                <select
+                    name="role"
+                    class="ctm-role-select"
+                    onchange="this.form.submit()"
+                >
+
+                    <option value="">
+                        All roles
+                    </option>
+
+                    <option
+                        value="admin"
+                        {% if selected_role == "admin" %}selected{% endif %}
+                    >
+                        Admin
+                    </option>
+
+                    <option
+                        value="user"
+                        {% if selected_role == "user" %}selected{% endif %}
+                    >
+                        Team Member
+                    </option>
+
+                </select>
+
+
+                {% if search or selected_role %}
+
+                    <a
+                        href="#"
+                        class="ctm-clear-filter"
+                    >
+                        Clear
+                    </a>
+
+                {% endif %}
+
+            </form>
+
+        </div>
+
+
+        <!-- =================================================
+             MEMBER LIST
+             ================================================= -->
+
+        <div class="ctm-member-list">
+
+            {% for member in team_members %}
+
+                <a
+                    href="{% url 'team:team-member-details' member.uuid %}?next={{ request.get_full_path|urlencode }}"
+                    id="team-member-{{ member.uuid }}"
+                    class="ctm-member"
+                >
+
+                    <div class="ctm-member-left">
+
+                        <!-- Avatar -->
+
+                        <div class="ctm-avatar">
+
+                            {% if member.first_name %}
+                                {{ member.first_name|first|upper }}
+                            {% else %}
+                                ?
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- Member information -->
+
+                        <div class="ctm-member-info">
+
+                            <div class="ctm-member-name-row">
+
+                                <span class="ctm-member-name">
+                                    {{ member.first_name }}
+                                    {{ member.last_name }}
+                                </span>
+
+
+                                {% if member.role == "admin" %}
+
+                                    <span class="ctm-role-badge ctm-role-admin">
+                                        <i class="bi bi-shield-check"></i>
+                                        Admin
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="ctm-role-badge ctm-role-user">
+                                        Team Member
+                                    </span>
+
+                                {% endif %}
+
+                            </div>
+
+
+                            <span class="ctm-member-email">
+                                {{ member.email }}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Right side -->
+
+                    <div class="ctm-member-right">
+
+                        <span class="ctm-member-status">
+                            <span class="ctm-status-dot"></span>
+                            Active
+                        </span>
+
+                        <span class="ctm-member-arrow">
+                            <i class="bi bi-chevron-right"></i>
+                        </span>
+
+                    </div>
+
+                </a>
+
+            {% empty %}
+
+
+                <!-- =================================================
+                     EMPTY STATE
+                     ================================================= -->
+
+                <div class="ctm-empty">
+
+                    <div class="ctm-empty-icon">
+
+                        <span class="material-symbols-outlined">
+                            groups
+                        </span>
+
+                    </div>
+
+
+                    {% if search or selected_role %}
+
+                        <h3>
+                            No team members found
+                        </h3>
+
+                        <p>
+                            No team members match your current
+                            search or role filter.
+                        </p>
+
+                        <a
+                            href="#"
+                            class="ctm-secondary-btn"
+                        >
+                            Clear Filters
+                        </a>
+
+                    {% else %}
+
+                        <h3>
+                            Your team is empty
+                        </h3>
+
+                        <p>
+                            Invite people to your company so they can
+                            access projects, inspections, issues,
+                            tasks and daily reports.
+                        </p>
+
+                        <a
+                            href="{% url 'account:invite-team-member' %}?next={{ request.get_full_path|urlencode }}"
+                            class="ctm-primary-btn"
+                        >
+
+                            <span class="material-symbols-outlined">
+                                person_add
+                            </span>
+
+                            Invite Team Member
+
+                        </a>
+
+                    {% endif %}
+
+                </div>
+
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+    {% if pending_invitations %}
+    <!-- =====================================================
+    PENDING TEAM INVITES
+    ===================================================== -->
+    <div class="ctm-content-card mt-3">
+
+
+        <!-- =================================================
+        TOOLBAR
+        ================================================= -->
+        <div class="ctm-toolbar">
+
+            <div class="ctm-toolbar-heading">
+
+                 <h2>
+                    Pending Team Invites
+                </h2>
+
+                <p>
+                    Manage invitations for people who haven't joined your Coreva company account yet.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+        PENDING MEMBER LIST
+        ================================================= -->
+        <div class="ctm-member-list">
+
+            {% for member in pending_invitations %}
+
+                <a
+                    href="{% url 'account:pending-invite' member.token %}?next={{ request.get_full_path|urlencode }}"
+                    class="ctm-member"
+                >
+
+                    <div class="ctm-member-left">
+
+                        <!-- Avatar -->
+
+                        <div class="ctm-avatar">
+
+                            {% if member.user.username %}
+                                {{ member.user.username|first|upper }}
+                            {% else %}
+                                ?
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- Member information -->
+                        <div class="ctm-member-info">
+
+                            <div class="ctm-member-name-row">
+
+                                <span class="ctm-member-name">
+                                    {{ member.user.username}}
+                                </span>
+
+
+                                {% if member.role == "admin" %}
+
+                                    <span class="ctm-role-badge ctm-role-admin">
+                                        <i class="bi bi-shield-check"></i>
+                                        Admin
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="ctm-role-badge ctm-role-user">
+                                        Team Member
+                                    </span>
+
+                                {% endif %}
+
+                            </div>
+
+
+                            <span class="ctm-member-email">
+                                {{ member.user.email }}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Right side -->
+
+                    <div class="ctm-member-right">
+
+                        <span class="ctm-member-status">
+                            <span class="ctm-status-dot"></span>
+                            Pending
+                        </span>
+
+                        <span class="ctm-member-arrow">
+                            <i class="bi bi-chevron-right"></i>
+                        </span>
+
+                    </div>
+
+                </a>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+    {% endif %}
+</div>
+
+
+<!-- ======== BOTTOM NAVBAR ======== -->
+{% if show_bottom_nav is not False %}
+<div class="d-block d-lg-none">{% include 'partials/bottom_navbar.html' %}</div>
+{% endif %}

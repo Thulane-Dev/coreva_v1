@@ -1,0 +1,309 @@
+{% load static %}
+<!-- divider  -->
+
+<div class="row d-flex justify-content-center mt-0 pt-0">
+  <div class="col-12 col-lg-8">
+    <!-- =========================================================
+    COREVA MOBILE TOP NAVBAR AND LARGE SCREEN BACK BUTTON
+    ========================================================= -->
+    {% url 'projects:project-view' project.uuid  as back_url %}
+    <!-- -------------------------------------------  -->
+    {% include 'partials/page_topbar.html' with next_url=next_url back_url=back_url brand_name='Project Inspections' brand_url=back_url %}
+
+    <!--  HEADER -->
+    <div class="portal-work-section portal-work-section--inspection mb-3">
+        <div class="portal-work-header">
+
+            <div class="portal-work-icon">
+                <i class="bi bi-clipboard-check text-warning"></i>
+            </div>
+
+            <div class="portal-work-heading">
+                <h3>Project Daily Inspection</h3>
+                <span>View daily project inspections</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- =====================================================
+    INSPECTION CHECKLIST SETTINGS EDIT
+    ====================================================== -->
+    <a
+        href="{% url 'inspections:inspection-items' project.uuid %}?next={{ request.get_full_path|urlencode }}"
+        class="text-decoration-none"
+    >
+
+        <section class="daily-inspection-settings mb-4">
+
+            <div class="daily-inspection-settings-main">
+
+                <div class="daily-inspection-settings-icon">
+                    <i class="bi bi-sliders2"></i>
+                </div>
+
+                <div class="daily-inspection-settings-content">
+
+                    <div class="daily-inspection-settings-label">
+                        INSPECTION SETUP
+                    </div>
+
+                    <h3>Customize inspection templates</h3>
+
+                    <p>
+                        Add, remove or update the checklist questions used in
+                        your daily inspections.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="daily-inspection-settings-action">
+                <span>Edit inspection checklist</span>
+                <i class="bi bi-arrow-right"></i>
+            </div>
+
+        </section>
+
+    </a>
+
+    <!-- =====================================================
+    INSPECTIONS OBJECTS FOR LOOP
+    ====================================================== -->
+     {% if inspections %}
+    <section>
+      {% for data in inspections %}
+
+        {% if data.is_not_started %}
+
+            <!-- TODAY'S INSPECTION - NOT STARTED -->
+            <a href="{% url 'inspections:checklist' project.uuid %}?next={{ request.get_full_path|urlencode }}"
+              id="inspection-not-started">
+
+                <div class="operation-item issue-item scroll-section mb-3 inspection-not-started todays_card_bg">
+
+                    <!-- ICON -->
+                    <div class="operation-icon issue-item-icon inspection-not-started-icon">
+                        <span class="material-symbols-outlined">
+                            playlist_add_check
+                        </span>
+                    </div>
+
+                    <div class="operation-content">
+
+                        <!-- CONTENT TOP -->
+                        <div class="operation-top">
+
+                            <h6 class="operation-title mb-0 font_size_14">
+                                Today's Inspection
+
+                                <span class="operation-today-badge">
+                                    Today
+                                </span>
+                            </h6>
+
+                            <span class="font_size_11 priority-pill inspection-not-started-pill">
+                                <span class="priority-dot"></span>
+                                Not started
+                            </span>
+
+                        </div>
+
+
+                        <!-- META -->
+                        <div class="operation-meta">
+
+                            <span class="meta-pill meta-due font_size_10">
+                                <i class="bi bi-calendar2"></i>
+                                {{ data.inspection_date|date:"l d F Y" }}
+                            </span>
+
+                        </div>
+
+
+                        <!-- BOTTOM -->
+                        <div class="operation-bottom">
+
+                            <div class="assigned-info">
+
+                                <div class="mini-avatar inspection-start-icon">
+                                    <i class="bi bi-play-fill"></i>
+                                </div>
+
+                                <span class="person-label font_size_11">
+                                    Ready to start
+                                </span>
+
+                            </div>
+
+                            <span class="operation-view-button font_size_12">
+                                Start Inspection
+                                <i class="bi bi-arrow-right"></i>
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </a>
+
+        {% else %}
+
+            <!-- EXISTING INSPECTION -->
+            <a href="{% url 'inspections:checklist' project.uuid data.uuid %}?next={{ request.get_full_path|urlencode }}"
+              id="inspection-list-{{ data.id }}">
+                <div class="operation-item issue-item scroll-section mb-3 {% if data.inspection_date == todays_card_highlight %}todays_card_bg{% endif %}">
+
+                    <!-- ICON -->
+                    <div
+                        class="operation-icon issue-item-icon"
+                        style="
+                            background-color: #edf6ff !important;
+                            color: rgb(40, 120, 200) !important;
+                        "
+                    >
+                        <span class="material-symbols-outlined">
+                            description
+                        </span>
+                    </div>
+
+                    <div class="operation-content">
+
+                        <!-- CONTENT TOP -->
+                        <div class="operation-top">
+
+                            <h6 class="operation-title mb-0 font_size_14">
+
+                                {{ data.reference }}
+
+                                {% if data.inspection_date|date:"Y-m-d" == today|date:"Y-m-d" %}
+                                    <span class="operation-today-badge">
+                                        Today
+                                    </span>
+                                {% endif %}
+
+                            </h6>
+
+
+                            {% if data.status == 'draft' %}
+
+                                <span class="font_size_11 priority-pill priority-medium text-capitalize">
+                                    <span class="priority-dot"></span>
+                                    {{ data.status }}
+                                </span>
+
+                            {% elif data.status == 'in_progress' %}
+
+                                <span class="font_size_11 priority-pill priority-medium text-capitalize">
+                                    <span class="priority-dot"></span>
+                                    Incomplete
+                                </span>
+
+                            {% elif data.status == 'completed' %}
+
+                                <span class="font_size_11 priority-pill priority-low text-capitalize">
+                                    <span class="priority-dot"></span>
+                                    Complete
+                                </span>
+
+                            {% else %}
+
+                                <span class="font_size_11 priority-pill priority-low text-capitalize">
+                                    <span class="priority-dot"></span>
+                                    {{ data.status }}
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- META -->
+                        <div class="operation-meta">
+
+                            <span class="meta-pill meta-due font_size_10">
+                                <i class="bi bi-calendar2"></i>
+                                {{ data.inspection_date|date:"l d F Y" }}
+                            </span>
+                            {% if data.status == 'completed' %}
+                                {% if data.admin_sign_off == None %}
+                                <span class="meta-pill meta-due font_size_10" style="background-color: #FEF2F2 !important; color: rgb(220, 38, 38);">
+                                    <i class="bi bi-person-check"></i>
+                                    Awaiting Approval
+                                </span>
+                                {% endif %}
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- BOTTOM -->
+                        <div class="operation-bottom">
+
+                            <div class="assigned-info">
+
+                                <div class="mini-avatar">
+                                    {{ data.started_by.first_name|first|upper }}
+                                </div>
+
+                                <span class="person-label font_size_11">
+                                    Prepared by
+                                </span>
+
+                                <span class="font_size_11">
+                                    {{ data.started_by.first_name }}
+                                    {{ data.started_by.last_name }}
+                                </span>
+
+                            </div>
+
+
+                            <button
+                                type="button"
+                                class="operation-view-button font_size_12"
+                            >
+                                View Inspection
+                                <i class="bi bi-arrow-right"></i>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </a>
+        {% endif %}
+
+    {% endfor %}
+    </section>
+    {% else %}
+    <!-- =====================================================
+    DAILY INSPECTIONS - NO HISTORY
+    ====================================================== -->
+    <div class="cv-projects-empty">
+
+    <div class="cv-projects-empty-icon">
+        <i class="bi bi-clipboard-check"></i>
+    </div>
+
+    <div class="cv-projects-empty-content">
+
+        <h3>No daily inspections yet</h3>
+
+        <p>
+            There are no daily inspections recorded for this project yet.
+        </p>
+
+    </div>
+
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<!-- ======== PROJECT BOTTOM NAVBAR ======== -->
+{% if show_project_bottom_nav is not False %}
+<div class="d-block d-lg-none">{% include 'partials/project_bottom_navbar.html' %}</div>
+{% endif %}

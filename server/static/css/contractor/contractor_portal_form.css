@@ -1,0 +1,262 @@
+.contractor_portal_options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.contractor_portal_option {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 14px;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    background: #FFFFFF;
+    cursor: pointer;
+    transition: border-color .2s ease,
+                background .2s ease,
+                box-shadow .2s ease;
+}
+
+.contractor_portal_option:hover {
+    border-color: #93C5FD;
+    background: #F8FBFF;
+}
+
+
+/* =========================================
+   RADIO INPUT
+========================================= */
+
+.contractor_portal_option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+}
+
+
+/* =========================================
+   SELECTED OPTION
+========================================= */
+
+.contractor_portal_option:has(
+    input[type="radio"]:checked
+) {
+    border-color: #2563EB;
+    background: #EFF6FF;
+    box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.08);
+}
+
+
+/* =========================================
+   OPTION CONTENT
+========================================= */
+
+.contractor_portal_option_content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.contractor_portal_option_icon {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    border-radius: 10px;
+    background: #F1F5F9;
+    color: #64748B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    transition: background .2s ease,
+                color .2s ease;
+}
+
+
+/* Selected icon */
+
+.contractor_portal_option:has(
+    input[type="radio"]:checked
+) .contractor_portal_option_icon {
+    background: #DBEAFE;
+    color: #2563EB;
+}
+
+
+/* =========================================
+   OPTION TEXT
+========================================= */
+
+.contractor_portal_option_text {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.contractor_portal_option_text strong {
+    color: #172A46;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.contractor_portal_option_text span {
+    color: #64748B;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+
+/* =========================================
+   CUSTOM RADIO
+========================================= */
+
+.contractor_portal_radio {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    border: 2px solid #CBD5E1;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color .2s ease;
+}
+
+
+/* Selected radio */
+
+.contractor_portal_option:has(
+    input[type="radio"]:checked
+) .contractor_portal_radio {
+    border-color: #2563EB;
+}
+
+.contractor_portal_option:has(
+    input[type="radio"]:checked
+) .contractor_portal_radio span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #2563EB;
+}
+
+
+/* =========================================
+   EXISTING PORTAL
+========================================= */
+
+.contractor_existing_portal {
+    padding: 16px;
+    border: 1px solid #E2E8F0;
+    border-radius: 12px;
+    background: #F8FAFC;
+}
+
+.contractor_portal_field_label {
+    display: block;
+    margin-bottom: 7px;
+    color: #334155;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.contractor_portal_search {
+    display: flex;
+    gap: 8px;
+}
+
+.contractor_portal_input_wrap {
+    position: relative;
+    flex: 1;
+}
+
+.contractor_portal_input_wrap > i {
+    position: absolute;
+    left: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94A3B8;
+    font-size: 15px;
+}
+
+.contractor_portal_input {
+    width: 100%;
+    height: 43px;
+    padding: 0 13px 0 38px;
+    border: 1px solid #CBD5E1;
+    border-radius: 9px;
+    background: #FFFFFF;
+    color: #0F172A;
+    font-size: 13px;
+    outline: none;
+}
+
+.contractor_portal_input:focus {
+    border-color: #2563EB;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, .1);
+}
+
+.contractor_portal_search_btn {
+    height: 43px;
+    padding: 0 15px;
+    border: 0;
+    border-radius: 9px;
+    background: #2563EB;
+    color: #FFFFFF;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background .2s ease;
+}
+
+.contractor_portal_search_btn:hover {
+    background: #1D4ED8;
+}
+
+.contractor_portal_help {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 9px;
+    color: #64748B;
+    font-size: 11px;
+}
+
+.contractor_portal_help i {
+    color: #94A3B8;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 576px) {
+
+    .contractor_portal_option {
+        padding: 13px;
+    }
+
+    .contractor_portal_option_text span {
+        font-size: 11px;
+    }
+
+    .contractor_portal_search {
+        flex-direction: column;
+    }
+
+    .contractor_portal_search_btn {
+        width: 100%;
+    }
+
+}

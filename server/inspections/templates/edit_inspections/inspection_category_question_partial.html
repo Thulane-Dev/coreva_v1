@@ -1,0 +1,75 @@
+
+<div class="insp-section-heading insp-existing-heading">
+
+    <div class="insp-section-icon">
+        <i class="bi bi-list-check"></i>
+    </div>
+
+    <div>
+        <h3>Checklist questions</h3>
+        <p>
+            {{ category.inspection_questions|length }}
+            questions in this category
+        </p>
+    </div>
+
+</div>
+
+{% if category.inspection_questions %}
+
+    <div class="insp-question-list">
+
+        {% for question in category.inspection_questions %}
+
+        <div class="insp-question-item">
+
+            <div class="insp-question-number">
+                {{ forloop.counter }}
+            </div>
+
+            <div class="insp-question-content">
+                <span>
+                    {{ question.question }}
+                </span>
+            </div>
+
+            <form 
+                hx-post="{% url 'inspections:remove-question'  question.uuid project.uuid %}"
+                hx-target="#ExistingQuestions{{ question.category.id }}"
+                hx-swap="innerHTML"
+                hx-push-url="false">
+                {% csrf_token %}
+                <button
+                    type="submit"
+                    class="insp-question-remove"
+                    title="Remove question"
+                   >
+                    <i class="bi bi-trash3"></i>
+                </button>
+            </form>
+        </div>
+
+
+        
+
+        {% endfor %}
+
+    </div>
+
+{% else %}
+
+    <div class="insp-question-empty">
+
+        <div class="insp-question-empty-icon">
+            <i class="bi bi-list-check"></i>
+        </div>
+
+        <strong>No questions yet</strong>
+
+        <span>
+            Add your first checklist question above.
+        </span>
+
+    </div>
+
+{% endif %}

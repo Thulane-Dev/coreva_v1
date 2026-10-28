@@ -1,0 +1,403 @@
+<div class="row g-4">
+    {% for data in projects %}
+    <div class="col-12 col-md-6 col-lg-4" id="project-{{data.id}}">
+        <div class="today-project-card h-100">
+        <!-- =========================
+            PROJECT COVER
+        ========================== -->
+        {% if data.project.cover_image %}
+        <div class="project-cover-wrapper">
+            <img
+            src="{{ data.project.cover_image.url }}"
+            alt="{{ data.project.project_name }}"
+            class="projects_cover_image"
+            />
+
+            <!-- Status overlay -->
+            <div class="project-cover-status">
+            {% if data.project_status == 'active' %}
+            <span class="project-status status-active">
+                <span class="status-dot"></span>
+                Active
+            </span>
+
+            {% elif data.project_status == 'on_hold' %}
+            <span class="project-status status-hold">
+                <span class="status-dot"></span>
+                On Hold
+            </span>
+
+            {% else %}
+            <span class="project-status status-complete">
+                <i class="bi bi-check-circle-fill"></i>
+                Complete
+            </span>
+            {% endif %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- =========================
+            PROJECT INFORMATION
+        ========================== -->
+        <div class="today-project-content">
+            <div class="project-heading">
+            <div class="project-title-wrapper">
+                <h5 class="project_name_title mb-1">
+                {{data.project.project_name}}
+                </h5>
+
+                <p class="project_location mb-0">
+                <i class="bi bi-geo-alt-fill"></i>
+                <span>
+                    {{data.project.location.street_address}},
+                    {{data.project.location.city}},
+                    {{data.project.location.province}}
+                </span>
+                </p>
+            </div>
+            </div>
+
+            <!-- =========================
+                ATTENTION STATUS
+        ========================== -->
+            {% if data.overall_status == 'Needs Attention' %}
+            <div class="attention-banner">
+            <div class="attention-icon">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+            </div>
+
+            <div>
+                <span class="attention-title"> Needs Attention </span>
+                <span class="attention-text">
+                There are items requiring action today
+                </span>
+            </div>
+            </div>
+            {% else %}
+            <div
+            class="attention-banner"
+            style="
+                background-color: #edf8f1 !important;
+                border-color: rgb(40, 126, 71) !important;
+            "
+            >
+            <div
+                class="attention-icon"
+                style="
+                background-color: #f9fdfa !important;
+                color: rgb(40, 126, 71) !important;
+                "
+            >
+                <i class="bi bi-check-circle-fill"></i>
+            </div>
+
+            <div>
+                <span
+                class="attention-title"
+                style="color: rgb(40, 126, 71) !important"
+                >All Caught Up</span
+                >
+                <span
+                class="attention-text"
+                style="color: rgb(40, 126, 71) !important"
+                >
+                Everything is up to date for today
+                </span>
+            </div>
+            </div>
+            {% endif %}
+
+            <!-- =========================
+                TODAY'S WORK
+             ========================== -->
+            <div class="todays-work-section">
+            <div class="section-label">
+                <span>Today's Work</span>
+            </div>
+
+            <div class="work-insights">
+                <!-- INSPECTIONS -->
+                <div class="work-insight">
+                <div class="work-insight-icon inspection-icon">
+                    <i class="bi bi-clipboard-check"></i>
+                </div>
+
+                <div class="work-insight-content">
+                    <span class="work-insight-title d-flex gap-2">
+                    {{data.project_data.inspection_insight}}
+                    <!-- divider  -->
+                    {% if data.inspection_status == 'Ready to Save'%}
+                    <i class="bi bi-exclamation-circle-fill text-danger"></i>
+                    {% endif %}
+                    </span>
+
+                    <span class="work-insight-text">
+                    Inspections
+                    <!-- divider  -->
+                    {% if data.project_data.failed_inspections != '(0 failed checks)' %}
+                    <strong class="font_size_11">
+                        {{data.project_data.failed_inspections}}
+                    </strong>
+                    {% endif %}
+                    </span>
+                </div>
+
+                <i class="bi bi-chevron-right insight-arrow"></i>
+                </div>
+
+                <!-- DAILY REPORT -->
+                <div class="work-insight">
+                <div class="work-insight-icon report-icon">
+                    <i class="bi bi-file-earmark-text"></i>
+                </div>
+
+                <div class="work-insight-content">
+                    <span class="work-insight-title">
+                    {{data.project_data.report_insight}}
+                    </span>
+                    <span class="work-insight-text"> Daily Report </span>
+                </div>
+
+                <i class="bi bi-chevron-right insight-arrow"></i>
+                </div>
+
+                <!-- ISSUES -->
+                {% if data.project_data.show_issue_insight == True %}
+                <div class="work-insight">
+                <div class="work-insight-icon issue-icon">
+                    <i class="bi bi-exclamation-circle"></i>
+                </div>
+
+                <div class="work-insight-content">
+                    <span class="work-insight-title">
+                    {{data.project_data.issues_insight_text}}
+                    </span>
+                    <span class="work-insight-text">
+                    Issues
+                    <!-- divider  -->
+                    {% if data.project_data.overdue_issues_count > 0 %}
+                    <strong class="font_size_11">
+                        {{data.project_data.overdue_text}}
+                    </strong>
+                    {% endif %}
+                    </span>
+                </div>
+
+                <i class="bi bi-chevron-right insight-arrow"></i>
+                </div>
+                {% endif %}
+                <!-- New Issue Comments -->
+                {% if data.project_data.comments_issues_list %}
+                <div class="work-insight">
+                <div
+                    class="work-insight-icon task-icon"
+                    style="
+                    background-color: #e8f1ff !important;
+                    color: rgb(37, 99, 235) !important;
+                    "
+                >
+                    <i class="bi bi-chat-left"></i>
+                </div>
+                <div class="work-insight-content">
+                    <span class="work-insight-title">
+                    {% if data.project_data.comments_issues_list|length == 1 %}
+                    1 issue has a new comment {% else %}
+                    {{data.project_data.comments_issues_list|length}} issues
+                    have new comments {% endif %}
+                    </span>
+
+                    <span class="work-insight-text"
+                    >New comments added to issues.</span
+                    >
+                </div>
+
+                <i class="bi bi-chevron-right insight-arrow"></i>
+                </div>
+                {% endif %}
+
+                <!-- TASKS -->
+                {% if data.project_data.show_task_insight == True %}
+                <div class="work-insight">
+                <div class="work-insight-icon task-icon">
+                    <i class="bi bi-check2-square"></i>
+                </div>
+
+                <div class="work-insight-content">
+                    <span class="work-insight-title">
+                    {{data.project_data.tasks_insight_text}}
+                    </span>
+
+                    <span class="work-insight-text">
+                    Tasks
+                    <!-- divider  -->
+                    {% if data.project_data.overdue_tasks_count > 0 %}
+                    <strong class="font_size_11">
+                        {{data.project_data.overdue_task_text}}
+                    </strong>
+                    {% endif %}
+                    </span>
+                </div>
+
+                <i class="bi bi-chevron-right insight-arrow"></i>
+                </div>
+                {% endif %}
+                <!-- New Issue Comments -->
+                {% if data.project_data.comments_tasks_list %}
+                <div class="work-insight">
+                <div
+                    class="work-insight-icon task-icon"
+                    style="
+                    background-color: #e8f1ff !important;
+                    color: rgb(37, 99, 235) !important;
+                    "
+                >
+                    <i class="bi bi-chat-left"></i>
+                </div>
+                <div class="work-insight-content">
+                    <span class="work-insight-title">
+                    {% if data.project_data.comments_tasks_list|length == 1 %} 1
+                    task has a new comment {% else %}
+                    {{data.project_data.comments_tasks_list|length}} tasks have
+                    new comments {% endif %}
+                    </span>
+
+                    <span class="work-insight-text"
+                    >New comments added to tasks.</span
+                    >
+                </div>
+
+                <i class="bi bi-chevron-right insight-arrow"></i>
+                </div>
+                {% endif %}
+
+                
+            </div>
+            </div>
+
+            <!-- =========================
+            Previously Missed Work
+            ========================== -->
+
+            {% if data.project_data.missed_inspection_count > 0 or data.project_data.missed_report_count > 0 %}
+
+            <div class="todays-work-section mt-4">
+
+                <div class="section-label d-flex align-items-center gap-2">
+                    <i class="bi bi-clock"></i>
+                    <span>Previous missed work</span>
+                </div>
+
+                <div class="work-insights">
+
+                    <!-- MISSED INSPECTIONS -->
+                    {% if data.project_data.missed_inspection_count > 0 %}
+                    <div class="work-insight work-insight-alert">
+
+                        <div class="work-insight-icon missed-icon">
+                            <i class="bi bi-clock-history"></i>
+                        </div>
+
+                        <div class="work-insight-content">
+                            <span class="work-insight-title">
+                                {{ data.project_data.missed_inspections_text }}
+                            </span>
+                            <span class="work-insight-text">
+                                Missed Inspections
+                            </span>
+                        </div>
+
+                        <i class="bi bi-chevron-right insight-arrow"></i>
+                    </div>
+                    {% endif %}
+
+                    <!-- MISSED REPORTS -->
+                    {% if data.project_data.missed_report_count > 0 %}
+                    <div class="work-insight work-insight-alert">
+
+                        <div class="work-insight-icon missed-icon">
+                            <i class="bi bi-file-earmark-x"></i>
+                        </div>
+
+                        <div class="work-insight-content">
+                            <span class="work-insight-title">
+                                {{ data.project_data.missed_report_text }}
+                            </span>
+                            <span class="work-insight-text">
+                                Missed Daily Reports
+                            </span>
+                        </div>
+
+                        <i class="bi bi-chevron-right insight-arrow"></i>
+                    </div>
+                    {% endif %}
+
+                </div>
+            </div>
+
+            {% endif %}
+
+            <!-- =========================
+                ACTION
+        ========================== -->
+            <div class="project-card-action">
+            <a
+                href="{% url 'projects:project-view' data.project.uuid %}?next={{ request.get_full_path|urlencode }}"
+                class="today-project-button"
+            >
+                {% if data.overall_status == 'Needs Attention' %}
+                <span>View Work</span>
+                {% else %}
+                <span>View Project</span>
+                {% endif %}
+
+                <i class="bi bi-arrow-right"></i>
+            </a>
+            </div>
+        </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <!-- =====================================================
+        PROJECTS - NOT FOUND / EMPTY STATE
+        ====================================================== -->
+        <div class="cv-projects-empty">
+
+            <div class="cv-projects-empty-icon">
+                <i class="bi bi-folder-x"></i>
+            </div>
+
+            <div class="cv-projects-empty-content">
+
+                <h3>No projects found</h3>
+
+                <p>
+                    We couldn't find any projects matching your current filters.
+                    Try changing your search or clearing the filters.
+                </p>
+
+                <form action="">
+                    {% csrf_token %}
+                    <button
+                        type="button"
+                        class="cv-projects-empty-btn"
+                        hx-post="{% url 'dashboard:filter-projects'%}"
+                        hx-target="#todays_projects"
+                        hx-swap="innerHTML"
+                        hx-vals='{"query": "", "overall_status": "", "project_status": ""}'
+                        onclick="
+                            document.querySelector('[name=query]').value = '';
+                            document.querySelector('[name=overall_status]').value = '';
+                            document.querySelector('[name=project_status]').value = '';
+                        "
+                    >
+                        <i class="bi bi-arrow-counterclockwise"></i>
+                        Clear filters
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>

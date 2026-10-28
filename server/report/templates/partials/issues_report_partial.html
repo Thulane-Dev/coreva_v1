@@ -1,0 +1,408 @@
+<!-- ======== NEW INCIDENT SECTION ======== -->
+<section class="report_form_section report_list_section">
+  <div class="report_section_header report_section_header_action">
+    <div class="report_section_header_left">
+      <div
+        class="report_section_icon blue"
+        style="
+          background-color: #fff0f1 !important;
+          color: rgb(214, 57, 72) !important;
+        "
+      >
+        <i class="bi bi-exclamation-triangle"></i>
+      </div>
+      <div>
+        <div class="d-flex align-items-center gap-2">
+          <h2>Issues</h2>
+          <span class="report_count"> {{ all_issues|length }} </span>
+        </div>
+        <p>Open issues included in this report</p>
+      </div>
+    </div>
+
+    <button
+      type="button"
+      class="report_add_button"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#offcanvasIssue"
+      aria-controls="offcanvasIssueLabel"
+    >
+      <i class="bi bi-plus-lg"></i>
+      <span>Add Issue</span>
+    </button>
+  </div>
+
+  {% if message %}
+  <div
+    id="delivery-success-alert"
+    class="delivery-success-alert mb-3"
+    role="alert"
+  >
+    <div class="delivery-success-icon">
+      <i class="bi bi-check-lg"></i>
+    </div>
+
+    <div class="delivery-success-content">
+      <div class="delivery-success-title">Success</div>
+      <div class="delivery-success-message">{{ message }}</div>
+    </div>
+  </div>
+  {% endif %}
+  <!-- divider  -->
+
+  {% if issues %}
+  <div class="report_record_list">
+    {% for data in issues %}
+    <div class="report_record">
+      <div
+        class="report_record_icon"
+        style="
+          background-color: #fff0f1 !important;
+          color: rgb(214, 57, 72) !important;
+        "
+      >
+        <i class="bi bi-exclamation-triangle"></i>
+      </div>
+
+      <div class="report_record_content">
+        <strong> {{data.title}} </strong>
+        <span> {{ data.description }} </span>
+        <div class="d-flex gap-2">
+          <span class="text-capitalize">{{ data.priority }} priority</span>
+          <span>·</span>
+          <span>{{data.due_status}}</span>
+        </div>
+      </div>
+
+      <i class="bi bi-chevron-right report_record_arrow"></i>
+    </div>
+    {% endfor %}
+
+    <!-- View Button  -->
+    {% if all_issues|length > 4 %}
+    <button type="button" class="secondary-action-button">
+      <span>View all {{all_issues|length}} issues</span>
+      <i class="bi bi-arrow-right"></i>
+    </button>
+    {% endif %}
+  </div>
+  {% else %}
+
+  <div class="report_empty_state">
+    <i class="bi bi-exclamation-triangle"></i>
+    <span>No issues recorded today</span>
+
+    <button
+      type="button"
+      class="report_empty_add"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#offcanvasIssue"
+      aria-controls="offcanvasIssueLabel"
+    >
+      <i class="bi bi-plus"></i>
+      Add Issue
+    </button>
+  </div>
+  {% endif %}
+</section>
+
+<!-- ======== ADD ISSUE OFFCANVAS ======== -->
+<div
+  class="offcanvas offcanvas-start offcanvas_width offcanvas_background"
+  tabindex="-1"
+  id="offcanvasIssue"
+  aria-labelledby="offcanvasIssueLabel"
+>
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasIssueLabel"></h5>
+    <button
+      type="button"
+      class="btn-close text-reset"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="offcanvas-body offcanvas_background">
+    <!-- NEW DELIVERY FORM  -->
+    <section class="delivery_form_page">
+      <div class="delivery_form_container">
+        <!-- =====================================
+           PAGE HEADER
+      ====================================== -->
+        <div class="dashboard_main_card mb-3">
+          <div class="form_page_header mb-0">
+            <div class="form_page_icon">
+              <i class="bi bi-exclamation-triangle-fill"></i>
+            </div>
+
+            <div>
+              <div class="form_page_eyebrow">PROJECT</div>
+
+              <h1 class="form_page_title">Add Issue</h1>
+
+              <p class="form_page_subtitle mb-0">
+                Record an issue that needs attention, tracking or resolution.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <form
+          enctype="multipart/form-data"
+          hx-post="{% url 'report:issue-save-daily' project.uuid %}"
+          hx-target="#report_issues"
+          hx-swap="innerHTML"
+        >
+          {% csrf_token %}
+
+          <!-- =====================================
+             DETAILS
+        ====================================== -->
+          <section class="form_section">
+            <div class="form_section_header">
+              <div class="form_section_number">01</div>
+
+              <div>
+                <h5 class="form_section_title">Issue Details</h5>
+
+                <p class="form_section_subtitle mb-0">
+                  Add the details for this issue.
+                </p>
+              </div>
+            </div>
+
+            <div class="row g-4">
+              <!-- TITLE -->
+              <div class="col-12">
+                <div class="form_field">
+                  <label for="issueTitle" class="form_field_label">
+                    Title
+                    <span class="required">*</span>
+                  </label>
+
+                  <input
+                    type="text"
+                    class="form-control modern_form_input new_inputs_css"
+                    id="issueTitle"
+                    name="title"
+                    placeholder="e.g. Damaged site fence"
+                  />
+                </div>
+              </div>
+
+              <!-- DESCRIPTION -->
+              <div class="col-12">
+                <div class="form_field">
+                  <label for="issueDescription" class="form_field_label">
+                    Description
+                  </label>
+
+                  <textarea
+                    class="form-control modern_form_input modern_form_textarea new_inputs_css"
+                    id="issueDescription"
+                    name="description"
+                    rows="4"
+                    placeholder="Describe what happened, where it happened, and any relevant details..."
+                  ></textarea>
+                </div>
+              </div>
+
+              <!-- PRIORITY -->
+              <div class="col-12 col-md-4">
+                <div class="form_field">
+                  <label for="priority" class="form_field_label">
+                    Priority
+                  </label>
+
+                  <select
+                    name="priority"
+                    id="priority"
+                    class="form-select modern_form_input new_inputs_css"
+                  >
+                    <option value="high" selected>High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- TEAM MEMBER -->
+              <div class="col-12 col-md-4">
+                <div class="form_field">
+                  <label for="teamMember" class="form_field_label">
+                    Assign Team Member
+                  </label>
+
+                  <select
+                    name="team_id"
+                    id="teamMember"
+                    class="form-select modern_form_input new_inputs_css"
+                  >
+                    <option selected value="None">Unassigned</option>
+
+                    {% for data in team_members %}
+
+                    <option value="{{ data.id }}">
+                      {{ data.first_name }} {{ data.last_name }}
+                    </option>
+
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+              <!-- CONTRACTOR -->
+              <div class="col-12 col-md-4">
+                <div class="form_field">
+                  <label for="contractor" class="form_field_label">
+                    Assign Contractor
+                  </label>
+
+                  <select
+                    name="contractor_id"
+                    id="contractor"
+                    class="form-select modern_form_input new_inputs_css"
+                  >
+                    <option selected value="None">Unassigned</option>
+
+                    {% for data in contractors %}
+
+                    <option value="{{ data.id }}">{{ data.contractor.company_name }}</option>
+
+                    {% endfor %}
+                  </select>
+                </div>
+              </div>
+
+              <!-- DUE DATE -->
+              <div class="col-12">
+                <div class="form_field">
+                  <label for="dueDate" class="form_field_label">
+                    Due Date
+                    <span class="required">*</span>
+                  </label>
+
+                  <div class="form_date_wrapper">
+                    <i class="bi bi-calendar3"></i>
+
+                    <input
+                      type="date"
+                      class="form-control modern_form_input form_date_input new_inputs_css"
+                      id="dueDate"
+                      name="due_date"
+                      value="{{ today|date:'Y-m-d' }}"
+                      required
+                      onfocus="this.showPicker()"
+                      onclick="this.showPicker()"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- =====================================================
+           05 — PHOTOS
+      ====================================================== -->
+
+          <section class="incident_form_section">
+            <div class="incident_section_header">
+              <div class="incident_section_number">02</div>
+
+              <div>
+                <h2>Photos</h2>
+                <p>Attach photos that help explain the issue.</p>
+              </div>
+            </div>
+
+            <input
+              type="file"
+              name="attachments"
+              id="attachments-issue"
+              class="d-none"
+              accept="image/*"
+              multiple
+            />
+
+            <div
+              id="attachment-preview-issue"
+              class="incident_photo_preview row g-2 mb-3"
+            ></div>
+
+            <label for="attachments-issue" class="incident_upload">
+              <div class="incident_upload_icon">
+                <i class="bi bi-camera"></i>
+              </div>
+
+              <div class="incident_upload_content">
+                <strong> Add issue photos </strong>
+
+                <span> Take photos or choose images from your device </span>
+
+                <small id="incident_file_count"> No photos selected </small>
+              </div>
+
+              <i class="bi bi-plus-lg incident_upload_plus"></i>
+            </label>
+          </section>
+
+          <!-- =====================================
+             SAVE TYPE
+        ====================================== -->
+          <input type="hidden" value="{{ section_text }}" name="save_type" />
+
+          <!-- =====================================
+             ACTIONS
+        ====================================== -->
+          <div class="form_actions">
+            <button
+              type="button"
+              onclick="history.back()"
+              class="form_cancel_button"
+            >
+              Cancel
+            </button>
+
+            <button
+              type="submit"
+              class="form_save_button"
+              onclick="closeOffcanvasIssue()"
+            >
+              <i class="bi bi-check-lg"></i>
+              Save Issue
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script>
+  setTimeout(function () {
+    const alert = document.getElementById("delivery-success-alert");
+
+    if (alert) {
+      alert.style.transition = "opacity 0.5s ease";
+      alert.style.opacity = "0";
+
+      setTimeout(function () {
+        alert.remove();
+      }, 500);
+    }
+  }, 3000);
+</script>
+
+<!-- CLOSE ISSUE OFFCANVAS  -->
+<script>
+  function closeOffcanvasIssue() {
+    var offcanvasElement = document.getElementById("offcanvasIssue");
+    var offcanvasInstance = bootstrap.Offcanvas.getInstance(offcanvasElement);
+
+    if (!offcanvasInstance) {
+      offcanvasInstance = new bootstrap.Offcanvas(offcanvasElement);
+    }
+
+    offcanvasInstance.hide();
+  }
+</script>

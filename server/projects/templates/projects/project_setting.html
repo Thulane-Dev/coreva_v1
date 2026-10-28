@@ -1,0 +1,668 @@
+{% load static %}
+<!-- divider  -->
+
+<div class="row d-flex justify-content-center">
+    <div class="col-12 col-lg-8">
+        <div class="project-settings-page mx-0 px-0 mt-0">
+
+            <!-- =========================================================
+            COREVA MOBILE TOP NAVBAR AND LARGE SCREEN BACK BUTTON
+            ========================================================= -->
+
+            {% url 'projects:project-view' project.uuid  as back_url %}
+            <!-- -------------------------------------------  -->
+            {% include 'partials/page_topbar.html' with next_url=next_url back_url=back_url brand_name='Project Settings' brand_url=back_url %}
+
+
+            <div class="ps-page-header dashboard_main_card p-3 mt-0">
+
+                <div class="ps-header-left">
+
+                    
+
+                    <div class="ps-title-row">
+
+                        <div class="ps-title-icon">
+                            <span class="material-symbols-outlined">
+                                settings
+                            </span>
+                        </div>
+
+                        <div>
+                            <h1>Project settings</h1>
+
+                            <p>
+                                Manage the details and schedule for
+                                <strong>{{ project.project_name }}</strong>
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- =====================================================
+                    MAIN SETTINGS
+                ====================================================== -->
+
+                <main class="ps-content">
+
+                    <form
+                        method="POST"
+                        enctype="multipart/form-data"
+                        action="{% url 'projects:save-project-update' project.uuid %}"
+                    >
+
+                        {% csrf_token %}
+
+
+                        <!-- =================================================
+                            PROJECT INFORMATION
+                        ================================================== -->
+
+                        <section
+                            class="ps-section"
+                            id="project-information"
+                        >
+
+                            <div class="ps-section-header">
+
+                                <div>
+
+                                    <h2>Project information</h2>
+
+                                    <p>
+                                        Basic information used throughout
+                                        Coreva.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="ps-section-body">
+
+                                <div class="ps-form-grid">
+
+                                    <div class="ps-field ps-field-full">
+
+                                        <label for="project_name">
+                                            Project name
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            id="project_name"
+                                            name="project_name"
+                                            value="{{ project.project_name }}"
+                                            class="ps-input"
+                                            placeholder="e.g. Midrand Warehouse Development"
+                                            required
+                                        >
+
+                                    </div>
+
+
+                                    <div class="ps-field">
+
+                                        <label for="client_name">
+                                            Client name
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            id="client_name"
+                                            name="client_name"
+                                            value="{{ project.client_name }}"
+                                            class="ps-input"
+                                            placeholder="e.g. ABC Property Group"
+                                        >
+
+                                    </div>
+
+
+                                    <div class="ps-field">
+
+                                        <label for="status">
+                                            Project status
+                                        </label>
+
+                                        <select
+                                            id="status"
+                                            name="status"
+                                            class="ps-input"
+                                        >
+
+                                            {% for value, label in project.STATUS_CHOICES %}
+
+                                                <option
+                                                    value="{{ value }}"
+                                                    {% if project.status == value %}
+                                                        selected
+                                                    {% endif %}
+                                                >
+                                                    {{ label }}
+                                                </option>
+
+                                            {% endfor %}
+
+                                        </select>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </section>
+
+
+                        <!-- =================================================
+                            SCHEDULE
+                        ================================================== -->
+
+                        <section
+                            class="ps-section"
+                            id="project-schedule"
+                        >
+
+                            <div class="ps-section-header">
+
+                                <div>
+
+                                    <h2>Project schedule</h2>
+
+                                    <p>
+                                        Set the project dates and the days
+                                        your site normally operates.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="ps-section-body">
+
+                                <div class="ps-form-grid">
+
+                                    <div class="ps-field">
+
+                                        <label for="start_date">
+                                            Start date
+                                        </label>
+
+                                        <input
+                                            type="date"
+                                            id="start_date"
+                                            name="start_date"
+                                            value="{% if project.start_date %}{{ project.start_date|date:'Y-m-d' }}{% endif %}"
+                                            class="ps-input"
+                                        >
+
+                                    </div>
+
+
+                                    <div class="ps-field">
+
+                                        <label for="end_date">
+                                            End date
+                                        </label>
+
+                                        <input
+                                            type="date"
+                                            id="end_date"
+                                            name="end_date"
+                                            value="{% if project.end_date %}{{ project.end_date|date:'Y-m-d' }}{% endif %}"
+                                            class="ps-input"
+                                        >
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- WORKING DAYS -->
+
+                                <div class="ps-working-days">
+
+                                    <div class="ps-working-days-header">
+
+                                        <div>
+
+                                            <h3>Working days</h3>
+
+                                            <p>
+                                                Coreva uses these days when
+                                                calculating project activity
+                                                and missed work.
+                                            </p>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="ps-days-grid">
+
+                                        <label class="ps-day">
+
+                                            <input
+                                                type="checkbox"
+                                                name="working_days"
+                                                value="0"
+                                                {% if 0 in project.working_days %}
+                                                    checked
+                                                {% endif %}
+                                            >
+
+                                            <span class="ps-day-box">
+                                                Mon
+                                            </span>
+
+                                        </label>
+
+
+                                        <label class="ps-day">
+
+                                            <input
+                                                type="checkbox"
+                                                name="working_days"
+                                                value="1"
+                                                {% if 1 in project.working_days %}
+                                                    checked
+                                                {% endif %}
+                                            >
+
+                                            <span class="ps-day-box">
+                                                Tue
+                                            </span>
+
+                                        </label>
+
+
+                                        <label class="ps-day">
+
+                                            <input
+                                                type="checkbox"
+                                                name="working_days"
+                                                value="2"
+                                                {% if 2 in project.working_days %}
+                                                    checked
+                                                {% endif %}
+                                            >
+
+                                            <span class="ps-day-box">
+                                                Wed
+                                            </span>
+
+                                        </label>
+
+
+                                        <label class="ps-day">
+
+                                            <input
+                                                type="checkbox"
+                                                name="working_days"
+                                                value="3"
+                                                {% if 3 in project.working_days %}
+                                                    checked
+                                                {% endif %}
+                                            >
+
+                                            <span class="ps-day-box">
+                                                Thu
+                                            </span>
+
+                                        </label>
+
+
+                                        <label class="ps-day">
+
+                                            <input
+                                                type="checkbox"
+                                                name="working_days"
+                                                value="4"
+                                                {% if 4 in project.working_days %}
+                                                    checked
+                                                {% endif %}
+                                            >
+
+                                            <span class="ps-day-box">
+                                                Fri
+                                            </span>
+
+                                        </label>
+
+
+                                        <label class="ps-day">
+
+                                            <input
+                                                type="checkbox"
+                                                name="working_days"
+                                                value="5"
+                                                {% if 5 in project.working_days %}
+                                                    checked
+                                                {% endif %}
+                                            >
+
+                                            <span class="ps-day-box">
+                                                Sat
+                                            </span>
+
+                                        </label>
+
+
+                                        <label class="ps-day">
+
+                                            <input
+                                                type="checkbox"
+                                                name="working_days"
+                                                value="6"
+                                                {% if 6 in project.working_days %}
+                                                    checked
+                                                {% endif %}
+                                            >
+
+                                            <span class="ps-day-box">
+                                                Sun
+                                            </span>
+
+                                        </label>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </section>
+
+
+                        <!-- =================================================
+                            LOCATION
+                        ================================================== -->
+
+                        <section class="ps-section"
+                            id="project-location">
+                            <div class="ps-section-header">
+                                <div class="mb-3">
+
+                                    <h2>Project location</h2>
+
+                                    <p>
+                                        The site location used for project
+                                        information and weather data.
+                                    </p>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12 col-md-6 mb-3">
+                                        <!-- Street  -->
+                                        <div class="ps-field ps-field-full">
+                                            <label for="street">
+                                                Street
+                                            </label>
+
+                                            <input
+                                                type="text"
+                                                id="street"
+                                                name="street"
+                                                value="{{ project.location.street_address  }}"
+                                                class="ps-input"
+                                            >
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6 mb-3">
+                                        <!-- city  -->
+                                        <div class="ps-field ps-field-full">
+                                            <label for="city">
+                                                city
+                                            </label>
+
+                                            <input
+                                                type="text"
+                                                id="city"
+                                                name="city"
+                                                value="{{ project.location.city }}"
+                                                class="ps-input"
+                                                
+                                            >
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6 mb-3">
+                                        <!-- province  -->
+                                        <div class="ps-field ps-field-full">
+                                            <label for="province">
+                                                province
+                                            </label>
+
+                                            <input
+                                                type="text"
+                                                id="province"
+                                                name="province"
+                                                value="{{project.location.province}}"
+                                                class="ps-input"
+                                                
+                                            >
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6 mb-3">
+                                        <!-- country  -->
+                                        <div class="ps-field ps-field-full">
+                                            <label for="country">
+                                                country
+                                            </label>
+
+                                            <input
+                                                type="text"
+                                                id="country"
+                                                name="country"
+                                                value="{{project.location.country }}"
+                                                class="ps-input"
+                                                
+                                            >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- =================================================
+                            PROJECT IMAGE
+                        ================================================== -->
+
+                        <section
+                            class="ps-section"
+                            id="project-image"
+                        >
+
+                            <div class="ps-section-header">
+
+                                <div>
+
+                                    <h2>Project image</h2>
+
+                                    <p>
+                                        Use a project image to identify the
+                                        site throughout Coreva.
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="ps-section-body">
+
+                                <div class="ps-cover-upload">
+
+                                    <div class="ps-cover-preview">
+
+                                        {% if project.cover_image %}
+
+                                            <img
+                                                src="{{ project.cover_image.url }}"
+                                                alt="{{ project.project_name }}"
+                                            >
+
+                                        {% else %}
+
+                                            <div class="ps-cover-placeholder">
+
+                                                <span class="material-symbols-outlined">
+                                                    add_photo_alternate
+                                                </span>
+
+                                                <span>
+                                                    No project image
+                                                </span>
+
+                                            </div>
+
+                                        {% endif %}
+
+                                    </div>
+
+
+                                    <div class="ps-cover-content">
+
+                                        <strong>
+                                            Project cover image
+                                        </strong>
+
+                                        <p>
+                                            JPG, PNG or WebP. Recommended
+                                            landscape image.
+                                        </p>
+
+                                        <label class="ps-upload-button">
+
+                                            <span class="material-symbols-outlined">
+                                                upload
+                                            </span>
+
+                                            Choose image
+
+                                            <input
+                                                type="file"
+                                                name="cover_image"
+                                                accept="image/*"
+                                            >
+
+                                        </label>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </section>
+
+
+                        <!-- =================================================
+                            SAVE BAR
+                        ================================================== -->
+
+                        <div class="ps-save-bar">
+
+                            <div class="ps-save-info">
+
+                                <span class="material-symbols-outlined">
+                                    info
+                                </span>
+
+                                <span>
+                                    Changes are saved to this project.
+                                </span>
+
+                            </div>
+
+                            <button
+                                type="submit"
+                                class="ps-save-button"
+                            >
+
+                                <span class="material-symbols-outlined">
+                                    save
+                                </span>
+
+                                Save changes
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+
+                    <!-- =================================================
+                        DANGER ZONE
+                    ================================================== -->
+
+                    <section class="ps-danger-section d-none">
+
+                        <div class="ps-danger-header">
+
+                            <div class="ps-danger-icon">
+
+                                <span class="material-symbols-outlined">
+                                    warning
+                                </span>
+
+                            </div>
+
+                            <div>
+
+                                <h2>Danger zone</h2>
+
+                                <p>
+                                    Actions here can affect the availability
+                                    of this project.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="ps-danger-row">
+
+                            <div>
+
+                                <strong>Archive project</strong>
+
+                                <p>
+                                    Remove this project from active project
+                                    views without deleting its records.
+                                </p>
+
+                            </div>
+
+                            <button
+                                type="button"
+                                class="ps-archive-button"
+                            >
+                                Archive project
+                            </button>
+
+                        </div>
+
+                    </section>
+
+                </main>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- ======== PROJECT BOTTOM NAVBAR ======== -->
+{% if show_project_bottom_nav is not False %}
+<div class="d-block d-lg-none">{% include 'partials/project_bottom_navbar.html' %}</div>
+{% endif %}

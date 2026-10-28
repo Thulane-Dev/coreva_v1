@@ -1,0 +1,477 @@
+{% load static %}
+<!-- divider  -->
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Coreva</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  
+  <!-- Google Icons  -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+    />
+
+    <!-- bootstrap-icons  -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    />
+
+    <!-- Inter Google Font  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+
+    <!-- HTMX SCRIPT  -->
+    <script src="https://unpkg.com/htmx.org@1.9.4"></script>
+
+    <!-- Inter  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- todays_portal css -->
+    <link rel="stylesheet" href="{% static '/css/contractor_portal/todays_portal.css' %}"/>
+    <!-- Dashboard css -->
+    <link rel="stylesheet" href="{% static '/css/dashboard/todays_page.css' %}"/>
+    <link rel="stylesheet" href="{% static '/css/dashboard/dashboard.css' %}"/>
+
+
+    <!-- ContractorProject Insights css -->
+    <link rel="stylesheet" href="{% static '/css/contractor_portal/contractor_project_insights.css' %}"/>
+
+    <style>
+        .coreva_background_lg{
+        color: rgb(37, 99, 235) !important;
+        font-size: 14px !important;
+        font-weight: 600 !important;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        
+        text-decoration: none;
+        /* font-size: 13px; */
+        margin-bottom: 20px;
+        }
+
+
+        .coreva_background_lg:hover {
+        color: #667085 !important;
+        cursor: pointer;
+        }
+    </style>
+  </head>
+  <body>
+
+    <!-- ======= PORTAL NAVBAR  ======= -->
+     <div style="padding-bottom: 90px;">
+        {% include 'partials/portal_navbar.html' %}
+    </div>
+
+    
+
+    <div class="cp-today-page">
+
+        <!-- ======= Back to profile  ======= -->
+        {% if user.is_authenticated %}
+        <a
+            href="{% url 'dashboard:today' %}"
+            class="coreva_background_lg"
+        >
+            <i class="bi bi-chevron-left"></i>
+            <span>Back to company workspace</span>
+        </a>
+        {% endif %}
+
+
+
+        <!-- ======= PORTAL ID  ======= -->
+        <div class="mb-5">
+            {% include 'partials/contractor_portal_id.html' %}
+        </div>
+
+    <!-- =====================================================
+         PAGE HEADER
+    ====================================================== -->
+
+    <div class="dashboard_main_card mb-4 d-none">
+      <section class="cp-page-header mb-0">
+
+          <div class="cp-page-header-icon">
+              <i class="bi bi-briefcase"></i>
+          </div>
+
+          <div>
+              <span class="cp-eyebrow">
+                  COREVA CONTRACTOR PORTAL
+              </span>
+
+              <h1 class="cp-page-title">
+                  Today's Work
+              </h1>
+
+              <p class="cp-page-subtitle mb-0">
+                  Issues and tasks requiring your attention
+              </p>
+          </div>
+
+      </section>
+    </div>
+
+
+    <!-- =====================================================
+         PROJECTS
+    ====================================================== -->
+    {% if projects %}
+    <section class="cp-projects-section">
+
+        <div class="dashboard_main_card mb-3">
+          <div class="cp-section-header mb-0">
+              <div>
+                  <h2 class="cp-section-title">
+                      My Projects
+                  </h2>
+                  <p class="cp-section-subtitle mb-0">
+                      {{projects|length}} project{% if projects|length > 1%}s{% endif %}
+                  </p>
+              </div>
+          </div>
+        </div>
+
+
+        <!-- =================================================
+             PROJECT LIST
+        ================================================== -->
+
+        <div class="cp-project-list">
+
+            <!-- =================================================
+                 PROJECT 
+            ================================================== -->
+
+            {% for data in projects %}
+            <article class="cp-project-card">
+
+                <!-- Project header -->
+
+                <div class="cp-project-header">
+
+                    <div class="cp-project-heading">
+
+                        <div class="cp-project-icon">
+                            <i class="bi bi-buildings"></i>
+                        </div>
+
+                        <div class="cp-project-info">
+
+                            <h3 class="cp-project-name">
+                                {{data.project.project_name}}
+                            </h3>
+
+                            <p class="cp-project-location">
+                                <i class="bi bi-geo-alt"></i>
+                                {{data.project.location.street_address}},
+                                {{data.project.location.city}},
+                                {{data.project.location.province}}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    {% if data.status == True %}
+                    <div class="d-none d-md-block">
+                       <span class="cp-attention-badge" style="background-color: #FFF5F5 !important;border-color: rgb(201, 42, 58) !important;">
+                        <i class="bi bi-exclamation-circle"></i>
+                        Needs Attention
+                    </span>
+                    </div>
+                   
+                    {% endif %}
+
+                </div>
+
+
+                {% if data.status == True %}
+                <!-- Attention message -->
+                <div class="cp-attention-message" style="background-color: #FFF5F5 !important;border-color: rgb(201, 42, 58) !important;">
+                    <div class="cp-attention-icon" style="background-color: #FFE4E4 !important;color: rgb(201, 42, 58) !important;">
+                        <i class="bi bi-info-circle"></i>
+                    </div>
+                    <div>
+                        <strong style="color: rgb(201, 42, 58) !important;">
+                            There are items requiring action
+                        </strong>
+
+                        <span>
+                            Review your open issues and tasks below.
+                        </span>
+                    </div>
+                </div>
+                {% else %}
+                <!-- All clear message -->
+              <div class="cp-all-clear-message">
+                  <div class="cp-all-clear-icon">
+                      <i class="bi bi-check-circle"></i>
+                  </div>
+                  <div>
+                      <strong>
+                          Everything is on track
+                      </strong>
+
+                      <span>
+                          You have no issues or tasks requiring attention.
+                      </span>
+                  </div>
+              </div>
+              {% endif %}
+
+
+              <div class="cp-project-insights px-3 mb-3">
+
+                    <!-- Header -->
+                    <div class="cp-project-insights-header">
+
+                        <div>
+                            <h3 class="cp-project-insights-title mb-0">
+                                Today's Work
+                            </h3>
+                        </div>
+
+                        <div class="cp-project-insights-header-icon">
+                            <i class="bi bi-bar-chart-line"></i>
+                        </div>
+
+                    </div>
+
+
+                    <!-- Insights -->
+                    <div class="cp-project-insight-list">
+
+
+                        <!-- =========================
+                            ISSUES
+                            ========================= -->
+
+                        <div class="cp-project-insight-card cp-project-insight-card--issue">
+
+                            <div class="cp-project-insight-icon">
+                                <i class="bi bi-exclamation-circle"></i>
+                            </div>
+
+                            <div class="cp-project-insight-main">
+
+                                <div class="cp-project-insight-top">
+
+                                    <span class="cp-project-insight-name">
+                                        Issues
+                                    </span>
+
+                                    <span class="cp-project-insight-count">
+                                        {{ data.issues_count }}
+                                    </span>
+
+                                </div>
+
+                                <div class="cp-project-insight-summary">
+
+                                    {% if data.issues_count > 0 %}
+                                        <span>
+                                            {{ data.issues_count }}
+                                            issue{% if data.issues_count != 1 %}s{% endif %}
+                                            require{% if data.issues_count == 1 %}s{% endif %}
+                                            attention
+                                        </span>
+                                    {% else %}
+                                        <span>
+                                            No open issues
+                                        </span>
+                                    {% endif %}
+
+                                </div>
+
+
+                                <div class="cp-project-insight-meta">
+
+                                    {% if data.overdue_issues_count > 0 %}
+                                        <span class="cp-project-insight-meta-item cp-project-insight-meta-item--overdue">
+                                            <i class="bi bi-clock"></i>
+                                            {{ data.overdue_issues_count }} overdue
+                                        </span>
+                                    {% endif %}
+
+                                    {% if data.comments_issues_list > 0 %}
+                                        <span class="cp-project-insight-meta-item">
+                                            <i class="bi bi-chat-left-text"></i>
+                                            {{ data.comments_issues_list }}
+                                            new comment{% if data.comments_issues_list > 1 %}s{% endif %}
+                                        </span>
+                                    {% endif %}
+
+                                    {% if data.overdue_issues_count == 0 and data.comments_issues_list == 0 %}
+                                        <span class="cp-project-insight-meta-item cp-project-insight-meta-item--quiet">
+                                            <i class="bi bi-check-circle"></i>
+                                            No new activity
+                                        </span>
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                        <!-- =========================
+                            TASKS
+                            ========================= -->
+
+                        <div class="cp-project-insight-card cp-project-insight-card--task">
+
+                            <div class="cp-project-insight-icon">
+                                <i class="bi bi-check2-square"></i>
+                            </div>
+
+                            <div class="cp-project-insight-main">
+
+                                <div class="cp-project-insight-top">
+
+                                    <span class="cp-project-insight-name">
+                                        Tasks
+                                    </span>
+
+                                    <span class="cp-project-insight-count">
+                                        {{ data.tasks_count }}
+                                    </span>
+
+                                </div>
+
+                                <div class="cp-project-insight-summary">
+
+                                    {% if data.tasks_count > 0 %}
+                                        <span>
+                                            {{ data.tasks_count }}
+                                            task{% if data.tasks_count != 1 %}s{% endif %}
+                                            require{% if data.tasks_count == 1 %}s{% endif %}
+                                            action
+                                        </span>
+                                    {% else %}
+                                        <span>
+                                            No open tasks
+                                        </span>
+                                    {% endif %}
+
+                                </div>
+
+
+                                <div class="cp-project-insight-meta">
+
+                                    {% if data.overdue_tasks_count > 0 %}
+                                        <span class="cp-project-insight-meta-item cp-project-insight-meta-item--overdue">
+                                            <i class="bi bi-clock"></i>
+                                            {{ data.overdue_tasks_count }} overdue
+                                        </span>
+                                    {% endif %}
+
+                                    {% if data.comments_tasks_list > 0 %}
+                                        <span class="cp-project-insight-meta-item">
+                                            <i class="bi bi-chat-left-text"></i>
+                                            {{ data.comments_tasks_list }}
+                                            new comment{% if data.comments_tasks_list > 1 %}s{% endif %}
+                                        </span>
+                                    {% endif %}
+
+                                    {% if data.overdue_tasks_count == 0 and data.comments_tasks_list == 0 %}
+                                        <span class="cp-project-insight-meta-item cp-project-insight-meta-item--quiet">
+                                            <i class="bi bi-check-circle"></i>
+                                            No new activity
+                                        </span>
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                
+
+                <!-- Project footer -->
+
+                <div class="cp-project-footer">
+
+                    <div class="cp-project-summary">
+
+                        <span>
+                            {{data.issues_count}} open issues
+                        </span>
+
+                        <span>
+                            {{data.tasks_count}} open tasks
+                        </span>
+
+                    </div>
+
+
+                    <a
+                        href="{% url 'contractors:workspace-project' data.project.uuid  data.portal_uuid %}"
+                        class="cp-view-project"
+                    >
+                        View Project
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+
+                </div>
+
+            </article>   
+            {% endfor %}
+        </div>
+
+    </section>
+    {% else %}
+    <!-- =====================================================
+        CONTRACTOR PORTAL - NO PROJECTS ASSIGNED
+    ====================================================== -->
+    <div class="cpe-empty-state">
+
+        <div class="cpe-empty-icon">
+            <i class="bi bi-buildings"></i>
+        </div>
+
+        <div class="cpe-empty-content">
+
+            <h3>No projects assigned</h3>
+
+            <p>
+                You don't have any projects assigned to you yet.
+                Projects will appear here once a company adds you to a project.
+            </p>
+
+            <span class="cpe-empty-note">
+                <i class="bi bi-info-circle"></i>
+                Nothing is required from you right now.
+            </span>
+
+        </div>
+
+    </div>
+    {% endif%}
+
+</div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+  </body>
+</html>

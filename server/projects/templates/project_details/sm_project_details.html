@@ -1,0 +1,144 @@
+<!-- =========================
+     COREVA PROJECT ACTIONS
+========================= -->
+
+<div class="coreva-action-grid" >
+
+    <!-- Inspections -->
+    <a href="{% url 'inspections:project-inspections' project.uuid  %}?next={{ request.get_full_path|urlencode }}&section=workspace" class="coreva-action-block">
+        <div class="coreva-action-icon coreva-icon-blue">
+            <i class="bi bi-clipboard-check"></i>
+        </div>
+
+        <div class="coreva-action-content">
+            <span class="coreva-action-title">Inspections</span>
+            <span class="coreva-action-subtitle">Daily site checks</span>
+        </div>
+        <!-- STATUS CHECK  -->
+        {% if project_data.inspection_status == 'Not Started'%}
+        <span class="coreva-action-badge coreva-action-badge-red">1</span>
+        {% elif project_data.inspection_status == 'Incomplete' %}
+        <span class="coreva-action-badge coreva-action-badge-red">1</span>
+        {% elif project_data.inspection_status == 'Ready to Save' %}
+        <span class="coreva-action-badge coreva-action-badge-red">1</span>
+        {% elif project_data.inspection_status == 'Complete' %}
+        <!-- ADMIN SIGN OFF  -->
+         {% if project_data.inspection.admin_sign_off == None %}
+        <span class="coreva-action-badge coreva-action-badge-red">1</span>
+        {% endif %}
+        <!-- DIVIDER  -->
+        {% endif %}
+    </a>
+
+
+    <!-- Reports -->
+    <a href="{% url 'report:project-reports' project.uuid %}?next={{ request.get_full_path|urlencode }}&section=workspace" class="coreva-action-block">
+        <div class="coreva-action-icon coreva-icon-purple">
+            <i class="bi bi-file-earmark-text"></i>
+        </div>
+
+        <div class="coreva-action-content">
+            <span class="coreva-action-title">Reports</span>
+            <span class="coreva-action-subtitle">Daily site reports</span>
+        </div>
+        <!-- STATUS CHECK  -->
+        {% if project_data.report_status == 'Pending'%}
+        <span class="coreva-action-badge coreva-action-badge-red">1</span>
+        {% elif project_data.report_status == 'Incomplete'%}
+        <span class="coreva-action-badge coreva-action-badge-red">1</span>
+        {% elif project_data.report_status == 'Complete'%}
+        <!-- ADMIN SIGN OFF  -->
+        {% if report.admin_sign_off == None %}
+        <span class="coreva-action-badge coreva-action-badge-red">1</span>
+        {% endif %}
+        <!-- divider  -->
+        {% endif %}
+
+
+         <!-- <i class="bi bi-chevron-right coreva-action-arrow"></i> -->
+    </a>
+
+    <!-- Issues -->
+    <div id="IssuesSectionSM">
+        {% include 'issues_templates/issues_sm_partial.html' %}
+    </div>
+    
+    <!-- Tasks -->
+    <div id="TasksSectionSM">
+        {% include 'tasks_templates/tasks_sm_partial.html' %}
+    </div>
+
+    <!-- Incidents -->
+    <div id="IncidentsSessionSM">
+        {% include 'partials/incidents_sm_partial.html' %}
+    </div>
+
+    <!-- Deliveries -->
+    <div id="DeliveriesSessionSM">
+        {% include 'deliveries/deliveries_sm_partial.html' %}
+    </div>
+    
+
+    <!-- Activity -->
+    <a href="{% url 'projects:project-activity' project.uuid %}?next={{ request.get_full_path|urlencode }}&section=workspace" class="coreva-action-block">
+        <div class="coreva-action-icon coreva-icon-blue">
+            <i class="bi bi-clock-history"></i>
+        </div>
+
+        <div class="coreva-action-content">
+            <span class="coreva-action-title">Activity</span>
+            <span class="coreva-action-subtitle">Project activity</span>
+        </div>
+
+        <span class="coreva-action-badge">5</span>
+    </a>
+
+
+    <!-- Team -->
+    <a href="{% url 'team:project-team' project.uuid %}?next={{ request.get_full_path|urlencode }}&section=workspace" class="coreva-action-block">
+        <div class="coreva-action-icon coreva-icon-green">
+            <i class="bi bi-people"></i>
+        </div>
+
+        <div class="coreva-action-content">
+            <span class="coreva-action-title">Team</span>
+            <span class="coreva-action-subtitle">Project members</span>
+        </div>
+
+        <span class="coreva-action-badge">{{team_members|length}}</span>
+    </a>
+
+
+    <!-- Subcontractors -->
+    <a href="{% url 'contractors:project-contractors' project.uuid %}?next={{ request.get_full_path|urlencode }}&section=DailyInspection""
+        class="coreva-action-block coreva-action-full">
+
+            <div class="coreva-action-icon coreva-icon-blue">
+                <i class="bi bi-building"></i>
+            </div>
+
+            <div class="coreva-action-content">
+                <span class="coreva-action-title">Subcontractors</span>
+                <span class="coreva-action-subtitle">Contractor companies</span>
+            </div>
+
+            <span class="coreva-action-badge">
+                {{project_data.contractors_count}}
+            </span>
+    </a>
+
+    <!-- Settings -->
+    <a href="{% url 'projects:project-setting' project.uuid %}?next={{ request.get_full_path|urlencode }}&section=workspace" class="coreva-action-block d-none">
+        <div class="coreva-action-icon coreva-icon-slate">
+            <i class="bi bi-gear"></i>
+        </div>
+
+        <div class="coreva-action-content">
+            <span class="coreva-action-title">Settings</span>
+            <span class="coreva-action-subtitle">Project settings</span>
+        </div>
+
+        <i class="bi bi-chevron-right coreva-action-arrow"></i>
+    </a>
+
+</div>

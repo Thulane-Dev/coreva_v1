@@ -1,0 +1,262 @@
+{% load static %}
+<!-- divider  -->
+
+<!-- HEADER -->
+ <div class="row d-flex justify-content-center mt-0 pt-0">
+  <div class="col-12 col-lg-8">
+    <!-- =========================================================
+    COREVA MOBILE TOP NAVBAR AND LARGE SCREEN BACK BUTTON
+    ========================================================= -->
+    {% url 'projects:project-view' project.uuid  as back_url %}
+    <!-- -------------------------------------------  -->
+    {% include 'partials/page_topbar.html' with next_url=next_url back_url=back_url brand_name='Project Reports' brand_url=back_url %}
+
+    <!--  HEADER -->
+   
+    <div class="portal-work-section portal-work-section--report mb-3">
+        <div class="portal-work-header">
+
+            <div class="portal-work-icon">
+                <i class="bi bi-file-earmark-text" style="color: rgb(115, 84, 199) !important;"></i>
+            </div>
+
+            <div class="portal-work-heading">
+                <h3>Project Reports</h3>
+                <span>View and manage project daily reports</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reports Data  -->
+      {% if reports %}
+      <section>
+          {% for data in reports %}
+
+            {% if data.is_not_started %}
+
+                <!-- TODAY'S REPORT - NOT STARTED -->
+
+                <a href="{% url 'report:create-report' project.uuid %}?next={{ request.get_full_path|urlencode }}">
+
+                    <div class="operation-item issue-item scroll-section mb-3 report-not-started todays_card_bg">
+
+                        <!-- ICON -->
+                        <div class="operation-icon issue-item-icon report-not-started-icon">
+                            <span class="material-symbols-outlined">
+                                description
+                            </span>
+                        </div>
+
+
+                        <div class="operation-content">
+
+                            <!-- CONTENT TOP -->
+                            <div class="operation-top">
+
+                                <h6 class="operation-title mb-0 font_size_14">
+                                    Today's Report
+
+                                    <span class="operation-today-badge">
+                                        Today
+                                    </span>
+                                </h6>
+
+
+                                <span class="font_size_11 priority-pill report-not-started-pill">
+                                    <span class="priority-dot"></span>
+                                    Not started
+                                </span>
+
+                            </div>
+
+
+                            <!-- META -->
+                            <div class="operation-meta">
+
+                                <span class="meta-pill meta-due font_size_10">
+                                    <i class="bi bi-calendar2"></i>
+                                    {{ data.report_date|date:"l d F Y" }}
+                                </span>
+
+                                
+
+                            </div>
+
+
+                            <!-- BOTTOM -->
+                            <div class="operation-bottom">
+
+                                <div class="assigned-info">
+
+                                    <div class="mini-avatar report-start-icon">
+                                        <i class="bi bi-play-fill"></i>
+                                    </div>
+
+                                    <span class="person-label font_size_11">
+                                        Ready to start
+                                    </span>
+
+                                </div>
+
+
+                                <span class="operation-view-button font_size_12">
+                                    Start Report
+                                    <i class="bi bi-arrow-right"></i>
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </a>
+
+            {% else %}
+
+                <!-- EXISTING REPORT -->
+
+                <a href="{% url 'report:create-report' project.uuid data.uuid %}?next={{ request.get_full_path|urlencode }}">
+
+                    <div class="operation-item issue-item scroll-section mb-3 {% if data.report_date == todays_card_highlight %}todays_card_bg{% endif %}">
+
+                        <!-- ICON -->
+                        <div
+                            class="operation-icon issue-item-icon"
+                            style="
+                                background-color: #f3efff !important;
+                                color: rgb(115, 84, 199) !important;
+                            "
+                        >
+                            <span class="material-symbols-outlined">
+                                description
+                            </span>
+                        </div>
+
+
+                        <div class="operation-content">
+
+                            <!-- CONTENT TOP -->
+                            <div class="operation-top">
+
+                                <h6 class="operation-title mb-0 font_size_14">
+
+                                    {{ data.reference }}
+
+                                    {% if data.report_date|date:"Y-m-d" == today|date:"Y-m-d" %}
+                                        <span class="operation-today-badge">
+                                            Today
+                                        </span>
+                                    {% endif %}
+
+                                </h6>
+
+
+                                {% if data.status == 'draft' %}
+
+                                    <span class="font_size_11 priority-pill priority-medium text-capitalize">
+                                        <span class="priority-dot"></span>
+                                        {{ data.status }}
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="font_size_11 priority-pill priority-low text-capitalize">
+                                        <span class="priority-dot"></span>
+                                        {{ data.status }}
+                                    </span>
+
+                                {% endif %}
+
+                            </div>
+
+
+                            <!-- META -->
+                            <div class="operation-meta">
+
+                                <span class="meta-pill meta-due font_size_10">
+                                    <i class="bi bi-calendar2"></i>
+                                    {{ data.report_date|date:"l d F Y" }}
+                                </span>
+
+                                {% if data.status == 'submitted' %}
+                                    {% if data.admin_sign_off == None %}
+                                    <span class="meta-pill meta-due font_size_10" style="background-color: #FEF2F2 !important; color: rgb(220, 38, 38);">
+                                        <i class="bi bi-person-check"></i>
+                                        Awaiting Approval
+                                    </span>
+                                    {% endif %}
+                                {% endif %}
+
+                            </div>
+
+
+                            <!-- BOTTOM -->
+                            <div class="operation-bottom">
+
+                                <div class="assigned-info">
+
+                                    <div class="mini-avatar">
+                                        {{ data.created_by.first_name|first|upper }}
+                                    </div>
+
+                                    <span class="person-label font_size_11">
+                                        Prepared by
+                                    </span>
+
+                                    <span class="font_size_11">
+                                        {{ data.created_by.first_name }}
+                                        {{ data.created_by.last_name }}
+                                    </span>
+
+                                </div>
+
+
+                                <button
+                                    type="button"
+                                    class="operation-view-button font_size_12"
+                                >
+                                    View Report
+                                    <i class="bi bi-arrow-right"></i>
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </a>
+
+            {% endif %}
+
+        {% endfor %}
+      </section>
+      {% else %}
+        <!-- =====================================================
+        DAILY REPORTS - NO HISTORY
+        ====================================================== -->
+      <div class="cv-projects-empty">
+
+      <div class="cv-projects-empty-icon">
+          <i class="bi bi-journal-text"></i>
+      </div>
+
+      <div class="cv-projects-empty-content">
+
+          <h3>No daily reports yet</h3>
+
+          <p>
+              There are no daily reports recorded for this project yet.
+          </p>
+
+      </div>
+      </div>
+      {% endif %}
+  </div>
+</div>
+
+<!-- ======== PROJECT BOTTOM NAVBAR ======== -->
+{% if show_project_bottom_nav is not False %}
+<div class="d-block d-lg-none">{% include 'partials/project_bottom_navbar.html' %}</div>
+{% endif %}

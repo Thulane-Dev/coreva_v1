@@ -1,0 +1,1238 @@
+/* =========================================================
+   PROJECT SETTINGS
+========================================================= */
+
+.project-settings-page {
+    /* max-width: 1250px; */
+    margin: 0 auto;
+    padding: 28px 24px 60px;
+    color: #0f172a;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.ps-page-header {
+    margin-bottom: 28px;
+}
+
+.ps-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #64748b;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 18px;
+}
+
+.ps-back-link:hover {
+    color: #2563eb;
+}
+
+.ps-back-link .material-symbols-outlined {
+    font-size: 19px;
+}
+
+.ps-title-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.ps-title-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: #eff6ff;
+    color: #2563eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.ps-title-icon .material-symbols-outlined {
+    font-size: 24px;
+}
+
+.ps-title-row h1 {
+    margin: 0;
+    font-size: 25px;
+    font-weight: 750;
+    letter-spacing: -0.02em;
+}
+
+.ps-title-row p {
+    margin: 5px 0 0;
+    color: #64748b;
+    font-size: 14px;
+}
+
+.ps-title-row p strong {
+    color: #334155;
+}
+
+
+/* =========================================================
+   LAYOUT
+========================================================= */
+
+.ps-layout {
+    display: grid;
+    grid-template-columns: 225px minmax(0, 1fr);
+    gap: 28px;
+    align-items: start;
+}
+
+.ps-sidebar {
+    position: sticky;
+    top: 20px;
+}
+
+.ps-sidebar-card {
+    background: #ffffff;
+    border: 1px solid #e5eaf0;
+    border-radius: 14px;
+    padding: 9px;
+}
+
+.ps-sidebar-label {
+    padding: 9px 11px 7px;
+    font-size: 10px;
+    font-weight: 800;
+    color: #94a3b8;
+    letter-spacing: 0.08em;
+}
+
+.ps-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 42px;
+    padding: 9px 11px;
+    border-radius: 9px;
+    color: #64748b;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    transition: 0.15s ease;
+}
+
+.ps-nav-item:hover {
+    background: #f8fafc;
+    color: #334155;
+}
+
+.ps-nav-item.active {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.ps-nav-item .material-symbols-outlined {
+    font-size: 19px;
+}
+
+
+/* =========================================================
+   SETTINGS SECTION
+========================================================= */
+
+.ps-section {
+    background: #ffffff;
+    border: 1px solid #e5eaf0;
+    border-radius: 15px;
+    margin-bottom: 18px;
+    overflow: hidden;
+}
+
+.ps-section-header {
+    padding: 20px 22px;
+    border-bottom: 1px solid #edf1f5;
+}
+
+.ps-section-header h2 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 750;
+    color: #172a46;
+}
+
+.ps-section-header p {
+    margin: 5px 0 0;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.ps-section-body {
+    padding: 22px;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.ps-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.ps-field {
+    min-width: 0;
+}
+
+.ps-field-full {
+    grid-column: 1 / -1;
+}
+
+.ps-field label {
+    display: block;
+    margin-bottom: 7px;
+    color: #334155;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.ps-input {
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 12px;
+    border: 1px solid #d9e0e8;
+    border-radius: 9px;
+    background: #ffffff;
+    color: #0f172a;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.ps-input::placeholder {
+    color: #a0aec0;
+}
+
+.ps-input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+
+/* =========================================================
+   WORKING DAYS
+========================================================= */
+
+.ps-working-days {
+    margin-top: 28px;
+    padding-top: 22px;
+    border-top: 1px solid #edf1f5;
+}
+
+.ps-working-days-header h3 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 750;
+    color: #172a46;
+}
+
+.ps-working-days-header p {
+    margin: 5px 0 15px;
+    color: #64748b;
+    font-size: 12px;
+}
+
+.ps-days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+}
+
+.ps-day {
+    cursor: pointer;
+}
+
+.ps-day input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.ps-day-box {
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #dfe5ec;
+    border-radius: 9px;
+    color: #64748b;
+    background: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+    transition: 0.15s ease;
+}
+
+.ps-day:hover .ps-day-box {
+    border-color: #93c5fd;
+    background: #f8fbff;
+}
+
+.ps-day input:checked + .ps-day-box {
+    border-color: #2563eb;
+    background: #eff6ff;
+    color: #2563eb;
+    box-shadow: inset 0 0 0 1px #2563eb;
+}
+
+
+/* =========================================================
+   LOCATION
+========================================================= */
+
+.ps-location-card {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 15px;
+    border: 1px solid #e3e9ef;
+    border-radius: 11px;
+    background: #f8fafc;
+}
+
+.ps-location-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: #eff6ff;
+    color: #2563eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.ps-location-card strong {
+    display: block;
+    color: #172a46;
+    font-size: 14px;
+}
+
+.ps-location-card span,
+.ps-location-card small {
+    display: block;
+    color: #64748b;
+    font-size: 12px;
+    margin-top: 2px;
+}
+
+.ps-location-card small {
+    color: #94a3b8;
+}
+
+.ps-secondary-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 13px;
+    padding: 9px 13px;
+    border: 1px solid #dce3ea;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #334155;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.ps-secondary-button:hover {
+    border-color: #2563eb;
+    color: #2563eb;
+}
+
+.ps-secondary-button .material-symbols-outlined {
+    font-size: 18px;
+}
+
+.ps-empty-location {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 15px;
+    border: 1px dashed #d8e0e8;
+    border-radius: 11px;
+    background: #fafbfc;
+}
+
+.ps-empty-location > .material-symbols-outlined {
+    color: #94a3b8;
+    font-size: 23px;
+}
+
+.ps-empty-location strong {
+    display: block;
+    font-size: 13px;
+    color: #334155;
+}
+
+.ps-empty-location p {
+    margin: 4px 0 0;
+    color: #64748b;
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   COVER IMAGE
+========================================================= */
+
+.ps-cover-upload {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.ps-cover-preview {
+    width: 180px;
+    height: 110px;
+    border-radius: 11px;
+    overflow: hidden;
+    border: 1px solid #e1e7ed;
+    background: #f8fafc;
+    flex-shrink: 0;
+}
+
+.ps-cover-preview img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.ps-cover-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    color: #94a3b8;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.ps-cover-placeholder .material-symbols-outlined {
+    font-size: 27px;
+}
+
+.ps-cover-content strong {
+    display: block;
+    font-size: 14px;
+    color: #172a46;
+}
+
+.ps-cover-content p {
+    margin: 4px 0 12px;
+    color: #64748b;
+    font-size: 12px;
+}
+
+.ps-upload-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 13px;
+    border: 1px solid #dce3ea;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #334155;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.ps-upload-button:hover {
+    border-color: #2563eb;
+    color: #2563eb;
+}
+
+.ps-upload-button .material-symbols-outlined {
+    font-size: 18px;
+}
+
+.ps-upload-button input {
+    display: none;
+}
+
+
+/* =========================================================
+   SAVE BAR
+========================================================= */
+
+.ps-save-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 15px 17px;
+    margin-bottom: 22px;
+    border: 1px solid #dce4ec;
+    border-radius: 12px;
+    background: #ffffff;
+}
+
+.ps-save-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #64748b;
+    font-size: 12px;
+}
+
+.ps-save-info .material-symbols-outlined {
+    color: #94a3b8;
+    font-size: 18px;
+}
+
+.ps-save-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 40px;
+    padding: 9px 16px;
+    border: 0;
+    border-radius: 8px;
+    background: #2563eb;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.ps-save-button:hover {
+    background: #1d4ed8;
+}
+
+.ps-save-button .material-symbols-outlined {
+    font-size: 18px;
+}
+
+
+/* =========================================================
+   DANGER ZONE
+========================================================= */
+
+.ps-danger-section {
+    border: 1px solid #fecaca;
+    border-radius: 15px;
+    background: #ffffff;
+    overflow: hidden;
+}
+
+.ps-danger-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 20px;
+    border-bottom: 1px solid #fee2e2;
+    background: #fffafa;
+}
+
+.ps-danger-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.ps-danger-icon .material-symbols-outlined {
+    font-size: 20px;
+}
+
+.ps-danger-header h2 {
+    margin: 0;
+    font-size: 15px;
+    color: #991b1b;
+}
+
+.ps-danger-header p {
+    margin: 3px 0 0;
+    color: #7f1d1d;
+    opacity: 0.7;
+    font-size: 12px;
+}
+
+.ps-danger-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 18px 20px;
+}
+
+.ps-danger-row strong {
+    display: block;
+    font-size: 13px;
+    color: #334155;
+}
+
+.ps-danger-row p {
+    margin: 4px 0 0;
+    color: #64748b;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.ps-archive-button {
+    flex-shrink: 0;
+    padding: 8px 13px;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #dc2626;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.ps-archive-button:hover {
+    background: #fef2f2;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .ps-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .ps-sidebar {
+        position: static;
+    }
+
+    .ps-sidebar-card {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        overflow-x: auto;
+        padding: 6px;
+    }
+
+    .ps-sidebar-label {
+        display: none;
+    }
+
+    .ps-nav-item {
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .project-settings-page {
+        padding: 20px 14px 45px;
+    }
+
+    .ps-title-row h1 {
+        font-size: 21px;
+    }
+
+    .ps-title-row p {
+        font-size: 12px;
+    }
+
+    .ps-form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ps-field-full {
+        grid-column: auto;
+    }
+
+    .ps-section-header,
+    .ps-section-body {
+        padding: 17px;
+    }
+
+    .ps-days-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .ps-cover-upload {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .ps-cover-preview {
+        width: 100%;
+        height: 160px;
+    }
+
+    .ps-save-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .ps-save-button {
+        width: 100%;
+    }
+
+    .ps-danger-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .ps-archive-button {
+        width: 100%;
+    }
+
+}
+
+
+
+/* =========================================================
+   PROJECT SETTINGS - OVERFLOW SAFETY
+========================================================= */
+
+.project-settings-page,
+.project-settings-page * {
+    box-sizing: border-box;
+}
+
+.project-settings-page {
+    width: 100%;
+    max-width: 1250px;
+    min-width: 0;
+    overflow-x: hidden;
+}
+
+.ps-layout,
+.ps-content,
+.ps-section,
+.ps-section-body,
+.ps-form-grid,
+.ps-field {
+    min-width: 0;
+    max-width: 100%;
+}
+
+
+/* =========================================================
+   RESPONSIVE - TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .project-settings-page {
+        padding: 22px 18px 50px;
+    }
+
+    .ps-layout {
+        display: block;
+        width: 100%;
+    }
+
+    .ps-sidebar {
+        position: static;
+        width: 100%;
+        margin-bottom: 18px;
+    }
+
+    .ps-sidebar-card {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 6px;
+        scrollbar-width: none;
+    }
+
+    .ps-sidebar-card::-webkit-scrollbar {
+        display: none;
+    }
+
+    .ps-sidebar-label {
+        display: none;
+    }
+
+    .ps-nav-item {
+        flex: 0 0 auto;
+        white-space: nowrap;
+    }
+
+    .ps-content {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .ps-section {
+        width: 100%;
+    }
+
+    .ps-form-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+/* =========================================================
+   RESPONSIVE - MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .project-settings-page {
+        width: 100%;
+        max-width: 100%;
+        margin: 0;
+        padding: 16px 12px 40px;
+        overflow-x: hidden;
+    }
+
+
+    /* -----------------------------------------------------
+       HEADER
+    ----------------------------------------------------- */
+
+    .ps-page-header {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .ps-back-link {
+        margin-bottom: 14px;
+        font-size: 13px;
+    }
+
+    .ps-title-row {
+        width: 100%;
+        min-width: 0;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .ps-title-icon {
+        width: 40px;
+        height: 40px;
+        flex: 0 0 40px;
+        border-radius: 10px;
+    }
+
+    .ps-title-icon .material-symbols-outlined {
+        font-size: 21px;
+    }
+
+    .ps-title-row > div:last-child {
+        min-width: 0;
+        flex: 1;
+    }
+
+    .ps-title-row h1 {
+        font-size: 20px;
+        line-height: 1.25;
+        overflow-wrap: anywhere;
+    }
+
+    .ps-title-row p {
+        font-size: 12px;
+        line-height: 1.45;
+        overflow-wrap: anywhere;
+    }
+
+
+    /* -----------------------------------------------------
+       NAVIGATION
+    ----------------------------------------------------- */
+
+    .ps-sidebar {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 14px;
+    }
+
+    .ps-sidebar-card {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .ps-nav-item {
+        min-height: 40px;
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+
+    .ps-nav-item .material-symbols-outlined {
+        font-size: 17px;
+    }
+
+
+    /* -----------------------------------------------------
+       SECTIONS
+    ----------------------------------------------------- */
+
+    .ps-section {
+        width: 100%;
+        max-width: 100%;
+        margin-bottom: 14px;
+        border-radius: 12px;
+    }
+
+    .ps-section-header {
+        padding: 16px;
+    }
+
+    .ps-section-header h2 {
+        font-size: 15px;
+    }
+
+    .ps-section-header p {
+        font-size: 12px;
+        line-height: 1.45;
+        overflow-wrap: anywhere;
+    }
+
+    .ps-section-body {
+        width: 100%;
+        padding: 16px;
+    }
+
+
+    /* -----------------------------------------------------
+       FORM
+    ----------------------------------------------------- */
+
+    .ps-form-grid {
+        width: 100%;
+        max-width: 100%;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 15px;
+    }
+
+    .ps-field {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .ps-field-full {
+        grid-column: auto;
+    }
+
+    .ps-field label {
+        font-size: 12px;
+    }
+
+    .ps-input {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        min-height: 43px;
+        font-size: 14px;
+    }
+
+
+    /* -----------------------------------------------------
+       WORKING DAYS
+    ----------------------------------------------------- */
+
+    .ps-working-days {
+        width: 100%;
+        max-width: 100%;
+        margin-top: 22px;
+        padding-top: 18px;
+    }
+
+    .ps-working-days-header {
+        width: 100%;
+    }
+
+    .ps-working-days-header h3 {
+        font-size: 13px;
+    }
+
+    .ps-working-days-header p {
+        font-size: 11px;
+        line-height: 1.45;
+    }
+
+    .ps-days-grid {
+        width: 100%;
+        max-width: 100%;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 7px;
+    }
+
+    .ps-day {
+        min-width: 0;
+        width: 100%;
+    }
+
+    .ps-day-box {
+        width: 100%;
+        min-width: 0;
+        min-height: 43px;
+        padding: 0 4px;
+        font-size: 12px;
+    }
+
+
+    /* -----------------------------------------------------
+       LOCATION
+    ----------------------------------------------------- */
+
+    .ps-location-card {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 12px;
+    }
+
+    .ps-location-icon {
+        width: 36px;
+        height: 36px;
+        flex: 0 0 36px;
+    }
+
+    .ps-location-card > div:last-child {
+        min-width: 0;
+        flex: 1;
+    }
+
+    .ps-location-card strong,
+    .ps-location-card span,
+    .ps-location-card small {
+        max-width: 100%;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+
+    .ps-location-card strong {
+        font-size: 13px;
+    }
+
+    .ps-location-card span,
+    .ps-location-card small {
+        font-size: 11px;
+    }
+
+    .ps-secondary-button {
+        max-width: 100%;
+        font-size: 12px;
+    }
+
+
+    /* -----------------------------------------------------
+       EMPTY LOCATION
+    ----------------------------------------------------- */
+
+    .ps-empty-location {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        padding: 12px;
+        gap: 9px;
+    }
+
+    .ps-empty-location > div {
+        min-width: 0;
+    }
+
+    .ps-empty-location strong,
+    .ps-empty-location p {
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+
+
+    /* -----------------------------------------------------
+       COVER IMAGE
+    ----------------------------------------------------- */
+
+    .ps-cover-upload {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px;
+    }
+
+    .ps-cover-preview {
+        width: 100%;
+        max-width: 100%;
+        height: 160px;
+        flex: none;
+    }
+
+    .ps-cover-content {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .ps-cover-content strong,
+    .ps-cover-content p {
+        overflow-wrap: anywhere;
+    }
+
+    .ps-upload-button {
+        max-width: 100%;
+        width: fit-content;
+    }
+
+
+    /* -----------------------------------------------------
+       SAVE BAR
+    ----------------------------------------------------- */
+
+    .ps-save-bar {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+        padding: 13px;
+        margin-bottom: 16px;
+    }
+
+    .ps-save-info {
+        width: 100%;
+        min-width: 0;
+        align-items: flex-start;
+        line-height: 1.4;
+    }
+
+    .ps-save-info span:last-child {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .ps-save-button {
+        width: 100%;
+        max-width: 100%;
+        min-height: 43px;
+    }
+
+
+    /* -----------------------------------------------------
+       DANGER ZONE
+    ----------------------------------------------------- */
+
+    .ps-danger-section {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        border-radius: 12px;
+    }
+
+    .ps-danger-header {
+        padding: 15px;
+        align-items: flex-start;
+    }
+
+    .ps-danger-icon {
+        width: 34px;
+        height: 34px;
+        flex: 0 0 34px;
+    }
+
+    .ps-danger-header > div:last-child {
+        min-width: 0;
+    }
+
+    .ps-danger-header h2,
+    .ps-danger-header p {
+        overflow-wrap: anywhere;
+    }
+
+    .ps-danger-row {
+        width: 100%;
+        min-width: 0;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 13px;
+        padding: 15px;
+    }
+
+    .ps-danger-row > div {
+        min-width: 0;
+    }
+
+    .ps-danger-row strong,
+    .ps-danger-row p {
+        overflow-wrap: anywhere;
+    }
+
+    .ps-archive-button {
+        width: 100%;
+        min-height: 42px;
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .project-settings-page {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .ps-section-header,
+    .ps-section-body {
+        padding-left: 13px;
+        padding-right: 13px;
+    }
+
+    .ps-title-row {
+        gap: 8px;
+    }
+
+    .ps-title-icon {
+        width: 36px;
+        height: 36px;
+        flex-basis: 36px;
+    }
+
+    .ps-title-row h1 {
+        font-size: 18px;
+    }
+
+    .ps-days-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .ps-cover-preview {
+        height: 140px;
+    }
+
+}

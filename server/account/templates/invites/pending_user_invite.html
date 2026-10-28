@@ -1,0 +1,643 @@
+ {% load static %}
+<!-- divider  -->
+
+<style>
+    /* =========================================
+   COREVA PENDING TEAM INVITE
+========================================= */
+
+.cv-pending-invite {
+    width: 100%;
+    /* padding: 28px 16px 40px; */
+    color: #0f172a;
+}
+
+.cv-pending-invite-card {
+    width: 100%;
+    /* max-width: 680px; */
+    margin: 0 auto;
+    padding: 28px;
+    background: #ffffff;
+    border: 1px solid #e5eaf0;
+    border-radius: 18px;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+}
+
+/* Status */
+
+.cv-pending-invite-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 11px;
+    color: #92400e;
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: 30px;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.cv-pending-invite-status-dot {
+    width: 7px;
+    height: 7px;
+    flex: 0 0 7px;
+    background: #f59e0b;
+    border-radius: 50%;
+}
+
+/* Heading */
+
+.cv-pending-invite-heading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 28px 10px 25px;
+    text-align: center;
+}
+
+.cv-pending-invite-main-icon {
+    width: 58px;
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 17px;
+    color: #2563eb;
+    background: #eff6ff;
+    border: 1px solid #dbeafe;
+    border-radius: 16px;
+}
+
+.cv-pending-invite-main-icon .material-symbols-outlined {
+    font-size: 29px;
+}
+
+.cv-pending-invite-heading h2 {
+    margin: 0 0 10px;
+    color: #172a46;
+    font-size: 24px;
+    font-weight: 750;
+    letter-spacing: -0.5px;
+}
+
+.cv-pending-invite-heading p {
+    max-width: 440px;
+    margin: 0;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+/* Invited member */
+
+.cv-pending-invite-person {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 17px;
+    background: #f8fafc;
+    border: 1px solid #e8edf3;
+    border-radius: 13px;
+}
+
+.cv-pending-invite-avatar {
+    width: 46px;
+    height: 46px;
+    flex: 0 0 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2563eb;
+    background: #eaf2ff;
+    border-radius: 12px;
+}
+
+.cv-pending-invite-avatar .material-symbols-outlined {
+    font-size: 24px;
+}
+
+.cv-pending-invite-person-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.cv-pending-invite-label {
+    display: block;
+    margin-bottom: 4px;
+    color: #94a3b8;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.09em;
+}
+
+.cv-pending-invite-person-info h3 {
+    margin: 0 0 4px;
+    overflow-wrap: anywhere;
+    color: #172a46;
+    font-size: 14px;
+    font-weight: 750;
+}
+
+.cv-pending-invite-person-info p {
+    margin: 0;
+    overflow-wrap: anywhere;
+    color: #64748b;
+    font-size: 12px;
+}
+
+.cv-pending-invite-role {
+    flex: 0 0 auto;
+    padding: 6px 9px;
+    color: #475569;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 7px;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+/* Invitation details */
+
+.cv-pending-invite-details {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    padding: 21px 2px;
+    border-bottom: 1px solid #eef2f6;
+}
+
+.cv-pending-invite-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-width: 0;
+}
+
+.cv-pending-invite-detail > span {
+    color: #94a3b8;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.cv-pending-invite-detail > strong {
+    overflow-wrap: anywhere;
+    color: #172a46;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.cv-pending-invite-detail .cv-pending-invite-detail-pending {
+    color: #b45309;
+}
+
+/* Share section */
+
+.cv-pending-invite-share {
+    padding-top: 23px;
+}
+
+.cv-pending-invite-share > label {
+    display: block;
+    margin-bottom: 9px;
+    color: #172a46;
+    font-size: 12px;
+    font-weight: 750;
+}
+
+.cv-pending-invite-link-field {
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
+    padding: 5px;
+    background: #f8fafc;
+    border: 1px solid #dbe3ed;
+    border-radius: 11px;
+}
+
+.cv-pending-invite-link-field input {
+    flex: 1;
+    width: 0;
+    min-width: 0;
+    padding: 9px 8px;
+    color: #475569;
+    background: transparent;
+    border: 0;
+    outline: none;
+    font-family: inherit;
+    font-size: 12px;
+}
+
+.cv-pending-invite-link-field input:focus {
+    box-shadow: none;
+}
+
+.cv-pending-invite-copy {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 9px 13px;
+    color: #ffffff;
+    background: #2563eb;
+    border: 1px solid #2563eb;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.cv-pending-invite-copy:hover {
+    background: #1d4ed8;
+}
+
+.cv-pending-invite-copy .material-symbols-outlined {
+    font-size: 17px;
+}
+
+.cv-pending-invite-help {
+    margin: 10px 0 17px;
+    color: #64748b;
+    font-size: 11px;
+    line-height: 1.65;
+}
+
+/* Share button */
+
+.cv-pending-invite-share-btn {
+    width: 100%;
+    min-height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    padding: 11px 16px;
+    color: #172a46;
+    background: #ffffff;
+    border: 1px solid #dbe3ed;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 750;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.cv-pending-invite-share-btn:hover {
+    background: #f8fafc;
+    border-color: #b8c6d8;
+}
+
+.cv-pending-invite-share-btn .material-symbols-outlined {
+    font-size: 19px;
+}
+
+/* Copy/share feedback */
+
+.cv-pending-invite-feedback {
+    min-height: 18px;
+    margin-top: 10px;
+    color: #047857;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+/* Accepted state */
+
+.cv-pending-invite-accepted {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 22px;
+    padding: 16px;
+    color: #047857;
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    border-radius: 12px;
+}
+
+.cv-pending-invite-accepted > .material-symbols-outlined {
+    font-size: 22px;
+}
+
+.cv-pending-invite-accepted strong {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 13px;
+}
+
+.cv-pending-invite-accepted p {
+    margin: 0;
+    color: #065f46;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/* Responsive */
+
+@media (max-width: 575px) {
+    /* .cv-pending-invite {
+        padding: 16px 12px 30px;
+    } */
+
+    .cv-pending-invite-card {
+        padding: 19px 15px;
+        border-radius: 15px;
+    }
+
+    .cv-pending-invite-heading {
+        padding: 24px 3px 21px;
+    }
+
+    .cv-pending-invite-heading h2 {
+        font-size: 21px;
+    }
+
+    .cv-pending-invite-person {
+        flex-wrap: wrap;
+        gap: 11px;
+        padding: 13px;
+    }
+
+    .cv-pending-invite-role {
+        margin-left: 57px;
+    }
+
+    .cv-pending-invite-details {
+        grid-template-columns: 1fr 1fr;
+        row-gap: 17px;
+        padding: 18px 2px;
+    }
+
+    .cv-pending-invite-detail:last-child {
+        grid-column: 1 / -1;
+    }
+
+    .cv-pending-invite-link-field {
+        flex-wrap: wrap;
+    }
+
+    .cv-pending-invite-link-field input {
+        flex-basis: 100%;
+        padding: 10px 8px;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .cv-pending-invite-copy {
+        width: 100%;
+        min-height: 40px;
+    }
+}
+
+</style>
+ 
+<div class="row d-flex justify-content-center">
+    <div class="col-12 col-lg-6">
+        <!-- =========================================================
+        COREVA MOBILE TOP NAVBAR AND LARGE SCREEN BACK BUTTON
+        ========================================================= -->
+        {% include 'partials/page_topbar.html' with back_url=back_url brand_name=invited_user.username brand_url=back_url %}
+
+
+        <div class="cv-pending-invite">
+
+            <div class="cv-pending-invite-card">
+
+                <!-- Status -->
+                <div class="cv-pending-invite-status">
+                    <span class="cv-pending-invite-status-dot"></span>
+                    Pending invitation
+                </div>
+
+                <!-- Heading -->
+                <div class="cv-pending-invite-heading">
+                    <div class="cv-pending-invite-main-icon">
+                        <span class="material-symbols-outlined">mark_email_unread</span>
+                    </div>
+
+                    <h2>Pending team invite</h2>
+
+                    <p>
+                        This team member hasn't created their Coreva account yet.
+                        Share the invitation link below so they can join your team.
+                    </p>
+                </div>
+
+                <!-- Invited user -->
+                <div class="cv-pending-invite-person">
+
+                    <div class="cv-pending-invite-avatar">
+                        <span class="material-symbols-outlined">person</span>
+                    </div>
+
+                    <div class="cv-pending-invite-person-info">
+                        <span class="cv-pending-invite-label">INVITED MEMBER</span>
+
+                        <h3>
+                            {% with first_name=invited_user.first_name last_name=invited_user.last_name %}
+                                {% if first_name or last_name %}
+                                    {{ first_name }} {{ last_name }}
+                                {% else %}
+                                    {{ invited_user.email }}
+                                {% endif %}
+                            {% endwith %}
+                        </h3>
+
+                        <p>{{ invited_user.email }}</p>
+                    </div>
+
+                    <span class="cv-pending-invite-role">
+                        {{ pending_invite.get_role_display|default:pending_invite.role|title }}
+                    </span>
+
+                </div>
+
+                <!-- Invitation details -->
+                <div class="cv-pending-invite-details">
+
+                    <div class="cv-pending-invite-detail">
+                        <span>Invitation status</span>
+                        <strong class="cv-pending-invite-detail-pending">
+                            {% if pending_invite.is_used %}
+                                Accepted
+                            {% else %}
+                                Awaiting registration
+                            {% endif %}
+                        </strong>
+                    </div>
+
+                    <div class="cv-pending-invite-detail">
+                        <span>Invited on</span>
+                        <strong>{{ pending_invite.created_at|date:"d M Y" }}</strong>
+                    </div>
+
+                    <div class="cv-pending-invite-detail">
+                        <span>Company</span>
+                        <strong>
+                            {% if pending_invite.company %}
+                                {{ pending_invite.company.company_name }}
+                            {% elif pending_invite.contractor %}
+                                {{ pending_invite.contractor.company_name }}
+                            {% else %}
+                                Coreva
+                            {% endif %}
+                        </strong>
+                    </div>
+
+                </div>
+
+                <!-- Share invitation -->
+                {% if not pending_invite.is_used %}
+
+                    <div class="cv-pending-invite-share">
+
+                        <label for="cvPendingInviteUrl">
+                            Invitation link
+                        </label>
+
+                        <div class="cv-pending-invite-link-field">
+                            <input
+                                type="text"
+                                id="cvPendingInviteUrl"
+                                value="{{ invite_url }}"
+                                readonly
+                            >
+
+                            <button
+                                type="button"
+                                class="cv-pending-invite-copy"
+                                id="cvPendingInviteCopy"
+                                data-invite-url="{{ invite_url }}"
+                            >
+                                <span class="material-symbols-outlined">content_copy</span>
+                                <span>Copy</span>
+                            </button>
+                        </div>
+
+                        <p class="cv-pending-invite-help">
+                            Share this link directly with the invited member.
+                            They can use it to create their Coreva account.
+                        </p>
+
+                        <button
+                            type="button"
+                            class="cv-pending-invite-share-btn"
+                            id="cvPendingInviteShare"
+                            data-invite-url="{{ invite_url }}"
+                            data-invite-email="{{ invited_user.email }}"
+                        >
+                            <span class="material-symbols-outlined">share</span>
+                            Share invitation
+                        </button>
+
+                        <div
+                            class="cv-pending-invite-feedback"
+                            id="cvPendingInviteFeedback"
+                            role="status"
+                            aria-live="polite"
+                        ></div>
+
+                    </div>
+
+                {% else %}
+
+                    <div class="cv-pending-invite-accepted">
+                        <span class="material-symbols-outlined">check_circle</span>
+
+                        <div>
+                            <strong>Invitation accepted</strong>
+                            <p>This invitation has already been used.</p>
+                        </div>
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+(function () {
+    const copyButton = document.getElementById("cvPendingInviteCopy");
+    const shareButton = document.getElementById("cvPendingInviteShare");
+    const urlInput = document.getElementById("cvPendingInviteUrl");
+    const feedback = document.getElementById("cvPendingInviteFeedback");
+
+    if (!copyButton || !shareButton || !urlInput || !feedback) {
+        return;
+    }
+
+    if (copyButton.dataset.initialized === "true") {
+        return;
+    }
+
+    copyButton.dataset.initialized = "true";
+    shareButton.dataset.initialized = "true";
+
+    const inviteUrl = copyButton.dataset.inviteUrl;
+
+    async function copyInviteLink() {
+        try {
+            if (navigator.clipboard && window.isSecureContext) {
+                await navigator.clipboard.writeText(inviteUrl);
+            } else {
+                urlInput.focus();
+                urlInput.select();
+                urlInput.setSelectionRange(0, urlInput.value.length);
+
+                const copied = document.execCommand("copy");
+
+                if (!copied) {
+                    throw new Error("Copy failed");
+                }
+            }
+
+            copyButton.innerHTML =
+                '<span class="material-symbols-outlined">check</span><span>Copied</span>';
+
+            feedback.textContent = "Invitation link copied. You can now share it.";
+
+            window.setTimeout(function () {
+                copyButton.innerHTML =
+                    '<span class="material-symbols-outlined">content_copy</span><span>Copy</span>';
+            }, 2000);
+
+        } catch (error) {
+            urlInput.focus();
+            urlInput.select();
+
+            feedback.textContent =
+                "Automatic copying failed. Select the link above and copy it manually.";
+        }
+    }
+
+    copyButton.addEventListener("click", copyInviteLink);
+
+    shareButton.addEventListener("click", async function () {
+        try {
+            if (navigator.share) {
+                await navigator.share({
+                    title: "Join our team on Coreva",
+                    text: "You've been invited to join our team on Coreva. Use this link to create your account:",
+                    url: inviteUrl
+                });
+
+                feedback.textContent = "Share action completed.";
+            } else {
+                await copyInviteLink();
+            }
+        } catch (error) {
+            if (error.name !== "AbortError") {
+                feedback.textContent =
+                    "Unable to open sharing. Use the Copy button instead.";
+            }
+        }
+    });
+})();
+</script>

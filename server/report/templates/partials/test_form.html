@@ -1,0 +1,11 @@
+<section>
+  <form
+    enctype="multipart/form-data"
+    hx-post="{% url 'report:test-form-submit' %}"
+    hx-target="#test_form"
+    hx-swap="innerHTML"
+  >
+    {% csrf_token %}
+    <input type="text" name="" id="" name />
+  </form>
+</section>

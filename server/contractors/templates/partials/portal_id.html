@@ -1,0 +1,386 @@
+<!-- =========================================
+     CONTRACTOR COMPANY / PORTAL ID
+     ========================================= -->
+
+<section class="cv-company-portal-card">
+
+    <div class="cv-company-portal-top">
+
+        <!-- Company Icon -->
+        <div class="cv-company-portal-icon">
+            <i class="bi bi-building"></i>
+        </div>
+
+        <!-- Company Details -->
+        <div class="cv-company-portal-heading">
+            <span class="cv-company-portal-label">
+                Your Company
+            </span>
+
+            <h2 class="cv-company-portal-name">
+                ABC Electrical & Projects
+            </h2>
+
+            <span class="cv-company-portal-type">
+                Contractor Portal
+            </span>
+        </div>
+
+    </div>
+
+
+    <!-- Portal ID -->
+    <div class="cv-company-portal-id-section">
+
+        <div class="cv-company-portal-id-heading">
+            <span>Portal ID</span>
+        </div>
+
+        <div class="cv-company-portal-id-row">
+
+            <div class="cv-company-portal-id">
+                CP-8F42K7
+            </div>
+
+            <button
+                type="button"
+                class="cv-company-portal-copy-btn"
+                onclick="copyCompanyPortalId('CP-8F42K7', this)"
+            >
+                <i class="bi bi-copy"></i>
+                <span>Copy ID</span>
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- Explanation -->
+    <div class="cv-company-portal-info">
+
+        <div class="cv-company-portal-info-icon">
+            <i class="bi bi-info-circle"></i>
+        </div>
+
+        <p>
+            Share this Portal ID with your principal contractor
+            so they can add projects to your Coreva portal.
+        </p>
+
+    </div>
+
+</section>
+
+<style>
+    /* =========================================
+   CONTRACTOR COMPANY / PORTAL ID
+   ========================================= */
+
+.cv-company-portal-card {
+    width: 100%;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 22px;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
+    margin-bottom: 24px;
+}
+
+
+/* =========================================
+   TOP / COMPANY
+   ========================================= */
+
+.cv-company-portal-top {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+
+/* Company Icon */
+
+.cv-company-portal-icon {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: #eff6ff;
+    color: #2563eb;
+
+    font-size: 21px;
+}
+
+
+/* Company Heading */
+
+.cv-company-portal-heading {
+    min-width: 0;
+}
+
+.cv-company-portal-label {
+    display: block;
+
+    margin-bottom: 2px;
+
+    font-size: 12px;
+    font-weight: 600;
+    color: #64748b;
+
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.cv-company-portal-name {
+    margin: 0;
+
+    font-size: 18px;
+    line-height: 1.3;
+    font-weight: 700;
+
+    color: #0f172a;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cv-company-portal-type {
+    display: block;
+
+    margin-top: 2px;
+
+    font-size: 13px;
+    color: #64748b;
+}
+
+
+/* =========================================
+   PORTAL ID SECTION
+   ========================================= */
+
+.cv-company-portal-id-section {
+    margin-top: 20px;
+    padding-top: 18px;
+
+    border-top: 1px solid #e2e8f0;
+}
+
+.cv-company-portal-id-heading {
+    margin-bottom: 8px;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    color: #64748b;
+
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+
+.cv-company-portal-id-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+
+/* Portal ID */
+
+.cv-company-portal-id {
+    flex: 1;
+    min-width: 0;
+
+    padding: 11px 13px;
+
+    border-radius: 10px;
+
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+
+    color: #172a46;
+
+    font-family: monospace;
+    font-size: 15px;
+    font-weight: 700;
+
+    letter-spacing: 0.06em;
+}
+
+
+/* =========================================
+   COPY BUTTON
+   ========================================= */
+
+.cv-company-portal-copy-btn {
+    height: 43px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    padding: 0 14px;
+
+    border: 1px solid #dbe3ee;
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    color: #172a46;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.cv-company-portal-copy-btn:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+}
+
+.cv-company-portal-copy-btn:active {
+    transform: translateY(1px);
+}
+
+.cv-company-portal-copy-btn i {
+    font-size: 15px;
+}
+
+
+/* =========================================
+   INFORMATION MESSAGE
+   ========================================= */
+
+.cv-company-portal-info {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+
+    margin-top: 16px;
+    padding: 12px 13px;
+
+    border-radius: 10px;
+
+    background: #f8fafc;
+    border: 1px solid #eef2f7;
+}
+
+.cv-company-portal-info-icon {
+    flex: 0 0 auto;
+
+    margin-top: 1px;
+
+    color: #64748b;
+    font-size: 15px;
+}
+
+.cv-company-portal-info p {
+    margin: 0;
+
+    font-size: 13px;
+    line-height: 1.55;
+
+    color: #64748b;
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 576px) {
+
+    .cv-company-portal-card {
+        padding: 18px;
+        border-radius: 14px;
+    }
+
+    .cv-company-portal-icon {
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+
+        font-size: 19px;
+    }
+
+    .cv-company-portal-name {
+        font-size: 16px;
+    }
+
+    .cv-company-portal-id-row {
+        align-items: stretch;
+    }
+
+    .cv-company-portal-id {
+        display: flex;
+        align-items: center;
+
+        font-size: 14px;
+    }
+
+    .cv-company-portal-copy-btn {
+        width: 43px;
+        min-width: 43px;
+        padding: 0;
+    }
+
+    .cv-company-portal-copy-btn span {
+        display: none;
+    }
+
+    .cv-company-portal-info {
+        padding: 11px 12px;
+    }
+
+    .cv-company-portal-info p {
+        font-size: 12.5px;
+    }
+}
+</style>
+
+
+<script>
+function copyCompanyPortalId(portalId, button) {
+
+    navigator.clipboard.writeText(portalId).then(function () {
+
+        const icon = button.querySelector("i");
+        const text = button.querySelector("span");
+
+        icon.classList.remove("bi-copy");
+        icon.classList.add("bi-check2");
+
+        if (text) {
+            text.textContent = "Copied";
+        }
+
+        setTimeout(function () {
+
+            icon.classList.remove("bi-check2");
+            icon.classList.add("bi-copy");
+
+            if (text) {
+                text.textContent = "Copy ID";
+            }
+
+        }, 1800);
+
+    });
+
+}
+</script>

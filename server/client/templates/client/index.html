@@ -1,0 +1,2038 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="en-ZA">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <!-- =====================================================
+         SEO
+         ===================================================== -->
+
+    <title>Construction Site Management Software for South Africa | Coreva</title>
+
+    <meta
+        name="description"
+        content="Construction site management software for South African contractors. Manage inspections, issues, tasks, photos and daily reports in one place. R699/month. 14-day free trial."
+    >
+
+    <meta
+        name="keywords"
+        content="construction site management software South Africa, construction management software South Africa, construction daily report software, construction site reporting software, construction inspection software, construction project management software South Africa, construction site management app, subcontractor management software construction, construction site reporting, Coreva"
+    >
+
+    <meta name="author" content="Coreva">
+
+    <meta
+        name="robots"
+        content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    >
+
+    <meta
+        name="googlebot"
+        content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    >
+
+    <meta name="theme-color" content="#172a46">
+
+    <link
+        rel="canonical"
+        href="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}"
+    >
+
+    <!-- =====================================================
+         OPEN GRAPH
+         ===================================================== -->
+
+    <meta property="og:type" content="website">
+
+    <meta
+        property="og:title"
+        content="Coreva | Construction Site Management Software"
+    >
+
+    <meta
+        property="og:description"
+        content="Run your construction sites from one place. Projects, inspections, issues, tasks, daily reports, photos and subcontractors — built for South African construction teams."
+    >
+
+    <meta
+        property="og:url"
+        content="{{ request.scheme }}://{{ request.get_host }}{{ request.path }}"
+    >
+
+    <meta property="og:site_name" content="Coreva">
+
+    <meta property="og:locale" content="en_ZA">
+
+    <meta
+        property="og:image"
+        content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/coreva-og-image.jpg' %}"
+    >
+
+    <!-- =====================================================
+         TWITTER / X
+         ===================================================== -->
+
+    <meta name="twitter:card" content="summary_large_image">
+
+    <meta
+        name="twitter:title"
+        content="Coreva | Construction Site Management Software"
+    >
+
+    <meta
+        name="twitter:description"
+        content="Simple construction site management for South African contractors. Manage projects, inspections, issues, tasks, reports and subcontractors in one place."
+    >
+
+    <meta
+        name="twitter:image"
+        content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/coreva-og-image.jpg' %}"
+    >
+
+    <!-- =====================================================
+         FAVICON
+         ===================================================== -->
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="{% static 'images/coreva-favicon.png' %}"
+    >
+
+    <!-- =====================================================
+         FONTS
+         ===================================================== -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- =====================================================
+         BOOTSTRAP ICONS
+         ===================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+    <!-- =====================================================
+         STRUCTURED DATA — SOFTWARE
+         ===================================================== -->
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Coreva",
+        "applicationCategory": "BusinessApplication",
+        "applicationSubCategory": "Construction Management Software",
+        "operatingSystem": "Web",
+        "description": "Coreva is construction site management software for South African contractors. It brings daily inspections, issues, tasks, photos, subcontractors and daily site reports into one place.",
+        "offers": {
+            "@type": "Offer",
+            "price": "699",
+            "priceCurrency": "ZAR",
+            "priceValidUntil": "2027-12-31",
+            "priceSpecification": {
+                "@type": "UnitPriceSpecification",
+                "price": "699",
+                "priceCurrency": "ZAR",
+                "unitText": "MONTH",
+                "valueAddedTaxIncluded": false
+            },
+            "availability": "https://schema.org/InStock"
+        },
+        "featureList": [
+            "Construction project management",
+            "Construction site management",
+            "Daily site reports",
+            "Site inspections",
+            "Issue tracking",
+            "Corrective actions",
+            "Task management",
+            "Photo evidence",
+            "Project activity",
+            "Subcontractor management",
+            "Contractor portal",
+            "Weather information",
+            "PDF daily reports"
+        ]
+    }
+    </script>
+
+    <!-- =====================================================
+         STRUCTURED DATA — ORGANIZATION
+         ===================================================== -->
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Coreva",
+        "description": "Construction site management software for South African construction companies and contractors.",
+        "url": "{{ request.scheme }}://{{ request.get_host }}"
+    }
+    </script>
+
+    <!-- =====================================================
+         STRUCTURED DATA — WEBSITE
+         ===================================================== -->
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Coreva",
+        "description": "Construction site management software for South African contractors.",
+        "url": "{{ request.scheme }}://{{ request.get_host }}"
+    }
+    </script>
+
+    <!-- =====================================================
+         STRUCTURED DATA — FAQ
+         ===================================================== -->
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What is Coreva?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Coreva is construction site management software for South African contractors. It brings projects, daily inspections, issues, tasks, photos, subcontractors and daily site reports into one place."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How much does Coreva cost?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Coreva costs R699 per month excluding VAT. The plan is for the whole company with no per-user fees and supports up to 10 active projects. Start with a 14-day free trial with no credit card required."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can subcontractors use Coreva?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. Coreva includes a subcontractor workspace. Subcontractors can access the projects and work assigned to them without paying for their own Coreva subscription."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I manage multiple construction projects?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. Coreva gives construction companies a central place to manage up to 10 active projects on the current plan."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can Coreva generate daily construction reports?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. Coreva provides digital daily reports for recording site activity, people onsite, work completed, weather, deliveries, delays, incidents, issues, tasks, notes and photos, with PDF reporting."
+                }
+            }
+        ]
+    }
+    </script>
+
+    <!-- Index CSS -->
+    <link rel="stylesheet" href="{% static '/css/client/index_deep.css' %}"/>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVBAR
+     ========================================================= -->
+
+<header class="cv-navbar">
+
+    <div class="cv-container cv-navbar-inner">
+
+        <a href="#top" class="cv-logo">
+
+            <span class="cv-logo-mark">
+                C
+            </span>
+
+            <span class="cv-logo-name">
+                Coreva
+            </span>
+
+        </a>
+
+
+        <nav class="cv-nav-links">
+
+            <a href="#features">Features</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#contractors">Contractors</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#faq">FAQ</a>
+
+        </nav>
+
+
+        <div class="cv-nav-actions">
+
+            {% if user.is_authenticated %}
+            <a href="{% url 'dashboard:today' %}" class="cv-login-btn">
+                Dashboard
+            </a>
+            {% else %}
+            <a href="{% url 'login' %}" class="cv-login-btn">
+                Sign in
+            </a>
+            {% endif %}
+
+            {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}" class="cv-primary-btn">
+                Logout
+                <i class="bi bi-arrow-right"></i>
+            </a>
+            {% else %}
+            <a href="{% url 'register' %}" class="cv-primary-btn">
+                Start Free Trial
+                <i class="bi bi-arrow-right"></i>
+            </a>
+            {% endif %}
+
+        </div>
+
+
+        <button
+            type="button"
+            class="cv-mobile-toggle"
+            id="cvMobileToggle"
+            aria-label="Open navigation"
+        >
+            <i class="bi bi-list"></i>
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- =========================================================
+     HERO
+     ========================================================= -->
+
+<main id="top">
+
+    <section class="cv-hero">
+
+        <div class="cv-container cv-hero-grid">
+
+            <div>
+
+                <span class="cv-eyebrow">
+                    <span class="cv-eyebrow-dot"></span>
+                    🇿🇦 Construction site management software for South Africa
+                </span>
+
+
+                <h1>
+                    Know what happened on every site.
+                    <span>Without chasing WhatsApp.</span>
+                </h1>
+
+
+                <p class="cv-hero-copy">
+                    Your site already runs on WhatsApp. Your project record
+                    shouldn't. Coreva gives growing South African contractors
+                    one place to manage daily inspections, issues, tasks,
+                    photos and daily site reports — so you can see what needs
+                    attention without piecing the story together from
+                    WhatsApp, paper and spreadsheets.
+                </p>
+
+
+                <div class="cv-hero-actions">
+
+                    <a
+                        href="{% url 'register' %}"
+                        class="cv-primary-btn"
+                    >
+                        Start 14-Day Free Trial
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+
+                    <a
+                        href="#how-it-works"
+                        class="cv-secondary-btn"
+                    >
+                        See How It Works
+                    </a>
+
+                </div>
+
+
+                <div class="cv-hero-note cv-hero-trust">
+
+                    <span>
+                        <i class="bi bi-check-circle-fill"></i>
+                        R699/month
+                    </span>
+
+                    <span>
+                        <i class="bi bi-check-circle-fill"></i>
+                        Whole company · No per-user fees
+                    </span>
+
+                    <span>
+                        <i class="bi bi-check-circle-fill"></i>
+                        14 days free · No credit card
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- Dashboard visual -->
+
+            <div class="cv-dashboard-wrap">
+
+                <div class="cv-dashboard">
+
+                    <div class="cv-dashboard-top">
+
+                        <div class="cv-dashboard-title">
+                            Today's Work
+                        </div>
+
+                        <div class="cv-dashboard-date">
+                            Today
+                        </div>
+
+                    </div>
+
+
+                    <div class="cv-dashboard-card">
+
+                        <div class="cv-dashboard-stats">
+
+                            <div class="cv-mini-stat">
+                                <span>Projects</span>
+                                <strong>6</strong>
+                            </div>
+
+                            <div class="cv-mini-stat">
+                                <span>Open Issues</span>
+                                <strong>12</strong>
+                            </div>
+
+                            <div class="cv-mini-stat">
+                                <span>Reports</span>
+                                <strong>5/6</strong>
+                            </div>
+
+                        </div>
+
+
+                        <div class="cv-project-row">
+
+                            <div class="cv-project-name">
+
+                                <div class="cv-project-icon">
+                                    <i class="bi bi-buildings"></i>
+                                </div>
+
+                                <div>
+                                    <strong>
+                                        Midrand Warehouse
+                                    </strong>
+
+                                    <span>
+                                        Inspection · 2 open issues
+                                    </span>
+                                </div>
+
+                            </div>
+
+                            <span class="cv-status cv-status-orange">
+                                Needs attention
+                            </span>
+
+                        </div>
+
+
+                        <div class="cv-project-row">
+
+                            <div class="cv-project-name">
+
+                                <div class="cv-project-icon">
+                                    <i class="bi bi-buildings"></i>
+                                </div>
+
+                                <div>
+                                    <strong>
+                                        Boksburg Civic Center
+                                    </strong>
+
+                                    <span>
+                                        Daily report submitted
+                                    </span>
+                                </div>
+
+                            </div>
+
+                            <span class="cv-status cv-status-green">
+                                On track
+                            </span>
+
+                        </div>
+
+
+                        <div class="cv-project-row">
+
+                            <div class="cv-project-name">
+
+                                <div class="cv-project-icon">
+                                    <i class="bi bi-buildings"></i>
+                                </div>
+
+                                <div>
+                                    <strong>
+                                        Office Development
+                                    </strong>
+
+                                    <span>
+                                        3 tasks due today
+                                    </span>
+                                </div>
+
+                            </div>
+
+                            <span class="cv-status cv-status-orange">
+                                Attention
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="cv-dashboard-floating">
+
+                    <span class="cv-floating-label">
+                        DAILY INSPECTION
+                    </span>
+
+                    <div class="cv-floating-value">
+                        Site inspection completed
+                    </div>
+
+                    <div class="cv-floating-check">
+                        <i class="bi bi-check-circle-fill"></i>
+                        18 checks completed
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         VALUE STRIP — objection killers
+         ===================================================== -->
+
+    <section class="cv-value-strip">
+
+        <div class="cv-container cv-value-grid">
+
+            <div class="cv-value-item">
+                <i class="bi bi-currency-exchange"></i>
+                R699/month
+            </div>
+
+            <div class="cv-value-item">
+                <i class="bi bi-people"></i>
+                No per-user fees
+            </div>
+
+            <div class="cv-value-item">
+                <i class="bi bi-person-check"></i>
+                Subcontractors join free
+            </div>
+
+            <div class="cv-value-item">
+                <i class="bi bi-gift"></i>
+                14-day trial · No card
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         FREE TRIAL BANNER
+         ===================================================== -->
+
+    <section class="cv-trial-banner-section">
+
+        <div class="cv-container">
+
+            <div class="cv-trial-banner">
+
+                <div class="cv-trial-banner-icon">
+                    <i class="bi bi-gift"></i>
+                </div>
+
+
+                <div class="cv-trial-banner-content">
+
+                    <span class="cv-trial-banner-label">
+                        START YOUR FREE TRIAL
+                    </span>
+
+                    <h2>
+                        Try Coreva on one real project for 14 days.
+                    </h2>
+
+                    <p>
+                        Use the full Coreva workflow on a real project:
+                        inspections, issues, tasks, photos and daily reports.
+                        No credit card required.
+                    </p>
+
+                </div>
+
+
+                <div class="cv-trial-banner-action">
+
+                    <a
+                        href="{% url 'register' %}"
+                        class="cv-trial-banner-button"
+                    >
+                        Start 14-Day Free Trial
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+
+                    <span class="cv-trial-banner-note">
+                        <i class="bi bi-shield-check"></i>
+                        No credit card required
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         PROBLEM / SOLUTION
+         ===================================================== -->
+
+    <section class="cv-section cv-section-light">
+
+        <div class="cv-container cv-problem-grid">
+
+            <div class="cv-problem-copy">
+
+                <span class="cv-section-label">
+                    The problem
+                </span>
+
+                <h2>
+                    Your site record shouldn't live in five different places.
+                </h2>
+
+                <p>
+                    When inspections live on paper, issues live in WhatsApp,
+                    photos live on phones and reports live in spreadsheets,
+                    management has to chase people just to understand what
+                    happened on site.
+                </p>
+
+                <p>
+                    Coreva creates a shared project record for the work
+                    happening every day — from the first inspection check
+                    to the final corrective action and daily report.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <div class="cv-problem-list">
+
+                    <div class="cv-problem-item">
+                        <i class="bi bi-x-circle"></i>
+                        <span>
+                            Inspections sitting on paper
+                        </span>
+                    </div>
+
+                    <div class="cv-problem-item">
+                        <i class="bi bi-x-circle"></i>
+                        <span>
+                            Site issues getting lost in WhatsApp
+                        </span>
+                    </div>
+
+                    <div class="cv-problem-item">
+                        <i class="bi bi-x-circle"></i>
+                        <span>
+                            Daily reports taking too long to compile
+                        </span>
+                    </div>
+
+                    <div class="cv-problem-item">
+                        <i class="bi bi-x-circle"></i>
+                        <span>
+                            Photos and evidence scattered across phones
+                        </span>
+                    </div>
+
+                    <div class="cv-problem-item">
+                        <i class="bi bi-x-circle"></i>
+                        <span>
+                            Subcontractor work difficult to keep track of
+                        </span>
+                    </div>
+
+                </div>
+
+                <p class="cv-problem-bridge">
+                    Built for contractors managing multiple sites, teams and
+                    subcontractors — without adding another complicated system.
+                </p>
+
+
+                <div class="cv-solution-card">
+
+                    <h3>
+                        Less admin. Better visibility. More control.
+                    </h3>
+
+                    <p>
+                        Coreva connects the everyday operational work
+                        happening across your construction projects.
+                    </p>
+
+
+                    <div class="cv-solution-flow">
+
+                        <div class="cv-flow-item">
+
+                            <span class="cv-flow-number">
+                                01
+                            </span>
+
+                            <span>
+                                Record the work on site
+                            </span>
+
+                        </div>
+
+
+                        <div class="cv-flow-item">
+
+                            <span class="cv-flow-number">
+                                02
+                            </span>
+
+                            <span>
+                                Identify issues and assign work
+                            </span>
+
+                        </div>
+
+
+                        <div class="cv-flow-item">
+
+                            <span class="cv-flow-number">
+                                03
+                            </span>
+
+                            <span>
+                                Track what needs attention
+                            </span>
+
+                        </div>
+
+
+                        <div class="cv-flow-item">
+
+                            <span class="cv-flow-number">
+                                04
+                            </span>
+
+                            <span>
+                                Keep a clear record of the project
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         FEATURES
+         ===================================================== -->
+
+    <section
+        class="cv-section"
+        id="features"
+    >
+
+        <div class="cv-container">
+
+            <div class="cv-section-heading">
+
+                <span class="cv-section-label">
+                    Construction site management, without the complexity
+                </span>
+
+                <h2>
+                    One place for the work happening on site.
+                </h2>
+
+                <p>
+                    Manage the daily operational work that gets lost between
+                    site, office, WhatsApp, paper and spreadsheets.
+                </p>
+
+            </div>
+
+
+            <div class="cv-feature-grid">
+
+
+                <div class="cv-feature-card">
+
+                    <div class="cv-feature-icon">
+                        <i class="bi bi-buildings"></i>
+                    </div>
+
+                    <h3>
+                        Projects
+                    </h3>
+
+                    <p>
+                        Keep every active construction project,
+                        its activity and important site information
+                        organised in one place.
+                    </p>
+
+                </div>
+
+
+                <div class="cv-feature-card">
+
+                    <div class="cv-feature-icon">
+                        <i class="bi bi-clipboard-check"></i>
+                    </div>
+
+                    <h3>
+                        Daily Inspections
+                    </h3>
+
+                    <p>
+                        Run structured construction site inspections and
+                        turn failed checks into trackable issues and
+                        corrective actions.
+                    </p>
+
+                </div>
+
+
+                <div class="cv-feature-card">
+
+                    <div class="cv-feature-icon">
+                        <i class="bi bi-exclamation-triangle"></i>
+                    </div>
+
+                    <h3>
+                        Issues & Corrective Actions
+                    </h3>
+
+                    <p>
+                        Capture problems, set priorities, assign
+                        responsibility and track open issues until
+                        the work is completed.
+                    </p>
+
+                </div>
+
+
+                <div class="cv-feature-card">
+
+                    <div class="cv-feature-icon">
+                        <i class="bi bi-check2-square"></i>
+                    </div>
+
+                    <h3>
+                        Tasks
+                    </h3>
+
+                    <p>
+                        Turn work that needs to be completed into
+                        clear tasks with owners, priorities and
+                        due dates.
+                    </p>
+
+                </div>
+
+
+                <div class="cv-feature-card">
+
+                    <div class="cv-feature-icon">
+                        <i class="bi bi-file-earmark-text"></i>
+                    </div>
+
+                    <h3>
+                        Daily Site Reports
+                    </h3>
+
+                    <p>
+                        Create digital daily site reports with people onsite,
+                        work completed, weather, delays, incidents, deliveries,
+                        notes and photos — then generate a PDF.
+                    </p>
+
+                </div>
+
+
+                <div class="cv-feature-card">
+
+                    <div class="cv-feature-icon">
+                        <i class="bi bi-camera"></i>
+                    </div>
+
+                    <h3>
+                        Photos & Evidence
+                    </h3>
+
+                    <p>
+                        Keep construction photos and evidence attached to
+                        the project activity, issues and reports they belong to.
+                    </p>
+
+                </div>
+
+
+                <div class="cv-feature-card">
+
+                    <div class="cv-feature-icon">
+                        <i class="bi bi-cloud-sun"></i>
+                    </div>
+
+                    <h3>
+                        Site Weather
+                    </h3>
+
+                    <p>
+                        Keep weather information alongside your
+                        daily project records for a clearer picture
+                        of site conditions.
+                    </p>
+
+                </div>
+
+
+                <div class="cv-feature-card">
+
+                    <div class="cv-feature-icon">
+                        <i class="bi bi-people"></i>
+                    </div>
+
+                    <h3>
+                        Team & Workers
+                    </h3>
+
+                    <p>
+                        Give your team clear access to the projects and
+                        work they are responsible for — without per-user fees.
+                    </p>
+
+                </div>
+
+
+                <div class="cv-feature-card">
+
+                    <div class="cv-feature-icon">
+                        <i class="bi bi-clock-history"></i>
+                    </div>
+
+                    <h3>
+                        Project Activity
+                    </h3>
+
+                    <p>
+                        Maintain a clearer operational history of
+                        important project activity and updates.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         HOW IT WORKS
+         ===================================================== -->
+
+    <section
+        class="cv-section cv-section-light"
+        id="how-it-works"
+    >
+
+        <div class="cv-container">
+
+            <div class="cv-section-heading">
+
+                <span class="cv-section-label">
+                    How Coreva works
+                </span>
+
+                <h2>
+                    From inspection to daily report.
+                </h2>
+
+                <p>
+                    Coreva connects the daily workflow so information
+                    does not disappear between the site and the office.
+                </p>
+
+            </div>
+
+
+            <div class="cv-workflow">
+
+                <div class="cv-workflow-card">
+
+                    <div class="cv-workflow-number">
+                        01
+                    </div>
+
+                    <h3>
+                        Record
+                    </h3>
+
+                    <p>
+                        Capture inspections, daily work,
+                        incidents, deliveries, photos and
+                        other important site information.
+                    </p>
+
+                    <span class="cv-workflow-arrow">
+                        <i class="bi bi-arrow-right"></i>
+                    </span>
+
+                </div>
+
+
+                <div class="cv-workflow-card">
+
+                    <div class="cv-workflow-number">
+                        02
+                    </div>
+
+                    <h3>
+                        Identify
+                    </h3>
+
+                    <p>
+                        Turn failed inspection checks and
+                        site problems into trackable issues
+                        and corrective actions.
+                    </p>
+
+                    <span class="cv-workflow-arrow">
+                        <i class="bi bi-arrow-right"></i>
+                    </span>
+
+                </div>
+
+
+                <div class="cv-workflow-card">
+
+                    <div class="cv-workflow-number">
+                        03
+                    </div>
+
+                    <h3>
+                        Assign
+                    </h3>
+
+                    <p>
+                        Give work to the right team member or
+                        subcontractor and set a clear priority
+                        and due date.
+                    </p>
+
+                    <span class="cv-workflow-arrow">
+                        <i class="bi bi-arrow-right"></i>
+                    </span>
+
+                </div>
+
+
+                <div class="cv-workflow-card">
+
+                    <div class="cv-workflow-number">
+                        04
+                    </div>
+
+                    <h3>
+                        Close the loop
+                    </h3>
+
+                    <p>
+                        Track outstanding work, keep evidence
+                        with the project and maintain a clear
+                        operational record.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         DAILY REPORTS
+         ===================================================== -->
+
+    <section class="cv-section">
+
+        <div class="cv-container cv-report-section">
+
+            <div class="cv-report-copy">
+
+                <span class="cv-section-label">
+                    Daily reporting
+                </span>
+
+                <h2>
+                    Know what happened on site today.
+                </h2>
+
+                <p>
+                    Record the important details of each construction
+                    day without rebuilding the report from scattered
+                    notes and messages.
+                </p>
+
+
+                <div class="cv-check-list">
+
+                    <div class="cv-check-item">
+                        <i class="bi bi-check-circle-fill"></i>
+                        People onsite
+                    </div>
+
+                    <div class="cv-check-item">
+                        <i class="bi bi-check-circle-fill"></i>
+                        Work completed
+                    </div>
+
+                    <div class="cv-check-item">
+                        <i class="bi bi-check-circle-fill"></i>
+                        Weather conditions
+                    </div>
+
+                    <div class="cv-check-item">
+                        <i class="bi bi-check-circle-fill"></i>
+                        Deliveries
+                    </div>
+
+                    <div class="cv-check-item">
+                        <i class="bi bi-check-circle-fill"></i>
+                        Delays and incidents
+                    </div>
+
+                    <div class="cv-check-item">
+                        <i class="bi bi-check-circle-fill"></i>
+                        Issues, tasks and notes
+                    </div>
+
+                    <div class="cv-check-item">
+                        <i class="bi bi-check-circle-fill"></i>
+                        Photos and evidence
+                    </div>
+
+                    <div class="cv-check-item">
+                        <i class="bi bi-check-circle-fill"></i>
+                        Downloadable PDF reports
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="cv-report-preview">
+
+                <div class="cv-report-header">
+
+                    <strong>
+                        Daily Site Report
+                    </strong>
+
+                    <span>
+                        30 Sep 2026
+                    </span>
+
+                </div>
+
+
+                <div class="cv-report-line">
+
+                    <div class="cv-report-label">
+                        Project
+                    </div>
+
+                    <div class="cv-report-content">
+                        Midrand Warehouse Development
+                    </div>
+
+                </div>
+
+
+                <div class="cv-report-line">
+
+                    <div class="cv-report-label">
+                        Weather
+                    </div>
+
+                    <div class="cv-report-content">
+                        Partly cloudy · 21°C
+                    </div>
+
+                </div>
+
+
+                <div class="cv-report-line">
+
+                    <div class="cv-report-label">
+                        Work completed
+                    </div>
+
+                    <div class="cv-report-content">
+                        Concrete preparation and electrical
+                        installation continued.
+                    </div>
+
+                </div>
+
+
+                <div class="cv-report-line">
+
+                    <div class="cv-report-label">
+                        Site activity
+                    </div>
+
+                    <div class="cv-report-tags">
+
+                        <span class="cv-report-tag">
+                            34 People
+                        </span>
+
+                        <span class="cv-report-tag">
+                            2 Deliveries
+                        </span>
+
+                        <span class="cv-report-tag">
+                            3 Tasks
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="cv-report-line">
+
+                    <div class="cv-report-label">
+                        Report status
+                    </div>
+
+                    <div class="cv-report-content cv-report-status-complete">
+                        Complete
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         CONTRACTORS
+         ===================================================== -->
+
+    <section
+        class="cv-section cv-section-light"
+        id="contractors"
+    >
+
+        <div class="cv-container">
+
+            <div class="cv-contractor-card">
+
+                <div class="cv-contractor-copy">
+
+                    <span class="cv-section-label">
+                        The subcontractor network effect
+                    </span>
+
+                    <h2>
+                        Your subcontractors don't need another paid seat.
+                    </h2>
+
+                    <p>
+                        Invite subcontractors into the work that belongs to them
+                        without opening your internal company workspace. They can
+                        access assigned projects, tasks, issues and evidence —
+                        free for them, forever.
+                    </p>
+
+
+                    <div class="cv-contractor-points">
+
+                        <div class="cv-contractor-point is-highlight">
+                            <i class="bi bi-check-circle-fill"></i>
+                            Subcontractor access is free
+                        </div>
+
+                        <div class="cv-contractor-point">
+                            <i class="bi bi-check-circle-fill"></i>
+                            One subcontractor workspace across their projects
+                        </div>
+
+                        <div class="cv-contractor-point">
+                            <i class="bi bi-check-circle-fill"></i>
+                            Assigned tasks and issues
+                        </div>
+
+                        <div class="cv-contractor-point">
+                            <i class="bi bi-check-circle-fill"></i>
+                            Photos and evidence
+                        </div>
+
+                        <div class="cv-contractor-point">
+                            <i class="bi bi-check-circle-fill"></i>
+                            Project-specific access
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="cv-contractor-visual">
+
+                    <div class="cv-portal-card">
+
+                        <div class="cv-portal-top">
+
+                            <strong>
+                                Contractor Workspace
+                            </strong>
+
+                            <span class="cv-online">
+                                Active
+                            </span>
+
+                        </div>
+
+
+                        <div class="cv-portal-id">
+
+                            <span>
+                                CONTRACTOR PORTAL ID
+                            </span>
+
+                            <strong>
+                                CV-7F82-31A9
+                            </strong>
+
+                        </div>
+
+
+                        <div class="cv-portal-list">
+
+                            <div class="cv-portal-item">
+
+                                <i class="bi bi-check2-square"></i>
+
+                                <span>
+                                    3 assigned tasks
+                                </span>
+
+                            </div>
+
+                            <div class="cv-portal-item">
+
+                                <i class="bi bi-exclamation-circle"></i>
+
+                                <span>
+                                    2 open issues
+                                </span>
+
+                            </div>
+
+                            <div class="cv-portal-item">
+
+                                <i class="bi bi-camera"></i>
+
+                                <span>
+                                    Project evidence
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         PRICING
+         ===================================================== -->
+
+    <section
+        class="cv-section"
+        id="pricing"
+    >
+
+        <div class="cv-container">
+
+            <div class="cv-section-heading">
+
+                <span class="cv-section-label">
+                    Simple pricing
+                </span>
+
+                <h2>
+                    One plan. Your whole company. Everything included.
+                </h2>
+
+                <p>
+                    No feature tiers. No per-user pricing. No implementation
+                    fees. Pay R699/month and get the full Coreva workflow
+                    for up to 10 active projects.
+                </p>
+
+            </div>
+
+
+            <div class="cv-pricing-wrap">
+
+                <div class="cv-pricing-card">
+
+                    <span class="cv-pricing-badge">
+                        COREVA
+                    </span>
+
+
+                    <h3>
+                        Coreva Construction Operations
+                    </h3>
+
+
+                    <p class="cv-pricing-description">
+                        Everything you need to keep daily construction
+                        operations organised across your active projects.
+                    </p>
+
+
+                    <!-- FREE TRIAL -->
+                    <div class="cv-pricing-trial">
+
+                        <div class="cv-pricing-trial-icon">
+                            <i class="bi bi-gift"></i>
+                        </div>
+
+                        <div class="cv-pricing-trial-content">
+
+                            <strong>
+                                14 days free
+                            </strong>
+
+                            <span>
+                                Full access · No credit card required
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PRICE -->
+                    <div class="cv-price">
+
+                        <strong>
+                            R699
+                        </strong>
+
+                        <span>
+                            / month
+                        </span>
+
+                    </div>
+
+
+                    <div class="cv-price-note">
+                        Up to 10 active projects ·
+                        Whole company · No per-user fees
+                    </div>
+
+
+                    <!-- CTA -->
+                    <a
+                        href="{% url 'register' %}"
+                        class="cv-primary-btn cv-pricing-button"
+                    >
+                        Start 14-Day Free Trial
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+
+
+                    <div class="cv-pricing-cancel-note">
+                        <i class="bi bi-check-circle-fill"></i>
+                        14-day free trial · No credit card required
+                    </div>
+
+
+                    <div class="cv-pricing-divider"></div>
+
+
+                    <div class="cv-included-title">
+                        Everything included
+                    </div>
+
+
+                    <div class="cv-pricing-list">
+
+                        <div class="cv-pricing-item">
+                            <i class="bi bi-check-circle-fill"></i>
+                            Projects
+                        </div>
+
+                        <div class="cv-pricing-item">
+                            <i class="bi bi-check-circle-fill"></i>
+                            Today's Work
+                        </div>
+
+                        <div class="cv-pricing-item">
+                            <i class="bi bi-check-circle-fill"></i>
+                            Daily inspections
+                        </div>
+
+                        <div class="cv-pricing-item">
+                            <i class="bi bi-check-circle-fill"></i>
+                            Issues & actions
+                        </div>
+
+                        <div class="cv-pricing-item">
+                            <i class="bi bi-check-circle-fill"></i>
+                            Tasks
+                        </div>
+
+                        <div class="cv-pricing-item">
+                            <i class="bi bi-check-circle-fill"></i>
+                            Daily reports
+                        </div>
+
+                        <div class="cv-pricing-item">
+                            <i class="bi bi-check-circle-fill"></i>
+                            Photos & evidence
+                        </div>
+
+                        <div class="cv-pricing-item">
+                            <i class="bi bi-check-circle-fill"></i>
+                            Weather
+                        </div>
+
+                        <div class="cv-pricing-item">
+                            <i class="bi bi-check-circle-fill"></i>
+                            Team members
+                        </div>
+
+                        <div class="cv-pricing-item">
+                            <i class="bi bi-check-circle-fill"></i>
+                            Subcontractor workspace
+                        </div>
+
+                        <div class="cv-pricing-item">
+                            <i class="bi bi-check-circle-fill"></i>
+                            PDF reports
+                        </div>
+
+                        <div class="cv-pricing-item">
+                            <i class="bi bi-check-circle-fill"></i>
+                            Priority email support
+                        </div>
+
+                    </div>
+
+
+                    <div class="cv-pricing-bottom">
+                        <i class="bi bi-people"></i>
+                        <span>
+                            <strong>Subcontractors join free.</strong>
+                            They only see the projects and work assigned
+                            to them. No implementation fees. Live in 15
+                            minutes. Cancel anytime.
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <!-- FOUNDER NOTE -->
+                <div class="cv-founder-note">
+
+                    <span class="cv-founder-note-label">
+                        Why I built Coreva
+                    </span>
+
+                    <p>
+                        I kept seeing the same operational problem: the site
+                        is busy, but the project record is scattered. Photos
+                        are in WhatsApp, inspections are on paper, issues
+                        need chasing and daily reports take time to assemble.
+
+                        I built Coreva to give growing South African
+                        contractors one simple place for the work happening
+                        on site.
+                    </p>
+
+                    <span class="cv-founder-note-sign">
+                        — Thulane, Founder of Coreva
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         FAQ
+         ===================================================== -->
+
+    <section
+        class="cv-section cv-section-light"
+        id="faq"
+    >
+
+        <div class="cv-container">
+
+            <div class="cv-section-heading">
+
+                <span class="cv-section-label">
+                    Frequently asked questions
+                </span>
+
+                <h2>
+                    Construction software questions, answered.
+                </h2>
+
+                <p>
+                    Straight answers about pricing, daily reports,
+                    subcontractors and getting started.
+                </p>
+
+            </div>
+
+
+            <div class="cv-faq">
+
+                <details class="cv-faq-item">
+
+                    <summary class="cv-faq-question">
+                        <span>What is Coreva?</span>
+                        <i class="bi bi-plus"></i>
+                    </summary>
+
+                    <p class="cv-faq-answer">
+                        Coreva is construction site management software for
+                        South African contractors. It brings projects, daily
+                        inspections, issues, tasks, photos, subcontractors
+                        and daily site reports into one place.
+                    </p>
+
+                </details>
+
+
+                <details class="cv-faq-item">
+
+                    <summary class="cv-faq-question">
+                        <span>How much does Coreva cost?</span>
+                        <i class="bi bi-plus"></i>
+                    </summary>
+
+                    <p class="cv-faq-answer">
+                        Coreva costs R699 per month and supports
+                        up to 10 active projects. The plan is for the whole
+                        company with no per-user fees. Start with a 14-day
+                        free trial with no credit card required.
+                    </p>
+
+                </details>
+
+
+                <details class="cv-faq-item">
+
+                    <summary class="cv-faq-question">
+                        <span>Can I manage multiple construction projects?</span>
+                        <i class="bi bi-plus"></i>
+                    </summary>
+
+                    <p class="cv-faq-answer">
+                        Yes. Coreva gives your company one place to
+                        manage multiple active construction projects.
+                        The current plan supports up to 10 active projects.
+                    </p>
+
+                </details>
+
+
+                <details class="cv-faq-item">
+
+                    <summary class="cv-faq-question">
+                        <span>Can subcontractors use Coreva?</span>
+                        <i class="bi bi-plus"></i>
+                    </summary>
+
+                    <p class="cv-faq-answer">
+                        Yes. Coreva includes a subcontractor workspace.
+                        Subcontractors can access the projects and work
+                        assigned to them without paying for their own
+                        Coreva subscription. They do not need access to
+                        your internal company workspace.
+                    </p>
+
+                </details>
+
+
+                <details class="cv-faq-item">
+
+                    <summary class="cv-faq-question">
+                        <span>Can Coreva create daily construction reports?</span>
+                        <i class="bi bi-plus"></i>
+                    </summary>
+
+                    <p class="cv-faq-answer">
+                        Yes. Coreva's daily reports can capture people
+                        onsite, work completed, weather, deliveries,
+                        delays, incidents, issues, tasks, notes and
+                        photos, with PDF reporting available.
+                    </p>
+
+                </details>
+
+
+                <details class="cv-faq-item">
+
+                    <summary class="cv-faq-question">
+                        <span>Is my data safe?</span>
+                        <i class="bi bi-plus"></i>
+                    </summary>
+
+                    <p class="cv-faq-answer">
+                        Coreva is designed with practical data protection
+                        and account security in mind. Your project records
+                        remain in your company workspace and access is
+                        controlled by user permissions.
+                    </p>
+
+                </details>
+
+
+                <details class="cv-faq-item">
+
+                    <summary class="cv-faq-question">
+                        <span>Is Coreva designed for South African construction companies?</span>
+                        <i class="bi bi-plus"></i>
+                    </summary>
+
+                    <p class="cv-faq-answer">
+                        Coreva is built in South Africa, for South
+                        African construction companies, contractors
+                        and subcontractors that need a practical way
+                        to manage everyday project and site operations.
+                    </p>
+
+                </details>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         FINAL CTA
+         ===================================================== -->
+
+    <section class="cv-final-cta">
+
+        <div class="cv-container">
+
+            <div class="cv-final-inner">
+
+                <h2>
+                    Stop chasing the site record. Start running it in one place.
+                </h2>
+
+                <p>
+                    Start with one real project. See how much easier daily
+                    site operations are when inspections, issues, tasks, photos
+                    and daily reports stay connected.
+                </p>
+
+
+                <div class="cv-final-actions">
+
+                    <a
+                        href="{% url 'register' %}"
+                        class="cv-primary-btn"
+                    >
+                        Start 14-Day Free Trial
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+
+                    <a
+                        href="#"
+                        class="cv-final-secondary"
+                    >
+                        <i class="bi bi-calendar-check"></i>
+                        Book a Demo
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+     ========================================================= -->
+
+<footer class="cv-footer">
+
+    <div class="cv-container cv-footer-inner">
+
+        <div>
+
+            <div class="cv-footer-brand">
+                Coreva
+            </div>
+
+            <div class="cv-footer-copy">
+                Construction site management software for South Africa.
+            </div>
+
+        </div>
+
+
+        <div class="cv-footer-links">
+
+            <a href="#features">Features</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#contractors">Contractors</a>
+            <a href="#pricing">Pricing</a>
+            <a href="#faq">FAQ</a>
+
+        </div>
+
+
+        <div class="cv-footer-meta">
+
+            <span class="cv-footer-badge">
+                <i class="bi bi-geo-alt"></i>
+                Built in South Africa
+            </span>
+
+            <span class="cv-footer-badge">
+                <i class="bi bi-shield-check"></i>
+                POPIA compliant
+            </span>
+
+            <a
+                class="cv-footer-whatsapp"
+                href="https://wa.me/27000000000"
+                target="_blank"
+                rel="noopener"
+            >
+                <i class="bi bi-whatsapp"></i>
+                WhatsApp us
+            </a>
+
+        </div>
+
+
+        <div class="cv-footer-copy">
+            © {% now "Y" %} Coreva. All rights reserved.
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- =========================================================
+     MOBILE NAV
+     ========================================================= -->
+
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    var toggle = document.getElementById("cvMobileToggle");
+
+    if (!toggle) {
+        console.error("Mobile toggle button not found");
+        return;
+    }
+
+    console.log("Mobile menu script loaded");
+
+    toggle.addEventListener("click", function (event) {
+
+        event.stopPropagation();
+
+        var existing = document.querySelector(".cv-mobile-menu");
+
+        if (existing) {
+            existing.remove();
+            toggle.setAttribute("aria-expanded", "false");
+            return;
+        }
+
+        var menu = document.createElement("div");
+        menu.className = "cv-mobile-menu";
+
+        menu.innerHTML =
+            '<a href="#features">Features</a>' +
+            '<a href="#how-it-works">How It Works</a>' +
+            '<a href="#contractors">Contractors</a>' +
+            '<a href="#pricing">Pricing</a>' +
+            '<a href="#faq">FAQ</a>' +
+            '<a href="/accounts/login/" class="cv-mobile-menu-login">Sign in</a>' +
+            '<a href="/accounts/register/" class="cv-mobile-menu-button">Start Free Trial</a>';
+
+        var links = menu.querySelectorAll("a");
+
+        for (var i = 0; i < links.length; i++) {
+            links[i].addEventListener("click", function () {
+                menu.remove();
+                toggle.setAttribute("aria-expanded", "false");
+            });
+        }
+
+        toggle.setAttribute("aria-expanded", "true");
+        document.body.appendChild(menu);
+
+    });
+
+    document.addEventListener("click", function (event) {
+
+        var menu = document.querySelector(".cv-mobile-menu");
+
+        if (!menu) return;
+
+        if (!menu.contains(event.target)) {
+            menu.remove();
+            toggle.setAttribute("aria-expanded", "false");
+        }
+
+    });
+
+    document.addEventListener("keydown", function (event) {
+
+        if (event.key !== "Escape") return;
+
+        var menu = document.querySelector(".cv-mobile-menu");
+
+        if (menu) {
+            menu.remove();
+            toggle.setAttribute("aria-expanded", "false");
+        }
+
+    });
+
+});
+</script>
+
+</body>
+
+</html>

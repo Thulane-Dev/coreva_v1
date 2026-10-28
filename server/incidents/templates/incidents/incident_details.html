@@ -1,0 +1,1076 @@
+{% load static %}
+<!-- divider  -->
+
+
+<div class="row d-flex justify-content-center">
+    <div class="col-12 col-md-10">
+        <div class="incident-details-page mt-0 pt-0">
+
+            <!-- =========================================================
+            COREVA MOBILE TOP NAVBAR AND LARGE SCREEN BACK BUTTON
+            ========================================================= -->
+            {% include 'partials/page_topbar.html' with next_url=next_url brand_name='Incident Details' brand_url='#' %}
+
+            <!-- =========================================================
+                INCIDENT HEADER
+            ========================================================== -->
+            <section class="incident-header mt-0">
+
+                <div class="incident-header-main">
+
+                    <div class="incident-header-icon">
+                        <span class="material-symbols-outlined">
+                            warning
+                        </span>
+                    </div>
+
+                    <div class="incident-header-content">
+
+                        <div class="incident-header-meta">
+
+                            <span class="incident-type-badge">
+                                {{ incident.get_incident_type_display }}
+                            </span>
+
+                            {% if incident.status == "open" %}
+                                <span class="incident-status-badge incident-status-open">
+                                    <span class="incident-status-dot"></span>
+                                    Open
+                                </span>
+                            {% else %}
+                                <span class="incident-status-badge incident-status-resolved">
+                                    <i class="bi bi-check-circle-fill"></i>
+                                    Resolved
+                                </span>
+                            {% endif %}
+                                <!-- divider  -->
+                            {% if incident.severity == "high" %}
+                                <span class="incident-severity-badge severity-high">
+                                    High Severity
+                                </span>
+                            {% elif incident.severity == "medium" %}
+                                <span class="incident-severity-badge severity-medium">
+                                    Medium Severity
+                                </span>
+                            {% else %}
+                                <span class="incident-severity-badge severity-low">
+                                    Low Severity
+                                </span>
+                            {% endif %}
+
+                        </div>
+
+                        <h1 class="incident-title">
+                            {{ incident.title|default:"Untitled Incident" }}
+                        </h1>
+
+                        {% if incident.project %}
+                            <a
+                                href="#"
+                                class="incident-project-link"
+                                hx-boost="true"
+                                hx-target="#content"
+                                hx-push-url="true"
+                            >
+                                <i class="bi bi-building"></i>
+                                {{ incident.project.project_name }}
+                                <i class="bi bi-arrow-up-right"></i>
+                            </a>
+                        {% endif %}
+
+                    </div>
+                </div>
+
+                <div class="incident-header-actions">
+                    <button
+                        type="button"
+                        class="btn incident-action-btn"
+                        data-bs-toggle="modal"
+                        data-bs-target="#updateIncidentModal"
+                    >
+                        <i class="bi bi-pencil"></i>
+                        Edit Incident
+                    </button>
+                </div>
+
+            </section>
+
+            <!-- =========================================================
+                MAIN CONTENT
+            ========================================================== -->
+            <div class="incident-content-grid">
+
+                <!-- =======================================================
+                    LEFT COLUMN
+                ======================================================== -->
+                <main class="incident-main-column">
+
+                    <!-- INCIDENT SUMMARY -->
+                    <section class="incident-card">
+
+                        <div class="incident-card-header">
+                            <div>
+                                <h5>Incident Overview</h5>
+                                <p>Key details recorded for this incident.</p>
+                            </div>
+                        </div>
+
+                        <div class="incident-info-grid">
+
+                            <div class="incident-info-item">
+                                <span class="incident-info-label">
+                                    Incident Date
+                                </span>
+
+                                <span class="incident-info-value">
+                                    <i class="bi bi-calendar3"></i>
+                                    {{ incident.incident_date|date:"d F Y" }}
+                                </span>
+                            </div>
+
+                            <div class="incident-info-item">
+                                <span class="incident-info-label">
+                                    Time
+                                </span>
+
+                                <span class="incident-info-value">
+                                    <i class="bi bi-clock"></i>
+
+                                    {% if incident.incident_time %}
+                                    <!-- divider  -->
+                                        {{ incident.incident_time|time:"g:i A" }}
+                                        <!-- divider  -->
+                                    {% else %}
+                                        <span class="text-muted">
+                                            Not recorded
+                                        </span>
+                                    {% endif %}
+                                </span>
+                            </div>
+
+                            <div class="incident-info-item">
+                                <span class="incident-info-label">
+                                    Location
+                                </span>
+
+                                <span class="incident-info-value">
+                                    <i class="bi bi-geo-alt"></i>
+
+                                    {% if incident.location %}
+                                    <!-- divider  -->
+                                        {{ incident.location }}
+                                        <!-- divider  -->
+                                    {% else %}
+                                        <span class="text-muted">
+                                            Not recorded
+                                        </span>
+                                    {% endif %}
+                                </span>
+                            </div>
+
+                            <div class="incident-info-item">
+                                <span class="incident-info-label">
+                                    Weather Conditions
+                                </span>
+
+                                <span class="incident-info-value">
+                                    <i class="bi bi-cloud-sun"></i>
+
+                                    {% if incident.weather_conditions %}
+                                    <!-- divider  -->
+                                        {{ incident.weather_conditions }}
+                                        <!-- divider  -->
+                                    {% else %}
+                                        <span class="text-muted">
+                                            Not recorded
+                                        </span>
+                                    {% endif %}
+                                </span>
+                            </div>
+
+                            <div class="incident-info-item">
+                                <span class="incident-info-label">
+                                    Work / Activity
+                                </span>
+
+                                <span class="incident-info-value">
+                                    <i class="bi bi-hammer"></i>
+
+                                    {% if incident.work %}
+                                    <!-- divider  -->
+                                        {{ incident.work }}
+                                        <!-- divider  -->
+                                    {% else %}
+                                        <span class="text-muted">
+                                            Not recorded
+                                        </span>
+                                    {% endif %}
+                                </span>
+                            </div>
+
+                            <div class="incident-info-item">
+                                <span class="incident-info-label">
+                                    Incident Type
+                                </span>
+
+                                <span class="incident-info-value">
+                                    <i class="bi bi-shield-exclamation"></i>
+                                    {{ incident.get_incident_type_display }}
+                                </span>
+                            </div>
+
+                        </div>
+
+                    </section>
+
+                    <!-- DESCRIPTION -->
+                    <section class="incident-card">
+
+                        <div class="incident-card-header">
+                            <div>
+                                <h5>What Happened?</h5>
+                                <p>Description of the incident.</p>
+                            </div>
+                        </div>
+
+                        <div class="incident-description">
+
+                            {% if incident.description %}
+                            <!-- divider  -->
+                                {{ incident.description|linebreaksbr }}
+                                <!-- divider  -->
+                            {% else %}
+                                <div class="incident-empty-content">
+                                    <i class="bi bi-file-text"></i>
+                                    <span>
+                                        No incident description has been recorded.
+                                    </span>
+                                </div>
+                            {% endif %}
+
+                        </div>
+
+                    </section>
+
+                    <!-- INJURIES -->
+                    <section class="incident-card">
+
+                        <div class="incident-card-header">
+
+                            <div>
+                                <h5>Injuries & Treatment</h5>
+                                <p>
+                                    Information about injuries resulting from the incident.
+                                </p>
+                            </div>
+
+                            {% if injured_people %}
+                                <span class="incident-count-badge">
+                                    {{ injured_people|length }}
+                                    <!-- divider  -->
+                                    {% if injured_people|length == 1 %}
+                                        Person
+                                    {% else %}
+                                        People
+                                    {% endif %}
+                                </span>
+                            {% endif %}
+
+                        </div>
+
+                        {% if injured_people %}
+
+                            <div class="injured-people-list">
+
+                                {% for person in injured_people %}
+
+                                    <div class="injured-person">
+
+                                        <div class="injured-person-avatar">
+                                            {{ person.first_name|first|upper }}{{ person.last_name|first|upper }}
+                                        </div>
+
+                                        <div class="injured-person-content">
+
+                                            <div class="injured-person-name">
+                                                {{ person.first_name }} {{ person.last_name }}
+                                            </div>
+
+                                            <div class="injured-person-details">
+
+                                                {% if person.injury %}
+                                                    <span>
+                                                        <strong>Injury:</strong>
+                                                        {{ person.injury }}
+                                                    </span>
+                                                {% endif %}
+
+                                                {% if person.body_part %}
+                                                    <span>
+                                                        <strong>Body part:</strong>
+                                                        {{ person.body_part }}
+                                                    </span>
+                                                {% endif %}
+
+                                                {% if person.treatment %}
+                                                    <span>
+                                                        <strong>Treatment:</strong>
+                                                        {{ person.treatment }}
+                                                    </span>
+                                                {% endif %}
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                {% endfor %}
+
+                            </div>
+
+                        {% else %}
+
+                            <div class="incident-empty-content">
+
+                                <div class="incident-empty-icon">
+                                    <i class="bi bi-person-check"></i>
+                                </div>
+
+                                <div>
+                                    <strong>No injured persons recorded</strong>
+                                    <span>
+                                        No injuries have been linked to this incident.
+                                    </span>
+                                </div>
+
+                            </div>
+
+                        {% endif %}
+
+                        {% if incident.injuries %}
+                            <div class="incident-text-section">
+
+                                <span class="incident-info-label">
+                                    Injury Summary
+                                </span>
+
+                                <p>
+                                    {{ incident.injuries|linebreaksbr }}
+                                </p>
+
+                            </div>
+                        {% endif %}
+
+                    </section>
+
+                    <!-- ACTION TAKEN -->
+                    <section class="incident-card">
+
+                        <div class="incident-card-header">
+                            <div>
+                                <h5>Action Taken</h5>
+                                <p>
+                                    Immediate and corrective actions recorded for this incident.
+                                </p>
+                            </div>
+                        </div>
+
+                        {% if incident.action_taken %}
+
+                            <div class="action-taken-box">
+
+                                <div class="action-taken-icon">
+                                    <i class="bi bi-check2-circle"></i>
+                                </div>
+
+                                <div>
+                                    {{ incident.action_taken|linebreaksbr }}
+                                </div>
+
+                            </div>
+
+                        {% else %}
+
+                            <div class="incident-empty-content">
+                                <i class="bi bi-clipboard-check"></i>
+                                <span>
+                                    No action has been recorded yet.
+                                </span>
+                            </div>
+
+                        {% endif %}
+
+                    </section>
+
+                    <!-- WITNESSES -->
+                    <section class="incident-card">
+
+                        <div class="incident-card-header">
+
+                            <div>
+                                <h5>Witnesses</h5>
+                                <p>
+                                    People who witnessed the incident.
+                                </p>
+                            </div>
+
+                            {% if witnesses %}
+                                <span class="incident-count-badge">
+                                    {{ witnesses|length }}
+                                </span>
+                            {% endif %}
+
+                        </div>
+
+                        {% if witnesses %}
+
+                            <div class="witness-list">
+
+                                {% for witness in witnesses %}
+
+                                    <div class="witness-item">
+
+                                        <div class="witness-avatar">
+                                            {{ witness.full_name|first|upper }}
+                                        </div>
+
+                                        <div class="witness-content">
+
+                                            <strong>
+                                                {{ witness.full_name }}
+                                            </strong>
+
+                                            {% if witness.contract %}
+                                                <span>
+                                                    {{ witness.contract }}
+                                                </span>
+                                            {% endif %}
+
+                                        </div>
+
+                                    </div>
+
+                                {% endfor %}
+
+                            </div>
+
+                        {% else %}
+
+                            <div class="incident-empty-content">
+                                <i class="bi bi-people"></i>
+                                <span>
+                                    No witnesses have been recorded.
+                                </span>
+                            </div>
+
+                        {% endif %}
+
+                    </section>
+
+                    <!-- ATTACHMENTS -->
+                    <section class="incident-card">
+
+                        <div class="incident-card-header">
+
+                            <div>
+                                <h5>Photos & Attachments</h5>
+                                <p>
+                                    Evidence and documents attached to this incident.
+                                </p>
+                            </div>
+
+                            {% if attachments %}
+                                <span class="incident-count-badge">
+                                    {{ attachments|length }}
+                                </span>
+                            {% endif %}
+
+                        </div>
+
+                        {% if attachments %}
+
+                            <div class="incident-attachments-grid">
+
+                                {% for attachment in attachments %}
+                                    <!-- divider -->
+                                    {% if attachment.photo %}
+
+                                        <div class="incident-photo">
+
+                                            <a
+                                                href="{{ attachment.photo.url }}"
+                                                target="_blank"
+                                            >
+                                                <img
+                                                    src="{{ attachment.photo.url }}"
+                                                    alt="{{ attachment.caption|default:'Incident photo' }}"
+                                                >
+                                            </a>
+
+                                            {% if attachment.caption %}
+                                                <div class="incident-photo-caption">
+                                                    {{ attachment.caption }}
+                                                </div>
+                                            {% endif %}
+
+                                        </div>
+
+                                    {% elif attachment.file %}
+
+                                        <a
+                                            href="{{ attachment.file.url }}"
+                                            target="_blank"
+                                            class="incident-file"
+                                        >
+
+                                            <div class="incident-file-icon">
+                                                <i class="bi bi-file-earmark-text"></i>
+                                            </div>
+
+                                            <div class="incident-file-content">
+
+                                                <strong>
+                                                    {{ attachment.file.name|cut:"media/project_files/" }}
+                                                </strong>
+
+                                                {% if attachment.caption %}
+                                                    <span>
+                                                        {{ attachment.caption }}
+                                                    </span>
+                                                {% endif %}
+
+                                            </div>
+
+                                            <i class="bi bi-box-arrow-up-right"></i>
+
+                                        </a>
+
+                                    {% endif %}
+
+                                {% endfor %}
+
+                            </div>
+
+                        {% else %}
+
+                            <div class="incident-empty-content">
+                                <i class="bi bi-paperclip"></i>
+                                <span>
+                                    No photos or attachments have been added.
+                                </span>
+                            </div>
+
+                        {% endif %}
+
+                    </section>
+
+                </main>
+
+                <!-- =======================================================
+                    RIGHT SIDEBAR
+                ======================================================== -->
+                <aside class="incident-sidebar">
+
+                    <!-- STATUS -->
+                    <section class="incident-side-card">
+
+                        <div class="incident-side-card-header">
+                            <span>Incident Status</span>
+                        </div>
+
+                        <div class="incident-status-display">
+
+                            {% if incident.status == "open" %}
+
+                                <div class="status-large-icon status-open-icon">
+                                    <i class="bi bi-exclamation-circle"></i>
+                                </div>
+
+                                <div>
+                                    <strong>Open</strong>
+                                    <span>Requires follow-up</span>
+                                </div>
+
+                            {% else %}
+
+                                <div class="status-large-icon status-resolved-icon">
+                                    <i class="bi bi-check-circle"></i>
+                                </div>
+
+                                <div>
+                                    <strong>Resolved</strong>
+                                    <span>Incident has been resolved</span>
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+                    </section>
+
+                    <!-- ASSIGNMENT -->
+                    <section class="incident-side-card">
+
+                        <div class="incident-side-card-header">
+                            <span>Assigned To</span>
+                        </div>
+
+                        {% if incident.assigned_to %}
+
+                            <div class="incident-user">
+
+                                <div class="incident-user-avatar">
+                                    {{ incident.assigned_to.first_name|first|upper }}{{ incident.assigned_to.last_name|first|upper }}
+                                </div>
+
+                                <div>
+                                    <strong>
+                                        {{ incident.assigned_to.first_name }}
+                                        {{ incident.assigned_to.last_name }}
+                                    </strong>
+
+                                    <span>
+                                        Assigned person
+                                    </span>
+                                </div>
+
+                            </div>
+
+                        {% else %}
+
+                            <div class="incident-unassigned">
+                                <i class="bi bi-person-plus"></i>
+                                <span>No one assigned</span>
+                            </div>
+
+                        {% endif %}
+
+                    </section>
+
+                    <!-- SEVERITY -->
+                    <section class="incident-side-card">
+
+                        <div class="incident-side-card-header">
+                            <span>Severity</span>
+                        </div>
+
+                        <div class="severity-display">
+
+                            {% if incident.severity == "high" %}
+
+                                <span class="severity-indicator severity-indicator-high"></span>
+
+                                <div>
+                                    <strong>High</strong>
+                                    <span>Immediate attention required</span>
+                                </div>
+
+                            {% elif incident.severity == "medium" %}
+
+                                <span class="severity-indicator severity-indicator-medium"></span>
+
+                                <div>
+                                    <strong>Medium</strong>
+                                    <span>Requires follow-up</span>
+                                </div>
+
+                            {% else %}
+
+                                <span class="severity-indicator severity-indicator-low"></span>
+
+                                <div>
+                                    <strong>Low</strong>
+                                    <span>Monitor and follow up</span>
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+                    </section>
+
+                    <!-- RECORD INFORMATION -->
+                    <section class="incident-side-card">
+
+                        <div class="incident-side-card-header">
+                            <span>Record Information</span>
+                        </div>
+
+                        <div class="incident-record-list">
+
+                            <div class="incident-record-row">
+                                <span>Created by</span>
+
+                                <strong>
+                                    {% if incident.created_by %}
+                                    <!-- divider  -->
+                                        {{ incident.created_by.first_name }}{{ incident.created_by.last_name }}
+                                        <!-- divider  -->
+                                    {% else %}
+                                        —
+                                    {% endif %}
+                                </strong>
+                            </div>
+
+                            <div class="incident-record-row">
+                                <span>Created</span>
+
+                                <strong>
+                                    {{ incident.created_at|date:"d M Y, g:i A" }}
+                                </strong>
+                            </div>
+
+                            <div class="incident-record-row">
+                                <span>Last updated</span>
+
+                                <strong>
+                                    {{ incident.updated_at|date:"d M Y, g:i A" }}
+                                </strong>
+                            </div>
+
+                        </div>
+
+                    </section>
+
+                    <!-- QUICK ACTIONS -->
+                    <section class="incident-side-card">
+
+                        <div class="incident-side-card-header">
+                            <span>Quick Actions</span>
+                        </div>
+
+                        <div class="incident-quick-actions">
+
+                            <button
+                                type="button"
+                                class="incident-quick-action"
+                                data-bs-toggle="modal"
+                                data-bs-target="#updateIncidentModal"
+                            >
+                                <i class="bi bi-pencil"></i>
+                                <span>Edit incident</span>
+                                <i class="bi bi-chevron-right"></i>
+                            </button>
+
+                            {% if incident.status == "open" %}
+
+                                <form
+                                    method="POST"
+                                    action="#"
+                                >
+                                    {% csrf_token %}
+
+                                    <button
+                                        type="submit"
+                                        class="incident-quick-action incident-resolve-action"
+                                    >
+                                        <i class="bi bi-check-circle"></i>
+                                        <span>Mark as resolved</span>
+                                        <i class="bi bi-chevron-right"></i>
+                                    </button>
+
+                                </form>
+
+                            {% endif %}
+
+                        </div>
+
+                    </section>
+
+                </aside>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- =========================================================
+     UPDATE INCIDENT MODAL
+========================================================== -->
+<div
+    class="modal fade"
+    id="updateIncidentModal"
+    tabindex="-1"
+    aria-hidden="true"
+>
+
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+
+        <div class="modal-content incident-update-modal">
+
+            <div class="modal-header">
+
+                <div>
+                    <h5 class="modal-title">
+                        Update Incident
+                    </h5>
+
+                    <p class="mb-0">
+                        Update the incident details and status.
+                    </p>
+                </div>
+
+                <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                ></button>
+
+            </div>
+
+            <form
+                method="POST"
+                action="#"
+            >
+
+                {% csrf_token %}
+
+                <div class="modal-body">
+
+                    <div class="row g-3">
+
+                        <div class="col-md-6">
+
+                            <label class="incident-form-label">
+                                Status
+                            </label>
+
+                            <select
+                                name="status"
+                                class="form-select"
+                            >
+                                <option
+                                    value="open"
+                                    {% if incident.status == "open" %}selected{% endif %}
+                                >
+                                    Open
+                                </option>
+
+                                <option
+                                    value="resolved"
+                                    {% if incident.status == "resolved" %}selected{% endif %}
+                                >
+                                    Resolved
+                                </option>
+                            </select>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label class="incident-form-label">
+                                Severity
+                            </label>
+
+                            <select
+                                name="severity"
+                                class="form-select"
+                            >
+                                <option
+                                    value="low"
+                                    {% if incident.severity == "low" %}selected{% endif %}
+                                >
+                                    Low
+                                </option>
+
+                                <option
+                                    value="medium"
+                                    {% if incident.severity == "medium" %}selected{% endif %}
+                                >
+                                    Medium
+                                </option>
+
+                                <option
+                                    value="high"
+                                    {% if incident.severity == "high" %}selected{% endif %}
+                                >
+                                    High
+                                </option>
+                            </select>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label class="incident-form-label">
+                                Incident Date
+                            </label>
+
+                            <input
+                                type="date"
+                                name="incident_date"
+                                class="form-control"
+                                value="{{ incident.incident_date|date:'Y-m-d' }}"
+                            >
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label class="incident-form-label">
+                                Incident Time
+                            </label>
+
+                            <input
+                                type="time"
+                                name="incident_time"
+                                class="form-control"
+                                {% if incident.incident_time %}
+                                    value="{{ incident.incident_time|time:'H:i' }}"
+                                {% endif %}
+                            >
+
+                        </div>
+
+                        <div class="col-12">
+
+                            <label class="incident-form-label">
+                                Title
+                            </label>
+
+                            <input
+                                type="text"
+                                name="title"
+                                class="form-control"
+                                value="{{ incident.title }}"
+                            >
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label class="incident-form-label">
+                                Location
+                            </label>
+
+                            <input
+                                type="text"
+                                name="location"
+                                class="form-control"
+                                value="{{ incident.location }}"
+                            >
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label class="incident-form-label">
+                                Work / Activity
+                            </label>
+
+                            <input
+                                type="text"
+                                name="work"
+                                class="form-control"
+                                value="{{ incident.work }}"
+                            >
+
+                        </div>
+
+                        <div class="col-12">
+
+                            <label class="incident-form-label">
+                                Description
+                            </label>
+
+                            <textarea
+                                name="description"
+                                class="form-control"
+                                rows="4"
+                            >{{ incident.description }}</textarea>
+
+                        </div>
+
+                        <div class="col-12">
+
+                            <label class="incident-form-label">
+                                Action Taken
+                            </label>
+
+                            <textarea
+                                name="action_taken"
+                                class="form-control"
+                                rows="4"
+                            >{{ incident.action_taken }}</textarea>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label class="incident-form-label">
+                                Weather Conditions
+                            </label>
+
+                            <input
+                                type="text"
+                                name="weather_conditions"
+                                class="form-control"
+                                value="{{ incident.weather_conditions }}"
+                            >
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <label class="incident-form-label">
+                                Assigned To
+                            </label>
+
+                            <select
+                                name="assigned_to"
+                                class="form-select"
+                            >
+
+                                <option value="">
+                                    Unassigned
+                                </option>
+
+                                {% for member in team_members %}
+
+                                    <option
+                                        value="{{ member.id }}"
+                                        {% if incident.assigned_to_id == member.id %}selected{% endif %}
+                                    >
+                                        {{ member.first_name }}
+                                        {{ member.last_name }}
+                                    </option>
+
+                                {% endfor %}
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button
+                        type="button"
+                        class="btn btn-light"
+                        data-bs-dismiss="modal"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+                        <i class="bi bi-check2"></i>
+                        Save Changes
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,1175 @@
+{% load static %}
+<div class="row d-flex justify-content-center mt-0 pt-0">
+  <div class="col-12 col-lg-8">
+    <div>
+    <!-- =========================================================
+    COREVA MOBILE TOP NAVBAR AND LARGE SCREEN BACK BUTTON
+    ========================================================= -->
+    {% url 'report:project-reports' project.uuid  as back_url %}
+    <!-- -------------------------------------------  -->
+    {% include 'partials/page_topbar.html' with next_url=next_url back_url=back_url brand_name='Daily Report' brand_url=back_url %}
+
+
+      <a href="{% url 'report:report-placeholder' report.uuid %}">Report PDF HTML</a>
+
+
+      <!-- ================================
+           ADMIN SIGN-OFF ALERT
+      ================================= -->
+      {% if report.status == 'submitted' %}
+        <!-- divider  -->
+        {% if report.admin_sign_off == None %}
+          <div class="inspection-signoff-alert mb-3">
+              <div class="inspection-signoff-icon">
+                  <i class="bi bi-person-check"></i>
+              </div>
+
+              <div class="inspection-signoff-content">
+                  <span class="inspection-signoff-title">
+                      Awaiting Admin Review
+                  </span>
+
+                  <span class="inspection-signoff-text">
+                      This daily report has been submitted and is awaiting admin review and approval.
+                  </span>
+              </div>
+
+                {% if current_user.role == 'admin' %}
+                    <form
+                        class="inspection-signoff-form"
+                        method="POST"
+                    >
+                        {% csrf_token %}
+
+                        <button
+                            type="submit"
+                            class="inspection-signoff-action"
+                            name="approve_report"
+                        >
+                            <i class="bi bi-check2"></i>
+                            Approve Report
+                        </button>
+                    </form>
+                {% endif %}
+              
+          </div>
+        {% endif %}
+        <!-- divider  -->
+      {% endif %}
+
+
+      <!-- ================================
+           ADMIN SIGN-OFF ALERT
+      ================================= -->
+      {% if report.admin_sign_off %}
+      <div class="inspection-signedoff-alert mb-3">
+          <div class="inspection-signedoff-icon">
+              <i class="bi bi-patch-check"></i>
+          </div>
+
+          <div class="inspection-signedoff-content">
+              <span class="inspection-signedoff-title">
+                  Report Approved
+              </span>
+
+              <span class="inspection-signedoff-text">
+                  This report has been reviewed and signed off by {{report.admin_sign_off.first_name}} {{report.admin_sign_off.last_name}}.
+              </span>
+          </div>
+
+          <i class="bi bi-check-circle-fill inspection-signedoff-status-icon"></i>
+      </div>
+      {% endif %}
+
+
+      <!-- REPORT MESSAGE -->
+      <div
+        class="report-status-banner {% if report.status == 'submitted' %} report-success-banner {% else %} report-incomplete-banner {% endif %}"
+      >
+        <div class="report-banner-icon">
+          {% if report.status == 'submitted' %}
+
+          <i class="bi bi-check-lg"></i>
+
+          {% else %}
+
+          <i class="bi bi-pencil-fill"></i>
+
+          {% endif %}
+        </div>
+
+        <div>
+          {% if report.status == 'submitted' %}
+
+          <strong class="font_size_12"> Report submitted </strong>
+
+          <span class="font_size_11">
+            This daily report has been completed successfully.
+          </span>
+
+          {% else %}
+
+          <strong class="font_size_12"> Report incomplete </strong>
+
+          <span class="font_size_11">
+            Continue the report and submit today's information.
+          </span>
+
+          {% endif %}
+        </div>
+      </div>
+
+    <form
+      method="POST"
+      action="{% url 'report:save-report' report_data.report.uuid %}"
+      enctype="multipart/form-data"
+    >
+      {% csrf_token %}
+      <section class="daily_report_page">
+        <!-- ================= Daily Report Header ================= -->
+        <div class="daily_report_header">
+          
+          <div class="report_header_content">
+            <div class="report_header_icon">
+              <i class="bi bi-file-earmark-text"></i>
+            </div>
+
+            <div class="report_header_info">
+              <div class="report_header_eyebrow">DAILY REPORT</div>
+
+              <h1>{{ project.project_name }}</h1>
+
+              <div class="report_header_location">
+                <i class="bi bi-geo-alt-fill"></i>
+                <span>
+                  {{ project.location.street_address }},
+                  <!-- divider  -->
+                  {{ project.location.city}}, {{ project.location.province }}
+                </span>
+              </div>
+
+              <div class="report_header_meta">
+                <span>
+                  <i class="bi bi-hash"></i>
+                  {{report_data.report.reference}}
+                </span>
+
+                <span>
+                  <i class="bi bi-calendar3"></i>
+                  {{ report_data.report.report_date|date:"l d F Y" }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= Report Details ================= -->
+        <section class="report_form_section">
+          <div class="report_section_header">
+            <div class="report_section_icon blue">
+              <i class="bi bi-file-text"></i>
+            </div>
+
+            <div>
+              <h2>Report Details</h2>
+              <p>Basic information about this daily report.</p>
+            </div>
+          </div>
+
+          <div class="report_info_grid">
+            <div class="report_info_item">
+              <span>Report Number</span>
+              <strong>{{report_data.report.reference}}</strong>
+            </div>
+
+            <div class="report_info_item">
+              <span>Report Date</span>
+              <strong>
+                {{ report_data.report.report_date|date:"d F Y" }}
+              </strong>
+            </div>
+
+            <div class="report_info_item">
+              <span>Day</span>
+              <strong> {{ report_data.report.report_date|date:"l" }} </strong>
+            </div>
+
+            <div class="report_info_item">
+              <span>Prepared By</span>
+              <strong>
+                {{ report_data.report.created_by.first_name }}
+                <!-- divider  -->
+                {{report_data.report.created_by.last_name }}
+              </strong>
+            </div>
+          </div>
+
+          <div class="report_form_grid">
+            <div class="report_field mobile-input">
+              <label> Site Supervisor / Foreman </label>
+
+              {% if report_data.report.created_by %}
+              <input
+                type="text"
+                class="report_input new_inputs_css"
+                name="foreman"
+                placeholder="Name & Surname"
+                value="{{ report_data.report.created_by.first_name }} {{ report_data.report.created_by.last_name }}"
+              />
+              {% else %}
+              <input
+                type="text"
+                class="report_input new_inputs_css"
+                name="foreman"
+                placeholder="Name & Surname"
+              />
+              {% endif %}
+            </div>
+
+            <div class="report_field mobile-input">
+              <label>Superintendent</label>
+
+              {% if report_data.report.superintendent == None %}
+              <input
+                type="text"
+                class="report_input new_inputs_css"
+                name="superintendent"
+                placeholder="Name & Surname"
+              />
+              {% else %}
+              <input
+                type="text"
+                class="report_input new_inputs_css"
+                name="superintendent"
+                placeholder="Name & Surname"
+                value="{{report_data.report.superintendent}}"
+              />
+              {% endif %}
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-6">
+              <div class="mb-3">
+                <label for="work_start_time" class="form-label input_label"
+                  >Work Start Time</label
+                >
+                <input
+                  id="work_start_time"
+                  type="time"
+                  class="form-control report_input new_inputs_css"
+                  name="work_start_time"
+                  onfocus="this.showPicker()"
+                  onclick="this.showPicker()"
+                  value="{{ report_data.report.work_start_time|time:'H:i' }}"
+                />
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="mb-3">
+                <label for="work_end_time" class="form-label input_label"
+                  >Work End Time</label
+                >
+                <input
+                  id="work_end_time"
+                  type="time"
+                  class="form-control report_input new_inputs_css"
+                  name="work_end_time"
+                  onfocus="this.showPicker()"
+                  onclick="this.showPicker()"
+                  value="{{ report_data.report.work_end_time|time:'H:i' }}"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= Weather Conditions ================= -->
+        <section class="report_form_section">
+          <div class="report_section_header">
+            <div class="report_section_icon weather">
+              <i class="bi bi-cloud-sun"></i>
+            </div>
+
+            <div>
+              <h2>Weather Conditions</h2>
+              <p>Weather conditions recorded for today's work.</p>
+            </div>
+          </div>
+
+          <div class="weather_summary">
+            <div class="weather_main">
+              <i class="bi bi-cloud-sun weather_main_icon"></i>
+
+              <div>
+                <span>Current Conditions</span>
+                <strong style="color: transparent !important">%</strong>
+                <input
+                  type="text"
+                  class="report_input new_inputs_css"
+                  name="weather_condition"
+                  value="{{ weather.condition }}"
+                />
+              </div>
+            </div>
+
+            <div class="weather_stat">
+              <span>Temperature</span>
+              <strong>°C</strong>
+              <input
+                type="text"
+                class="report_input new_inputs_css"
+                name="weather_temperature"
+                value="{{ weather.temperature}}"
+              />
+            </div>
+
+            <div class="weather_stat">
+              <span>High</span>
+              <strong>°C</strong>
+              <input
+                type="text"
+                class="report_input new_inputs_css"
+                name="weather_max_temperature"
+                value="{{ weather.max_temperature}}"
+              />
+            </div>
+
+            <div class="weather_stat">
+              <span>Low</span>
+              <strong>°C</strong>
+              <input
+                type="text"
+                class="report_input new_inputs_css"
+                name="weather_min_temperature"
+                value="{{ weather.min_temperature }}"
+              />
+            </div>
+
+            <div class="weather_stat">
+              <span>Rain</span>
+              <strong>%</strong>
+              <input
+                type="text"
+                class="report_input new_inputs_css"
+                name="weather_rain_probability"
+                value="{{ weather.rain_probability }}"
+              />
+            </div>
+
+            <div class="weather_stat">
+              <span>Rainfall</span>
+              <strong>mm</strong>
+              <input
+                type="text"
+                class="report_input new_inputs_css"
+                name="weather_rainfall"
+                value="{{ weather.rainfall }}"
+              />
+            </div>
+
+            <div class="weather_stat">
+              <span>Wind</span>
+              <strong>km/h</strong>
+              <input
+                type="text"
+                class="report_input new_inputs_css"
+                name="weather_wind_speed"
+                value="{{ weather.wind_speed }}"
+              />
+            </div>
+
+            <div class="weather_stat">
+              <span>Humidity</span>
+              <strong>%</strong>
+              <input
+                type="text"
+                class="report_input new_inputs_css"
+                name="weather_humidity"
+                value="{{ weather.humidity }}"
+              />
+            </div>
+          </div>
+
+          <div class="report_field report_field_full">
+            <label>Weather Comments</label>
+
+            <textarea
+              name="weather_comment"
+              class="report_input report_textarea mobile-input new_inputs_css"
+              rows="3"
+              placeholder="Add any weather-related comments..."
+            >
+{{report_data.report.weather_comment}}</textarea
+            >
+          </div>
+        </section>
+
+        <!-- ================= Site Attendance ================= -->
+        <section class="report_form_section">
+          <div class="report_section_header">
+            <div class="report_section_icon green">
+              <i class="bi bi-people"></i>
+            </div>
+
+            <div>
+              <h2>Site Attendance</h2>
+              <p>Record everyone present on site today.</p>
+            </div>
+          </div>
+
+          <div class="attendance_grid">
+            <div class="attendance_card">
+              <div class="attendance_icon">
+                <i class="bi bi-person-workspace"></i>
+              </div>
+
+              <div>
+                <span>Workers</span>
+                <input
+                  type="number"
+                  name="workers_count"
+                  value="{{report_data.report.workers_count}}"
+                  min="0"
+                />
+              </div>
+            </div>
+
+            <div class="attendance_card">
+              <div class="attendance_icon">
+                <i class="bi bi-building"></i>
+              </div>
+
+              <div>
+                <span>Contractors</span>
+
+                <input
+                  type="number"
+                  name="contractors_count"
+                  value="{{report_data.report.contractors_count}}"
+                  min="0"
+                />
+              </div>
+            </div>
+
+            <div class="attendance_card">
+              <div class="attendance_icon">
+                <i class="bi bi-person-plus"></i>
+              </div>
+
+              <div>
+                <span>Visitors</span>
+
+                <input
+                  type="number"
+                  name="visitors_count"
+                  value="{{report_data.report.visitors_count}}"
+                  min="0"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="report_form_grid mt-4">
+            <div class="report_field">
+              <label>Workers Notes</label>
+              <textarea
+                class="report_input report_textarea mobile-input new_inputs_css"
+                name="workers_comment"
+                rows="3"
+                placeholder="Additional notes..."
+              >
+{{report_data.report.workers_comment}}</textarea
+              >
+            </div>
+
+            <div class="report_field">
+              <label>Contractors Notes</label>
+              <textarea
+                class="report_input report_textarea mobile-input new_inputs_css"
+                name="contractors_comment"
+                rows="3"
+                placeholder="Additional notes..."
+              >
+{{report_data.report.contractors_comment}}</textarea
+              >
+            </div>
+
+            <div class="report_field">
+              <label>Visitors Notes</label>
+              <textarea
+                class="report_input report_textarea mobile-input new_inputs_css"
+                name="visitors_comment"
+                rows="3"
+                placeholder="Additional notes..."
+              >
+{{report_data.report.visitors_comment}}</textarea
+              >
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= Toolbox Talk ================= -->
+        <section class="report_form_section">
+          <div class="report_section_header">
+            <div class="report_section_icon orange">
+              <i class="bi bi-shield-check"></i>
+            </div>
+
+            <div>
+              <h2>Toolbox Talk</h2>
+              <p>Record today's toolbox talk and attendance.</p>
+            </div>
+          </div>
+
+          <div class="toolbox_status">
+            <div>
+              <span class="toolbox_question"> Toolbox talk held today? </span>
+
+              <small> Was a toolbox talk conducted before work started? </small>
+            </div>
+            <!-- <div class="toolbox_choices d-flex align-items-center gap-3 mt-2">
+              <label class="toolbox_choice d-flex align-items-center gap-2">
+                <input
+                  type="radio"
+                  name="toolbox_held"
+                  value="True"
+                  {% if report_data.report.toolbox_talk_held == True %}checked{% endif %}
+                />
+                <span class="font_size_14">
+                  <i class="bi bi-check-lg"></i>
+                  Yes
+                </span>
+              </label>
+              <label class="toolbox_choice d-flex align-items-center gap-2">
+                <input
+                  type="radio"
+                  name="toolbox_held"
+                  value="False"
+                  {% if report_data.report.toolbox_talk_held == False %}checked{% endif %}
+                />
+                <span class="font_size_14">
+                  <i class="bi bi-x-lg"></i>
+                  No
+                </span>
+              </label>
+            </div> -->
+          </div>
+
+          <div class="report_form_grid mt-4">
+            <div class="report_field">
+              <label>Total Attendees</label>
+              <input
+                type="number"
+                class="report_input mobile-input new_inputs_css"
+                name="total_attendees"
+                value="{{report_data.report.toolbox_attendees_count}}"
+                min="0"
+              />
+            </div>
+
+            <div class="report_field">
+              <label>Toolbox Talk Topic</label>
+              <input
+                type="text"
+                class="report_input mobile-input new_inputs_css"
+                name="toolbox_topic"
+                placeholder="e.g. Fall Protection"
+                value="{{report_data.report.toolbox_talk_topic}}"
+              />
+            </div>
+          </div>
+
+          <div class="report_field mt-4">
+            <label>Toolbox Talk Notes</label>
+            <textarea
+              name="toolbox_notes"
+              class="report_input mobile-input new_inputs_css report_textarea"
+              rows="3"
+              value="{{report_data.report.safety_issues}}"
+              placeholder="Add any toolbox talk related comments..."
+            >
+{{report_data.report.safety_issues}}</textarea
+            >
+          </div>
+        </section>
+
+        <!-- ================= Daily Inspection ================= -->
+        <section class="report_form_section report_list_section">
+          <div class="report_section_header report_section_header_action">
+            <div class="report_section_header_left">
+              <div
+                class="report_section_icon blue"
+                style="
+                  background-color: #f3efff !important;
+                  color: rgb(115, 84, 199) !important;
+                "
+              >
+                <i class="bi bi-calendar-check"></i>
+              </div>
+
+              <div>
+                <div class="d-flex align-items-center gap-2">
+                  <h2>Daily Inspection - {{report_data.inspection_status}}</h2>
+                </div>
+                {% if report.is_missed_report == True %}
+                <p>{{report_data.report.report_date|date:"l d F Y" }} - safety checklist</p>
+                {% else %}
+                <p>Today's safety checklist</p>
+                {% endif %}
+              </div>
+            </div>
+
+            <a href="{% if inspection %}{% url 'inspections:checklist' project.uuid inspection.uuid %}?next={{ request.get_full_path|urlencode }}{% else %}{% url 'inspections:checklist' project.uuid %}?next={{ request.get_full_path|urlencode }}{% endif %}">
+              <button type="button" class="report_add_button">
+                <span>{{report_data.inspection_btn}}</span>
+                <i class="bi bi-arrow-right"></i>
+              </button>
+            </a>
+          </div>
+
+          {% if report_data.categories %}
+          <!-- CHECKLIST ITEMS  -->
+          {% for category in report_data.categories %}
+          <div class="report_record mb-2">
+            <div
+              class="report_record_icon"
+              style="
+                background-color: #f3efff !important;
+                color: rgb(115, 84, 199) !important;
+              "
+            >
+              <i class="bi bi-calendar-check"></i>
+            </div>
+            <div class="report_record_content">
+              <strong> {{category.category.name}} — {{category.status}}</strong>
+              {% if category.failed_questions > 0 %}
+              <span class="text-danger" style="font-weight: 600"
+                >{{category.failed_questions}} Failed</span
+              >
+              {% endif %}
+            </div>
+          </div>
+          {% endfor %}
+          <!-- Empty state  -->
+          {% else %}
+          <div class="report_empty_state">
+            <i class="bi bi-calendar-check"></i>
+            <span>Daily Inspection Not Started</span>
+            <a href="{% if inspection %}{% url 'inspections:checklist' project.uuid inspection.uuid %}?next={{ request.get_full_path|urlencode }}{% else %}{% url 'inspections:checklist' project.uuid %}?next={{ request.get_full_path|urlencode }}{% endif %}">
+              <button type="button" class="report_empty_add">
+                Start Inspection
+                <i class="bi bi-arrow-right"></i>
+              </button>
+            </a>
+          </div>
+          {% endif %}
+        </section>
+
+        <!-- ================= Test Form ================= -->
+        <div class="section-scroll d-none" id="test_form">
+          {% include 'partials/test_form.html' %}
+        </div>
+
+        <!-- ================= Issues ================= -->
+        <div class="section-scroll" id="report_issues">
+          {% include 'partials/issues_report_partial.html' %}
+        </div>
+
+        <!-- ================= Tasks ================= -->
+        <div class="section-scroll" id="report_tasks">
+          {% include 'partials/tasks_report_partial.html' %}
+        </div>
+
+        <!-- ================= Incident ================= -->
+        <div class="section-scroll" id="report_incident">
+          {% include 'partials/incident_report_partial.html' %}
+        </div>
+
+        <!-- ================= Deliveries ================= -->
+        <div class="section-scroll" id="report_deliveries">
+          {% include 'partials/delivery_report_partial.html' %}
+        </div>
+
+        <!-- ================= Work Completed ================= -->
+        <section class="report_form_section">
+          <div class="report_section_header report_section_header_action">
+            <div class="report_section_header_left">
+              <div class="report_section_icon green">
+                <i class="bi bi-clipboard-check"></i>
+              </div>
+
+              <div>
+                <h2>Work Completed</h2>
+                <p>Record work completed on site today.</p>
+              </div>
+            </div>
+          </div>
+          <textarea
+            class="report_input report_textarea mobile-input new_inputs_css"
+            id="notes"
+            name="work_completed"
+            rows="5"
+            placeholder="No work progress recorded yet"
+          >
+{{report_data.report.work_completed}}</textarea
+          >
+        </section>
+
+        <!-- ================= Delays ================= -->
+        <section class="report_form_section">
+          <div class="report_section_header report_section_header_action">
+            <div class="report_section_header_left">
+              <div
+                class="report_section_icon green"
+                style="
+                  background-color: #fff0f1 !important;
+                  color: rgb(214, 57, 72) !important;
+                "
+              >
+                <i class="bi bi-clock-history"></i>
+              </div>
+
+              <div>
+                <h2>Delays</h2>
+                <p>Record any delays that affected work on site today.</p>
+              </div>
+            </div>
+          </div>
+
+          <textarea
+            class="report_input report_textarea mobile-input new_inputs_css"
+            id="delays"
+            name="delays"
+            rows="5"
+            placeholder="Describe any delays, their cause, and how they affected today's work..."
+          >
+{{report_data.report.delays}}</textarea
+          >
+        </section>
+
+        <!-- ================= Tomorrow's Planned Work ================= -->
+        <div class="section-scroll" id="planned_work">
+          {% include 'partials/planned_work.html' %}
+        </div>
+
+        <!-- ================= Additional Notes ================= -->
+        <section class="report_form_section">
+          <div class="report_section_header">
+            <div class="report_section_icon gray">
+              <i class="bi bi-journal-text"></i>
+            </div>
+
+            <div>
+              <h2>Additional Notes</h2>
+              <p>Anything else that should be included in today's report.</p>
+            </div>
+          </div>
+
+          <textarea
+            class="report_input report_textarea mobile-input new_inputs_css"
+            id="notes"
+            name="notes"
+            rows="5"
+            placeholder="Add any additional comments..."
+          >
+{{report_data.report.notes}}</textarea
+          >
+        </section>
+
+        <!-- ================= Photos & Attachments ================= -->
+        <section class="incident_form_section">
+          <div class="incident_section_header">
+            <div class="report_section_icon purple">
+              <i class="bi bi-images"></i>
+            </div>
+
+            <div>
+              <h2>Photos & Attachments</h2>
+              <p>Add photos or documents related to today's report.</p>
+            </div>
+          </div>
+
+          <input
+            type="file"
+            name="report_attachments"
+            id="report_attachments"
+            class="d-none"
+            accept="image/*,.pdf,.doc,.docx,.xls,.xlsx"
+            multiple
+          />
+
+          <div
+            id="report-attachment-preview"
+            class="incident_photo_preview row g-2 mb-3"
+          ></div>
+
+          <label for="report_attachments" class="incident_upload">
+            <div class="incident_upload_icon">
+              <i class="bi bi-paperclip"></i>
+            </div>
+
+            <div class="incident_upload_content">
+              <strong>Add report photos or attachments</strong>
+
+              <span>Take photos or choose files from your device</span>
+
+              <small id="report_file_count">No files selected</small>
+            </div>
+
+            <i class="bi bi-plus-lg incident_upload_plus"></i>
+          </label>
+        </section>
+
+        <!-- ================= Report Attachments ================= -->
+        {% if attachments %}
+          <div class="mt-3" id="reportAttachments">
+              {% include 'partials/report_attachments_partial.html' %}
+          </div>
+        {% endif %}
+
+        <!-- ================= Report Actions LARGE SCREEN  ================= -->
+        <div class="report_actions d-none d-md-block">
+          <button type="submit" name="save_draft" class="report_save_draft">
+            <i class="bi bi-floppy"></i>
+            Save Draft
+          </button>
+
+          <button type="submit" name="submit_report" class="report_submit">
+            <i class="bi bi-check-lg"></i>
+            Submit Report
+          </button>
+        </div>
+
+        <!-- =========================
+        MOBILE SUBMIT FORM
+        ========================= -->
+        <nav class="cv-bottom-nav d-lg-none">
+
+            <div class="inspection_actions_form mt-0 mt-2 w-100">
+              <div class="inspection_actions">
+                <button type="submit" name="save_draft" class="report_save_draft border-primary text-primary">
+                  <i class="bi bi-floppy"></i>
+                  Save Draft
+                </button>
+
+                <button type="submit" name="submit_report" class="report_submit">
+                  <i class="bi bi-check-lg"></i>
+                  Submit Report
+                </button>
+              </div>
+            </div>
+        </nav>
+      </section>
+    </form>
+
+    <!-- DOWNLOAD PDF REPORT  -->
+    <section class="drp-pdf-section">
+      <div class="drp-pdf-content">
+          <div class="drp-pdf-icon">
+              <i class="bi bi-file-earmark-pdf"></i>
+          </div>
+
+          <div class="drp-pdf-info">
+              <h3>Daily Report PDF</h3>
+
+              {% if report.status == "submitted" or report.status == "approved" %}
+                  <p>
+                      Your daily report is ready to download as a PDF.
+                  </p>
+              {% else %}
+                  <p>
+                      The PDF will be available once this daily report has been submitted.
+                  </p>
+              {% endif %}
+          </div>
+
+          <div class="drp-pdf-action">
+              {% if report.status == "submitted" or report.status == "approved" %}
+                  <a
+                      href="{% url 'report:daily-report-pdf' report_data.report.uuid %}"
+                      class="drp-pdf-btn"
+                      target="_blank"
+                  >
+                      <i class="bi bi-download"></i>
+                      Download PDF
+                  </a>
+              {% else %}
+                  <button
+                      type="button"
+                      class="drp-pdf-btn drp-pdf-btn-disabled"
+                      disabled
+                  >
+                      <i class="bi bi-lock"></i>
+                      PDF Unavailable
+                  </button>
+              {% endif %}
+          </div>
+      </div>
+  </section>
+  </div>
+</div>
+
+<!-- GET LOCATION SCRIPT  -->
+<script>
+  function getLocation() {
+    if (!navigator.geolocation) {
+      alert("Geolocation is not supported by your browser.");
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      function (position) {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+
+        document.getElementById("latitude").value = latitude;
+        document.getElementById("longitude").value = longitude;
+
+        console.log("Latitude:", latitude);
+        console.log("Longitude:", longitude);
+      },
+
+      function (error) {
+        console.log("Location error:", error);
+
+        alert(
+          "We couldn't get your location. " +
+            "Please enter the project location manually.",
+        );
+      },
+    );
+  }
+</script>
+
+<!-- DELIVERY SCROLL SCRIPT  -->
+<script>
+  document.body.addEventListener("htmx:afterSwap", function (event) {
+    if (event.target.id === "report_deliveries") {
+      event.target.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  });
+</script>
+
+<!-- ISSUE SCROLL SCRIPT  -->
+<script>
+  document.body.addEventListener("htmx:afterSwap", function (event) {
+    if (event.target.id === "report_issues") {
+      event.target.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  });
+</script>
+
+<!-- TASKS SCROLL SCRIPT  -->
+<script>
+  document.body.addEventListener("htmx:afterSwap", function (event) {
+    if (event.target.id === "report_tasks") {
+      event.target.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  });
+</script>
+
+<!-- INCIDENTS SCROLL SCRIPT  -->
+<script>
+  document.body.addEventListener("htmx:afterSwap", function (event) {
+    if (event.target.id === "report_incident") {
+      event.target.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  });
+</script>
+
+<!-- PLANNED WORK SCROLL SCRIPT  -->
+<script>
+  document.body.addEventListener("htmx:afterSwap", function (event) {
+    if (event.target.id === "planned_work") {
+      event.target.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  });
+</script>
+
+<!-- REPORT ATTACHMENTS -->
+<script>
+  function reportAttachments() {
+    const attachmentInput = document.getElementById("report_attachments");
+
+    const attachmentPreview = document.getElementById(
+      "report-attachment-preview",
+    );
+
+    const fileCount = document.getElementById("report_file_count");
+
+    if (!attachmentInput || !attachmentPreview) {
+      return;
+    }
+
+    if (attachmentInput.dataset.initialized === "true") {
+      return;
+    }
+
+    attachmentInput.dataset.initialized = "true";
+
+    let selectedFiles = [];
+
+    attachmentInput.addEventListener("change", function () {
+      const newFiles = Array.from(this.files);
+
+      selectedFiles = [...selectedFiles, ...newFiles];
+
+      updateInputFiles();
+      renderPreviews();
+      updateFileCount();
+    });
+
+    function updateInputFiles() {
+      const dataTransfer = new DataTransfer();
+
+      selectedFiles.forEach(function (file) {
+        dataTransfer.items.add(file);
+      });
+
+      attachmentInput.files = dataTransfer.files;
+    }
+
+    function updateFileCount() {
+      if (!fileCount) {
+        return;
+      }
+
+      if (selectedFiles.length === 0) {
+        fileCount.textContent = "No files selected";
+      } else if (selectedFiles.length === 1) {
+        fileCount.textContent = "1 file selected";
+      } else {
+        fileCount.textContent = selectedFiles.length + " files selected";
+      }
+    }
+
+    function renderPreviews() {
+      attachmentPreview.innerHTML = "";
+
+      selectedFiles.forEach(function (file, index) {
+        const col = document.createElement("div");
+
+        col.className = "col-4";
+
+        if (file.type.startsWith("image/")) {
+          const reader = new FileReader();
+
+          reader.onload = function (event) {
+            col.innerHTML = `
+              <div
+                class="position-relative"
+                style="aspect-ratio: 1 / 1;"
+              >
+                <img
+                  src="${event.target.result}"
+                  class="w-100 h-100 rounded report_image"
+                  style="object-fit: cover;"
+                  alt="${file.name}"
+                >
+
+                <button
+                  type="button"
+                  class="btn btn-dark btn-sm position-absolute top-0 end-0 m-1 rounded-circle"
+                  data-index="${index}"
+                  aria-label="Remove attachment"
+                >
+                  <i class="bi bi-x-lg"></i>
+                </button>
+              </div>
+            `;
+
+            addRemoveListener(col);
+          };
+
+          reader.readAsDataURL(file);
+        } else {
+          col.innerHTML = `
+            <div
+              class="position-relative border rounded p-3 h-100 bg-light"
+            >
+              <div class="text-center">
+                <i class="bi bi-file-earmark-text fs-2"></i>
+
+                <div
+                  class="small text-truncate mt-2"
+                  title="${file.name}"
+                >
+                  ${file.name}
+                </div>
+              </div>
+
+              <button
+                type="button"
+                class="btn btn-dark btn-sm position-absolute top-0 end-0 m-1 rounded-circle"
+                data-index="${index}"
+                aria-label="Remove attachment"
+              >
+                <i class="bi bi-x-lg"></i>
+              </button>
+            </div>
+          `;
+
+          addRemoveListener(col);
+        }
+
+        attachmentPreview.appendChild(col);
+      });
+    }
+
+    function addRemoveListener(element) {
+      const button = element.querySelector("button");
+
+      if (!button) {
+        return;
+      }
+
+      button.addEventListener("click", function () {
+        const index = Number(this.dataset.index);
+
+        selectedFiles.splice(index, 1);
+
+        updateInputFiles();
+        renderPreviews();
+        updateFileCount();
+      });
+    }
+  }
+
+  // Normal page load
+  document.addEventListener("DOMContentLoaded", function () {
+    reportAttachments();
+  });
+
+  // HTMX navigation
+  document.body.addEventListener("htmx:afterSwap", function () {
+    reportAttachments();
+  });
+</script>
+
+<!-- <script>
+  document.body.addEventListener("htmx:afterSwap", function (event) {
+    if (event.target.id === "report_deliveries") {
+      event.target.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  });
+</script> -->
+

@@ -1,0 +1,174 @@
+<!-- DATABASE TASKS -->
+<div class="cpd-list-section mb-3">
+    <div class="cpd-items">
+        <!-- DATABASE TASKS-->
+        {% for data in tasks %}
+        <!-- STATUS TITLE  -->
+        {% ifchanged data.task.status %}
+
+            <div class="cpd-section-divider">
+                <span>
+                    {% if data.task.status == 'open' %}
+                        Open Tasks
+                    {% else %}
+                        Complete Tasks
+                    {% endif %}
+                </span>
+            </div>
+
+        {% endifchanged %}
+
+
+        <article class="scroll-section cpd-item cpd-task-item  {% if data.task.closed_at %} cpd-item-delivery {% else %} cpd-item-tasks {% endif %}" id="ProjectTasksSection{{data.task.id}}">
+            <div class="cpd-item-main">
+
+                {% if data.task.closed_at %}
+                <div class="cpd-item-icon cpd-item-icon-green" >
+                    <i class="bi bi-check2-square"></i>
+                </div>
+                {% else %}
+                <div class="cpd-item-icon cpd-item-icon-blue" >
+                    <i class="bi bi-check2-square"></i>
+                </div>
+                {% endif %}
+
+                <div class="cpd-item-content">
+
+                    <div class="cpd-item-title-row">
+
+                        <h4>
+                            {{data.task.title}}
+                        </h4>
+
+                        {% if data.status == 'high'%}
+                        <span class="cpd-priority cpd-priority-high" style="font-size: 11.5px;">
+                            High
+                        </span>
+                        {% elif data.status == 'medium' %}
+                        <span class="cpd-priority cpd-priority-medium" style="font-size: 11.5px;">
+                            Medium
+                        </span>
+                        {% elif data.status == 'low' %}
+                        <span class="cpd-priority cpd-priority-low" style="font-size: 11.5px;">
+                            Low
+                        </span>
+                        {% endif %}
+
+                    </div>
+
+                        <p class="cpd-item-description" style="font-size: 12.5px !important;">
+                        {{data.task.description}}
+                    </p>
+
+                    <div class="cpd-item-meta">
+
+
+                        {% if data.task.closed_at %}
+                            <span class="text-primary">
+                                <i class="bi bi-check-circle-fill"></i>
+                                Closed {{ data.task.closed_at|date:"d M Y, H:i" }}
+                            </span>
+                        {% else %}
+                        <span class="cpd-meta-overdue">
+                            <i class="bi bi-calendar-x"></i>
+                            {{data.task_text}}
+                        </span>
+                        {% endif %}
+
+
+                        <!-- NEW UPDATE  -->
+                        {% if data.has_new_update %}
+                        <span class="text-primary">
+                            <i class="bi bi-bell-fill"></i>
+                            New update
+                        </span>
+                        {% endif %}
+
+
+                        <!-- ASSIGNED TO YOU  -->
+                         {% if data.task.assigned_to == current_user %}
+                        <span class="text-success">
+                            <i class="bi bi-person-check-fill"></i>
+                            Assigned to you
+                        </span>
+                        {% else %}
+                        <!-- divider  -->
+
+                         {% if data.task.assigned_to %}
+                         <span style="color: rgb(194, 65, 12) !important;">
+                            <i class="bi bi-person-check-fill"></i>
+                            {{data.task.assigned_to.first_name}} {{data.task.assigned_to.last_name}}
+                        </span>
+                        {% else %}
+                        <span style="
+                            color: rgb(111, 118, 125) !important;
+                            ">
+                            <i class="bi bi-person-fill"></i>
+                            Unassigned
+                        </span>
+                        {% endif %}
+                        <!-- divider  -->
+                        {% endif %}
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="cpd-item-action">
+
+                <a href="{% url 'issues:task' data.task.uuid %}?next={{ next_url|urlencode }}&section=ProjectTasksSection{{data.task.id}}" class="cpd-view-btn">
+                    View
+                    <i class="bi bi-chevron-right"></i>
+                </a>
+
+            </div>
+
+        </article>
+        {% empty %}
+        <!-- =====================================================
+        PROJECTS - NOT FOUND / EMPTY STATE
+        ====================================================== -->
+        <div class="cv-projects-empty">
+
+            <div class="cv-projects-empty-icon">
+                <i class="bi bi-check2-square"></i>
+            </div>
+
+            <div class="cv-projects-empty-content">
+
+                <h3>No tasks found</h3>
+
+                <p>
+                    We couldn't find any tasks matching your current filters.
+                    Try changing your search or clearing the filters.
+                </p>
+
+                <form action="">
+                    {% csrf_token %}
+                    <button
+                        type="button"
+                        class="cv-projects-empty-btn"
+                        hx-post="{% url 'issues:filter-issues' project.uuid %}"
+                        hx-target="#project_issues_partial"
+                        hx-swap="innerHTML"
+                        hx-vals='{"query": "", "status": "", "priority": "", "assignee": "", "created_date": "", "specific_date": "", "comments": ""}'
+                        onclick="
+                            document.querySelector('[name=query]').value = '';
+                            document.querySelector('[name=status]').value = '';
+                            document.querySelector('[name=priority]').value = '';
+                            document.querySelector('[name=assignee]').value = '';
+                            document.querySelector('[name=created_date]').value = '';
+                            document.querySelector('[name=specific_date]').value = '';
+                            document.querySelector('[name=comments]').value = '';
+                        "
+                    >
+                        <i class="bi bi-arrow-counterclockwise"></i>
+                        Clear filters
+                    </button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>

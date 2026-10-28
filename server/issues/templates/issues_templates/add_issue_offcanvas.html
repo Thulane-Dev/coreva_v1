@@ -1,0 +1,555 @@
+<div class="offcanvas offcanvas-end offcanvas_form offcanvas_background" tabindex="-1" id="addIssueOffcanvas" aria-labelledby="addIssueOffcanvasLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="addIssueOffcanvasLabel"></h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body offcanvas_background">
+    <!-- =====================================
+           PAGE HEADER
+      ====================================== -->
+      <div class="dashboard_main_card mb-3 mt-0">
+        <div class="form_page_header mb-0" >
+          <div class="form_page_icon" style="background-color: #FEF2F2 !important;color: #dc2626 !important;">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+          </div>
+
+          <div>
+            <div class="form_page_eyebrow">PROJECT</div>
+
+            <h1 class="form_page_title">Add issue</h1>
+
+            <p class="form_page_subtitle mb-0">Record a problem that needs attention on this site.</p>
+          </div>
+
+           </div>
+      </div>
+
+
+       <form method="POST"
+            enctype="multipart/form-data"
+            hx-post="{% url 'projects:log-new-project-issue' project.uuid %}"
+            hx-target="#{{issues_target_id}}"
+            hx-swap="innerHTML"
+            hx-push-url="false"
+            hx-on::after-request="
+                if (event.detail.successful) {
+                    this.querySelector('[name=title]').value = '';
+                    this.querySelector('[name=description]').value = '';
+                    this.querySelector('[name=assigned_to]').selectedIndex = 0;
+
+                    // Reset priority to Medium
+                    this.querySelectorAll('[name=priority]').forEach(radio => {
+                        radio.checked = radio.value === 'medium';
+                    });
+
+                    // Clear selected attachments
+                    const attachments = this.querySelector('#new-issue-attachments');
+                    if (attachments) attachments.value = '';
+
+                    // Clear attachment previews
+                    const preview = this.querySelector('#new-issue-attachment-preview');
+                    if (preview) preview.innerHTML = '';
+
+                    // Reset file count
+                    const fileCount = this.querySelector('#new_issue_file_count');
+                    if (fileCount) fileCount.textContent = 'No files selected';
+
+                    closeNewIssueOffcanvas() ;
+                }
+            "
+            
+            class="coreva-issue-form">
+
+            {% csrf_token %}
+
+            <input type="text" value="{{next_url}}" name="next_url" hidden >
+            <input type="text" value="{{issues_target_id}}" name="issues_target_id" hidden>
+
+
+            <!-- Required information -->
+            <div class="form-section delivery_form_section mx-0">
+                <!-- <div class="section-heading">
+                    <h6>Issue details</h6>
+                    <p>Record a problem that needs attention on this site.</p>
+                </div> -->
+
+                <!-- Issue title -->
+                <div class="mb-3">
+                    <label for="issueTitle" class="form-label">
+                        Issue title <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        name="title"
+                        id="issueTitle"
+                        class="form-control new_inputs_css"
+                        placeholder="e.g. Exposed electrical cable"
+                        maxlength="200"
+                        required
+                    >
+
+                    <div class="form-text">
+                        Give the issue a short, clear name.
+                    </div>
+                </div>
+
+                <!-- ================= Photos & Attachments ================= -->
+                <section class="mb-3">
+                    <label for="issuePhoto" class="form-label">
+                        Photos <span class="optional-label">Optional</span>
+                    </label>
+
+                    <input
+                    type="file"
+                    name="new-issue-attachments"
+                    id="new-issue-attachments"
+                    class="d-none"
+                    accept="image/*,.pdf,.doc,.docx,.xls,.xlsx"
+                    multiple
+                    />
+
+                    <div
+                    id="new-issue-attachment-preview"
+                    class="incident_photo_preview row g-2 mb-3"
+                    ></div>
+
+                    <label for="new-issue-attachments" class="incident_upload">
+                    <div class="incident_upload_icon">
+                        <i class="bi bi-paperclip"></i>
+                    </div>
+
+                    <div class="incident_upload_content">
+                        <strong>Add issue photos or attachments</strong>
+
+                        <span>Take photos or choose files from your device</span>
+
+                        <small id="new_issue_file_count">No files selected</small>
+                    </div>
+
+                    <i class="bi bi-plus-lg incident_upload_plus"></i>
+                    </label>
+                </section>
+            </div>
+
+            <!-- Optional information -->
+            <div class="form-section additional-section delivery_form_section bg-white">
+                <div style="margin-bottom: 22px;">
+                    <h6 class="offcanvas_h6">Additional details</h6>
+                    <p class="offcanvas_p_tag">Help your team understand and resolve the issue.</p>
+                </div>
+
+                <!-- Description -->
+                <div class="mb-3">
+                    <label for="issueDescription" class="form-label">
+                        Description <span class="optional-label">Optional</span>
+                    </label>
+
+                    <textarea
+                        name="description"
+                        id="issueDescription"
+                        class="form-control new_inputs_css"
+                        rows="3"
+                        placeholder="What happened and where?"
+                    ></textarea>
+                </div>
+
+                <!-- Priority -->
+                <div class="mb-3">
+                    <label class="form-label d-block">
+                        Priority
+                    </label>
+
+                    <div class="priority-options">
+                        <label class="priority-option priority-low">
+                            <input
+                                type="radio"
+                                name="priority"
+                                value="low"
+                            >
+                            <span class="priority-dot"></span>
+                            Low
+                        </label>
+
+                        <label class="priority-option priority-medium">
+                            <input
+                                type="radio"
+                                name="priority"
+                                value="medium"
+                                checked
+                            >
+                            <span class="priority-dot"></span>
+                            Medium
+                        </label>
+
+                        <label class="priority-option priority-high">
+                            <input
+                                type="radio"
+                                name="priority"
+                                value="high"
+                            >
+                            <span class="priority-dot"></span>
+                            High
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Assignee -->
+                <div class="mb-3">
+                    <label for="issueAssignee" class="form-label">
+                        Assign to <span class="optional-label">Optional</span>
+                    </label>
+
+                    <div class="input-with-icon">
+                        <i class="bi bi-person"></i>
+
+                        <select
+                            name="assigned_to"
+                            id="issueAssignee"
+                            class="form-select new_inputs_css"
+                        >
+                            <option value="None" selected>
+                                Select a team member or contractor
+                            </option>
+
+                            {% for member in team_members %}
+                                <option value="user_{{ member.id }}">
+                                    {{ member.first_name}} {{ member.last_name}}
+                                </option>
+                            {% endfor %}
+
+                            {% for contractor in project_contractors %}
+                                <option value="contractor_{{ contractor.id }}">
+                                    {{ contractor.contractor.company_name }} (Contractor)
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Due date -->
+                <div class="mb-3">
+                    <label for="issueDueDate" class="form-label">
+                        Due date <span class="optional-label">Optional</span>
+                    </label>
+
+                    <div class="input-with-icon">
+                        <i class="bi bi-calendar3"></i>
+
+                        <input
+                            type="date"
+                            name="due_date"
+                            id="issueDueDate"
+                            value="{{ today|date:'Y-m-d' }}"
+                            onfocus="this.showPicker()"
+                            onclick="this.showPicker()"
+                            class="form-control new_inputs_css"
+                        >
+                    </div>
+
+                    <div class="form-text">
+                        When should this issue be resolved?
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= ACTIONS ================= -->
+            <div class="delivery_form_actions">
+                <button type="button" data-bs-dismiss="offcanvas" class="delivery_cancel">
+                    Cancel
+                </button>
+                <button type="submit" class="delivery_submit">
+                    <i class="bi bi-plus-lg me-2"></i>
+                    Create Issue
+                </button>
+            </div>
+
+        </form>
+
+        <div style="height: 150px;"></div>
+  </div>
+</div>
+
+
+
+<!-- LOAD ATTACHMENTS SCRIPT INCIDENT AND DELIVERY -->
+<script>
+  function AddNewIssueAttachments() {
+    const attachmentInput = document.getElementById("new-issue-attachments");
+
+    const attachmentPreview = document.getElementById(
+      "new-issue-attachment-preview",
+    );
+
+    const fileCount = document.getElementById("new_issue_file_count");
+
+    if (!attachmentInput || !attachmentPreview) {
+      return;
+    }
+
+    if (attachmentInput.dataset.initialized === "true") {
+      return;
+    }
+
+    attachmentInput.dataset.initialized = "true";
+
+    let selectedFiles = [];
+
+    attachmentInput.addEventListener("change", function () {
+      const newFiles = Array.from(this.files);
+
+      selectedFiles = [...selectedFiles, ...newFiles];
+
+      updateInputFiles();
+      renderPreviews();
+      updateFileCount();
+    });
+
+    function updateInputFiles() {
+      const dataTransfer = new DataTransfer();
+
+      selectedFiles.forEach(function (file) {
+        dataTransfer.items.add(file);
+      });
+
+      attachmentInput.files = dataTransfer.files;
+    }
+
+    function updateFileCount() {
+      if (!fileCount) {
+        return;
+      }
+
+      if (selectedFiles.length === 0) {
+        fileCount.textContent = "No files selected";
+      } else if (selectedFiles.length === 1) {
+        fileCount.textContent = "1 file selected";
+      } else {
+        fileCount.textContent = selectedFiles.length + " files selected";
+      }
+    }
+
+    function renderPreviews() {
+      attachmentPreview.innerHTML = "";
+
+      selectedFiles.forEach(function (file, index) {
+        const col = document.createElement("div");
+
+        col.className = "col-4";
+
+        if (file.type.startsWith("image/")) {
+          const reader = new FileReader();
+
+          reader.onload = function (event) {
+            col.innerHTML = `
+              <div
+                class="position-relative"
+                style="aspect-ratio: 1 / 1;"
+              >
+                <img
+                  src="${event.target.result}"
+                  class="w-100 h-100 rounded report_image"
+                  style="object-fit: cover;"
+                  alt="${file.name}"
+                >
+
+                <button
+                  type="button"
+                  class="btn btn-dark btn-sm position-absolute top-0 end-0 m-1 rounded-circle"
+                  data-index="${index}"
+                  aria-label="Remove attachment"
+                >
+                  <i class="bi bi-x-lg"></i>
+                </button>
+              </div>
+            `;
+
+            addRemoveListener(col);
+          };
+
+          reader.readAsDataURL(file);
+        } else {
+          col.innerHTML = `
+            <div
+              class="position-relative border rounded p-3 h-100 bg-light"
+            >
+              <div class="text-center">
+                <i class="bi bi-file-earmark-text fs-2"></i>
+
+                <div
+                  class="small text-truncate mt-2"
+                  title="${file.name}"
+                >
+                  ${file.name}
+                </div>
+              </div>
+
+              <button
+                type="button"
+                class="btn btn-dark btn-sm position-absolute top-0 end-0 m-1 rounded-circle"
+                data-index="${index}"
+                aria-label="Remove attachment"
+              >
+                <i class="bi bi-x-lg"></i>
+              </button>
+            </div>
+          `;
+
+          addRemoveListener(col);
+        }
+
+        attachmentPreview.appendChild(col);
+      });
+    }
+
+    function addRemoveListener(element) {
+      const button = element.querySelector("button");
+
+      if (!button) {
+        return;
+      }
+
+      button.addEventListener("click", function () {
+        const index = Number(this.dataset.index);
+
+        selectedFiles.splice(index, 1);
+
+        updateInputFiles();
+        renderPreviews();
+        updateFileCount();
+      });
+    }
+  }
+
+  // Normal page load
+  document.addEventListener("DOMContentLoaded", function () {
+    AddNewIssueAttachments();
+  });
+
+  // HTMX navigation
+  document.body.addEventListener("htmx:afterSwap", function () {
+    AddNewIssueAttachments();
+  });
+</script>
+
+
+<!-- CLOSE DELIVERY OFFCANVAS  -->
+<script>
+  function closeNewIssueOffcanvas() {
+    var offcanvasElement = document.getElementById("addIssueOffcanvas");
+    var offcanvasInstance = bootstrap.Offcanvas.getInstance(offcanvasElement);
+
+    if (!offcanvasInstance) {
+      offcanvasInstance = new bootstrap.Offcanvas(offcanvasElement);
+    }
+
+    offcanvasInstance.hide();
+  }
+</script>
+
+<!-- <script>
+    document.body.addEventListener('htmx:afterSwap', function (event) {
+        if (event.detail.target.id === 'IssuesSection') {
+            document.getElementById('IssuesSection').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+</script> -->
+
+
+<!-- SCROLL TO SECTION  -->
+
+<!-- <script>
+    document.body.addEventListener('htmx:afterSwap', function (event) {
+        const targetId = event.detail.target.id;
+
+        if (targetId === 'IssuesSection' || targetId === 'IssuesSectionSM') {
+            const section = document.getElementById(targetId);
+
+            if (section && section.getClientRects().length > 0) {
+                section.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+    });
+</script> -->
+
+
+<script>
+    document.body.addEventListener('htmx:afterSettle', function (event) {
+        const targetId = event.detail.target.id;
+
+        if (
+            targetId === 'IssuesSection' ||
+            targetId === 'IssuesSectionSM' ||
+            targetId === 'ProjectIssuesSection'
+        ) {
+            // Wait until the layout has settled
+            requestAnimationFrame(() => {
+                const mobileSection = document.getElementById('IssuesSectionSM');
+                const desktopSection = document.getElementById('IssuesSection');
+                const listSection = document.getElementById('ProjectIssuesSection');
+
+                const isVisible = (element) =>
+                    element && element.getClientRects().length > 0;
+
+                // Choose the section to scroll to
+                let section;
+
+                if (targetId === 'ProjectIssuesSection') {
+                    section = listSection;
+                } else {
+                    section = isVisible(mobileSection)
+                        ? mobileSection
+                        : desktopSection;
+                }
+
+                if (isVisible(section)) {
+                    section.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        }
+    });
+</script>
+
+
+
+
+<!-- <script>
+    document.body.addEventListener('htmx:afterSettle', function (event) {
+        const targetId = event.detail.target.id;
+
+        if (
+            targetId === 'IssuesSection' ||
+            targetId === 'IssuesSectionSM'
+        ) {
+            // Wait until the layout has settled
+            requestAnimationFrame(() => {
+                const mobileSection = document.getElementById('IssuesSectionSM');
+                const desktopSection = document.getElementById('IssuesSection');
+
+                const isVisible = (element) =>
+                    element && element.getClientRects().length > 0;
+
+                // Scroll to the visible section
+                const section = isVisible(mobileSection)
+                    ? mobileSection
+                    : desktopSection;
+
+                if (isVisible(section)) {
+                    section.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        }
+    });
+</script> -->

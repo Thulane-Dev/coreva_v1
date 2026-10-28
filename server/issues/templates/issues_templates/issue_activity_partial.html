@@ -1,0 +1,293 @@
+<div class="coreva-ia-card mb-3">
+
+    <div class="coreva-ia-header">
+        <h5>Issue Activity</h5>
+        <p>Share an update about this issue.</p>
+    </div>
+
+    <form
+        method="POST"
+        enctype="multipart/form-data"
+        id="corevaIssueActivityForm"
+        hx-post="{% url 'issues:update-issue-activity' issue.uuid %}"
+        hx-target="#issue_activity"
+        hx-swap="innerHTML"
+        hx-push-url="false"
+        hx-on::after-request="
+            if (event.detail.successful) {
+            this.reset();
+            }
+        "
+    >
+        {% csrf_token %}
+
+        <div class="coreva-ia-message-wrap">
+            <textarea
+                name="update"
+                class="coreva-ia-message"
+                placeholder="Write a comment or describe the work completed..."
+                rows="3"
+            ></textarea>
+        </div>
+
+        <!-- Optional status change -->
+        <details class="coreva-ia-status">
+            <summary class="coreva-ia-status-summary">
+                <span class="coreva-ia-status-icon">
+                    <i class="bi bi-arrow-repeat"></i>
+                </span>
+
+                <span class="coreva-ia-status-text">
+                    <strong>Update issue status</strong>
+                    <small id="corevaIaStatusLabel">No status change</small>
+                </span>
+
+                <i class="bi bi-chevron-down coreva-ia-chevron"></i>
+            </summary>
+
+            <div class="coreva-ia-status-options">
+
+                <label class="coreva-ia-status-option">
+                    <input type="radio" name="status" value="" checked>
+                    <span>No status change</span>
+                </label>
+
+                <label class="coreva-ia-status-option">
+                    <input type="radio" name="status" value="in_progress">
+                    <span class="coreva-ia-dot coreva-ia-dot-progress"></span>
+                    <span>In Progress</span>
+                </label>
+
+                <label class="coreva-ia-status-option">
+                    <input type="radio" name="status" value="resolved">
+                    <span class="coreva-ia-dot coreva-ia-dot-resolved"></span>
+                    <span>Resolved</span>
+                </label>
+
+            </div>
+        </details>
+
+        <!-- Attachments -->
+        <div class="coreva-ia-attachments">
+
+            <input
+                type="file"
+                name="attachments"
+                id="corevaIaFileInput"
+                accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.txt,.csv"
+                multiple
+                hidden
+            >
+
+            <label
+                class="coreva-ia-attach-button"
+                for="corevaIaFileInput"
+            >
+                <i class="bi bi-paperclip"></i>
+                <span>Attach files</span>
+            </label>
+
+            <span class="coreva-ia-file-hint">
+                Images and documents
+            </span>
+
+            <div
+                id="corevaIaFileError"
+                class="coreva-ia-file-error"
+                role="alert"
+                hidden
+            ></div>
+
+            <div
+                id="corevaIaPreview"
+                class="coreva-ia-preview"
+                aria-live="polite"
+            ></div>
+        </div>
+
+        <!-- Submit -->
+        <div class="coreva-ia-footer">
+            <span class="coreva-ia-footer-hint">
+                Updates are visible to authorized project members.
+            </span>
+
+            <button type="submit" class="coreva-ia-submit">
+                Post Update
+                <i class="bi bi-arrow-up-right"></i>
+            </button>
+        </div>
+
+    </form>
+</div>
+
+
+<!-- ============================================================
+     COREVA · ACTIVITY FEED
+============================================================ -->
+<section class="cvf-feed">
+
+    <header class="cvf-feed-head">
+        <div>
+            <h3 class="cvf-feed-title">Activity</h3>
+            <p class="cvf-feed-sub">Updates, progress and evidence</p>
+        </div>
+        <span class="cvf-feed-count">
+            {{ work_stages|length }} update{{ work_stages|length|pluralize }}
+        </span>
+    </header>
+
+    <div class="cvf-feed-body">
+
+        {% for data in work_stages %}
+        {% with st=data.status pl=data.progress_label %}
+
+        <article class="cvf-entry {% if forloop.first %}is-latest{% endif %}">
+
+            <!-- HEAD -->
+            <div class="cvf-entry-head">
+
+                <div class="cvf-avatar
+                    {% if st == 'Resolved' or st == 'Completed' %}is-green
+                    {% elif pl == 'Blocked' %}is-red
+                    {% elif pl == 'Half done' or pl == 'Almost done' %}is-amber
+                    {% elif st == 'In Progress' or st == 'in_progress' %}is-blue
+                    {% endif %}">
+
+                    {% if data.created_by_team %}
+                        {{ data.created_by_team.first_name|slice:":1" }}{{ data.created_by_team.last_name|slice:":1" }}
+                    {% elif data.created_by_contractor %}
+                        {{ data.created_by_contractor.company_name|slice:":2" }}
+                    {% else %}?{% endif %}
+                </div>
+
+                <div class="cvf-entry-meta">
+                    <span class="cvf-entry-author">
+                        {% if data.created_by_team %}
+                            {{ data.created_by_team.first_name }} {{ data.created_by_team.last_name }}
+                        {% elif data.created_by_contractor %}
+                            {{ data.created_by_contractor.company_name }}
+                        {% else %}Unknown user{% endif %}
+                    </span>
+                    <span class="cvf-entry-role">
+                        {% if data.created_by_contractor %}Subcontractor{% else %}Team member{% endif %}
+                    </span>
+                </div>
+
+                <time class="cvf-entry-time" datetime="{{ data.created_at|date:'c' }}">
+                    {{ data.created_at|date:"d M · H:i" }}
+                </time>
+            </div>
+
+            <!-- CHIPS -->
+            {% if st or pl %}
+            <div class="cvf-chips">
+                {% if st %}
+                    <span class="cvf-chip
+                        {% if st == 'Resolved' or st == 'Completed' %}is-green
+                        {% elif st == 'In Progress' or st == 'in_progress' %}is-blue
+                        {% else %}is-neutral{% endif %}">
+                        <i class="bi bi-circle-fill"></i>{{ st }}
+                    </span>
+                {% endif %}
+                {% if pl %}
+                    <span class="cvf-chip
+                        {% if pl == 'Done' %}is-green
+                        {% elif pl == 'Blocked' %}is-red
+                        {% elif pl == 'Half done' or pl == 'Almost done' %}is-amber
+                        {% elif pl == 'Started' %}is-blue
+                        {% else %}is-neutral{% endif %}">
+                        <i class="bi bi-bar-chart-fill"></i>{{ pl }}
+                    </span>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            <!-- MESSAGE -->
+            {% if data.update %}
+                <div class="cvf-msg">{{ data.update|linebreaksbr }}</div>
+            {% endif %}
+
+            <!-- ATTACHMENTS -->
+            {% with attachments=data.work_stage_attachments.all %}
+            {% if attachments %}
+                <div class="cvf-attach">
+
+                    <!-- PHOTOS: compact grid, max 4 shown -->
+                    <div class="cvf-photos">
+                        {% for attachment in attachments %}
+                            {% if attachment.photo %}
+                                {% if forloop.counter <= 4 %}
+                                    <a href="{{ attachment.photo.url }}"
+                                       target="_blank"
+                                       rel="noopener noreferrer"
+                                       class="cvf-photo"
+                                       title="{{ attachment.caption|default:'View photo' }}">
+                                        <img src="{{ attachment.photo.url }}"
+                                             alt="{{ attachment.caption|default:'Attachment' }}"
+                                             loading="lazy">
+                                    </a>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+
+                        {# Optional: +N more if you have > 4 #}
+                        {# {% if attachments|length > 4 %}
+                            <a href="#" class="cvf-photo-more">+{{ attachments|length|add:"-4" }}</a>
+                        {% endif %} #}
+                    </div>
+
+                    <!-- DOCUMENTS -->
+                    {% for attachment in attachments %}
+                        {% if attachment.file %}
+                            <a href="{{ attachment.file.url }}"
+                               target="_blank"
+                               rel="noopener noreferrer"
+                               class="cvf-file">
+
+                                <div class="cvf-file-icon
+                                    {% if '.doc' in attachment.file.name|lower %}is-doc{% endif %}
+                                    {% if '.xls' in attachment.file.name|lower or '.csv' in attachment.file.name|lower %}is-xls{% endif %}">
+                                    {% if '.pdf' in attachment.file.name|lower %}
+                                        <i class="bi bi-file-earmark-pdf"></i>
+                                    {% elif '.doc' in attachment.file.name|lower %}
+                                        <i class="bi bi-file-earmark-word"></i>
+                                    {% elif '.xls' in attachment.file.name|lower or '.csv' in attachment.file.name|lower %}
+                                        <i class="bi bi-file-earmark-spreadsheet"></i>
+                                    {% else %}
+                                        <i class="bi bi-file-earmark-text"></i>
+                                    {% endif %}
+                                </div>
+
+                                <div class="cvf-file-meta">
+                                    <span class="cvf-file-name">
+                                        {{ attachment.file.name|cut:"media/project_files/" }}
+                                    </span>
+                                    <span class="cvf-file-size">
+                                        Document · {{ attachment.filesize }}
+                                    </span>
+                                </div>
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+
+                </div>
+            {% endif %}
+            {% endwith %}
+
+        </article>
+
+        {% endwith %}
+        {% empty %}
+
+        <div class="cvf-empty">
+            <div class="cvf-empty-icon">
+                <i class="bi bi-chat-square-text"></i>
+            </div>
+            <strong>No activity yet</strong>
+            <p>Updates, progress and photos will appear here once someone posts them.</p>
+        </div>
+
+        {% endfor %}
+
+    </div>
+</section>

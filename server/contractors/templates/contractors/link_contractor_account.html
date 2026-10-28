@@ -1,0 +1,98 @@
+<div class="lca-page">
+
+    <!-- Header -->
+    <div class="lca-header">
+        <div>
+            <!-- =====================================
+              BACK
+          ====================================== -->
+          <a href="javascript:history.back()" class="form_back_button">
+              <i class="bi bi-chevron-left"></i>
+              <span>Back</span>
+          </a>
+
+            <h1>Link Coreva account</h1>
+
+            <p>
+                Connect this contractor to their own Coreva company profile.
+            </p>
+        </div>
+    </div>
+
+
+    <!-- Link Card -->
+    <section class="lca-card">
+
+        <div class="lca-card-header">
+
+            <div class="lca-icon">
+                <i class="bi bi-link-45deg"></i>
+            </div>
+
+            <div>
+                <h2>Find Coreva company</h2>
+                <p>
+                    Enter the contractor's Coreva UUID to find their company profile.
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- Search Form -->
+        <form
+            hx-post="{% url 'contractors:search-contractor-profile' project_contractor.uuid %}"
+            hx-target="#ContractorProfileResults"
+            hx-swap="innerHTML"
+            hx-push-url="false"
+            class="lca-form"
+        >
+
+            {% csrf_token %}
+
+            <div class="lca-field">
+
+                <label for="contractor_uuid">
+                    Coreva company UUID
+                </label>
+
+                <div class="lca-input-row">
+
+                    <input
+                        type="text"
+                        name="contractor_uuid"
+                        id="contractor_uuid"
+                        class="lca-input"
+                        placeholder="Enter company UUID"
+                        autocomplete="off"
+                        required
+                    >
+
+                    <button
+                        type="submit"
+                        class="lca-search-btn"
+                    >
+                        <i class="bi bi-search"></i>
+                        Find company
+                    </button>
+
+                </div>
+
+                <div class="lca-help">
+                    <i class="bi bi-info-circle"></i>
+                    Ask the subcontractor to provide their Coreva company UUID.
+                </div>
+
+            </div>
+
+        </form>
+
+    </section>
+
+
+    <!-- Contractor Search Results  -->
+     <div id="ContractorProfileResults">
+        {% include 'partials/link_contractor_search_partial.html' %}
+     </div>
+
+</div>

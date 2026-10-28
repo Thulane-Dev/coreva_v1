@@ -1,0 +1,459 @@
+{% load static %}
+<!-- divider  -->
+
+<section class="form_page mt-0 pt-0">
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8">
+    <!-- =========================================================
+    COREVA MOBILE TOP NAVBAR AND LARGE SCREEN BACK BUTTON
+    ========================================================= -->
+    {% include 'partials/page_topbar.html' with next_url=next_url brand_name=page_title brand_url='#' %}
+
+      <!-- =====================================
+           PAGE HEADER
+      ====================================== -->
+      <div class="dashboard_main_card mb-3 mt-0">
+        <div class="form_page_header mb-0">
+          <div class="form_page_icon">
+            <i class="{{ icon }}"></i>
+          </div>
+
+          <div>
+            <div class="form_page_eyebrow">PROJECT</div>
+
+            <h1 class="form_page_title">{{ page_title }}</h1>
+
+            <p class="form_page_subtitle mb-0">{{ sub_title }}</p>
+          </div>
+        </div>
+      </div>
+
+      <form
+        method="POST"
+        action="{% url 'issues:save-issue' project.uuid %}"
+        enctype="multipart/form-data"
+      >
+        {% csrf_token %}
+
+        <!-- =====================================
+             DETAILS
+        ====================================== -->
+        <section class="form_section">
+          <div class="form_section_header">
+            <div class="form_section_number">01</div>
+
+            <div>
+              <h5 class="form_section_title">{{ section_text }} Details</h5>
+
+              <p class="form_section_subtitle mb-0">
+                Add the details for this {{ section_text|lower }}.
+              </p>
+            </div>
+          </div>
+
+          <div class="row g-4">
+
+          {% if section_text == "Issue" %}
+          <!-- ISSUE TITLE -->
+          <div class="col-12">
+            <div class="form_field">
+              <label for="issueTitle" class="form_field_label">
+                Issue title
+                <span class="required">*</span>
+              </label>
+
+              <input
+                type="text"
+                class="form-control modern_form_input new_inputs_css"
+                style="font-size: 16px !important;"
+                id="issueTitle"
+                name="title"
+                placeholder="e.g. Damaged site fence"
+                required
+              />
+            </div>
+          </div>
+          <!-- ISSUE DESCRIPTION -->
+          <div class="col-12">
+            <div class="form_field">
+              <label for="issueDescription" class="form_field_label">
+                Description
+              </label>
+
+              <textarea
+                class="form-control modern_form_input modern_form_textarea new_inputs_css"
+                style="font-size: 16px !important;"
+                id="issueDescription"
+                name="description"
+                rows="4"
+                placeholder="Describe what happened, where it happened, and any relevant details..."
+              ></textarea>
+            </div>
+          </div>
+          {% elif section_text == "Task" %}
+          <!-- TASK TITLE -->
+          <div class="col-12">
+            <div class="form_field">
+              <label for="taskTitle" class="form_field_label">
+                Task title
+                <span class="required">*</span>
+              </label>
+
+              <input
+                type="text"
+                class="form-control modern_form_input new_inputs_css"
+                style="font-size: 16px !important;"
+                id="taskTitle"
+                name="title"
+                placeholder="e.g. Repair damaged site fence"
+                required
+              />
+            </div>
+          </div>
+          <!-- TASK DESCRIPTION -->
+          <div class="col-12">
+            <div class="form_field">
+              <label for="taskDescription" class="form_field_label">
+                Task details
+              </label>
+
+              <textarea
+                class="form-control modern_form_input modern_form_textarea new_inputs_css"
+                style="font-size: 16px !important;"
+                id="taskDescription"
+                name="description"
+                rows="4"
+                placeholder="Describe the work that needs to be completed..."
+              ></textarea>
+            </div>
+          </div>
+          {% endif %}
+
+            <!-- PRIORITY -->
+            <div class="col-12 col-md-4">
+              <div class="form_field">
+                <label for="priority" class="form_field_label">
+                  Priority
+                </label>
+
+                <select
+                  name="priority"
+                  id="priority"
+                  class="form-select modern_form_input  new_inputs_css"
+                  style="font-size: 16px !important;"
+                >
+                  <option value="high" selected>High</option>
+                  <option value="medium">Medium</option>
+                  <option value="low">Low</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- TEAM MEMBER -->
+            <div class="col-12 col-md-4">
+              <div class="form_field">
+                <label for="teamMember" class="form_field_label">
+                  Assign Team Member
+                </label>
+
+                <select
+                  name="team_id"
+                  id="teamMember"
+                  class="form-select modern_form_input  new_inputs_css"
+                  style="font-size: 16px !important;"
+                >
+                  <option selected value="None">Unassigned</option>
+
+                  {% for data in team_members %}
+
+                  <option value="{{ data.id }}">
+                    {{ data.first_name }} {{ data.last_name }}
+                  </option>
+
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+
+            <!-- CONTRACTOR -->
+            <div class="col-12 col-md-4">
+              <div class="form_field">
+                <label for="contractor" class="form_field_label">
+                  Assign Contractor
+                </label>
+
+                <select
+                  name="contractor_id"
+                  id="contractor"
+                  class="form-select modern_form_input  new_inputs_css"
+                  style="font-size: 16px !important;"
+                >
+                  <option selected value="None">Select Contractor</option>
+
+                  {% for data in contractors %}
+                  <option value="{{ data.id }}">{{ data.contractor.company_name }}</option>
+                  {% empty %}
+                    <option disabled>No contractors available</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+
+            <!-- DUE DATE -->
+            <div class="col-12">
+              <div class="form_field">
+                <label for="dueDate" class="form_field_label">
+                  Due Date
+                  <span class="required">*</span>
+                </label>
+
+                <div class="form_date_wrapper">
+                  <i class="bi bi-calendar3"></i>
+
+                  <input
+                    type="date"
+                    class="form-control modern_form_input form_date_input  new_inputs_css"
+                    style="font-size: 16px !important;"
+                    id="dueDate"
+                    name="due_date"
+                    value="{{ today|date:'Y-m-d' }}"
+                    required
+                    onfocus="this.showPicker()"
+                    onclick="this.showPicker()"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= Photos & Attachments ================= -->
+          <section class="incident_form_section">
+            <div class="incident_section_header">
+              <div class="incident_section_number">02</div>
+
+              <div>
+                <h2>Photos & Attachments</h2>
+                <p>Attach photos or documents that help explain the {{ section_text|lower }}.</p>
+              </div>
+            </div>
+
+            <input
+              type="file"
+              name="project_issues__attachments"
+              id="project_issues__attachments"
+              class="d-none"
+              accept="image/*,.pdf,.doc,.docx,.xls,.xlsx"
+              multiple
+            />
+
+            <div
+              id="project_issues_-attachment-preview"
+              class="incident_photo_preview row g-2 mb-3"
+            ></div>
+
+            <label for="project_issues__attachments" class="incident_upload">
+              <div class="incident_upload_icon">
+                <i class="bi bi-paperclip"></i>
+              </div>
+
+              <div class="incident_upload_content">
+                <strong>Add {{ section_text|lower }} photos or attachments</strong>
+
+                <span>Take photos or choose files from your device</span>
+
+                <small id="project_issues__file_count">No files selected</small>
+              </div>
+
+              <i class="bi bi-plus-lg incident_upload_plus"></i>
+            </label>
+          </section>
+
+        <!-- =====================================
+             SAVE TYPE
+        ====================================== -->
+        <input type="hidden" value="{{ section_text }}" name="save_type" />
+
+        <!-- =====================================
+             ACTIONS
+        ====================================== -->
+        <div class="form_actions">
+          <button
+            type="button"
+            onclick="history.back()"
+            class="form_cancel_button"
+          >
+            Cancel
+          </button>
+
+          <button type="submit" class="form_save_button">
+            <i class="bi bi-check-lg"></i>
+            {{ save_btn }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- LOAD ATTACHMENTS SCRIPT INCIDENT AND project_issues_ -->
+<script>
+  function project_issues_Attachments() {
+    const attachmentInput = document.getElementById("project_issues__attachments");
+
+    const attachmentPreview = document.getElementById(
+      "project_issues_-attachment-preview",
+    );
+
+    const fileCount = document.getElementById("project_issues__file_count");
+
+    if (!attachmentInput || !attachmentPreview) {
+      return;
+    }
+
+    if (attachmentInput.dataset.initialized === "true") {
+      return;
+    }
+
+    attachmentInput.dataset.initialized = "true";
+
+    let selectedFiles = [];
+
+    attachmentInput.addEventListener("change", function () {
+      const newFiles = Array.from(this.files);
+
+      selectedFiles = [...selectedFiles, ...newFiles];
+
+      updateInputFiles();
+      renderPreviews();
+      updateFileCount();
+    });
+
+    function updateInputFiles() {
+      const dataTransfer = new DataTransfer();
+
+      selectedFiles.forEach(function (file) {
+        dataTransfer.items.add(file);
+      });
+
+      attachmentInput.files = dataTransfer.files;
+    }
+
+    function updateFileCount() {
+      if (!fileCount) {
+        return;
+      }
+
+      if (selectedFiles.length === 0) {
+        fileCount.textContent = "No files selected";
+      } else if (selectedFiles.length === 1) {
+        fileCount.textContent = "1 file selected";
+      } else {
+        fileCount.textContent = selectedFiles.length + " files selected";
+      }
+    }
+
+    function renderPreviews() {
+      attachmentPreview.innerHTML = "";
+
+      selectedFiles.forEach(function (file, index) {
+        const col = document.createElement("div");
+
+        col.className = "col-4";
+
+        if (file.type.startsWith("image/")) {
+          const reader = new FileReader();
+
+          reader.onload = function (event) {
+            col.innerHTML = `
+              <div
+                class="position-relative"
+                style="aspect-ratio: 1 / 1;"
+              >
+                <img
+                  src="${event.target.result}"
+                  class="w-100 h-100 rounded report_image"
+                  style="object-fit: cover;"
+                  alt="${file.name}"
+                >
+
+                <button
+                  type="button"
+                  class="btn btn-dark btn-sm position-absolute top-0 end-0 m-1 rounded-circle"
+                  data-index="${index}"
+                  aria-label="Remove attachment"
+                >
+                  <i class="bi bi-x-lg"></i>
+                </button>
+              </div>
+            `;
+
+            addRemoveListener(col);
+          };
+
+          reader.readAsDataURL(file);
+        } else {
+          col.innerHTML = `
+            <div
+              class="position-relative border rounded p-3 h-100 bg-light"
+            >
+              <div class="text-center">
+                <i class="bi bi-file-earmark-text fs-2"></i>
+
+                <div
+                  class="small text-truncate mt-2"
+                  title="${file.name}"
+                >
+                  ${file.name}
+                </div>
+              </div>
+
+              <button
+                type="button"
+                class="btn btn-dark btn-sm position-absolute top-0 end-0 m-1 rounded-circle"
+                data-index="${index}"
+                aria-label="Remove attachment"
+              >
+                <i class="bi bi-x-lg"></i>
+              </button>
+            </div>
+          `;
+
+          addRemoveListener(col);
+        }
+
+        attachmentPreview.appendChild(col);
+      });
+    }
+
+    function addRemoveListener(element) {
+      const button = element.querySelector("button");
+
+      if (!button) {
+        return;
+      }
+
+      button.addEventListener("click", function () {
+        const index = Number(this.dataset.index);
+
+        selectedFiles.splice(index, 1);
+
+        updateInputFiles();
+        renderPreviews();
+        updateFileCount();
+      });
+    }
+  }
+
+  // Normal page load
+  document.addEventListener("DOMContentLoaded", function () {
+    project_issues_Attachments();
+  });
+
+  // HTMX navigation
+  document.body.addEventListener("htmx:afterSwap", function () {
+    project_issues_Attachments();
+  });
+</script>

@@ -1,0 +1,725 @@
+{% load static %}
+<!-- divider  -->
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Coreva</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  
+  <!-- Google Icons  -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+    />
+
+    <!-- bootstrap-icons  -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
+    />
+
+    <!-- Inter Google Font  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+
+    <!-- HTMX SCRIPT  -->
+    <script src="https://unpkg.com/htmx.org@1.9.4"></script>
+
+    <!-- Inter  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- todays_portal css -->
+    <link rel="stylesheet" href="{% static '/css/contractor_portal/todays_portal.css' %}"/>
+    <!-- todays_portal css -->
+    <link rel="stylesheet" href="{% static '/css/contractor_portal/portal_project_details.css' %}"/>
+    <!-- view_work_details css -->
+    <link rel="stylesheet" href="{% static '/css/contractor_portal/view_work_details.css' %}"/>
+     <!-- Project Management css -->
+    <link rel="stylesheet" href="{% static '/css/projects/project_management.css' %}"/>
+
+    <style>
+        /* =========================================
+            BACK
+        ========================================= */
+
+        .form_back_button {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+
+        margin-bottom: 20px;
+
+        /* color: #667085; */
+        color: #2563eb;
+        font-size: 14px;
+        font-weight: 600;
+
+        text-decoration: none;
+        }
+
+        .form_back_button:hover {
+        color: #2563eb;
+        }
+
+        .new_section_title {
+        font-weight: 800;
+        }
+
+
+        /* =========================================
+        CONTRACTOR PORTAL - WORK SECTIONS
+        ========================================= */
+
+        .portal-work-section {
+            position: relative;
+            overflow: hidden;
+            border-radius: 14px;
+            background: #172A46;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+        }
+
+        /* subtle top accent */
+        .portal-work-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+        }
+
+        .portal-work-section--issues::before {
+            background: #EF4444;
+        }
+
+        .portal-work-section--tasks::before {
+            background: #3B82F6;
+        }
+
+
+        /* Header */
+
+        .portal-work-header {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            min-height: 82px;
+            padding: 16px 18px;
+        }
+
+
+        /* Icon */
+
+        .portal-work-icon {
+            width: 44px;
+            height: 44px;
+            flex: 0 0 44px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 12px;
+
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+
+            color: rgba(255, 255, 255, 0.85);
+
+            font-size: 20px;
+        }
+
+        .portal-work-section--issues .portal-work-icon {
+            color: #FCA5A5;
+        }
+
+        .portal-work-section--tasks .portal-work-icon {
+            color: #93C5FD;
+        }
+
+
+        /* Heading */
+
+        .portal-work-heading {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .portal-work-heading h3 {
+            margin: 0;
+
+            color: #FFFFFF;
+            font-size: 17px;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .portal-work-heading span {
+            display: block;
+            margin-top: 4px;
+
+            color: rgba(255, 255, 255, 0.58);
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+
+        /* Count */
+
+        .portal-work-count {
+            min-width: 48px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            padding: 6px 9px;
+
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .portal-work-count strong {
+            color: #FFFFFF;
+            font-size: 17px;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+
+        .portal-work-count span {
+            margin-top: 2px;
+
+            color: rgba(255, 255, 255, 0.45);
+            font-size: 10px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+
+        /* =========================================
+        HOVER
+        ========================================= */
+
+        .portal-work-section {
+            transition:
+                transform 0.18s ease,
+                border-color 0.18s ease,
+                box-shadow 0.18s ease;
+        }
+
+        .portal-work-section:hover {
+            transform: translateY(-1px);
+            border-color: rgba(255, 255, 255, 0.11);
+            box-shadow: 0 7px 20px rgba(15, 23, 42, 0.12);
+        }
+
+
+        /* =========================================
+        MOBILE
+        ========================================= */
+
+        @media (max-width: 576px) {
+
+            .portal-work-header {
+                min-height: 76px;
+                gap: 12px;
+                padding: 14px;
+            }
+
+            .portal-work-icon {
+                width: 40px;
+                height: 40px;
+                flex-basis: 40px;
+                border-radius: 10px;
+                font-size: 18px;
+            }
+
+            .portal-work-heading h3 {
+                font-size: 16px;
+            }
+
+            .portal-work-heading span {
+                font-size: 12px;
+            }
+
+            .portal-work-count {
+                min-width: 44px;
+            }
+        }
+    </style>
+  </head>
+  <body>
+   <!-- =========================================================
+    CONTRACTOR PROJECT DETAILS
+    ========================================================= -->
+
+    <!-- ======= PORTAL NAVBAR  ======= -->
+     <div style="padding-bottom: 90px;">
+    {% include 'partials/portal_navbar.html' %}
+    </div>
+
+    <div class="container" >
+        <div class="row d-flex justify-content-center">
+            <div class="col-12 col-lg-10">
+
+                <div class="cpd-page px-0">
+                    
+
+
+                    <!-- =====================================================
+                        TOP NAVIGATION
+                    ====================================================== -->
+
+                    <!-- =====================================
+                    BACK
+                    ====================================== -->
+                    <a href="javascript:history.back()" class="form_back_button mb-2">
+                        <i class="bi bi-chevron-left"></i>
+                        <span>Back</span>
+                    </a>
+
+                    <!-- =====================================================
+                        PROJECT HEADER
+                    ====================================================== -->
+                    <section class="cpd-project-header">
+
+                        <div class="cpd-project-header-main">
+
+                            <div class="cpd-project-icon">
+                                <i class="bi bi-buildings"></i>
+                            </div>
+
+                            <div class="cpd-project-info">
+
+                                <span class="cpd-eyebrow">
+                                    PROJECT
+                                </span>
+
+                                <h1 class="cpd-project-title">
+                                    {{project.project_name}}
+                                </h1>
+
+                                <div class="cpd-project-location">
+                                    <i class="bi bi-geo-alt"></i>
+                                    <span>
+                                        {{project.location.street_address}},
+                                        {{project.location.city}},
+                                        {{project.location.province}}
+                                    </span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Project Status -->
+
+                        <div class="d-none d-md-block">
+                            <div class="cpd-project-status">
+                                <span class="cpd-status-dot"></span>
+                                Active
+                            </div>
+                        </div>
+
+                    </section>
+
+
+                    <!-- =====================================================
+                        PROJECT SUMMARY
+                    ====================================================== -->
+                    <section class="mt-4">
+                        <div class="row g-2">
+                            <!-- Open Issues -->
+                            <div class="col-6 col-md-4">
+                                <div class="cpd-summary-card">
+                                    <div class="cpd-summary-icon cpd-summary-red">
+                                        <i class="bi bi-exclamation-circle"></i>
+                                    </div>
+                                    <div class="cpd-summary-content">
+
+                                        <span class="cpd-summary-label">
+                                            Open Issues
+                                        </span>
+
+                                        <strong class="cpd-summary-value">
+                                            {{project_data.issues_count}}
+                                        </strong>
+
+                                        <span class="cpd-summary-detail cpd-detail-danger">
+                                            {{project_data.overdue_issues_count}} overdue
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Open Tasks -->
+                            <div class="col-6 col-md-4">
+                                <div class="cpd-summary-card">
+                                    <div class="cpd-summary-icon cpd-summary-blue">
+                                        <i class="bi bi-list-check"></i>
+                                    </div>
+                                    <div class="cpd-summary-content">
+                                        <span class="cpd-summary-label">
+                                            Open Tasks
+                                        </span>
+
+                                        <strong class="cpd-summary-value">
+                                            {{project_data.tasks_count}}
+                                        </strong>
+
+                                        <span class="cpd-summary-detail cpd-detail-warning">
+                                            {{project_data.overdue_tasks_count}} overdue
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                             <!-- New Comments -->
+                            <div class="col-12 col-md-4">
+                                <div class="cpd-summary-card">
+                                    <div class="cpd-summary-icon cpd-summary-purple">
+                                        <i class="bi bi-chat-dots"></i>
+                                    </div>
+
+                                    <div class="cpd-summary-content">
+
+                                        <span class="cpd-summary-label">
+                                            New Comments
+                                        </span>
+
+                                        <strong class="cpd-summary-value">
+                                            {{project_data.total_comments}}
+                                        </strong>
+
+                                        <span class="cpd-summary-detail">
+                                            On your items
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+
+                    <!-- =====================================================
+                        WORK AREA
+                    ====================================================== -->
+
+                    <section class="cpd-work-area">
+                        <!-- =================================================
+                            ISSUES
+                        ================================================== -->
+                        {% if project_data.issues_count > 0  %}
+                        <div class="cpd-list-section mb-5">
+                            <!-- Issues -->
+                            <div class="portal-work-section portal-work-section--issues mb-3">
+                                <div class="portal-work-header">
+
+                                    <div class="portal-work-icon">
+                                        <i class="bi bi-exclamation-circle"></i>
+                                    </div>
+
+                                    <div class="portal-work-heading">
+                                        <h3>Issues</h3>
+                                        <span>Problems requiring action</span>
+                                    </div>
+
+                                    <div class="portal-work-count">
+                                        <strong>{{ project_data.issues_count }}</strong>
+                                        <span>Open</span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <div class="cpd-items">
+                                <!-- DATABASE ISSUES -->
+                                {% for data in project_data.open_issues %}
+                                <article class="cpd-item {% if data.is_overdue == True %} cpd-item-overdue{% endif %}">
+
+                                    <div class="cpd-item-main">
+
+                                        {% if data.status == 'high'%}
+                                        <div class="cpd-item-icon cpd-item-icon-red">
+                                            <i class="bi bi-exclamation-triangle"></i>
+                                        </div>
+                                        {% elif data.status == 'medium' %}
+                                        <div class="cpd-item-icon cpd-item-icon-orange">
+                                            <i class="bi bi-exclamation-triangle"></i>
+                                        </div>
+                                        {% else %}
+                                        <div class="cpd-item-icon cpd-item-icon-blue">
+                                            <i class="bi bi-exclamation-circle"></i>
+                                        </div>
+                                        {% endif %}
+
+                                        <div class="cpd-item-content">
+
+                                            <div class="cpd-item-title-row">
+
+                                                <h4>
+                                                    {{data.issue.title}}
+                                                </h4>
+
+                                                {% if data.status == 'high'%}
+                                                <span class="cpd-priority cpd-priority-high">
+                                                    High
+                                                </span>
+                                                {% elif data.status == 'medium' %}
+                                                <span class="cpd-priority cpd-priority-medium">
+                                                    Medium
+                                                </span>
+                                                {% elif data.status == 'low' %}
+                                                <span class="cpd-priority cpd-priority-low">
+                                                    Low
+                                                </span>
+                                                {% endif %}
+                                            </div>
+
+                                            <p class="cpd-item-description" style="font-size: 12.5px !important;">
+                                                {{data.issue.description}}
+                                            </p>
+
+                                            <div class="cpd-item-meta">
+
+                                                <span class="cpd-meta-overdue">
+                                                    <i class="bi bi-calendar-x"></i>
+                                                    {{data.issue_text}}
+                                                </span>
+                                                
+                                                {% if data.comment_count > 0 %}
+                                                <span class="text-primary">
+                                                    <i class="bi bi-chat-dots"></i>
+                                                    {{data.comment_count}} new comment{% if data.comment_count > 1%}s{% endif %}
+                                                </span>
+                                                {% endif %}
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="cpd-item-action">
+
+                                        <a href="{% url 'contractors:work' data.issue.uuid portal_uuid %}" class="cpd-view-btn">
+                                            View
+                                            <i class="bi bi-chevron-right"></i>
+                                        </a>
+
+                                    </div>
+
+                                </article>
+                                {% endfor %}
+                            </div>
+
+                        </div>
+                        {% else %}
+                        <div class="dashboard_main_card mb-3">
+                            <div class="issue_comments_empty">
+                                <div class="issue_comments_empty_icon">
+                                    <i class="bi bi-exclamation-circle"></i>
+                                </div>
+                                <strong> No open issues</strong>
+                                <span>There are no open issues assigned to you right now.</span>
+                            </div>
+                        </div>
+                        {% endif %}
+
+
+                        <!-- =================================================
+                            TASKS
+                        ================================================== -->
+                        {% if project_data.tasks_count > 0 %}
+                        <div class="cpd-list-section">
+                            <!-- Tasks -->
+                            <div class="portal-work-section portal-work-section--tasks mb-3">
+                                <div class="portal-work-header">
+
+                                    <div class="portal-work-icon">
+                                        <i class="bi bi-check2-square"></i>
+                                    </div>
+
+                                    <div class="portal-work-heading">
+                                        <h3>Tasks</h3>
+                                        <span>Assigned work to complete</span>
+                                    </div>
+
+                                    <div class="portal-work-count">
+                                        <strong>{{ project_data.tasks_count }}</strong>
+                                        <span>Open</span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <div class="cpd-items">
+                                <!-- DATABASE TASKS-->
+                                {% for data in project_data.open_tasks %}
+                                <article class="cpd-item cpd-task-item {% if data.is_overdue == True %} cpd-item-overdue{% endif %}">
+                                    <div class="cpd-item-main">
+                                        <div class="cpd-item-icon cpd-item-icon-blue" >
+                                            <i class="bi bi-check2-square"></i>
+                                        </div>
+
+                                        <div class="cpd-item-content">
+
+                                            <div class="cpd-item-title-row">
+
+                                                <h4>
+                                                    {{data.task.title}}
+                                                </h4>
+
+                                                {% if data.status == 'high'%}
+                                                <span class="cpd-priority cpd-priority-high">
+                                                    High
+                                                </span>
+                                                {% elif data.status == 'medium' %}
+                                                <span class="cpd-priority cpd-priority-medium">
+                                                    Medium
+                                                </span>
+                                                {% elif data.status == 'low' %}
+                                                <span class="cpd-priority cpd-priority-low">
+                                                    Low
+                                                </span>
+                                                {% endif %}
+
+                                            </div>
+
+                                             <p class="cpd-item-description" style="font-size: 12.5px !important;">
+                                                {{data.task.description}}
+                                            </p>
+
+                                            <div class="cpd-item-meta">
+
+                                                <span class="cpd-meta-overdue">
+                                                    <i class="bi bi-calendar-x"></i>
+                                                    {{data.task_text}}
+                                                </span>
+
+                                                {% if data.comment_count > 0 %}
+                                                <span class="text-primary">
+                                                    <i class="bi bi-chat-dots"></i>
+                                                    {{data.comment_count}} new comment{% if data.comment_count > 1%}s{% endif %}
+                                                </span>
+                                                {% endif %}
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="cpd-item-action">
+
+                                        <a href="{% url 'contractors:work' data.task.uuid portal_uuid %}" class="cpd-view-btn">
+                                            View
+                                            <i class="bi bi-chevron-right"></i>
+                                        </a>
+
+                                    </div>
+
+                                </article>
+                                {% endfor %}
+                            </div>
+
+                        </div>
+                        {% else %}
+                        <div class="dashboard_main_card mb-3">
+                            <div class="issue_comments_empty">
+                                <div class="issue_comments_empty_icon">
+                                    <i class="bi bi-check2-square"></i>
+                                </div>
+                                <strong> No open tasks</strong>
+                                <span>There are no open tasks assigned to you right now.</span>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </section>
+
+
+                    <!-- ======= WORK HISTORY ======= -->
+                    <section class="section-spacing project_management_section mt-5">
+                    <div class="project_management_header">
+                        <div>
+                        <h4 class="new_section_title mb-1">Work History</h4>
+                        <p class="project_management_subtitle mb-0">
+                            Review completed work and activity
+                        </p>
+                        </div>
+                    </div>
+
+                    <div class="row g-3">
+                        <!-- ISSUES HISTORY -->
+                        <div class="col-12 col-md-6">
+                        <a href="#" class="project_action_card">
+                            <div class="project_action_top">
+                            <div class="project_action_icon blue" style="background-color: #FEF2F2 !important;color: rgb(220, 38, 38) !important;">
+                                <i class="bi bi-exclamation-triangle"></i>
+                            </div>
+
+                            <i class="bi bi-arrow-up-right project_action_arrow"></i>
+                            </div>
+
+                            <div class="project_action_content">
+                            <h6 class="project_action_title">Completed Issues</h6>
+
+                            <p class="project_action_meta">12 Issues</p>
+
+                            <p class="project_action_description">View completed issues</p>
+                            </div>
+                        </a>
+                        </div>
+
+                        <!-- TASKS HISTORY -->
+                        <div class="col-12 col-md-6">
+                        <a href="#" class="project_action_card">
+                            <div class="project_action_top">
+                            <div class="project_action_icon blue">
+                                <i class="bi bi-check2-square"></i>
+                            </div>
+
+                            <i class="bi bi-arrow-up-right project_action_arrow"></i>
+                            </div>
+
+                            <div class="project_action_content">
+                            <h6 class="project_action_title">Completed Tasks</h6>
+
+                            <p class="project_action_meta">12 Tasks</p>
+
+                            <p class="project_action_description">
+                                View completed tasks
+                            </p>
+                            </div>
+                        </a>
+                        </div>
+                    </div>
+                    </section>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+  </body>
+</html>

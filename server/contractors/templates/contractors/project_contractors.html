@@ -1,0 +1,506 @@
+{% load static %}
+<!-- divider  -->
+
+
+<div class="row">
+    <div class="col-12">
+        <!-- =========================================================
+        COREVA MOBILE TOP NAVBAR AND LARGE SCREEN BACK BUTTON
+        ========================================================= -->
+        {% url 'projects:project-view' project.uuid  as back_url %}
+        <!-- -------------------------------------------  -->
+        {% include 'partials/page_topbar.html' with next_url=next_url back_url=back_url brand_name='Project Subcontractors' brand_url=back_url %}
+
+        <div class="project-contractors-page mt-0">
+            <!-- =========================================================
+                PAGE HEADER
+            ========================================================== -->
+
+            <div class="dashboard_main_card mb-3 mt-0">
+                <div class="contractors-page-header">
+
+                    <div class="contractors-header-main">
+
+                        <div class="contractors-title-row">
+
+                            <div class="contractors-title-icon">
+                                <span class="material-symbols-outlined">
+                                    business
+                                </span>
+                            </div>
+
+                            <div>
+                                <h1>Project Contractors</h1>
+
+                                <p>
+                                    Companies working on
+                                    <strong>{{ project.project_name }}</strong>
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="contractors-header-actions">
+
+                        <a
+                            href="{% url 'contractors:add-contractor' project.uuid %}?next={{ request.get_full_path|urlencode }}"
+                            class="btn btn-primary contractors-add-btn"
+                        >
+                            <i class="bi bi-plus-lg"></i>
+                            <span>Add Contractor</span>
+                        </a>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+            <!-- =========================================================
+                SUMMARY
+            ========================================================== -->
+
+            <div class="contractor-summary-grid">
+
+                <div class="contractor-summary-card">
+
+                    <div class="contractor-summary-icon total">
+                        <span class="material-symbols-outlined">
+                            domain
+                        </span>
+                    </div>
+
+                    <div>
+                        <span class="contractor-summary-label">
+                            Contractors
+                        </span>
+
+                        <strong>
+                            {{ contractor_count }}
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="contractor-summary-card">
+
+                    <div class="contractor-summary-icon active">
+                        <span class="material-symbols-outlined">
+                            check_circle
+                        </span>
+                    </div>
+
+                    <div>
+                        <span class="contractor-summary-label">
+                            Active
+                        </span>
+
+                        <strong>
+                            {{ active_count }}
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="contractor-summary-card">
+
+                    <div class="contractor-summary-icon pending">
+                        <span class="material-symbols-outlined">
+                            schedule
+                        </span>
+                    </div>
+
+                    <div>
+                        <span class="contractor-summary-label">
+                            Pending
+                        </span>
+
+                        <strong>
+                            {{ pending_count }}
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="contractor-summary-card">
+
+                    <div class="contractor-summary-icon inactive">
+                        <span class="material-symbols-outlined">
+                            pause_circle
+                        </span>
+                    </div>
+
+                    <div>
+                        <span class="contractor-summary-label">
+                            Inactive
+                        </span>
+
+                        <strong>
+                            {{ inactive_count }}
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================================================
+                FILTERS
+            ========================================================== -->
+
+            <div class="contractors-toolbar d-none">
+
+                <form
+                    method="GET"
+                    class="contractors-search-form"
+                >
+
+                    <div class="contractors-search">
+
+                        <i class="bi bi-search"></i>
+
+                        <input
+                            type="text"
+                            name="search"
+                            value="{{ search }}"
+                            placeholder="Search contractors..."
+                            autocomplete="off"
+                        >
+
+                    </div>
+
+
+                    <select
+                        name="status"
+                        class="contractors-status-filter"
+                        onchange="this.form.submit()"
+                    >
+                        <option value="">All statuses</option>
+
+                        <option
+                            value="active"
+                            {% if selected_status == "active" %}selected{% endif %}
+                        >
+                            Active
+                        </option>
+
+                        <option
+                            value="pending"
+                            {% if selected_status == "pending" %}selected{% endif %}
+                        >
+                            Pending
+                        </option>
+
+                        <option
+                            value="inactive"
+                            {% if selected_status == "inactive" %}selected{% endif %}
+                        >
+                            Inactive
+                        </option>
+
+                    </select>
+
+
+                    <button
+                        type="submit"
+                        class="contractors-filter-btn"
+                    >
+                        Search
+                    </button>
+
+                </form>
+
+            </div>
+
+
+            <!-- =========================================================
+                CONTRACTOR LIST
+            ========================================================== -->
+
+            <div class="contractors-list-card">
+
+                <div class="contractors-list-header">
+
+                    <div>
+                        <h2>Contractors</h2>
+                        <p>
+                            Companies assigned to this project
+                        </p>
+                    </div>
+
+                    <span class="contractors-count">
+                        {{ contractor_count }}
+                    </span>
+
+                </div>
+
+
+                {% if contractors %}
+
+                    <div class="contractors-list">
+
+                        {% for project_contractor in contractors %}
+                                <div class="contractor-row">
+
+                                    <!-- COMPANY -->
+                                    <div class="contractor-company">
+
+                                        <div class="contractor-logo">
+
+                                            {% if project_contractor.contractor.logo %}
+
+                                                <img
+                                                    src="{{ project_contractor.contractor.logo.url }}"
+                                                    alt="{{ project_contractor.contractor.company_name }}"
+                                                >
+
+                                            {% else %}
+
+                                                <span>
+                                                    {{ project_contractor.contractor.company_name|slice:":1"|upper }}
+                                                </span>
+
+                                            {% endif %}
+
+                                        </div>
+
+
+                                        <div class="contractor-company-info">
+
+                                            <div class="contractor-name">
+                                                {{ project_contractor.contractor.company_name }}
+                                            </div>
+
+                                            {% if project_contractor.contractor.industry %}
+                                                <div class="contractor-industry">
+                                                    {{ project_contractor.contractor.industry }}
+                                                </div>
+                                            {% endif %}
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <!-- CONTACT -->
+                                    <div class="contractor-contact">
+
+                                        {% if project_contractor.contractor.email %}
+
+                                            <a
+                                                href="mailto:{{ project_contractor.contractor.email }}"
+                                                class="contractor-contact-item"
+                                            >
+                                                <i class="bi bi-envelope"></i>
+                                                <span>
+                                                    {{ project_contractor.contractor.email }}
+                                                </span>
+                                            </a>
+
+                                        {% endif %}
+
+
+                                        {% if project_contractor.contractor.phone %}
+
+                                            <a
+                                                href="tel:{{ project_contractor.contractor.phone }}"
+                                                class="contractor-contact-item"
+                                            >
+                                                <i class="bi bi-telephone"></i>
+                                                <span>
+                                                    {{ project_contractor.contractor.phone }}
+                                                </span>
+                                            </a>
+
+                                        {% endif %}
+
+                                    </div>
+
+
+                                    <!-- LOCATION -->
+                                    <div class="contractor-location">
+
+                                        {% if project_contractor.contractor.address %}
+
+                                            {% if project_contractor.contractor.address.city %}
+
+                                                <div class="contractor-location-main">
+                                                    <i class="bi bi-geo-alt"></i>
+                                                    {{ project_contractor.contractor.address.city }}
+                                                </div>
+
+                                            {% endif %}
+
+                                            {% if project_contractor.contractor.address.province %}
+
+                                                <div class="contractor-location-sub">
+                                                    {{ project_contractor.contractor.address.province }}
+                                                </div>
+
+                                            {% endif %}
+
+                                        {% else %}
+
+                                            <span class="contractor-muted">
+                                                No address
+                                            </span>
+
+                                        {% endif %}
+
+                                    </div>
+
+
+                                    <!-- PERIOD -->
+                                    <div class="contractor-period">
+
+                                        {% if project_contractor.start_date %}
+
+                                            <div class="contractor-date-label">
+                                                <span>Start</span>
+                                                {{ project_contractor.start_date|date:"d M Y" }}
+                                            </div>
+
+                                        {% endif %}
+
+
+                                        {% if project_contractor.end_date %}
+
+                                            <div class="contractor-date-label">
+                                                <span>End</span>
+                                                {{ project_contractor.end_date|date:"d M Y" }}
+                                            </div>
+
+                                        {% endif %}
+
+                                        {% if not project_contractor.start_date and not project_contractor.end_date %}
+
+                                            <span class="contractor-muted">
+                                                No dates set
+                                            </span>
+
+                                        {% endif %}
+
+                                    </div>
+
+
+                                    <!-- STATUS -->
+                                    <div class="contractor-status-wrapper">
+
+                                        {% if project_contractor.status == "active" %}
+
+                                            <span class="contractor-status active">
+                                                <span class="status-dot"></span>
+                                                Active
+                                            </span>
+
+                                        {% elif project_contractor.status == "pending" %}
+
+                                            <span class="contractor-status pending">
+                                                <span class="status-dot"></span>
+                                                Pending
+                                            </span>
+
+                                        {% else %}
+
+                                            <span class="contractor-status inactive">
+                                                <span class="status-dot"></span>
+                                                Inactive
+                                            </span>
+
+                                        {% endif %}
+
+                                    </div>
+
+
+                                    <!-- ACTIONS -->
+                                    <div class="contractor-actions">
+
+                                        <a
+                                            href="{% url 'contractors:contractor' project_contractor.uuid %}?next={{ request.get_full_path|urlencode }}"
+                                            class="contractor-action-btn"
+                                            title="View contractor"
+                                        >
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+
+                                        <button
+                                            type="button"
+                                            class="contractor-action-btn"
+                                            title="More actions"
+                                        >
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </button>
+
+                                    </div>
+
+                                </div>
+                        {% endfor %}
+
+                    </div>
+
+                {% else %}
+
+                    <!-- EMPTY STATE -->
+
+                    <div class="contractors-empty">
+
+                        <div class="contractors-empty-icon">
+                            <span class="material-symbols-outlined">
+                                domain_add
+                            </span>
+                        </div>
+
+                        {% if search or selected_status %}
+
+                            <h3>No contractors found</h3>
+
+                            <p>
+                                No contractors match your current search or filter.
+                            </p>
+
+                            <a
+                                href="{% url 'projects:project-contractors' project.uuid %}"
+                                class="contractors-empty-btn"
+                            >
+                                Clear filters
+                            </a>
+
+                        {% else %}
+
+                            <h3>No contractors yet</h3>
+
+                            <p>
+                                Add contractors to start managing the companies
+                                working on this project.
+                            </p>
+
+                            <a
+                                href="{% url 'contractors:add-contractor' project.uuid %}?next={{ request.get_full_path|urlencode }}"
+                                class="contractors-empty-btn"
+                            >
+                                <i class="bi bi-plus-lg"></i>
+                                Add Contractor
+                            </a>
+
+                        {% endif %}
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- ======== PROJECT BOTTOM NAVBAR ======== -->
+{% if show_project_bottom_nav is not False %}
+<div class="d-block d-lg-none">{% include 'partials/project_bottom_navbar.html' %}</div>
+{% endif %}

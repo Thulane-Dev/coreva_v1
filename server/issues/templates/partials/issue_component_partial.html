@@ -1,0 +1,158 @@
+<!-- ISSUES HEADER -->
+<div class="portal-work-section portal-work-section--issues mb-3">
+    <div class="portal-work-header">
+
+        <div class="portal-work-icon">
+            <i class="bi bi-exclamation-circle"></i>
+        </div>
+
+        <div class="portal-work-heading">
+            <h3>Issues</h3>
+            <span>{{project_data.open_issues_count}} Problem{% if project_data.open_issues_count > 1%}s{% endif %} requiring action</span>
+        </div>
+
+        <!-- ALL ISSUES ACTION  -->
+        <div class="d-flex gap-2">
+            <a href="{% url 'issues:project-issues' project.uuid %}?next={{ request.get_full_path|urlencode }}&section=IssuesSection">
+                <div class="portal-work-count">
+                    <div class="d-flex gap-1">
+                        <span class="text-capitalize">See All</span>
+                    </div>
+                </div>
+            </a>
+            <!-- ADD ISSUE ACTION  -->
+            <a data-bs-toggle="offcanvas" href="#addIssueOffcanvas" aria-controls="addIssueOffcanvas">
+                <div class="portal-work-count">
+                    <div class="d-flex gap-1">
+                        <strong><i class="bi bi-plus"></i></strong>
+                        <span class="text-capitalize">Issue</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+<!-- DATABASE ISSUES -->
+<div class="cpd-list-section mb-3">
+    <div class="cpd-items">
+        <!-- DATABASE ISSUES -->
+        {% for data in project_data.open_issues %}
+        <article class="cpd-item cpd-item-overdue scroll-section" id="IssuesSection{{data.issue.id}}">
+
+            <div class="cpd-item-main">
+                {% if data.status == 'high'%}
+                <div class="cpd-item-icon cpd-item-icon-red">
+                    <i class="bi bi-exclamation-triangle"></i>
+                </div>
+                {% elif data.status == 'medium' %}
+                <div class="cpd-item-icon cpd-item-icon-orange">
+                    <i class="bi bi-exclamation-triangle"></i>
+                </div>
+                {% else %}
+                <div class="cpd-item-icon cpd-item-icon-blue">
+                    <i class="bi bi-exclamation-circle"></i>
+                </div>
+                {% endif %}
+
+                <div class="cpd-item-content">
+
+                    <div class="cpd-item-title-row">
+
+                        <h4>
+                            {{data.issue.title}}
+                        </h4>
+
+                        {% if data.status == 'high'%}
+                        <span class="cpd-priority cpd-priority-high" style="font-size: 11.5px;">
+                            High
+                        </span>
+                        {% elif data.status == 'medium' %}
+                        <span class="cpd-priority cpd-priority-medium" style="font-size: 11.5px;">
+                            Medium
+                        </span>
+                        {% elif data.status == 'low' %}
+                        <span class="cpd-priority cpd-priority-low" style="font-size: 11.5px;">
+                            Low
+                        </span>
+                        {% endif %}
+                    </div>
+
+                    <p class="cpd-item-description" style="font-size: 12.5px !important;">
+                        {{data.issue.description}}
+                    </p>
+
+                    <div class="cpd-item-meta">
+
+                        <span class="cpd-meta-overdue">
+                            <i class="bi bi-calendar-x"></i>
+                            {{data.issue_text}}
+                        </span>
+                        
+                        <!-- NEW UPDATE  -->
+                        {% if data.has_new_update %}
+                        <span class="text-primary">
+                            <i class="bi bi-bell-fill"></i>
+                            New update
+                        </span>
+                        {% endif %}
+
+                        <!-- ASSIGNED TO YOU  -->
+                         {% if data.issue.assigned_to == current_user %}
+                        <span class="text-success">
+                            <i class="bi bi-person-check-fill"></i>
+                            Assigned to you
+                        </span>
+                        {% else %}
+                        <!-- divider  -->
+
+                         {% if data.issue.assigned_to %}
+                         <span style="color: rgb(194, 65, 12) !important;">
+                            <i class="bi bi-person-check-fill"></i>
+                            {{data.issue.assigned_to.first_name}} {{data.issue.assigned_to.last_name}}
+                        </span>
+                        {% else %}
+                        <span style="
+                            color: rgb(111, 118, 125) !important;
+                            ">
+                            <i class="bi bi-person-fill"></i>
+                            Unassigned
+                        </span>
+                        {% endif %}
+
+                        <!-- divider  -->
+                        {% endif %}
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="cpd-item-action">
+
+                <a href="{% url 'issues:issue' data.issue.uuid %}?next={{ next_url|urlencode }}&section=IssuesSection{{data.issue.id}}" class="cpd-view-btn">
+                    View
+                    <i class="bi bi-chevron-right"></i>
+                </a>
+
+            </div>
+
+        </article>
+        {% endfor %}
+    </div>
+</div>
+
+
+<!-- VIEW ALL -->
+{% if project_data.open_issues_count > 4 %}
+<a
+    href="{% url 'issues:project-issues' project.uuid %}?next={{ request.get_full_path|urlencode }}&section=IssuesSection"
+    class="primary-action-button mt-0 mb-3"
+    style="font-size: 12px;font-weight: 500 !important;"
+    >
+        <span>See all {{project_data.open_issues_count}} open issues </span>
+        <i class="bi bi-arrow-right"></i>
+</a>
+{% endif %}

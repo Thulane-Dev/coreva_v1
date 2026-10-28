@@ -1,0 +1,851 @@
+{% load static %}
+<!-- divider  -->
+
+
+<a href="{% url 'contractors:workspace' contractor.contractor.uuid%}">Contractor Workspace</a>
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="project-contractor-details-page">
+            <!-- =====================================
+            BACK
+            ====================================== -->
+            {% include 'partials/page_topbar.html' with next_url=next_url back_url=back_url brand_name='Contractor Details' brand_url=back_url %}
+
+            <!-- =========================================================
+                HERO
+            ========================================================== -->
+
+            <section class="pcd-hero">
+
+                <div class="pcd-company">
+
+                    <div class="pcd-company-logo">
+
+                        {% if contractor.contractor.logo %}
+
+                            <img
+                                src="{{ contractor.contractor.logo.url }}"
+                                alt="{{ contractor.contractor.company_name }}"
+                            >
+
+                        {% else %}
+
+                            <span>
+                                {{ contractor.contractor.company_name|slice:":1"|upper }}
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="pcd-company-info">
+
+                        <div class="pcd-company-topline">
+
+                            {% if contractor.status == "active" %}
+
+                                <span class="pcd-status active">
+                                    <span></span>
+                                    Active
+                                </span>
+
+                            {% elif contractor.status == "pending" %}
+
+                                <span class="pcd-status pending">
+                                    <span></span>
+                                    Pending Invitation
+                                </span>
+
+                            {% else %}
+
+                                <span class="pcd-status inactive">
+                                    <span></span>
+                                    Inactive
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+                        <h1>
+                            {{ contractor.contractor.company_name }}
+                        </h1>
+
+                        <p>
+                            {{ contractor.contractor.industry|default:"Construction Contractor" }}
+                        </p>
+
+                        <a
+                            href="#"
+                            class="pcd-project-link"
+                        >
+                            <i class="bi bi-building"></i>
+                            {{ contractor.project.project_name }}
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <div class="pcd-hero-actions">
+
+                    <a
+                        href="{% url 'contractors:edit-contractor' contractor.uuid %}"
+                        class="pcd-btn pcd-btn-light"
+                    >
+                        <i class="bi bi-pencil"></i>
+                        Edit Contractor
+                    </a>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================================================
+                WORK SUMMARY
+            ========================================================== -->
+
+            <section class="pcd-summary-grid">
+
+                <div class="pcd-summary-card">
+
+                    <div class="pcd-summary-icon blue">
+                        <span class="material-symbols-outlined">
+                            assignment
+                        </span>
+                    </div>
+
+                    <div>
+                        <span>Assigned Work</span>
+                        <strong>{{ total_items }}</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="pcd-summary-card">
+
+                    <div class="pcd-summary-icon red">
+                        <span class="material-symbols-outlined">
+                            report_problem
+                        </span>
+                    </div>
+
+                    <div>
+                        <span>Open Issues</span>
+                        <strong>{{ open_issues_count }}</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="pcd-summary-card">
+
+                    <div class="pcd-summary-icon amber">
+                        <span class="material-symbols-outlined">
+                            task_alt
+                        </span>
+                    </div>
+
+                    <div>
+                        <span>Open Tasks</span>
+                        <strong>{{ open_tasks_count }}</strong>
+                    </div>
+
+                </div>
+
+
+                <div class="pcd-summary-card">
+
+                    <div class="pcd-summary-icon green">
+                        <span class="material-symbols-outlined">
+                            check_circle
+                        </span>
+                    </div>
+
+                    <div>
+                        <span>Completed</span>
+                        <strong>
+                            {{ closed_issues_count|add:closed_tasks_count }}
+                        </strong>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =========================================================
+                MAIN LAYOUT
+            ========================================================== -->
+
+            <div class="pcd-layout">
+
+                <!-- =====================================================
+                    MAIN
+                ====================================================== -->
+
+                <main class="pcd-main">
+
+
+                    <!-- =================================================
+                        ASSIGNED ISSUES
+                    ================================================== -->
+
+                    <section class="pcd-card">
+
+                        <div class="pcd-card-header">
+
+                            <div>
+
+                                <div class="pcd-card-title-row">
+
+                                    <div class="pcd-section-icon issue">
+                                        <span class="material-symbols-outlined">
+                                            report_problem
+                                        </span>
+                                    </div>
+
+                                    <div>
+                                        <h2>Assigned Issues</h2>
+                                        <p>
+                                            Issues assigned to this contractor
+                                        </p>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <span class="pcd-count-pill">
+                                {{ issue_count }}
+                            </span>
+
+                        </div>
+
+
+                        {% if assigned_issues %}
+
+                            <div class="pcd-work-list">
+
+                                {% for issue in assigned_issues %}
+
+                                    <a
+                                        href="#"
+                                        class="pcd-work-item"
+                                    >
+
+                                        <div class="pcd-work-icon issue">
+                                            <span class="material-symbols-outlined">
+                                                {% if issue.status == "closed" %}
+                                                    check_circle
+                                                {% else %}
+                                                    report_problem
+                                                {% endif %}
+                                            </span>
+                                        </div>
+
+
+                                        <div class="pcd-work-content">
+
+                                            <div class="pcd-work-title-row">
+
+                                                <h3>
+                                                    {{ issue.title|default:"Untitled issue" }}
+                                                </h3>
+
+                                                {% if issue.priority == "high" %}
+
+                                                    <span class="pcd-priority high">
+                                                        High
+                                                    </span>
+
+                                                {% elif issue.priority == "medium" %}
+
+                                                    <span class="pcd-priority medium">
+                                                        Medium
+                                                    </span>
+
+                                                {% else %}
+
+                                                    <span class="pcd-priority low">
+                                                        Low
+                                                    </span>
+
+                                                {% endif %}
+
+                                            </div>
+
+
+                                            {% if issue.description %}
+
+                                                <p class="pcd-work-description">
+                                                    {{ issue.description|truncatechars:100 }}
+                                                </p>
+
+                                            {% endif %}
+
+
+                                            <div class="pcd-work-meta">
+
+                                                {% if issue.due_date %}
+
+                                                    <span>
+                                                        <i class="bi bi-calendar3"></i>
+                                                        {{ issue.due_status }}
+                                                    </span>
+
+                                                {% endif %}
+
+
+                                                <span>
+                                                    <i class="bi bi-clock"></i>
+                                                    {{ issue.created_at|date:"d M Y" }}
+                                                </span>
+
+                                            </div>
+
+                                        </div>
+
+
+                                        <div class="pcd-work-status">
+
+                                            {% if issue.status == "closed" %}
+
+                                                <span class="pcd-item-status closed">
+                                                    Closed
+                                                </span>
+
+                                            {% else %}
+
+                                                <span class="pcd-item-status open">
+                                                    Open
+                                                </span>
+
+                                            {% endif %}
+
+                                            <i class="bi bi-chevron-right"></i>
+
+                                        </div>
+
+                                    </a>
+
+                                {% endfor %}
+
+                            </div>
+
+                        {% else %}
+
+                            <div class="pcd-empty-small">
+
+                                <div class="pcd-empty-small-icon">
+                                    <span class="material-symbols-outlined">
+                                        check_circle
+                                    </span>
+                                </div>
+
+                                <div>
+                                    <strong>No issues assigned</strong>
+                                    <p>
+                                        This contractor currently has no assigned issues.
+                                    </p>
+                                </div>
+
+                            </div>
+
+                        {% endif %}
+
+                    </section>
+
+
+                    <!-- =================================================
+                        ASSIGNED TASKS
+                    ================================================== -->
+
+                    <section class="pcd-card">
+
+                        <div class="pcd-card-header">
+
+                            <div class="pcd-card-title-row">
+
+                                <div class="pcd-section-icon task">
+                                    <span class="material-symbols-outlined">
+                                        checklist
+                                    </span>
+                                </div>
+
+                                <div>
+                                    <h2>Assigned Tasks</h2>
+                                    <p>
+                                        Work assigned to this contractor
+                                    </p>
+                                </div>
+
+                            </div>
+
+                            <span class="pcd-count-pill">
+                                {{ task_count }}
+                            </span>
+
+                        </div>
+
+
+                        {% if assigned_tasks %}
+
+                            <div class="pcd-work-list">
+
+                                {% for task in assigned_tasks %}
+
+                                    <a
+                                        href="#"
+                                        class="pcd-work-item"
+                                    >
+
+                                        <div class="pcd-work-icon task">
+                                            <span class="material-symbols-outlined">
+                                                {% if task.status == "closed" %}
+                                                    task_alt
+                                                {% else %}
+                                                    checklist
+                                                {% endif %}
+                                            </span>
+                                        </div>
+
+
+                                        <div class="pcd-work-content">
+
+                                            <div class="pcd-work-title-row">
+
+                                                <h3>
+                                                    {{ task.title|default:"Untitled task" }}
+                                                </h3>
+
+                                                {% if task.priority == "high" %}
+
+                                                    <span class="pcd-priority high">
+                                                        High
+                                                    </span>
+
+                                                {% elif task.priority == "medium" %}
+
+                                                    <span class="pcd-priority medium">
+                                                        Medium
+                                                    </span>
+
+                                                {% else %}
+
+                                                    <span class="pcd-priority low">
+                                                        Low
+                                                    </span>
+
+                                                {% endif %}
+
+                                            </div>
+
+
+                                            {% if task.description %}
+
+                                                <p class="pcd-work-description">
+                                                    {{ task.description|truncatechars:100 }}
+                                                </p>
+
+                                            {% endif %}
+
+
+                                            <div class="pcd-work-meta">
+
+                                                {% if task.due_date %}
+
+                                                    <span>
+                                                        <i class="bi bi-calendar3"></i>
+                                                        {{ task.due_status }}
+                                                    </span>
+
+                                                {% endif %}
+
+
+                                                <span>
+                                                    <i class="bi bi-clock"></i>
+                                                    {{ task.created_at|date:"d M Y" }}
+                                                </span>
+
+                                            </div>
+
+                                        </div>
+
+
+                                        <div class="pcd-work-status">
+
+                                            {% if task.status == "closed" %}
+
+                                                <span class="pcd-item-status closed">
+                                                    Completed
+                                                </span>
+
+                                            {% else %}
+
+                                                <span class="pcd-item-status open">
+                                                    Open
+                                                </span>
+
+                                            {% endif %}
+
+                                            <i class="bi bi-chevron-right"></i>
+
+                                        </div>
+
+                                    </a>
+
+                                {% endfor %}
+
+                            </div>
+
+                        {% else %}
+
+                            <div class="pcd-empty-small">
+
+                                <div class="pcd-empty-small-icon">
+                                    <span class="material-symbols-outlined">
+                                        task_alt
+                                    </span>
+                                </div>
+
+                                <div>
+                                    <strong>No tasks assigned</strong>
+                                    <p>
+                                        This contractor currently has no assigned tasks.
+                                    </p>
+                                </div>
+
+                            </div>
+
+                        {% endif %}
+
+                    </section>
+
+
+                </main>
+
+
+                <!-- =====================================================
+                    SIDEBAR
+                ====================================================== -->
+
+                <aside class="pcd-sidebar">
+
+
+                    <!-- =================================================
+                        CONTRACTOR INFORMATION
+                    ================================================== -->
+
+                    <section class="pcd-card">
+
+                        <div class="pcd-sidebar-header">
+                            <h2>Contractor Information</h2>
+                        </div>
+
+
+                        <div class="pcd-info-list">
+
+                            {% if contractor.contractor.email %}
+
+                                <div class="pcd-info-item">
+
+                                    <div class="pcd-info-icon">
+                                        <i class="bi bi-envelope"></i>
+                                    </div>
+
+                                    <div>
+                                        <span>Email</span>
+
+                                        <a
+                                            href="mailto:{{ contractor.contractor.email }}"
+                                        >
+                                            {{ contractor.contractor.email }}
+                                        </a>
+                                    </div>
+
+                                </div>
+
+                            {% endif %}
+
+
+                            {% if contractor.contractor.phone %}
+
+                                <div class="pcd-info-item">
+
+                                    <div class="pcd-info-icon">
+                                        <i class="bi bi-telephone"></i>
+                                    </div>
+
+                                    <div>
+                                        <span>Phone</span>
+
+                                        <a
+                                            href="tel:{{ contractor.contractor.phone }}"
+                                        >
+                                            {{ contractor.contractor.phone }}
+                                        </a>
+                                    </div>
+
+                                </div>
+
+                            {% endif %}
+
+
+                            {% if contractor.contractor.whatsapp %}
+
+                                <div class="pcd-info-item">
+
+                                    <div class="pcd-info-icon">
+                                        <i class="bi bi-whatsapp"></i>
+                                    </div>
+
+                                    <div>
+                                        <span>WhatsApp</span>
+
+                                        <a
+                                            href="https://wa.me/{{ contractor.contractor.whatsapp }}"
+                                            target="_blank"
+                                            rel="noopener"
+                                        >
+                                            {{ contractor.contractor.whatsapp }}
+                                        </a>
+                                    </div>
+
+                                </div>
+
+                            {% endif %}
+
+
+                            {% if contractor.contractor.address %}
+
+                                <div class="pcd-info-item">
+
+                                    <div class="pcd-info-icon">
+                                        <i class="bi bi-geo-alt"></i>
+                                    </div>
+
+                                    <div>
+
+                                        <span>Address</span>
+
+                                        <strong>
+                                            {% if contractor.contractor.address.street_address %}
+                                                {{ contractor.contractor.address.street_address }}<br>
+                                            {% endif %}
+
+                                            {% if contractor.contractor.address.city %}
+                                                {{ contractor.contractor.address.city }}{% if contractor.contractor.address.province %}, {% endif %}
+                                            {% endif %}
+
+                                            {% if contractor.contractor.address.province %}
+                                                {{ contractor.contractor.address.province }}
+                                            {% endif %}
+
+                                            {% if contractor.contractor.address.postal_code %}
+                                                <br>{{ contractor.contractor.address.postal_code }}
+                                            {% endif %}
+
+                                        </strong>
+
+                                    </div>
+
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- =================================================
+                        PROJECT ASSIGNMENT
+                    ================================================== -->
+
+                    <section class="pcd-card">
+
+                        <div class="pcd-sidebar-header">
+                            <h2>Project Assignment</h2>
+                        </div>
+
+
+                        <div class="pcd-assignment">
+
+                            <div class="pcd-project-mini-icon">
+                                <span class="material-symbols-outlined">
+                                    construction
+                                </span>
+                            </div>
+
+                            <div class="pcd-project-mini-info">
+
+                                <span>Project</span>
+
+                                <a
+                                    href="#"
+                                >
+                                    {{ contractor.project.project_name }}
+                                </a>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="pcd-assignment-dates">
+
+                            <div>
+
+                                <span>Start Date</span>
+
+                                <strong>
+                                    {% if contractor.start_date %}
+                                        {{ contractor.start_date|date:"d M Y" }}
+                                    {% else %}
+                                        Not set
+                                    {% endif %}
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span>End Date</span>
+
+                                <strong>
+                                    {% if contractor.end_date %}
+                                        {{ contractor.end_date|date:"d M Y" }}
+                                    {% else %}
+                                        Not set
+                                    {% endif %}
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- =================================================
+                        WORK BREAKDOWN
+                    ================================================== -->
+
+                    <section class="pcd-card">
+
+                        <div class="pcd-sidebar-header">
+                            <h2>Work Breakdown</h2>
+                        </div>
+
+
+                        <div class="pcd-breakdown">
+
+                            <div class="pcd-breakdown-row">
+
+                                <div>
+                                    <span class="pcd-breakdown-dot issue"></span>
+                                    Issues
+                                </div>
+
+                                <strong>{{ issue_count }}</strong>
+
+                            </div>
+
+
+                            <div class="pcd-breakdown-row">
+
+                                <div>
+                                    <span class="pcd-breakdown-dot task"></span>
+                                    Tasks
+                                </div>
+
+                                <strong>{{ task_count }}</strong>
+
+                            </div>
+
+
+                            <div class="pcd-breakdown-row">
+
+                                <div>
+                                    <span class="pcd-breakdown-dot open"></span>
+                                    Open
+                                </div>
+
+                                <strong>
+                                    {{ open_issues_count|add:open_tasks_count }}
+                                </strong>
+
+                            </div>
+
+
+                            <div class="pcd-breakdown-row">
+
+                                <div>
+                                    <span class="pcd-breakdown-dot closed"></span>
+                                    Completed
+                                </div>
+
+                                <strong>
+                                    {{ closed_issues_count|add:closed_tasks_count }}
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </section>
+
+
+                    <!-- =================================================
+                        RECORD INFORMATION
+                    ================================================== -->
+
+                    <section class="pcd-card">
+
+                        <div class="pcd-sidebar-header">
+                            <h2>Record Information</h2>
+                        </div>
+
+
+                        <div class="pcd-record-list">
+
+                            <div>
+                                <span>Added</span>
+                                <strong>
+                                    {{ contractor.created_at|date:"d M Y" }}
+                                </strong>
+                            </div>
+
+
+                            {% if contractor.added_by %}
+
+                                <div>
+                                    <span>Added By</span>
+                                    <strong>
+                                        {{ contractor.added_by.first_name}} {{ contractor.added_by.last_name}}
+                                    </strong>
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+                    </section>
+
+
+                </aside>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+

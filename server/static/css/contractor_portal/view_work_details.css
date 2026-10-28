@@ -1,0 +1,2740 @@
+/* =========================================
+     BACK
+  ========================================= */
+
+.form_back_button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  margin-bottom: 20px;
+
+  color: #667085;
+  font-size: 13px;
+  font-weight: 600;
+
+  text-decoration: none;
+}
+
+.form_back_button:hover {
+  color: #2563eb;
+}
+
+
+.material-symbols-rounded {
+    font-family: 'Material Symbols Rounded';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: 'liga';
+}
+
+/* =========================================================
+   CONTRACTOR WORK ITEM PAGE
+========================================================= */
+
+.contractor-work-page {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 24px;
+    color: #0f172a;
+}
+
+
+/* =========================================================
+   TOP BAR
+========================================================= */
+
+.work-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #64748b;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.back-link:hover {
+    color: #0f172a;
+}
+
+.back-link .material-symbols-rounded {
+    font-size: 20px;
+}
+
+.more-button {
+    width: 38px;
+    height: 38px;
+    border: 1px solid #e2e8f0;
+    border-radius: 9px;
+    background: #ffffff;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* =========================================================
+   LAYOUT
+========================================================= */
+
+.work-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 22px;
+    align-items: start;
+}
+
+.work-main {
+    min-width: 0;
+}
+
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.work-card,
+.sidebar-card {
+    background: #ffffff;
+    border: 1px solid #e5eaf0;
+    border-radius: 13px;
+    margin-bottom: 18px;
+}
+
+.work-card {
+    padding: 24px;
+}
+
+.sidebar-card {
+    padding: 20px;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.work-type-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+}
+
+.work-type,
+.priority {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 27px;
+    padding: 4px 9px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .03em;
+}
+
+.work-type.issue {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.work-type.task {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.work-type .material-symbols-rounded {
+    font-size: 16px;
+}
+
+.priority.high {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.priority.medium {
+    background: #fff7ed;
+    color: #ea580c;
+}
+
+.priority.low {
+    background: #f1f5f9;
+    color: #64748b;
+}
+
+.work-header-card h1 {
+    margin: 0;
+    max-width: 800px;
+    font-size: 27px;
+    line-height: 1.25;
+    font-weight: 750;
+    letter-spacing: -0.02em;
+}
+
+.work-reference {
+    margin: 7px 0 20px;
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+.work-meta {
+    display: flex;
+    gap: 30px;
+    padding-top: 18px;
+    border-top: 1px solid #eef2f6;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.meta-item > .material-symbols-rounded {
+    color: #64748b;
+    font-size: 20px;
+}
+
+.meta-item > div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.meta-label {
+    color: #94a3b8;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.meta-item strong {
+    font-size: 13px;
+    font-weight: 650;
+}
+
+
+/* =========================================================
+   SECTION HEADING
+========================================================= */
+
+.section-heading {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin-bottom: 20px;
+}
+
+.section-icon {
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f5f9;
+    border-radius: 9px;
+    color: #475569;
+}
+
+.section-icon .material-symbols-rounded {
+    font-size: 20px;
+}
+
+.section-heading h2 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.section-heading p {
+    margin: 2px 0 0;
+    color: #94a3b8;
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.description-content p {
+    margin: 0;
+    color: #475569;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   YOUR WORK
+========================================================= */
+
+.your-work-card {
+    background: #fcfdff;
+}
+
+.status-update {
+    margin-bottom: 18px;
+}
+
+.status-update label,
+.update-box label {
+    display: block;
+    margin-bottom: 7px;
+    color: #475569;
+    font-size: 12px;
+    font-weight: 650;
+}
+
+.status-select {
+    width: 100%;
+    height: 43px;
+    padding: 0 12px;
+    border: 1px solid #dbe2ea;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #0f172a;
+    font-size: 14px;
+    outline: none;
+}
+
+.status-select:focus,
+.update-box textarea:focus,
+.comment-input-area textarea:focus {
+    border-color: #94a3b8;
+    box-shadow: 0 0 0 3px rgba(148, 163, 184, .12);
+}
+
+.update-box textarea {
+    width: 100%;
+    resize: vertical;
+    padding: 12px;
+    border: 1px solid #dbe2ea;
+    border-radius: 8px;
+    outline: none;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.update-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.primary-button,
+.secondary-button,
+.attach-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 38px;
+    padding: 8px 13px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 650;
+    cursor: pointer;
+}
+
+.primary-button {
+    border: 1px solid #2563eb;
+    background: #2563eb;
+    color: #ffffff;
+}
+
+.primary-button:hover {
+    background: #1d4ed8;
+}
+
+.secondary-button {
+    border: 1px solid #dbe2ea;
+    background: #ffffff;
+    color: #475569;
+}
+
+.attach-button {
+    border: 0;
+    background: transparent;
+    color: #64748b;
+    padding-left: 0;
+}
+
+.attach-button:hover {
+    color: #2563eb;
+}
+
+.primary-button .material-symbols-rounded,
+.secondary-button .material-symbols-rounded,
+.attach-button .material-symbols-rounded {
+    font-size: 18px;
+}
+
+
+/* =========================================================
+   ATTACHMENTS
+========================================================= */
+
+.attachment-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.attachment-card {
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid #e5eaf0;
+    border-radius: 10px;
+    background: #ffffff;
+}
+
+.attachment-preview {
+    height: 150px;
+    overflow: hidden;
+}
+
+.image-preview img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.document-preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8fafc;
+    color: #64748b;
+}
+
+.document-preview .material-symbols-rounded {
+    font-size: 42px;
+}
+
+.attachment-info {
+    min-width: 0;
+    padding: 10px;
+}
+
+.attachment-info strong {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 12px;
+    font-weight: 650;
+}
+
+.attachment-info span {
+    display: block;
+    margin-top: 3px;
+    color: #94a3b8;
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   COMMENTS
+========================================================= */
+
+.comment-count {
+    margin-left: auto;
+    min-width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 7px;
+    border-radius: 20px;
+    background: #f1f5f9;
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.comment {
+    display: flex;
+    gap: 11px;
+    padding: 18px 0;
+    border-top: 1px solid #eef2f6;
+}
+
+.comment-avatar {
+    width: 36px;
+    height: 36px;
+    flex: 0 0 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #e2e8f0;
+    color: #475569;
+    font-size: 11px;
+    font-weight: 750;
+}
+
+.comment-avatar.contractor {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.comment-avatar.current-user {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.comment-body {
+    min-width: 0;
+    flex: 1;
+}
+
+.comment-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.comment-top > div {
+    min-width: 0;
+}
+
+.comment-top strong {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.comment-top span {
+    display: block;
+    margin-top: 2px;
+    color: #94a3b8;
+    font-size: 11px;
+}
+
+.comment-top time {
+    flex-shrink: 0;
+    color: #94a3b8;
+    font-size: 11px;
+}
+
+.comment-body > p {
+    margin: 8px 0 0;
+    color: #475569;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   COMMENT ATTACHMENT
+========================================================= */
+
+.comment-attachment {
+    max-width: 340px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-top: 11px;
+    padding: 8px;
+    border: 1px solid #e5eaf0;
+    border-radius: 8px;
+}
+
+.comment-attachment-icon {
+    width: 34px;
+    height: 34px;
+    flex: 0 0 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+.comment-attachment-icon .material-symbols-rounded {
+    font-size: 18px;
+}
+
+.comment-attachment-info {
+    min-width: 0;
+    flex: 1;
+}
+
+.comment-attachment-info strong {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 11px;
+}
+
+.comment-attachment-info span {
+    color: #94a3b8;
+    font-size: 10px;
+}
+
+.comment-attachment > button {
+    width: 30px;
+    height: 30px;
+    flex: 0 0 30px;
+    border: 0;
+    background: transparent;
+    color: #64748b;
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   ADD COMMENT
+========================================================= */
+
+.add-comment {
+    display: flex;
+    gap: 11px;
+    margin-top: 5px;
+    padding-top: 20px;
+    border-top: 1px solid #eef2f6;
+}
+
+.comment-input-area {
+    min-width: 0;
+    flex: 1;
+}
+
+.comment-input-area textarea {
+    width: 100%;
+    min-height: 90px;
+    resize: vertical;
+    padding: 11px 12px;
+    border: 1px solid #dbe2ea;
+    border-radius: 8px;
+    outline: none;
+    font-family: inherit;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.comment-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.work-sidebar {
+    position: sticky;
+    top: 20px;
+}
+
+.sidebar-label {
+    display: block;
+    margin-bottom: 10px;
+    color: #94a3b8;
+    font-size: 10px;
+    font-weight: 750;
+    letter-spacing: .08em;
+}
+
+.sidebar-card h3 {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.45;
+}
+
+.sidebar-card > p {
+    margin: 5px 0 14px;
+    color: #94a3b8;
+    font-size: 12px;
+}
+
+.project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: #2563eb;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 650;
+}
+
+.project-link .material-symbols-rounded {
+    font-size: 16px;
+}
+
+
+/* =========================================================
+   SIDEBAR STATUS
+========================================================= */
+
+.sidebar-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 650;
+}
+
+.status-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+}
+
+.status-dot.in-progress {
+    background: #f59e0b;
+}
+
+.status-date {
+    margin-top: 7px;
+    padding-left: 17px;
+    color: #94a3b8;
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   ACTIVITY
+========================================================= */
+
+.activity-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.activity-item {
+    position: relative;
+    display: flex;
+    gap: 10px;
+    padding-bottom: 18px;
+}
+
+.activity-item:last-child {
+    padding-bottom: 0;
+}
+
+.activity-item:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 3px;
+    width: 1px;
+    height: calc(100% - 5px);
+    background: #e2e8f0;
+}
+
+.activity-dot {
+    position: relative;
+    z-index: 1;
+    width: 7px;
+    height: 7px;
+    flex: 0 0 7px;
+    margin-top: 4px;
+    border-radius: 50%;
+    background: #94a3b8;
+}
+
+.activity-item strong {
+    display: block;
+    font-size: 11px;
+    font-weight: 650;
+}
+
+.activity-item span:not(.activity-dot) {
+    display: block;
+    margin-top: 3px;
+    color: #94a3b8;
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .work-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .work-sidebar {
+        position: static;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 15px;
+    }
+
+    .work-sidebar .sidebar-card {
+        margin-bottom: 0;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .contractor-work-page {
+        padding: 14px;
+    }
+
+    .work-card {
+        padding: 17px;
+        border-radius: 11px;
+        margin-bottom: 12px;
+    }
+
+    .work-header-card h1 {
+        font-size: 21px;
+    }
+
+    .work-meta {
+        flex-direction: column;
+        gap: 13px;
+    }
+
+    .section-heading {
+        margin-bottom: 16px;
+    }
+
+    .attachment-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .attachment-preview {
+        height: 120px;
+    }
+
+    .comment-top {
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .comment-top time {
+        font-size: 10px;
+    }
+
+    .comment-toolbar {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .attach-button,
+    .primary-button {
+        width: 100%;
+    }
+
+    .update-actions {
+        flex-direction: column-reverse;
+    }
+
+    .update-actions button {
+        width: 100%;
+    }
+
+    .work-sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .work-sidebar .sidebar-card {
+        margin-bottom: 12px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 420px) {
+
+    .contractor-work-page {
+        padding: 10px;
+    }
+
+    .work-card {
+        padding: 14px;
+    }
+
+    .attachment-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .attachment-preview {
+        height: 170px;
+    }
+
+    .add-comment {
+        gap: 8px;
+    }
+
+    .comment-avatar {
+        width: 32px;
+        height: 32px;
+        flex-basis: 32px;
+        font-size: 10px;
+    }
+
+}
+
+
+
+/* COMMENT ATTACHMENTS CSS  */
+.comment_attachments {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+/* =========================
+   IMAGE ATTACHMENT
+========================= */
+
+.comment_attachment_image {
+  position: relative;
+  display: block;
+  width: 110px;
+  height: 110px;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #f1f5f9;
+  cursor: pointer;
+}
+
+.comment_attachment_image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.comment_attachment_image:hover img {
+  transform: scale(1.04);
+}
+
+.comment_attachment_zoom {
+  position: absolute;
+  right: 7px;
+  bottom: 7px;
+
+  width: 28px;
+  height: 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: rgba(15, 23, 42, 0.75);
+  color: #fff;
+
+  font-size: 13px;
+
+  pointer-events: none;
+}
+
+/* =========================
+   DOCUMENT ATTACHMENT
+========================= */
+
+.comment_attachment_file {
+  width: 280px;
+  min-height: 70px;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 10px 12px;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+
+  background: #fff;
+
+  color: #0f172a;
+  text-decoration: none;
+
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.document_attachment_card{
+  width: 100%;
+  min-height: 70px;
+  padding: 10px 12px;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+
+  background: #fff;
+
+  color: #0f172a;
+  text-decoration: none;
+
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.document-file-name {
+    font-size: 8px;
+    width: 100%;
+    max-width: 100%;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    text-align: center;
+}
+
+.comment_attachment_file:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+}
+
+.comment_attachment_file_icon {
+  width: 40px;
+  height: 40px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 8px;
+
+  background: #f1f5f9;
+
+  font-size: 21px;
+}
+
+.comment_attachment_file_info {
+  min-width: 0;
+  flex: 1;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.comment_attachment_file_info strong {
+  display: block;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.comment_attachment_file_info span {
+  font-size: 11px;
+  color: #64748b;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.comment_attachment_open {
+  flex-shrink: 0;
+
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* =========================
+   IMAGE MODAL
+========================= */
+
+.comment_image_modal {
+  border: 0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.comment_image_modal .modal-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.comment_image_modal .modal-title {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.comment_image_modal .modal-body {
+  padding: 0;
+  background: #0f172a;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 300px;
+}
+
+.comment_image_modal img {
+  display: block;
+
+  max-width: 100%;
+  max-height: 80vh;
+
+  width: auto;
+  height: auto;
+
+  object-fit: contain;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 576px) {
+  .comment_attachment_image {
+    width: 90px;
+    height: 90px;
+  }
+
+  .comment_attachment_file {
+    width: 100%;
+  }
+
+  .comment_image_modal {
+    margin: 8px;
+  }
+
+  .comment_image_modal .modal-body {
+    min-height: 250px;
+  }
+}
+
+.alert_card {
+  background-color: #f5f9ff;
+  border-color: #dbeafe;  
+  padding: 10px;
+}
+
+.read_alert_card{
+  background-color: #ffffff;
+  border: 1px solid #e5eaf0;
+  padding: 10px;
+}
+
+
+/* =========================================================
+   NEW COMMENT BADGE
+========================================================= */
+
+.cpd-comment-new {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+
+    padding: 3px 7px;
+
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 999px;
+
+    color: #dc2626;
+
+    font-size: 9px;
+    font-weight: 750;
+    line-height: 1;
+}
+
+.cpd-comment-new i {
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   MARK AS READ
+========================================================= */
+
+.cpd-mark-read {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+
+    margin-top: 5px;
+    padding: 0;
+
+    background: transparent;
+    border: 0;
+
+    color: #2563eb;
+
+    font-size: 10px;
+    font-weight: 650;
+
+    cursor: pointer;
+
+    transition: color 0.2s ease;
+}
+
+.cpd-mark-read:hover {
+    color: #1d4ed8;
+}
+
+.cpd-mark-read i {
+    font-size: 11px;
+}
+
+
+/* NEW COMMENT ATTACHMENTS CSS  */
+/* =========================================================
+   COMMENT ATTACHMENTS
+========================================================= */
+
+.cca-section {
+    margin-top: 14px;
+    padding-top: 13px;
+
+    border-top: 1px solid #eef2f6;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.cca-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 9px;
+}
+
+.cca-header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cca-header-icon {
+    width: 27px;
+    height: 27px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #f1f5f9;
+
+    border-radius: 7px;
+
+    color: #64748b;
+
+    font-size: 12px;
+}
+
+.cca-title {
+    color: #475569;
+
+    font-size: 11px;
+    font-weight: 750;
+}
+
+.cca-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 19px;
+    height: 19px;
+
+    margin-left: 4px;
+    padding: 0 5px;
+
+    background: #f1f5f9;
+
+    border-radius: 999px;
+
+    color: #64748b;
+
+    font-size: 9px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   ATTACHMENT LIST
+========================================================= */
+
+.cca-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    min-width: 0;
+}
+
+
+/* =========================================================
+   PHOTO CARD
+========================================================= */
+
+.cca-photo-card {
+    width: 145px;
+
+    overflow: hidden;
+
+    background: #ffffff;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 9px;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.cca-photo-card:hover {
+    border-color: #cbd5e1;
+
+    box-shadow: 0 3px 10px rgba(15, 23, 42, 0.06);
+}
+
+
+/* =========================================================
+   PHOTO BUTTON
+========================================================= */
+
+.cca-photo-button {
+    position: relative;
+
+    display: block;
+
+    width: 100%;
+    height: 105px;
+
+    padding: 0;
+
+    overflow: hidden;
+
+    border: 0;
+
+    background: #f1f5f9;
+
+    cursor: pointer;
+}
+
+.cca-photo {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: transform 0.25s ease;
+}
+
+.cca-photo-button:hover .cca-photo {
+    transform: scale(1.04);
+}
+
+.cca-photo-overlay {
+    position: absolute;
+
+    right: 7px;
+    bottom: 7px;
+
+    width: 26px;
+    height: 26px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(15, 23, 42, 0.72);
+
+    border-radius: 6px;
+
+    color: #ffffff;
+
+    font-size: 11px;
+}
+
+.cca-photo-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    padding: 8px 9px;
+}
+
+.cca-photo-info strong {
+    color: #334155;
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.cca-photo-info span {
+    overflow: hidden;
+
+    color: #94a3b8;
+
+    font-size: 9px;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   FILE CARD
+========================================================= */
+
+.cca-file-card {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    width: 280px;
+    min-width: 0;
+
+    padding: 9px 10px;
+
+    background: #ffffff;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 9px;
+
+    text-decoration: none;
+
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.cca-file-card:hover {
+    background: #f8fafc;
+
+    border-color: #cbd5e1;
+
+    box-shadow: 0 3px 10px rgba(15, 23, 42, 0.04);
+}
+
+.cca-file-icon {
+    width: 34px;
+    height: 34px;
+
+    flex: 0 0 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #eff6ff;
+
+    border-radius: 8px;
+
+    color: #2563eb;
+
+    font-size: 16px;
+}
+
+.cca-file-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    min-width: 0;
+    flex: 1;
+}
+
+.cca-file-info strong {
+    display: block;
+
+    overflow: hidden;
+
+    color: #334155;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cca-file-info span {
+    display: block;
+
+    overflow: hidden;
+
+    color: #94a3b8;
+
+    font-size: 9px;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cca-file-action {
+    width: 26px;
+    height: 26px;
+
+    flex: 0 0 26px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #f8fafc;
+
+    border-radius: 6px;
+
+    color: #94a3b8;
+
+    font-size: 11px;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.cca-file-card:hover .cca-file-action {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+
+/* =========================================================
+   IMAGE MODAL
+========================================================= */
+
+.cca-image-modal {
+    overflow: hidden;
+
+    background: #ffffff;
+
+    border: 0;
+    border-radius: 12px;
+}
+
+.cca-image-modal .modal-header {
+    padding: 12px 15px;
+
+    border-bottom: 1px solid #e5eaf0;
+}
+
+.cca-modal-title {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    min-width: 0;
+}
+
+.cca-modal-icon {
+    width: 32px;
+    height: 32px;
+
+    flex: 0 0 32px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #eff6ff;
+
+    border-radius: 8px;
+
+    color: #2563eb;
+
+    font-size: 14px;
+}
+
+.cca-modal-title div:last-child {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    min-width: 0;
+}
+
+.cca-modal-title strong {
+    color: #172a46;
+
+    font-size: 12px;
+    font-weight: 750;
+}
+
+.cca-modal-title span {
+    overflow: hidden;
+
+    color: #64748b;
+
+    font-size: 10px;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cca-image-modal .modal-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 300px;
+    max-height: 80vh;
+
+    padding: 20px;
+
+    background: #f8fafc;
+}
+
+.cca-modal-image {
+    display: block;
+
+    max-width: 100%;
+    max-height: 72vh;
+
+    object-fit: contain;
+
+    border-radius: 6px;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .cca-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .cca-photo-card {
+        width: 100%;
+    }
+
+    .cca-file-card {
+        width: 100%;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 380px) {
+
+    .cca-list {
+        grid-template-columns: 1fr;
+    }
+
+    .cca-photo-card {
+        display: flex;
+        align-items: center;
+
+        width: 100%;
+    }
+
+    .cca-photo-button {
+        width: 90px;
+        height: 70px;
+
+        flex: 0 0 90px;
+    }
+
+    .cca-photo-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+}
+
+
+
+/* ========================================================= COMMENT FORM ========================================================= */
+.issue_comment_form {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #edf0f4;
+}
+.issue_comment_input {
+  width: 100%;
+  min-height: 80px;
+  padding: 11px 12px;
+  resize: vertical;
+  border: 1px solid #dfe4eb;
+  border-radius: 10px;
+  color: #334155;
+  background: #ffffff;
+  font-size: 12px;
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.issue_comment_input::placeholder {
+  color: #a2aab7;
+}
+.issue_comment_input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+}
+.issue_comment_actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+.issue_comment_button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 38px;
+  padding: 8px 13px;
+  border: 0;
+  border-radius: 9px;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+.issue_comment_button:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+.incident_form_section {
+  background: #fff;
+  border: 1px solid #e5e9ef;
+  border-radius: 16px;
+  padding: 22px;
+  margin-bottom: 16px;
+}
+
+.incident_section_header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.incident_header_content h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #172a46;
+  margin: 0 0 4px;
+}
+
+.incident_header_content p {
+  margin: 0;
+  color: #667085;
+  font-size: 12px;
+}
+
+
+
+
+/* =========================================================
+   WORK STAGES
+========================================================= */
+
+.work-stages-section {
+    margin-top: 20px;
+    padding-bottom: 20px;
+
+    border-bottom: 1px solid #e8edf3;
+}
+
+
+/* =========================================================
+   WORK SUBHEADING
+========================================================= */
+
+.work-subheading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 13px;
+}
+
+.work-subheading h3 {
+    margin: 0;
+
+    color: #172a46;
+
+    font-size: 13px;
+    font-weight: 750;
+}
+
+.work-subheading p {
+    margin: 3px 0 0;
+
+    color: #64748b;
+
+    font-size: 10px;
+}
+
+.work-stage-count {
+    flex: 0 0 auto;
+
+    padding: 5px 8px;
+
+    background: #f0fdf4;
+
+    border: 1px solid #dcfce7;
+    border-radius: 999px;
+
+    color: #15803d;
+
+    font-size: 9px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   STAGES LIST
+========================================================= */
+
+.work-stages-list {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+
+/* Vertical connecting line */
+
+.work-stages-list::before {
+    content: "";
+
+    position: absolute;
+
+    left: 16px;
+    top: 17px;
+    bottom: 17px;
+
+    width: 1px;
+
+    background: #e2e8f0;
+}
+
+
+/* =========================================================
+   INDIVIDUAL STAGE
+========================================================= */
+
+.work-stage {
+    position: relative;
+
+    display: flex;
+    /* align-items: center; */
+
+    gap: 10px;
+
+    min-height: 52px;
+
+    padding: 7px 0;
+
+    /* z-index: 1; */
+}
+
+
+/* =========================================================
+   STAGE INDICATOR
+========================================================= */
+
+.work-stage-indicator {
+    width: 33px;
+    height: 33px;
+
+    flex: 0 0 33px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: #ffffff;
+
+    border: 1px solid #dbe2ea;
+    border-radius: 50%;
+
+    color: #94a3b8;
+
+    font-size: 15px;
+}
+
+.work-stage-complete .work-stage-indicator {
+    background: #f0fdf4;
+
+    border-color: #bbf7d0;
+
+    color: #16a34a;
+}
+
+.work-stage-current .work-stage-indicator {
+    background: #eff6ff;
+
+    border-color: #bfdbfe;
+
+    color: #2563eb;
+}
+
+
+/* =========================================================
+   STAGE CONTENT
+========================================================= */
+
+.work-stage-content {
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+    flex: 1;
+
+    padding-right: 8px;
+}
+
+.work-stage-content strong {
+    color: #334155;
+
+    font-size: 11px;
+    line-height: 1.35;
+    font-weight: 700;
+}
+
+.work-stage-content span {
+    margin-top: 2px;
+
+    color: #94a3b8;
+
+    font-size: 9px;
+    line-height: 1.35;
+}
+
+.work-stage-current .work-stage-content strong {
+    color: #1d4ed8;
+}
+
+
+/* =========================================================
+   STAGE STATUS
+========================================================= */
+
+.work-stage-status {
+    flex: 0 0 auto;
+
+    padding: 4px 7px;
+
+    background: #f8fafc;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 999px;
+
+    color: #64748b;
+
+    font-size: 8px;
+    font-weight: 700;
+}
+
+.work-stage-complete .work-stage-status {
+    background: #f0fdf4;
+
+    border-color: #dcfce7;
+
+    color: #15803d;
+}
+
+.work-stage-current .work-stage-status {
+    background: #eff6ff;
+
+    border-color: #dbeafe;
+
+    color: #2563eb;
+}
+
+
+/* =========================================================
+   OVERALL STATUS
+========================================================= */
+
+.status-update {
+    margin-top: 18px;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .work-subheading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 7px;
+    }
+
+    .work-stage {
+        align-items: flex-start;
+
+        min-height: 55px;
+    }
+
+    .work-stage-indicator {
+        width: 31px;
+        height: 31px;
+
+        flex-basis: 31px;
+
+        font-size: 13px;
+    }
+
+    .work-stages-list::before {
+        left: 15px;
+    }
+
+    .work-stage-status {
+        margin-top: 3px;
+    }
+
+}
+
+
+@media (max-width: 420px) {
+
+    .work-stage {
+        flex-wrap: wrap;
+    }
+
+    .work-stage-content {
+        flex: 1 1 calc(100% - 45px);
+    }
+
+    .work-stage-status {
+        margin-left: 41px;
+        margin-top: -3px;
+    }
+
+}
+
+
+/* EMPTY COMMENTS  */
+.issue_comments_empty {
+  padding: 24px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.issue_comments_empty_icon {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+  border-radius: 10px;
+  background: #f1f5f9;
+  color: #94a3b8;
+}
+.issue_comments_empty strong {
+  color: #475569;
+  font-size: 12px;
+}
+.issue_comments_empty span {
+  margin-top: 3px;
+  color: #94a3b8;
+  font-size: 11px;
+  
+} 
+
+
+
+/* NEW COMMENTS WHATSAPP UI DESIGN */
+
+/* =========================================================
+   COREVA COMMENTS
+========================================================= */
+
+.cv-comment-box {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.cv-comment-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 16px 18px;
+
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.cv-comment-header h6 {
+    color: #0f172a;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.cv-comment-header small {
+    font-size: 12px;
+}
+
+.cv-comment-count {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 24px;
+    height: 24px;
+
+    padding: 0 7px;
+
+    border-radius: 20px;
+
+    background: #f1f5f9;
+    color: #475569;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   COMMENT LIST
+========================================================= */
+
+.cv-comment-list {
+    width: 100%;
+}
+
+
+/* =========================================================
+   COMMENT ROW
+========================================================= */
+
+.cv-comment-row {
+    width: 100%;
+
+    display: flex;
+    align-items: flex-start;
+
+    gap: 12px;
+
+    padding: 14px 18px;
+
+    border: 0;
+    border-bottom: 1px solid #f1f5f9;
+
+    background: #ffffff;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        background-color .15s ease,
+        box-shadow .15s ease;
+}
+
+.cv-comment-row:last-child {
+    border-bottom: 0;
+}
+
+.cv-comment-row:hover {
+    background: #f8fafc;
+}
+
+.cv-comment-row:active {
+    background: #f1f5f9;
+}
+
+
+/* =========================================================
+   AVATAR
+========================================================= */
+
+.cv-comment-avatar {
+    width: 42px;
+    height: 42px;
+
+    min-width: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #e0e7ff;
+    color: #3730a3;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.cv-comment-avatar-blue {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.cv-comment-avatar-green {
+    background: #dcfce7;
+    color: #15803d;
+}
+
+.cv-comment-avatar-orange {
+    background: #ffedd5;
+    color: #c2410c;
+}
+
+
+/* =========================================================
+   COMMENT CONTENT
+========================================================= */
+
+.cv-comment-content {
+    min-width: 0;
+    flex: 1;
+}
+
+.cv-comment-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 12px;
+
+    margin-bottom: 3px;
+}
+
+.cv-comment-name {
+    min-width: 0;
+    overflow: hidden;
+    color: #0f172a;
+    font-size: 13px;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cv-comment-time {
+    flex-shrink: 0;
+
+    color: #94a3b8;
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   PREVIEW
+========================================================= */
+
+.cv-comment-preview {
+    display: -webkit-box;
+
+    overflow: hidden;
+
+    color: #64748b;
+
+    font-size: 12.5px;
+    line-height: 1.45;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+
+/* =========================================================
+   META
+========================================================= */
+
+.cv-comment-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-top: 6px;
+}
+
+.cv-comment-attachment-count {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+
+    color: #64748b;
+
+    font-size: 11px;
+}
+
+.cv-comment-attachment-count i {
+    font-size: 12px;
+}
+
+.cv-comment-new {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+
+    color: #dc2626;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+}
+
+.cv-comment-new i {
+    font-size: 5px;
+}
+
+
+/* =========================================================
+   UNREAD
+========================================================= */
+
+.cv-comment-row-unread {
+    background: #f8fbff;
+}
+
+.cv-comment-row-unread .cv-comment-name {
+    font-weight: 750;
+}
+
+.cv-comment-row-unread .cv-comment-time {
+    color: #2563eb;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   OFFCANVAS
+========================================================= */
+
+.cv-comment-canvas {
+    width: min(500px, 100vw) !important;
+
+    border: 0 !important;
+
+    box-shadow: -8px 0 30px rgba(15, 23, 42, .10);
+}
+
+
+/* =========================================================
+   OFFCANVAS HEADER
+========================================================= */
+
+.cv-comment-canvas-header {
+    padding: 16px 18px;
+
+    border-bottom: 1px solid #e2e8f0;
+
+    background: #ffffff;
+}
+
+.cv-comment-author {
+    color: #0f172a;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.cv-comment-date {
+    margin-top: 2px;
+
+    color: #94a3b8;
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   OFFCANVAS BODY
+========================================================= */
+
+.cv-comment-canvas-body {
+    padding: 20px;
+
+    background: #f8fafc;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.cv-comment-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    margin-bottom: 14px;
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    background: #fee2e2;
+    color: #dc2626;
+
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.cv-comment-status i {
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   FULL COMMENT
+========================================================= */
+
+.cv-comment-full {
+    padding: 16px;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    color: #334155;
+
+    font-size: 13px;
+    line-height: 1.7;
+
+    white-space: pre-line;
+}
+
+
+/* =========================================================
+   ATTACHMENTS
+========================================================= */
+
+.cv-comment-files-section {
+    margin-top: 24px;
+}
+
+.cv-comment-files-heading {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    margin-bottom: 10px;
+
+    color: #0f172a;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.cv-comment-files-heading span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 20px;
+    height: 20px;
+
+    padding: 0 5px;
+
+    border-radius: 20px;
+
+    background: #e2e8f0;
+    color: #475569;
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   ATTACHMENT
+========================================================= */
+
+.cv-comment-file {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 8px;
+    padding: 8px;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 9px;
+
+    background: #ffffff;
+
+    text-decoration: none;
+
+    transition: background-color .15s ease;
+}
+
+.cv-comment-file:hover {
+    background: #f8fafc;
+}
+
+
+/* IMAGE */
+
+.cv-comment-image {
+    width: 55px;
+    height: 55px;
+
+    min-width: 55px;
+
+    overflow: hidden;
+
+    border-radius: 6px;
+
+    background: #f1f5f9;
+}
+
+.cv-comment-image img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+/* FILE INFORMATION */
+
+.cv-comment-file-info {
+    min-width: 0;
+    flex: 1;
+}
+
+.cv-comment-file-name {
+    overflow: hidden;
+
+    color: #334155;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.cv-comment-file-size {
+    margin-top: 3px;
+
+    color: #94a3b8;
+
+    font-size: 10px;
+}
+
+
+/* PDF / DOCUMENT */
+
+.cv-comment-document-icon {
+    width: 55px;
+    height: 55px;
+
+    min-width: 55px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 6px;
+
+    background: #fee2e2;
+    color: #dc2626;
+
+    font-size: 22px;
+}
+
+.cv-comment-download {
+    padding: 8px;
+
+    color: #64748b;
+
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   DETAILS
+========================================================= */
+
+.cv-comment-details {
+    margin-top: 24px;
+
+    padding: 14px 16px;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+
+    background: #ffffff;
+}
+
+.cv-comment-detail-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 8px 0;
+
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.cv-comment-detail-row:last-child {
+    border-bottom: 0;
+}
+
+.cv-comment-detail-row span {
+    color: #94a3b8;
+
+    font-size: 11px;
+}
+
+.cv-comment-detail-row strong {
+    max-width: 60%;
+
+    color: #334155;
+
+    font-size: 11px;
+
+    text-align: right;
+}
+
+
+/* =========================================================
+   OFFCANVAS FOOTER
+========================================================= */
+
+.cv-comment-canvas-footer {
+    padding: 12px 18px;
+
+    border-top: 1px solid #e2e8f0;
+
+    background: #ffffff;
+}
+
+.cv-comment-canvas-footer .btn {
+    padding: 10px;
+
+    border: 1px solid #e2e8f0;
+
+    color: #334155;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.cv-comment-canvas-footer .btn:hover {
+    background: #f8fafc;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 576px) {
+
+    .cv-comment-header {
+        padding: 14px;
+    }
+
+    .cv-comment-row {
+        padding: 13px 14px;
+    }
+
+    .cv-comment-avatar {
+        width: 40px;
+        height: 40px;
+
+        min-width: 40px;
+    }
+
+    .cv-comment-canvas-body {
+        padding: 16px;
+    }
+
+}

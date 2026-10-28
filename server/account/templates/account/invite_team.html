@@ -1,0 +1,581 @@
+{% load static %}
+<!-- divider  -->
+
+
+<div class="row d-flex justify-content-center">
+    <div class="col-12 col-lg-8">
+
+
+{% for message in messages %}
+    <div
+        id="invite-alert"
+        class="delivery-success-alert mb-3"
+        role="alert"
+    >
+        <div class="delivery-success-icon">
+            {% if message.tags == "error" %}
+                <i class="bi bi-exclamation-circle"></i>
+            {% else %}
+                <i class="bi bi-check-lg"></i>
+            {% endif %}
+        </div>
+
+        <div class="delivery-success-content">
+            <div class="delivery-success-title">
+                {% if message.tags == "error" %}
+                    Invitation not created
+                {% else %}
+                    Success
+                {% endif %}
+            </div>
+
+            <div class="delivery-success-message">
+                {{ message }}
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+
+    
+<section class="invite-team-page px-0 mt-0">
+
+    <div class="invite-team-container mt-0">
+
+        <!-- =====================================================
+             HEADER
+        ====================================================== -->
+
+        <div class="invite-team-header mt-0">
+
+            <!-- =========================================================
+            COREVA MOBILE TOP NAVBAR AND LARGE SCREEN BACK BUTTON
+            ========================================================= -->
+            {% include 'partials/page_topbar.html' with next_url=next_url brand_name='Invite Team' brand_url='#' %}
+
+
+            {% if message %}
+            <div
+                id="delivery-success-alert"
+                class="delivery-success-alert mb-3"
+                role="alert"
+            >
+                <div class="delivery-success-icon">
+                <i class="bi bi-check-lg"></i>
+                </div>
+
+                <div class="delivery-success-content">
+                <div class="delivery-success-title">Success</div>
+                <div class="delivery-success-message">{{ message }}</div>
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="invite-header-content">
+
+                <div class="invite-header-icon">
+                    <span class="material-symbols-outlined">
+                        person_add
+                    </span>
+                </div>
+
+                <div>
+                    <h1>Invite a team member</h1>
+
+                    <p>
+                        Add someone to your Coreva workspace and give them
+                        access to the projects and tools they need.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             FORM
+        ====================================================== -->
+
+        <form method="POST" class="invite-team-form">
+
+            {% csrf_token %}
+
+
+            <!-- =================================================
+                 PERSONAL DETAILS
+            ================================================== -->
+
+            <div class="invite-card">
+
+                <div class="invite-card-header">
+
+                    <div>
+                        <h2>Team member details</h2>
+
+                        <p>
+                            Enter the details of the person you're inviting.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="invite-card-body">
+
+                    <div class="invite-form-grid">
+
+                        <!-- First Name -->
+                        <div class="invite-form-group">
+
+                            <label for="inviteName">
+                                First Name
+                            </label>
+
+                            <input
+                                type="text"
+                                id="inviteName"
+                                name="name"
+                                class="invite-input"
+                                placeholder="John"
+                                autocomplete="given-name"
+                                required
+                            />
+
+                        </div>
+
+
+                        <!-- Email -->
+                        <div class="invite-form-group">
+
+                            <label for="inviteEmail">
+                                Email Address
+                            </label>
+
+                            <input
+                                type="email"
+                                id="inviteEmail"
+                                name="email"
+                                class="invite-input"
+                                placeholder="john@buildright.co.za"
+                                autocomplete="email"
+                                required
+                            />
+
+                            <span class="invite-field-help">
+                                We'll send the invitation to this email address.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 ROLE
+            ================================================== -->
+
+            <div class="invite-card">
+
+                <div class="invite-card-header">
+
+                    <div>
+                        <h2>Choose access level</h2>
+
+                        <p>
+                            Select what this team member will be able to
+                            manage in your Coreva workspace.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="invite-card-body">
+
+                    <div class="invite-role-list">
+
+
+                        <!-- =================================================
+                             ADMIN
+                        ================================================== -->
+
+                        <label class="invite-role-option">
+
+                            <input
+                                type="radio"
+                                name="role"
+                                value="admin"
+                                required
+                            />
+
+                            <div class="invite-role-card">
+
+                                <div class="invite-role-top">
+
+                                    <div class="invite-role-icon admin">
+                                        <span class="material-symbols-outlined">
+                                            admin_panel_settings
+                                        </span>
+                                    </div>
+
+                                    <div class="invite-role-heading">
+
+                                        <div>
+                                            <h3>Admin</h3>
+
+                                            <span class="invite-role-badge admin">
+                                                Full access
+                                            </span>
+                                        </div>
+
+                                        <p>
+                                            For people responsible for managing
+                                            the company's Coreva workspace.
+                                        </p>
+
+                                    </div>
+
+                                    <div class="invite-role-radio">
+                                        <span></span>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="invite-role-divider"></div>
+
+
+                                <div class="invite-role-permissions">
+
+                                    <div class="invite-permission">
+
+                                        <span class="invite-permission-icon allowed">
+                                            <i class="bi bi-check-lg"></i>
+                                        </span>
+
+                                        <div>
+                                            <strong>Manage projects</strong>
+                                            <span>
+                                                Create, edit and manage company projects.
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="invite-permission">
+
+                                        <span class="invite-permission-icon allowed">
+                                            <i class="bi bi-check-lg"></i>
+                                        </span>
+
+                                        <div>
+                                            <strong>Manage team members</strong>
+                                            <span>
+                                                Invite, manage and remove people from the workspace.
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="invite-permission">
+
+                                        <span class="invite-permission-icon allowed">
+                                            <i class="bi bi-check-lg"></i>
+                                        </span>
+
+                                        <div>
+                                            <strong>Manage contractors</strong>
+                                            <span>
+                                                Add and manage contractors assigned to projects.
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="invite-permission">
+
+                                        <span class="invite-permission-icon allowed">
+                                            <i class="bi bi-check-lg"></i>
+                                        </span>
+
+                                        <div>
+                                            <strong>Manage inspections & reports</strong>
+                                            <span>
+                                                View, complete and manage site inspections and daily reports.
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="invite-permission">
+
+                                        <span class="invite-permission-icon allowed">
+                                            <i class="bi bi-check-lg"></i>
+                                        </span>
+
+                                        <div>
+                                            <strong>Manage issues & tasks</strong>
+                                            <span>
+                                                Create, assign, update and close project work.
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="invite-permission">
+
+                                        <span class="invite-permission-icon allowed">
+                                            <i class="bi bi-check-lg"></i>
+                                        </span>
+
+                                        <div>
+                                            <strong>Company settings</strong>
+                                            <span>
+                                                Manage workspace and company-level settings.
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </label>
+
+
+                        <!-- =================================================
+                             USER
+                        ================================================== -->
+
+                        <label class="invite-role-option">
+
+                            <input
+                                type="radio"
+                                name="role"
+                                value="user"
+                                required
+                            />
+
+                            <div class="invite-role-card">
+
+                                <div class="invite-role-top">
+
+                                    <div class="invite-role-icon user">
+                                        <span class="material-symbols-outlined">
+                                            person
+                                        </span>
+                                    </div>
+
+                                    <div class="invite-role-heading">
+
+                                        <div>
+                                            <h3>Team Member</h3>
+
+                                            <span class="invite-role-badge user">
+                                                Project access
+                                            </span>
+                                        </div>
+
+                                        <p>
+                                            For people who need to carry out
+                                            day-to-day work on assigned projects.
+                                        </p>
+
+                                    </div>
+
+                                    <div class="invite-role-radio">
+                                        <span></span>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="invite-role-divider"></div>
+
+
+                                <div class="invite-role-permissions">
+
+                                    <div class="invite-permission">
+
+                                        <span class="invite-permission-icon allowed">
+                                            <i class="bi bi-check-lg"></i>
+                                        </span>
+
+                                        <div>
+                                            <strong>Work on assigned projects</strong>
+                                            <span>
+                                                Access projects and work they're assigned to.
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="invite-permission">
+
+                                        <span class="invite-permission-icon allowed">
+                                            <i class="bi bi-check-lg"></i>
+                                        </span>
+
+                                        <div>
+                                            <strong>Complete inspections</strong>
+                                            <span>
+                                                Perform and submit daily site inspections.
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="invite-permission">
+
+                                        <span class="invite-permission-icon allowed">
+                                            <i class="bi bi-check-lg"></i>
+                                        </span>
+
+                                        <div>
+                                            <strong>Manage issues & tasks</strong>
+                                            <span>
+                                                Create, update and complete project work.
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="invite-permission">
+
+                                        <span class="invite-permission-icon allowed">
+                                            <i class="bi bi-check-lg"></i>
+                                        </span>
+
+                                        <div>
+                                            <strong>Submit daily reports</strong>
+                                            <span>
+                                                Record site activity, delays, deliveries and notes.
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="invite-permission">
+
+                                        <span class="invite-permission-icon allowed">
+                                            <i class="bi bi-check-lg"></i>
+                                        </span>
+
+                                        <div>
+                                            <strong>Upload photos & files</strong>
+                                            <span>
+                                                Add site photos and supporting documents.
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="invite-permission disabled">
+
+                                        <span class="invite-permission-icon restricted">
+                                            <i class="bi bi-dash-lg"></i>
+                                        </span>
+
+                                        <div>
+                                            <strong>Workspace management</strong>
+                                            <span>
+                                                Cannot invite team members or change company settings.
+                                            </span>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </label>
+
+                    </div>
+
+
+                    <!-- ROLE NOTE -->
+
+                    <div class="invite-role-note">
+
+                        <span class="material-symbols-outlined">
+                            info
+                        </span>
+
+                        <p>
+                            You can change a team member's access level later
+                            from the team management page.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 ACTIONS
+            ================================================== -->
+
+            <div class="invite-form-actions">
+
+                <a
+                    href="#"
+                    class="invite-cancel-btn"
+                >
+                    Cancel
+                </a>
+
+                <button
+                    type="submit"
+                    class="invite-submit-btn"
+                >
+                    <i class="bi bi-send"></i>
+                    Send Invitation
+                </button>
+
+            </div>
+
+
+        </form>
+
+    </div>
+
+</section>
+
+</div>
+</div>
+
+
+<script>
+  setTimeout(function () {
+    document.querySelectorAll("#invite-alert").forEach(function (alert) {
+        alert.style.transition = "opacity 0.5s ease";
+        alert.style.opacity = "0";
+
+        setTimeout(function () {
+            alert.remove();
+        }, 500);
+    });
+}, 4000);
+</script>
+
+
+

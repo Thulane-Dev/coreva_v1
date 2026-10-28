@@ -1,0 +1,622 @@
+{% load static %}
+<!-- divider  -->
+
+<form
+  method="POST"
+  action="{% url 'projects:save-new-project' %}"
+  enctype="multipart/form-data"
+  id="createProjectForm"
+>
+  {% csrf_token %}
+
+  <section class="coreva_project_form_page px-0 mt-0 pt-0">
+    <div class="coreva_project_form_container">
+      <!-- =========================================================
+      COREVA MOBILE TOP NAVBAR AND LARGE SCREEN BACK BUTTON
+      ========================================================= -->
+      {% include 'partials/page_topbar.html' with next_url=next_url brand_name='Add Project'  brand_url='#' %}
+
+      <!-- =====================================================
+           HEADER
+      ====================================================== -->
+
+      <div class="dashboard_main_card mb-3">
+        <div class="coreva_project_form_header mb-0">
+          <div class="coreva_project_header_icon">
+            <span class="material-symbols-outlined"> apartment </span>
+          </div>
+
+          <div>
+            <div class="coreva_project_eyebrow">PROJECT SETUP</div>
+
+            <h1>Create New Project</h1>
+
+            <p>
+              Set up your project details, location and working schedule to
+              start managing your construction site.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- =====================================================
+           PROJECT INFORMATION
+      ====================================================== -->
+
+      <section class="project_form_card">
+        <div class="project_form_section_header">
+          <div class="project_form_number">01</div>
+
+          <div>
+            <h2>Project Information</h2>
+            <p>Basic information about this construction project.</p>
+          </div>
+        </div>
+
+        <div class="row g-3">
+          <!-- Project Name -->
+          <div class="col-12">
+            <div class="project_form_field">
+              <label for="project_name">
+                Project Name
+                <span>*</span>
+              </label>
+
+              <div class="project_input_wrapper">
+                <i class="bi bi-building"></i>
+
+                <input
+                  class="new_inputs_css"
+                  style="font-size: 16px !important"
+                  type="text"
+                  id="project_name"
+                  name="project_name"
+                  placeholder="e.g. Midrand Warehouse Development"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Client -->
+          <div class="col-12 col-md-6 d-none">
+            <div class="project_form_field">
+              <label for="client_name">
+                Client Name
+                <small>Optional</small>
+              </label>
+
+              <div class="project_input_wrapper">
+                <i class="bi bi-person"></i>
+
+                <input
+                  type="text"
+                  id="client_name"
+                  name="client_name"
+                  placeholder="e.g. John Paul Estate"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Start Date -->
+          <div class="col-12 col-md-6">
+            <div class="project_form_field">
+              <label for="start_date">
+                Start Date
+                <span>*</span>
+              </label>
+
+              <div class="project_input_wrapper">
+                <i class="bi bi-calendar3"></i>
+
+                <input type="date" id="start_date" name="start_date" required onfocus="this.showPicker()"
+                    onclick="this.showPicker()"/>
+              </div>
+            </div>
+          </div>
+
+          <!-- End Date -->
+          <div class="col-12 col-md-6">
+            <div class="project_form_field">
+              <label for="end_date">
+                Estimated End Date
+                <small>Optional</small>
+              </label>
+
+              <div class="project_input_wrapper">
+                <i class="bi bi-calendar-check"></i>
+
+                <input type="date" id="end_date" name="end_date" onfocus="this.showPicker()"
+                    onclick="this.showPicker()"/>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project Photo -->
+          <div class="col-12 col-md-12">
+            <div class="project_form_field">
+              <label for="cover_image">
+                Project Photo
+                <small>Optional</small>
+              </label>
+
+              <label
+                for="cover_image"
+                class="project_file_upload"
+                id="projectPhotoUpload"
+              >
+                <div class="project_file_icon">
+                  <i class="bi bi-camera"></i>
+                </div>
+
+                <div class="project_file_text">
+                  <strong id="projectPhotoText"> Add project photo </strong>
+
+                  <span> JPG, PNG or WEBP </span>
+                </div>
+
+                <i class="bi bi-chevron-right project_file_arrow"></i>
+              </label>
+
+              <input
+                type="file"
+                id="cover_image"
+                name="cover_image"
+                accept="image/jpeg,image/png,image/webp"
+                hidden
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =====================================================
+           PROJECT LOCATION
+      ====================================================== -->
+
+      <section class="project_form_card">
+        <div class="project_form_section_header">
+          <div class="project_form_number">02</div>
+
+          <div>
+            <h2>Project Location</h2>
+            <p>Where is this construction project located?</p>
+          </div>
+        </div>
+
+        <div class="row g-3">
+          <!-- Street -->
+          <div class="col-12">
+            <div class="project_form_field">
+              <label for="street_address"> Street Address </label>
+
+              <div class="project_input_wrapper">
+                <i class="bi bi-geo-alt"></i>
+
+                <input
+                  type="text"
+                  id="street_address"
+                  name="street_address"
+                  placeholder="Enter street address"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- City -->
+          <div class="col-12 col-md-6">
+            <div class="project_form_field">
+              <label for="city"> City </label>
+
+              <div class="project_input_wrapper">
+                <i class="bi bi-buildings"></i>
+
+                <input
+                  type="text"
+                  id="city"
+                  name="city"
+                  placeholder="Enter city"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Province -->
+          <div class="col-12 col-md-6">
+            <div class="project_form_field">
+              <label for="province"> Province </label>
+
+              <div class="project_input_wrapper">
+                <i class="bi bi-map"></i>
+
+                <select id="province" name="province">
+                  <option value="">Select province</option>
+
+                  <option value="Eastern Cape">Eastern Cape</option>
+
+                  <option value="Free State">Free State</option>
+
+                  <option value="Gauteng">Gauteng</option>
+
+                  <option value="KwaZulu-Natal">KwaZulu-Natal</option>
+
+                  <option value="Limpopo">Limpopo</option>
+
+                  <option value="Mpumalanga">Mpumalanga</option>
+
+                  <option value="Northern Cape">Northern Cape</option>
+
+                  <option value="North West">North West</option>
+
+                  <option value="Western Cape">Western Cape</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Country -->
+          <div class="col-12">
+            <div class="project_form_field">
+              <label for="country"> Country </label>
+
+              <div class="project_input_wrapper">
+                <i class="bi bi-globe2"></i>
+
+                <input
+                  type="text"
+                  id="country"
+                  name="country"
+                  value="South Africa"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Coordinates -->
+        <div class="project_location_coordinates">
+          <div class="project_coordinates_header">
+            <div>
+              <strong>
+                <i class="bi bi-crosshair2"></i>
+                GPS Coordinates
+              </strong>
+
+              <p>Used to identify the exact project location.</p>
+            </div>
+
+            <button
+              type="button"
+              class="project_location_button"
+              id="getProjectLocation"
+            >
+              <i class="bi bi-crosshair"></i>
+              <span>Use My Location</span>
+            </button>
+          </div>
+
+          <div class="row g-3">
+            <!-- Latitude -->
+            <div class="col-12 col-md-6">
+              <div class="project_form_field">
+                <label for="latitude"> Latitude </label>
+
+                <div class="project_input_wrapper">
+                  <i class="bi bi-compass"></i>
+
+                  <input
+                    type="number"
+                    id="latitude"
+                    name="latitude"
+                    step="any"
+                    placeholder="-26.2041"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Longitude -->
+            <div class="col-12 col-md-6">
+              <div class="project_form_field">
+                <label for="longitude"> Longitude </label>
+
+                <div class="project_input_wrapper">
+                  <i class="bi bi-compass"></i>
+
+                  <input
+                    type="number"
+                    id="longitude"
+                    name="longitude"
+                    step="any"
+                    placeholder="28.0473"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            id="projectLocationStatus"
+            class="project_location_status"
+            style="display: none"
+          ></div>
+        </div>
+      </section>
+
+      <!-- =====================================================
+           WORKING DAYS
+      ====================================================== -->
+
+      <section class="project_form_card">
+        <div class="project_form_section_header">
+          <div class="project_form_number">03</div>
+
+          <div>
+            <h2>Project Working Days</h2>
+            <p>Select the days work is normally scheduled on this project.</p>
+          </div>
+        </div>
+
+        <div class="project_schedule_notice">
+          <div class="project_schedule_notice_icon">
+            <i class="bi bi-info-circle"></i>
+          </div>
+
+          <div>
+            <strong>Project schedule</strong>
+
+            <p>
+              These days are used when Coreva determines whether an inspection
+              or daily report was expected.
+            </p>
+          </div>
+        </div>
+
+        <div class="project_work_days">
+            {% for value, label in work_days %}
+
+                <label class="project_work_day">
+                    <input
+                        type="checkbox"
+                        name="working_days"
+                        value="{{ value }}"
+                        {% if value in default_work_days %}checked{% endif %}
+                    />
+
+                    <div class="project_work_day_inner">
+                        <span class="project_work_day_check">
+                            <i class="bi bi-check-lg"></i>
+                        </span>
+
+                        <span class="project_work_day_name">
+                            {{ label }}
+                        </span>
+                    </div>
+                </label>
+
+            {% endfor %}
+        </div>
+      </section>
+
+      <!-- =====================================================
+           DESKTOP ACTIONS
+      ====================================================== -->
+
+      <div class="project_form_actions d-none d-md-flex">
+        <button
+          type="button"
+          onclick="history.back()"
+          class="project_cancel_button"
+        >
+          Cancel
+        </button>
+
+        <button
+          type="submit"
+          class="project_save_button"
+          id="saveProjectButton"
+        >
+          <i class="bi bi-floppy"></i>
+          <span>Save Project</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================
+       MOBILE ACTIONS
+  ====================================================== -->
+
+  <div class="project_mobile_actions d-md-none">
+    <button
+      type="button"
+      onclick="history.back()"
+      class="project_cancel_button"
+    >
+      Cancel
+    </button>
+
+    <button
+      type="submit"
+      class="project_save_button"
+      id="saveProjectButtonMobile"
+    >
+      <i class="bi bi-floppy"></i>
+      <span>Save Project</span>
+    </button>
+  </div>
+</form>
+
+
+<script>
+  /* =========================================================
+   PROJECT PHOTO
+========================================================= */
+
+  const projectPhotoInput = document.getElementById("cover_image");
+
+  const projectPhotoText = document.getElementById("projectPhotoText");
+
+  if (projectPhotoInput) {
+    projectPhotoInput.addEventListener("change", function () {
+      if (this.files.length > 0) {
+        const file = this.files[0];
+
+        projectPhotoText.textContent = file.name;
+      } else {
+        projectPhotoText.textContent = "Add project photo";
+      }
+    });
+  }
+
+  /* =========================================================
+   GET CURRENT LOCATION
+========================================================= */
+
+  const projectLocationButton = document.getElementById("getProjectLocation");
+
+  const projectLocationStatus = document.getElementById(
+    "projectLocationStatus",
+  );
+
+  const latitudeInput = document.getElementById("latitude");
+
+  const longitudeInput = document.getElementById("longitude");
+
+  if (projectLocationButton) {
+    projectLocationButton.addEventListener("click", function () {
+      if (!navigator.geolocation) {
+        showProjectLocationStatus(
+          "Location services are not supported by this browser.",
+          "error",
+        );
+
+        return;
+      }
+
+      const button = this;
+
+      button.disabled = true;
+
+      button.innerHTML = `
+      <span
+        class="spinner-border spinner-border-sm"
+        aria-hidden="true"
+      ></span>
+      Finding location...
+    `;
+
+      navigator.geolocation.getCurrentPosition(
+        function (position) {
+          const latitude = position.coords.latitude;
+
+          const longitude = position.coords.longitude;
+
+          latitudeInput.value = latitude.toFixed(6);
+
+          longitudeInput.value = longitude.toFixed(6);
+
+          button.disabled = false;
+
+          button.innerHTML = `
+          <i class="bi bi-check-lg"></i>
+          <span>Location Captured</span>
+        `;
+
+          showProjectLocationStatus(
+            "Project coordinates captured successfully.",
+            "success",
+          );
+        },
+
+        function (error) {
+          button.disabled = false;
+
+          button.innerHTML = `
+          <i class="bi bi-crosshair"></i>
+          <span>Use My Location</span>
+        `;
+
+          let message = "Unable to determine your location.";
+
+          if (error.code === 1) {
+            message = "Location permission was denied.";
+          }
+
+          if (error.code === 2) {
+            message = "Your location could not be determined.";
+          }
+
+          if (error.code === 3) {
+            message = "Location request timed out.";
+          }
+
+          showProjectLocationStatus(message, "error");
+        },
+
+        {
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 300000,
+        },
+      );
+    });
+  }
+
+  /* =========================================================
+   LOCATION STATUS
+========================================================= */
+
+  function showProjectLocationStatus(message, type) {
+    if (!projectLocationStatus) return;
+
+    projectLocationStatus.style.display = "block";
+
+    projectLocationStatus.textContent = message;
+
+    if (type === "success") {
+      projectLocationStatus.style.background = "#ecfdf5";
+
+      projectLocationStatus.style.color = "#15803d";
+
+      projectLocationStatus.style.border = "1px solid #bbf7d0";
+    } else {
+      projectLocationStatus.style.background = "#fff7ed";
+
+      projectLocationStatus.style.color = "#c2410c";
+
+      projectLocationStatus.style.border = "1px solid #fed7aa";
+    }
+  }
+
+  /* =========================================================
+   SAVE PROJECT LOADING STATE
+========================================================= */
+
+  const createProjectForm = document.getElementById("createProjectForm");
+
+  if (createProjectForm) {
+    createProjectForm.addEventListener("submit", function () {
+      const buttons = [
+        document.getElementById("saveProjectButton"),
+        document.getElementById("saveProjectButtonMobile"),
+      ];
+
+      buttons.forEach(function (button) {
+        if (!button) return;
+
+        button.classList.add("loading");
+        button.disabled = true;
+
+        button.innerHTML = `
+        <span
+          class="spinner-border spinner-border-sm"
+          aria-hidden="true"
+        ></span>
+        <span>Saving...</span>
+      `;
+      });
+    });
+  }
+</script>

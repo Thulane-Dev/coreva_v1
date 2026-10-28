@@ -1,0 +1,96 @@
+<!-- DATABASE INCIDENTS -->
+<div class="cpd-list-section">
+    <div class="cpd-items">
+        {% for data in incidents %}
+        <article class="cpd-item cpd-task-item cpd-item-incidents scroll-section" id="IncidentsSessionList{{data.id}}">
+            <div class="cpd-item-main">
+                <div class="cpd-item-icon cpd-item-icon-orange" >
+                    <i class="bi bi-asterisk"></i>
+                </div>
+
+                <div class="cpd-item-content">
+
+                    <div class="cpd-item-title-row">
+
+                        <h4 class="text-capitalize">
+                            {{ data.incident_type }} 
+                        </h4>
+
+                        {% if data.severity == 'high'%}
+                        <span class="cpd-priority cpd-priority-high" style="font-size: 11.5px;">
+                            High severity
+                        </span>
+                        {% elif data.severity == 'Critical' %}
+                        <span class="cpd-priority cpd-priority-high" style="font-size: 11.5px;">
+                            Critical severity
+                        </span>
+                        {% elif data.severity == 'medium' %}
+                        <span class="cpd-priority cpd-priority-medium" style="font-size: 11.5px;">
+                            Medium severity
+                        </span>
+                        {% elif data.severity == 'low' %}
+                        <span class="cpd-priority cpd-priority-low" style="font-size: 11.5px;">
+                            Low severity
+                        </span>
+                        {% endif %}
+
+                    </div>
+
+                        <p class="cpd-item-description" style="font-size: 12.5px !important;">
+                        {{ data.title }}
+                    </p>
+
+                    <div class="cpd-item-meta">
+
+                        <span class="cpd-meta-overdue">
+                            <i class="bi bi-calendar-event"></i>
+                            {{data.incident_date|date:"d M Y" }} - 
+                            {{ data.incident_time|time:"g:i A" }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="cpd-item-action">
+
+                <a href="{% url 'incidents:incident' data.uuid %}?next={{ next_url|urlencode }}&section=IncidentsSessionList{{data.id}}" class="cpd-view-btn">
+                    View
+                    <i class="bi bi-chevron-right"></i>
+                </a>
+
+            </div>
+
+        </article>
+        {% empty %}
+        <!-- =====================================================
+        INCIDENTS - EMPTY STATE
+        ====================================================== -->
+        <div class="cv-projects-empty">
+
+            <div class="cv-projects-empty-icon">
+                <i class="bi bi-exclamation-circle"></i>
+            </div>
+
+            <div class="cv-projects-empty-content">
+
+                <h3>No incidents recorded</h3>
+
+                <p>
+                    No incidents have been recorded for this project yet.
+                    Record an incident to keep a clear record of what happened on site.
+                </p>
+
+                <a href="{% url 'incidents:log-incident' project.uuid %}"
+                class="btn btn-primary">
+                    <i class="bi bi-plus-lg me-1"></i>
+                    Record Incident
+                </a>
+
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>

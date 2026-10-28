@@ -1,0 +1,559 @@
+<!-- COREVA COMMENTS -->
+<div class="cv-comment-box mb-3">
+
+    <div class="cv-comment-header">
+        
+        <div>
+            <div class="d-flex align-items-center gap-2 mb-1">
+                <h6 class="mb-0">Comments</h6>
+                <span class="cv-comment-count">{{comments|length}}</span>
+            </div>
+            
+            <small class="text-muted">
+                Updates and discussion on this item
+            </small>
+        </div>
+
+        <button type="submit" class="issue_comment_button d-none d-md-block" data-bs-toggle="offcanvas" data-bs-target="#addCommentOffcanvas" aria-controls="addCommentOffcanvas">
+            <i class="bi bi-send-fill"></i> Add Comment
+        </button>
+    </div>
+
+    <!-- ADD COMMENT BUTTON SMALL SCREEN  -->
+     <center>
+        <button type="submit" class="issue_comment_button d-block d-md-none my-3" style="width: 90%;" data-bs-toggle="offcanvas" data-bs-target="#addCommentOffcanvas" aria-controls="addCommentOffcanvas">
+            <i class="bi bi-send-fill"></i> Add Comment
+        </button>
+     </center>
+     
+
+
+    <div class="cv-comment-list">
+
+        <!-- DATABASE COMMENTS  -->
+         {% for comment in comments  %}
+        <button type="button"
+            class="cv-comment-row {% if comment.is_read == False %} cv-comment-row-unread {% endif %}"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#cvCommentCanvas{{comment.id}}">
+            {% if comment.comment_by %}
+            <div class="cv-comment-avatar">
+                {{ comment.comment_by.first_name|first|upper }}
+            </div>
+            {% else %}
+            <div class="cv-comment-avatar cv-comment-avatar-green">
+                {{ comment.contractor_comment.company_name|first|upper }}
+            </div>
+            {% endif %}
+
+            <div class="cv-comment-content">
+                <div class="cv-comment-top">
+                    <strong class="cv-comment-name">
+                        {% if comment.comment_by %}
+                            <!-- Team Member  Comment Name -->
+                            {{comment.comment_by.first_name }}
+                            {{comment.comment_by.last_name }}
+                            <!-- Contractor  Comment  Name -->
+                        {% elif comment.contractor_comment  %} 
+                            {{ comment.contractor_comment.company_name}}
+                        {% endif %}
+                        
+                    </strong>
+                    <span class="cv-comment-time">
+                        {{ comment.created_at|date:"H:i" }}
+                    </span>
+                </div>
+
+                <div class="cv-comment-preview">
+                    {{ comment.comment|linebreaksbr }}
+                </div>
+
+                <div class="cv-comment-meta">
+                    {% if comment.comment_attachments.count > 0 %}
+                    <span class="cv-comment-attachment-count">
+                        <i class="bi bi-paperclip"></i>
+                         {{ comment.comment_attachments.count }} attachments
+                    </span>
+                    {% endif %}
+                    <!-- divider  -->
+                     {% if comment.is_read == False %}
+                    <span class="cv-comment-new">
+                        <i class="bi bi-circle-fill"></i>
+                        New
+                    </span>
+                    {% endif %}
+                </div>
+            </div>
+        </button>
+
+        <!-- COMMENT OFFCANVAS -->
+        <div class="offcanvas offcanvas-end cv-comment-canvas"
+            tabindex="-1"
+            id="cvCommentCanvas{{comment.id}}">
+            <div class="offcanvas-header cv-comment-canvas-header">
+                <div class="d-flex align-items-center gap-3">
+                    {% if comment.comment_by %}
+                    <div class="cv-comment-avatar">
+                        {{ comment.comment_by.first_name|first|upper }}
+                    </div>
+                    {% else %}
+                    <div class="cv-comment-avatar cv-comment-avatar-green">
+                        {{ comment.contractor_comment.company_name|first|upper }}
+                    </div>
+                    {% endif %}
+                    <div>
+                        <div class="cv-comment-author">
+                            {% if comment.comment_by %}
+                                <!-- Team Member  Comment Name -->
+                                {{comment.comment_by.first_name }}
+                                {{comment.comment_by.last_name }}
+                                <!-- Contractor  Comment  Name -->
+                            {% elif comment.contractor_comment  %} 
+                                {{ comment.contractor_comment.company_name}}
+                            {% endif %}
+                        </div>
+
+                        <div class="cv-comment-date">
+                            {{ comment.created_at|date:"d M Y, H:i" }}
+                        </div>
+                    </div>
+                </div>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="offcanvas">
+                </button>
+            </div>
+
+
+            <div class="offcanvas-body cv-comment-canvas-body">
+
+                <!-- NEW -->
+                 {% if comment.is_read == False %}
+                <div class="cv-comment-status">
+                    <i class="bi bi-bell-fill"></i>
+                    New comment
+                </div>
+                {% endif %}
+
+
+                <!-- FULL COMMENT -->
+                <div class="cv-comment-full">
+                     {{ comment.comment|linebreaksbr }}
+                </div>
+
+                <!-- ATTACHMENTS -->
+                 {% if comment.comment_attachments.all %}
+                <div class="cv-comment-files-section">
+                    <div class="cv-comment-files-heading">
+                        Attachments
+                        <span>{{ comment.comment_attachments.count }}</span>
+                    </div>
+                     {% for attachment in comment.comment_attachments.all %}
+                    <!-- IMAGE -->
+                     {% if attachment.photo %}
+                    <a href="{{ attachment.photo.url }}"
+                        target="_blank" class="cv-comment-file">
+                        <div class="cv-comment-image">
+                            <img src="{{ attachment.photo.url }}"
+                                alt="{{ attachment.caption|default:'Comment photo' }}">
+                        </div>
+
+                        <div class="cv-comment-file-info">
+                            <div class="cv-comment-file-name">
+                                {{ attachment.photo.name|cut:"media/project_photos/" }}
+                            </div>
+                            <div class="cv-comment-file-size">
+                                {{attachment.filesize}}
+                            </div>
+                        </div>
+                         <i class="bi bi-download cv-comment-download"></i>
+                    </a>
+                    {% endif %}
+
+                    <!-- PDF -->
+                     {% if attachment.file %}
+                    <a href="{{ attachment.file.url }}"
+                        target="_blank" class="cv-comment-file cv-comment-file-document">
+                        <div class="cv-comment-document-icon">
+                            <i class="bi bi-file-earmark-pdf"></i>
+                        </div>
+
+                        <div class="cv-comment-file-info">
+                            <div class="cv-comment-file-name">
+                                 {{ attachment.file.name|cut:"media/project_files/" }}
+                            </div>
+                            <div class="cv-comment-file-size">
+                                {{attachment.filesize}}
+                            </div>
+                        </div>
+                        <i class="bi bi-download cv-comment-download"></i>
+                    </a>
+                    {% endif%}
+
+                    <!-- divider  -->
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+
+                <!-- INFORMATION -->
+                <div class="cv-comment-details">
+                    <div class="cv-comment-detail-row">
+                        <span>Posted</span>
+                        <strong>
+                            {{ comment.created_at|date:"d M Y, H:i" }}
+                        </strong>
+                    </div>
+
+                    <div class="cv-comment-detail-row">
+                        <span>Project</span>
+                        <strong>
+                            {{ comment.issue.project.project_name }}
+                        </strong>
+                    </div>
+                </div>
+
+                <!-- MARK COMMENT AS READ -->
+                {% if comment.is_read == False %}
+                 
+                <form
+                    hx-post="{% url 'contractors:mark-contractor-issue-read' issue.uuid contractor.uuid  %}"
+                    hx-target="#NewContractorCommentsList"
+                    hx-swap="innerHTML"
+                    hx-push-url="false"
+                >
+                    {% csrf_token %}
+                    <input
+                    type="text"
+                    value="{{comment.uuid}}"
+                    name="comment_uuid"
+                    hidden
+                    />
+                    <button type="submit" class="issue_comment_button mt-3 w-100" style="font-size: 14px !important;" onclick="closeOffcanvasMarkRead('{{ comment.id }}')">
+                        <i class="bi bi-send-fill"></i> Mark as read
+                    </button>
+                </form>
+                {% endif %}
+            </div>
+
+
+            <div class="cv-comment-canvas-footer d-none">
+                <button class="btn btn-light w-100">
+                    <i class="bi bi-reply me-2"></i>
+                    Reply to comment
+                </button>
+            </div>
+        </div>
+
+        <!-- CLOSE COMMENT OFFCANVAS  -->
+        <script>
+            function closeOffcanvasMarkRead(commentId) {
+
+                const offcanvasElement = document.getElementById(
+                    "cvCommentCanvas" + commentId
+                );
+
+                if (!offcanvasElement) {
+                    return;
+                }
+
+                const offcanvasInstance =
+                    bootstrap.Offcanvas.getInstance(offcanvasElement);
+
+                if (offcanvasInstance) {
+                    offcanvasInstance.hide();
+                }
+            }
+        </script>
+        {% empty %}
+        <div class="issue_comments_empty">
+            <div class="issue_comments_empty_icon">
+                <i class="bi bi-chat-left-text"></i>
+            </div>
+            <strong> No comments yet </strong>
+            <span> Add a comment to keep the team updated. </span>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+<!-- =========================
+ADD COMMENT OFFCANVAS
+========================== -->
+<div class="offcanvas offcanvas-end cv-comment-canvas" tabindex="-1" id="addCommentOffcanvas" aria-labelledby="addCommentOffcanvasLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="addCommentOffcanvasLabel" style="font-weight: 700;">New Comment</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body cv-comment-canvas-body">
+    <form
+        class="issue_comment_form"
+        enctype="multipart/form-data"
+        hx-post="{% url 'contractors:save-contractor-comment' issue.uuid contractor.uuid %}"
+        hx-target="#NewContractorCommentsList"
+        hx-swap="innerHTML"
+        hx-push-url="false"
+        hx-on::after-request="
+                if (event.detail.successful) {
+                this.reset();
+                clearCommentAttachments();
+                }
+            "
+        >
+        {% csrf_token %}
+        <textarea
+        name="comment"
+        class="issue_comment_input new_inputs_css"
+        rows="3"
+        placeholder="Write a comment..."
+        required
+        style="font-size: 16px !important"
+        ></textarea>
+        <!-- ================= Photos & Attachments ================= -->
+        <section class="incident_form_section border-0 px-0">
+        <div class="incident_section_header">
+            <div>
+            <h2>Photos & Attachments</h2>
+            <p>Attach photos or documents that help explain the issue.</p>
+            
+            </div>
+        </div>
+
+        <input
+            type="file"
+            name="comment_attachments"
+            id="comment_attachments"
+            class="d-none"
+            accept="image/*,.pdf,.doc,.docx,.xls,.xlsx"
+            multiple
+        />
+        <div
+            id="comment-attachment-preview"
+            class="incident_photo_preview row g-2 mb-3"
+        ></div>
+
+        <label for="comment_attachments" class="incident_upload">
+            <div class="incident_upload_icon">
+            <i class="bi bi-paperclip"></i>
+            </div>
+
+            <div class="incident_upload_content">
+            <strong>Add task photos or attachments</strong>
+
+            <span>Take photos or choose files from your device</span>
+
+            <small id="comment_file_count">No files selected</small>
+            </div>
+
+            <i class="bi bi-plus-lg incident_upload_plus"></i>
+        </label>
+        </section>
+
+        <div class="issue_comment_actions">
+        <button type="submit" class="issue_comment_button" onclick="closeOffcanvasComments()">
+            <i class="bi bi-send-fill"></i> Save Comment
+        </button>
+        </div>
+    </form>
+  </div>
+</div>
+
+
+
+<!-- LOAD ATTACHMENTS SCRIPT INCIDENT AND COMMENT -->
+<script>
+let clearCommentAttachments = function () {};
+
+function CommentAttachments() {
+    const attachmentInput = document.getElementById("comment_attachments");
+
+    const attachmentPreview = document.getElementById(
+    "comment-attachment-preview",
+    );
+
+    const fileCount = document.getElementById("comment_file_count");
+
+    if (!attachmentInput || !attachmentPreview) {
+    return;
+    }
+
+    if (attachmentInput.dataset.initialized === "true") {
+    return;
+    }
+
+    attachmentInput.dataset.initialized = "true";
+
+    let selectedFiles = [];
+
+    // Make clear function available outside this function
+    clearCommentAttachments = function () {
+    selectedFiles = [];
+
+    // Clear actual file input
+    attachmentInput.value = "";
+
+    // Clear generated previews
+    attachmentPreview.innerHTML = "";
+
+    // Reset file count
+    if (fileCount) {
+        fileCount.textContent = "No files selected";
+    }
+    };
+
+    attachmentInput.addEventListener("change", function () {
+    const newFiles = Array.from(this.files);
+
+    selectedFiles = [...selectedFiles, ...newFiles];
+
+    updateInputFiles();
+    renderPreviews();
+    updateFileCount();
+    });
+
+    function updateInputFiles() {
+    const dataTransfer = new DataTransfer();
+
+    selectedFiles.forEach(function (file) {
+        dataTransfer.items.add(file);
+    });
+
+    attachmentInput.files = dataTransfer.files;
+    }
+
+    function updateFileCount() {
+    if (!fileCount) {
+        return;
+    }
+
+    if (selectedFiles.length === 0) {
+        fileCount.textContent = "No files selected";
+    } else if (selectedFiles.length === 1) {
+        fileCount.textContent = "1 file selected";
+    } else {
+        fileCount.textContent = selectedFiles.length + " files selected";
+    }
+    }
+
+    function renderPreviews() {
+    attachmentPreview.innerHTML = "";
+
+    selectedFiles.forEach(function (file, index) {
+        const col = document.createElement("div");
+
+        col.className = "col-4";
+
+        if (file.type.startsWith("image/")) {
+        const reader = new FileReader();
+
+        reader.onload = function (event) {
+            col.innerHTML = `
+            <div
+                class="position-relative"
+                style="aspect-ratio: 1 / 1;"
+            >
+                <img
+                src="${event.target.result}"
+                class="w-100 h-100 rounded report_image"
+                style="object-fit: cover;"
+                alt="${file.name}"
+                >
+
+                <button
+                type="button"
+                class="btn btn-dark btn-sm position-absolute top-0 end-0 m-1 rounded-circle"
+                data-index="${index}"
+                aria-label="Remove attachment"
+                >
+                <i class="bi bi-x-lg"></i>
+                </button>
+            </div>
+            `;
+
+            addRemoveListener(col);
+        };
+
+        reader.readAsDataURL(file);
+        } else {
+        col.innerHTML = `
+            <div
+            class="position-relative border rounded p-3 h-100 bg-light"
+            >
+            <div class="text-center">
+                <i class="bi bi-file-earmark-text fs-2"></i>
+
+                <div
+                class="small text-truncate mt-2"
+                title="${file.name}"
+                >
+                ${file.name}
+                </div>
+            </div>
+
+            <button
+                type="button"
+                class="btn btn-dark btn-sm position-absolute top-0 end-0 m-1 rounded-circle"
+                data-index="${index}"
+                aria-label="Remove attachment"
+            >
+                <i class="bi bi-x-lg"></i>
+            </button>
+            </div>
+        `;
+
+        addRemoveListener(col);
+        }
+
+        attachmentPreview.appendChild(col);
+    });
+    }
+
+    function addRemoveListener(element) {
+    const button = element.querySelector("button");
+
+    if (!button) {
+        return;
+    }
+
+    button.addEventListener("click", function () {
+        const index = Number(this.dataset.index);
+
+        selectedFiles.splice(index, 1);
+
+        updateInputFiles();
+        renderPreviews();
+        updateFileCount();
+    });
+    }
+}
+
+// Normal page load
+document.addEventListener("DOMContentLoaded", function () {
+    CommentAttachments();
+});
+
+// HTMX navigation
+document.body.addEventListener("htmx:afterSwap", function () {
+    CommentAttachments();
+});
+</script>
+
+
+
+<!-- CLOSE COMMENT OFFCANVAS  -->
+<script>
+  function closeOffcanvasComments() {
+    var offcanvasElement = document.getElementById("addCommentOffcanvas");
+    var offcanvasInstance = bootstrap.Offcanvas.getInstance(offcanvasElement);
+
+    if (!offcanvasInstance) {
+      offcanvasInstance = new bootstrap.Offcanvas(offcanvasElement);
+    }
+
+    offcanvasInstance.hide();
+  }
+</script>
+
+

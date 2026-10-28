@@ -1,0 +1,128 @@
+<form class="d-block">
+  {% csrf_token %}
+  <div id="response-{{ response.id }}">
+    <!-- QUESTION -->
+    <div class="inspection_question_header">
+      <span class="inspection_question_number font_size_12">
+        {{ response.question.order }}
+      </span>
+      <p class="inspection_question_text mb-0 font_size_14">
+        {{ response.question.question }}
+      </p>
+    </div>
+
+    <!-- Answers  -->
+    <div class="row mb-3">
+      <div class="col-4">
+        <button
+          hx-post="{% url 'inspections:update-inspection-response' response.id %}"
+          hx-vals='{"answer": "pass"}'
+          hx-target="#response-{{ response.id }}"
+          hx-swap="outerHTML"
+          hx-push-url="false"
+          type="button"
+          class="w-100 inspections_answer_btn btn {% if response.answer == 'pass'%}btn-success{% else%}btn-outline-dark{% endif%}"
+        >
+          <i class="bi bi-check-lg"></i> Yes
+        </button>
+      </div>
+      <div class="col-4">
+        <button
+          hx-post="{% url 'inspections:update-inspection-response' response.id %}"
+          hx-vals='{"answer": "fail"}'
+          hx-target="#response-{{ response.id }}"
+          hx-swap="outerHTML"
+          hx-push-url="false"
+          type="button"
+          class="w-100 inspections_answer_btn btn {% if response.answer == 'fail'%}btn-danger{% else%}btn-outline-dark{% endif%}"
+        >
+          <i class="bi bi-x-lg"></i> No
+        </button>
+      </div>
+      <div class="col-4">
+        <button
+          hx-post="{% url 'inspections:update-inspection-response' response.id %}"
+          hx-vals='{"answer": "na"}'
+          hx-target="#response-{{ response.id }}"
+          hx-swap="outerHTML"
+          hx-push-url="false"
+          type="button"
+          class="w-100 inspections_answer_btn btn {% if response.answer == 'na'%}btn-secondary{% else%}btn-outline-dark{% endif%}"
+        >
+          N/A
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
+
+<style>
+  /* ========================================= QUESTION ========================================= */
+  .inspection_question_header {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .inspection_question_number {
+    flex: 0 0 25px;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e9eef5;
+    border-radius: 7px;
+    color: #526071;
+    font-size: 10px;
+    font-weight: 800;
+  }
+  .inspection_question_text {
+    color: #263246;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.5;
+  } /* ========================================= ANSWERS ========================================= */
+  .inspection_answers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 7px;
+  }
+  .inspection_answer {
+    min-height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background: #fff;
+    border: 1px solid #dce1e8;
+    border-radius: 9px;
+    color: #596476;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition:
+      background 0.15s ease,
+      border-color 0.15s ease,
+      color 0.15s ease;
+  }
+  .inspection_answer:hover {
+    background: #f8fafc;
+    border-color: #c7ced8;
+  } /* YES */
+  .inspection_answer.selected_yes {
+    background: #ecfdf3;
+    border-color: #86efac;
+    color: #15803d;
+  } /* NO */
+  .inspection_answer.selected_no {
+    background: #fef2f2;
+    border-color: #fca5a5;
+    color: #dc2626;
+  } /* N/A */
+  .inspection_answer.selected_na {
+    background: #f1f3f6;
+    border-color: #cbd2dc;
+    color: #596273;
+  }
+</style>

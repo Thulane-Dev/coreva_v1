@@ -1,0 +1,1051 @@
+/* =========================================================
+   COREVA DAILY REPORT PDF
+   Namespace: drp-
+========================================================= */
+
+@page {
+    size: A4;
+    margin: 14mm 13mm 15mm 13mm;
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background: #ffffff;
+}
+
+
+body {
+    color: #172a46;
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+    font-size: 9px;
+    line-height: 1.45;
+}
+
+
+.drp-document {
+    width: 100%;
+    max-width: 210mm;
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.drp-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 25px;
+    padding-bottom: 16px;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #172a46;
+}
+
+
+.drp-brand {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+}
+
+
+.drp-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 7px;
+    background: #2563eb;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+
+.drp-brand-name {
+    color: #172a46;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+}
+
+
+.drp-brand-subtitle {
+    margin-top: 1px;
+    color: #94a3b8;
+    font-size: 7px;
+}
+
+
+.drp-report-title {
+    text-align: right;
+}
+
+
+.drp-report-label {
+    display: block;
+    margin-bottom: 2px;
+    color: #2563eb;
+    font-size: 7px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+}
+
+
+.drp-report-title h1 {
+    margin: 0;
+    color: #172a46;
+    font-size: 17px;
+    font-weight: 750;
+}
+
+
+.drp-report-meta {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 5px;
+    color: #64748b;
+    font-size: 7.5px;
+}
+
+
+.drp-meta-divider {
+    width: 1px;
+    height: 9px;
+    background: #cbd5e1;
+}
+
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+.drp-section {
+    margin-bottom: 13px;
+    border: 1px solid #dfe5ec;
+    border-radius: 7px;
+    overflow: hidden;
+    background: #ffffff;
+}
+
+
+.drp-section-heading {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-height: 43px;
+    padding: 8px 10px;
+    border-bottom: 1px solid #e7ebf0;
+    background: #f8fafc;
+}
+
+
+.drp-section-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    min-width: 25px;
+    border-radius: 6px;
+    background: #eaf2ff;
+    color: #2563eb;
+    font-size: 7px;
+    font-weight: 800;
+}
+
+
+.drp-section-heading h2 {
+    margin: 0;
+    color: #172a46;
+    font-size: 10px;
+    font-weight: 750;
+}
+
+
+.drp-section-heading p {
+    margin: 1px 0 0;
+    color: #94a3b8;
+    font-size: 7px;
+}
+
+
+.drp-section-heading .drp-status {
+    margin-left: auto;
+}
+
+
+/* =========================================================
+   LABELS
+========================================================= */
+
+.drp-label {
+    display: block;
+    margin-bottom: 2px;
+    color: #94a3b8;
+    font-size: 6.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+
+/* =========================================================
+   INFORMATION GRID
+========================================================= */
+
+.drp-info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+
+.drp-info-item {
+    min-height: 48px;
+    padding: 8px 10px;
+    border-right: 1px solid #edf1f5;
+    border-bottom: 1px solid #edf1f5;
+}
+
+
+.drp-info-item:nth-child(3n) {
+    border-right: 0;
+}
+
+
+.drp-info-item:nth-last-child(-n + 3) {
+    border-bottom: 0;
+}
+
+
+.drp-info-item strong {
+    display: block;
+    color: #334155;
+    font-size: 8px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   WEATHER
+========================================================= */
+
+.drp-weather {
+    display: flex;
+    align-items: center;
+    padding: 11px;
+}
+
+
+.drp-weather-main {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    width: 27%;
+    min-width: 27%;
+}
+
+
+.drp-weather-symbol {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    background: #fff7ed;
+    color: #f59e0b;
+    font-size: 17px;
+}
+
+
+.drp-weather-condition {
+    display: block;
+    color: #64748b;
+    font-size: 7px;
+}
+
+
+.drp-weather-temperature {
+    display: block;
+    margin-top: 1px;
+    color: #172a46;
+    font-size: 15px;
+}
+
+
+.drp-weather-stats {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    flex: 1;
+    border-left: 1px solid #edf1f5;
+}
+
+
+.drp-weather-stats > div {
+    padding-left: 10px;
+}
+
+
+.drp-weather-stats span {
+    display: block;
+    margin-bottom: 2px;
+    color: #94a3b8;
+    font-size: 6.5px;
+}
+
+
+.drp-weather-stats strong {
+    color: #334155;
+    font-size: 8px;
+}
+
+
+.drp-note {
+    margin: 0 11px 11px;
+    padding: 7px 9px;
+    border-left: 2px solid #2563eb;
+    background: #f8fafc;
+    color: #64748b;
+    font-size: 7.5px;
+}
+
+
+/* =========================================================
+   ATTENDANCE
+========================================================= */
+
+.drp-attendance-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+
+.drp-attendance-card {
+    padding: 11px;
+    border-right: 1px solid #edf1f5;
+}
+
+
+.drp-attendance-card:last-child {
+    border-right: 0;
+}
+
+
+.drp-attendance-label {
+    display: block;
+    color: #64748b;
+    font-size: 7px;
+}
+
+
+.drp-attendance-card strong {
+    display: inline-block;
+    margin-top: 3px;
+    color: #172a46;
+    font-size: 17px;
+}
+
+
+.drp-attendance-unit {
+    margin-left: 3px;
+    color: #94a3b8;
+    font-size: 7px;
+}
+
+
+.drp-attendance-total {
+    background: #f8fbff;
+}
+
+
+.drp-attendance-total strong {
+    color: #2563eb;
+}
+
+
+/* =========================================================
+   SAFETY
+========================================================= */
+
+.drp-safety-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 2fr 1fr;
+    border-bottom: 1px solid #edf1f5;
+}
+
+
+.drp-safety-status,
+.drp-safety-item {
+    padding: 10px;
+    border-right: 1px solid #edf1f5;
+}
+
+
+.drp-safety-item:last-child {
+    border-right: 0;
+}
+
+
+.drp-safety-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+
+.drp-check-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #ecfdf5;
+    color: #059669;
+    font-weight: 800;
+}
+
+
+.drp-safety-status strong,
+.drp-safety-item strong {
+    display: block;
+    color: #334155;
+    font-size: 8px;
+}
+
+
+.drp-text-block {
+    padding: 9px 10px;
+}
+
+
+.drp-text-block p {
+    margin: 0;
+    color: #475569;
+    font-size: 7.5px;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.drp-status {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 7px;
+    border-radius: 12px;
+    font-size: 6px;
+    font-weight: 800;
+}
+
+
+.drp-status-complete {
+    background: #ecfdf5;
+    color: #047857;
+}
+
+
+/* =========================================================
+   INSPECTION
+========================================================= */
+
+.drp-inspection-summary {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-bottom: 1px solid #edf1f5;
+}
+
+
+.drp-inspection-summary > div {
+    padding: 9px;
+    text-align: center;
+    border-right: 1px solid #edf1f5;
+}
+
+
+.drp-inspection-summary > div:last-child {
+    border-right: 0;
+}
+
+
+.drp-inspection-summary strong {
+    display: block;
+    color: #172a46;
+    font-size: 14px;
+}
+
+
+.drp-inspection-summary span {
+    color: #94a3b8;
+    font-size: 6.5px;
+}
+
+
+.drp-inspection-pass strong {
+    color: #059669;
+}
+
+
+.drp-inspection-fail strong {
+    color: #dc2626;
+}
+
+
+.drp-check-list {
+    padding: 3px 10px 6px;
+}
+
+
+.drp-check-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 25px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+
+.drp-check-row:last-child {
+    border-bottom: 0;
+}
+
+
+.drp-check-row span {
+    color: #475569;
+    font-size: 7.5px;
+}
+
+
+.drp-check-row strong {
+    font-size: 6px;
+}
+
+
+.drp-check-pass {
+    color: #059669;
+}
+
+
+.drp-check-fail {
+    color: #dc2626;
+}
+
+
+/* =========================================================
+   WORK
+========================================================= */
+
+.drp-work-list {
+    padding: 4px 10px;
+}
+
+
+.drp-work-item {
+    display: flex;
+    gap: 9px;
+    padding: 8px 0;
+    border-bottom: 1px solid #edf1f5;
+}
+
+
+.drp-work-item:last-child {
+    border-bottom: 0;
+}
+
+
+.drp-work-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    border-radius: 5px;
+    background: #f1f5f9;
+    color: #64748b;
+    font-size: 6.5px;
+    font-weight: 800;
+}
+
+
+.drp-work-item strong {
+    display: block;
+    color: #334155;
+    font-size: 8px;
+}
+
+
+.drp-work-item p {
+    margin: 2px 0 0;
+    color: #64748b;
+    font-size: 7px;
+}
+
+
+/* =========================================================
+   ISSUES
+========================================================= */
+
+.drp-item-list {
+    padding: 9px;
+}
+
+
+.drp-item-card {
+    padding: 9px;
+    margin-bottom: 7px;
+    border: 1px solid #e6ebf1;
+    border-radius: 5px;
+}
+
+
+.drp-item-card:last-child {
+    margin-bottom: 0;
+}
+
+
+.drp-item-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+
+.drp-item-top > div {
+    min-width: 0;
+}
+
+
+.drp-item-type {
+    display: inline-block;
+    margin-right: 5px;
+    padding: 3px 5px;
+    border-radius: 4px;
+    font-size: 5.5px;
+    font-weight: 800;
+    vertical-align: 1px;
+}
+
+
+.drp-type-issue {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+
+.drp-type-incident {
+    background: #fff7ed;
+    color: #c2410c;
+}
+
+
+.drp-item-top strong {
+    color: #334155;
+    font-size: 8px;
+}
+
+
+.drp-item-card > p {
+    margin: 6px 0;
+    color: #64748b;
+    font-size: 7px;
+}
+
+
+.drp-priority {
+    flex-shrink: 0;
+    padding: 3px 5px;
+    border-radius: 4px;
+    font-size: 5.5px;
+    font-weight: 800;
+}
+
+
+.drp-priority-high {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+
+.drp-priority-medium {
+    background: #fff7ed;
+    color: #c2410c;
+}
+
+
+.drp-item-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    color: #94a3b8;
+    font-size: 6.5px;
+}
+
+
+.drp-item-meta strong {
+    color: #64748b;
+}
+
+
+.drp-open {
+    color: #dc2626;
+    font-weight: 800;
+}
+
+
+/* =========================================================
+   TABLES
+========================================================= */
+
+.drp-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+
+.drp-table th {
+    padding: 7px 10px;
+    border-bottom: 1px solid #dfe5ec;
+    background: #f8fafc;
+    color: #94a3b8;
+    font-size: 6px;
+    font-weight: 800;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+
+.drp-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid #edf1f5;
+    color: #475569;
+    font-size: 7px;
+}
+
+
+.drp-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+
+.drp-table td:first-child {
+    color: #334155;
+    font-weight: 700;
+}
+
+
+.drp-table-status {
+    display: inline-block;
+    padding: 3px 5px;
+    border-radius: 4px;
+    font-size: 5.5px;
+    font-weight: 800;
+}
+
+
+.drp-task-open {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+
+.drp-task-complete {
+    background: #ecfdf5;
+    color: #047857;
+}
+
+
+/* =========================================================
+   INCIDENT
+========================================================= */
+
+.drp-incident-card {
+    margin: 9px;
+    padding: 10px;
+    border: 1px solid #fed7aa;
+    border-radius: 6px;
+    background: #fffaf5;
+}
+
+
+.drp-incident-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.drp-incident-header strong {
+    color: #334155;
+    font-size: 8px;
+}
+
+
+.drp-incident-time {
+    color: #94a3b8;
+    font-size: 7px;
+}
+
+
+.drp-incident-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin: 9px 0;
+    padding: 8px 0;
+    border-top: 1px solid #f3dfca;
+    border-bottom: 1px solid #f3dfca;
+}
+
+
+.drp-incident-grid strong {
+    display: block;
+    color: #475569;
+    font-size: 7.5px;
+}
+
+
+.drp-incident-card > p {
+    margin: 0;
+    color: #64748b;
+    font-size: 7px;
+}
+
+
+/* =========================================================
+   DELAYS
+========================================================= */
+
+.drp-delay-card {
+    display: flex;
+    gap: 9px;
+    margin: 9px;
+    padding: 9px;
+    border-left: 3px solid #f59e0b;
+    background: #fffbeb;
+}
+
+
+.drp-delay-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    border-radius: 5px;
+    background: #fef3c7;
+    color: #d97706;
+    font-weight: 800;
+}
+
+
+.drp-delay-card strong {
+    color: #92400e;
+    font-size: 8px;
+}
+
+
+.drp-delay-card p {
+    margin: 2px 0 0;
+    color: #78716c;
+    font-size: 7px;
+}
+
+
+/* =========================================================
+   NOTES
+========================================================= */
+
+.drp-notes {
+    padding: 10px;
+}
+
+
+.drp-notes p {
+    margin: 0;
+    color: #475569;
+    font-size: 7.5px;
+}
+
+
+/* =========================================================
+   PHOTOS
+========================================================= */
+
+.drp-photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    padding: 10px;
+}
+
+
+.drp-photo-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 75px;
+    border: 1px dashed #cbd5e1;
+    border-radius: 5px;
+    background: #f8fafc;
+    color: #94a3b8;
+    font-size: 6px;
+    font-weight: 700;
+}
+
+
+.drp-photo span {
+    display: block;
+    margin-top: 4px;
+    color: #64748b;
+    font-size: 6.5px;
+}
+
+
+.drp-attachment-list {
+    display: flex;
+    gap: 8px;
+    padding: 0 10px 10px;
+}
+
+
+.drp-attachment-list > div {
+    flex: 1;
+    padding: 7px;
+    border: 1px solid #e6ebf1;
+    border-radius: 5px;
+}
+
+
+.drp-attachment-list span {
+    display: block;
+    color: #475569;
+    font-size: 6.5px;
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+
+.drp-attachment-list small {
+    display: block;
+    margin-top: 2px;
+    color: #94a3b8;
+    font-size: 5.5px;
+}
+
+
+/* =========================================================
+   SIGN OFF
+========================================================= */
+
+.drp-signoff {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 13px 0;
+    margin-top: 5px;
+    border-top: 2px solid #172a46;
+}
+
+
+.drp-signoff > div {
+    min-width: 0;
+}
+
+
+.drp-signoff strong {
+    display: block;
+    color: #334155;
+    font-size: 8px;
+}
+
+
+.drp-signoff small {
+    display: block;
+    margin-top: 2px;
+    color: #94a3b8;
+    font-size: 6.5px;
+}
+
+
+.drp-signoff-status {
+    color: #059669 !important;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.drp-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 7px;
+    border-top: 1px solid #e2e8f0;
+    color: #94a3b8;
+    font-size: 6px;
+}
+
+
+/* =========================================================
+   PRINT
+========================================================= */
+
+.drp-keep-together {
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+
+
+.drp-section,
+.drp-item-card,
+.drp-incident-card,
+.drp-delay-card {
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+
+
+.drp-table {
+    break-inside: auto;
+}
+
+
+.drp-table tr {
+    break-inside: avoid;
+    page-break-inside: avoid;
+}
+
+
+@media print {
+
+    body {
+        background: #ffffff;
+    }
+
+    .drp-document {
+        max-width: none;
+    }
+
+}

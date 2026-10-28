@@ -1,0 +1,580 @@
+{% load static %}
+<!-- divider  -->
+
+
+
+<div class="row d-flex justify-content-center">
+    <div class="col-12 col-lg-8 mt-0">
+        <div class="ua-page mt-0">
+
+            <!-- =========================
+            BRAND / PAGE NAME
+            ========================== -->
+            <nav class="cv-mobile-topbar fixed-top">
+                <a
+                    href="{{ brand_url|default:'#' }}"
+                    class="cv-mobile-topbar-brand"
+                    aria-label="{{ account_user.first_name }}"
+                    >
+                    {{ account_user.first_name }} {{ account_user.last_name }}
+                </a>
+            </nav>
+
+            <!-- =====================================================
+                PAGE HEADER
+            ====================================================== -->
+
+            <div class="ua-page-header mt-0">
+
+                <div>
+                    <span class="ua-eyebrow">
+                        ACCOUNT
+                    </span>
+
+                    <h1 class="ua-page-title">
+                        My Account
+                    </h1>
+
+                    <p class="ua-page-subtitle">
+                        Manage your personal information and account details.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- =====================================================
+                PROFILE HERO
+            ====================================================== -->
+
+            <section class="ua-profile-card">
+
+                <div class="ua-profile-main">
+
+                    <div class="ua-avatar">
+
+                        {% if account_user.first_name %}
+                            {{ account_user.first_name|first|upper }}
+                        {% else %}
+                            U
+                        {% endif %}
+
+                    </div>
+
+                    <div class="ua-profile-content">
+
+                        <h2 class="ua-profile-name">
+                            {{ account_user.first_name }}
+                            {{ account_user.last_name }}
+                        </h2>
+
+                        <p class="ua-profile-job">
+                            {% if account_user.job_title %}
+                                {{ account_user.job_title }}
+                            {% else %}
+                                Coreva User
+                            {% endif %}
+                        </p>
+
+                        {% if account_user.company %}
+                            <div class="ua-profile-company">
+                                <i class="bi bi-buildings"></i>
+                                <span>
+                                    {{ account_user.company.company_name }}
+                                </span>
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+                <div class="ua-profile-status">
+
+                    <span class="ua-status-label">
+                        Account status
+                    </span>
+
+                    <span class="ua-status-pill
+                        {% if account_user.status == 'active' %}
+                            ua-status-active
+                        {% else %}
+                            ua-status-inactive
+                        {% endif %}
+                    ">
+                        <span class="ua-status-dot"></span>
+
+                        {{ account_user.get_status_display }}
+                    </span>
+
+                </div>
+
+            </section>
+
+
+            <!-- =====================================================
+                ACCOUNT CONTENT
+            ====================================================== -->
+
+            <form
+                method="POST"
+                action="{% url 'account:update-account-details' %}"
+                class="ua-form"
+            >
+
+                {% csrf_token %}
+
+
+                <!-- =================================================
+                    PERSONAL INFORMATION
+                ================================================== -->
+
+                <section class="ua-section">
+
+                    <div class="ua-section-header">
+
+                        <div class="ua-section-icon">
+                            <i class="bi bi-person"></i>
+                        </div>
+
+                        <div>
+                            <h2 class="ua-section-title">
+                                Personal Information
+                            </h2>
+
+                            <p class="ua-section-description">
+                                Your basic personal and contact information.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="ua-section-body">
+
+                        <div class="ua-form-grid">
+
+                            <!-- First name -->
+
+                            <div class="ua-field">
+
+                                <label for="first_name">
+                                    First name
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="first_name"
+                                    name="first_name"
+                                    value="{{ account_user.first_name|default:'' }}"
+                                    placeholder="First name"
+                                >
+
+                            </div>
+
+
+                            <!-- Last name -->
+
+                            <div class="ua-field">
+
+                                <label for="last_name">
+                                    Last name
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="last_name"
+                                    name="last_name"
+                                    value="{{ account_user.last_name|default:'' }}"
+                                    placeholder="Last name"
+                                >
+
+                            </div>
+
+
+                            <!-- Job title -->
+
+                            <div class="ua-field">
+
+                                <label for="job_title">
+                                    Job title
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="job_title"
+                                    name="job_title"
+                                    value="{{ account_user.job_title|default:'' }}"
+                                    placeholder="e.g. Site Manager"
+                                >
+
+                            </div>
+
+
+                            <!-- Email -->
+
+                            <div class="ua-field">
+
+                                <label for="email">
+                                    Email address
+                                </label>
+
+                                <input
+                                    type="email"
+                                    id="email"
+                                    value="{{ account_user.email }}"
+                                    disabled
+                                >
+
+                                <span class="ua-field-help">
+                                    Contact your administrator to change your email.
+                                </span>
+
+                            </div>
+
+
+                            <!-- Phone -->
+
+                            <div class="ua-field">
+
+                                <label for="phone">
+                                    Phone number
+                                </label>
+
+                                <input
+                                    type="tel"
+                                    id="phone"
+                                    name="phone"
+                                    value="{{ account_user.phone|default:'' }}"
+                                    placeholder="+27 00 000 0000"
+                                >
+
+                            </div>
+
+
+                            <!-- WhatsApp -->
+
+                            <div class="ua-field">
+
+                                <label for="whatsapp">
+                                    WhatsApp number
+                                </label>
+
+                                <input
+                                    type="tel"
+                                    id="whatsapp"
+                                    name="whatsapp"
+                                    value="{{ account_user.whatsappNumber|default:'' }}"
+                                    placeholder="+27 00 000 0000"
+                                >
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                    ADDRESS
+                ================================================== -->
+
+                <section class="ua-section">
+
+                    <div class="ua-section-header">
+
+                        <div class="ua-section-icon">
+                            <i class="bi bi-geo-alt"></i>
+                        </div>
+
+                        <div>
+                            <h2 class="ua-section-title">
+                                Address
+                            </h2>
+
+                            <p class="ua-section-description">
+                                Your personal address information.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="ua-section-body">
+
+                        {% if account_user.address %}
+
+                            <div class="ua-address-card">
+
+                                <div class="ua-address-icon">
+                                    <i class="bi bi-geo-alt"></i>
+                                </div>
+
+                                <div class="ua-address-content">
+
+                                    {% if account_user.address.street_address %}
+                                        <strong>
+                                            {{ account_user.address.street_address }}
+                                        </strong>
+                                    {% endif %}
+
+                                    <span>
+
+                                        {% if account_user.address.city %}
+                                            {{ account_user.address.city }}
+                                        {% endif %}
+
+                                        {% if account_user.address.province %}
+                                            , {{ account_user.address.province }}
+                                        {% endif %}
+
+                                        {% if account_user.address.postal_code %}
+                                            {{ account_user.address.postal_code }}
+                                        {% endif %}
+
+                                    </span>
+
+                                    {% if account_user.address.country %}
+                                        <span>
+                                            {{ account_user.address.country }}
+                                        </span>
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+                        {% else %}
+
+                            <div class="ua-empty-state">
+
+                                <div class="ua-empty-icon">
+                                    <i class="bi bi-geo-alt"></i>
+                                </div>
+
+                                <div>
+                                    <strong>
+                                        No address added
+                                    </strong>
+
+                                    <p>
+                                        Your address hasn't been added to your account yet.
+                                    </p>
+                                </div>
+
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                    ACCOUNT INFORMATION
+                ================================================== -->
+
+                <section class="ua-section">
+
+                    <div class="ua-section-header">
+
+                        <div class="ua-section-icon">
+                            <i class="bi bi-shield-check"></i>
+                        </div>
+
+                        <div>
+                            <h2 class="ua-section-title">
+                                Account Information
+                            </h2>
+
+                            <p class="ua-section-description">
+                                Information about your Coreva account.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div class="ua-section-body">
+
+                        <div class="ua-info-grid">
+
+                            <div class="ua-info-item">
+
+                                <span class="ua-info-label">
+                                    Role
+                                </span>
+
+                                <strong class="ua-info-value">
+                                    {{ account_user.get_role_display }}
+                                </strong>
+
+                            </div>
+
+
+                            <div class="ua-info-item">
+
+                                <span class="ua-info-label">
+                                    Account status
+                                </span>
+
+                                <strong class="ua-info-value">
+
+                                    <span class="ua-inline-status
+                                        {% if account_user.status == 'active' %}
+                                            ua-inline-active
+                                        {% else %}
+                                            ua-inline-inactive
+                                        {% endif %}
+                                    ">
+                                        {{ account_user.get_status_display }}
+                                    </span>
+
+                                </strong>
+
+                            </div>
+
+
+                            <div class="ua-info-item">
+
+                                <span class="ua-info-label">
+                                    Member since
+                                </span>
+
+                                <strong class="ua-info-value">
+                                    {{ account_user.date_created|date:"d M Y" }}
+                                </strong>
+
+                            </div>
+
+
+                            <div class="ua-info-item">
+
+                                <span class="ua-info-label">
+                                    Account start
+                                </span>
+
+                                <strong class="ua-info-value">
+                                    {{ account_user.start_date|date:"d M Y" }}
+                                </strong>
+
+                            </div>
+
+
+                            <div class="ua-info-item">
+
+                                <span class="ua-info-label">
+                                    Account end
+                                </span>
+
+                                <strong class="ua-info-value">
+                                    {{ account_user.end_date|date:"d M Y" }}
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================================
+                    SAVE BAR
+                ================================================== -->
+
+                <div class="ua-save-bar">
+
+                    <div class="ua-save-message">
+
+                        <i class="bi bi-info-circle"></i>
+
+                        <span>
+                            Changes to your personal information will be saved to your account.
+                        </span>
+
+                    </div>
+
+                    <button
+                        type="submit"
+                        class="ua-save-button"
+                    >
+                        <i class="bi bi-check-lg"></i>
+                        Save Changes
+                    </button>
+
+                </div>
+
+            </form>
+
+
+            <!-- =====================================================
+                SECURITY
+            ====================================================== -->
+
+            <section class="ua-section ua-security-section d-none">
+
+                <div class="ua-section-header">
+
+                    <div class="ua-section-icon ua-security-icon">
+                        <i class="bi bi-lock"></i>
+                    </div>
+
+                    <div>
+                        <h2 class="ua-section-title">
+                            Security
+                        </h2>
+
+                        <p class="ua-section-description">
+                            Manage your password and account security.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="ua-security-row">
+
+                    <div class="ua-security-content">
+
+                        <div class="ua-security-row-icon">
+                            <i class="bi bi-key"></i>
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Password
+                            </strong>
+
+                            <p>
+                                Change your Coreva account password.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <a
+                        href="#"
+                        class="ua-security-action"
+                    >
+                        Change Password
+                        <i class="bi bi-arrow-right"></i>
+                    </a>
+
+                </div>
+
+            </section>
+
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,530 @@
+<!-- COREVA CONTRACTOR WORK PROGRESS -->
+ <div class="cv-comment-box mb-3">
+
+    <!-- Card Header  -->
+    <div class="d-flex justify-content-between px-3 pt-4">
+        <div class="section-heading ">
+            <div class="section-icon">
+                <span class="material-symbols-rounded">
+                    engineering
+                </span>
+            </div>
+            <div>
+                <h2>Your Work</h2>
+                <p>Update the progress of this item</p>
+            </div>
+        </div>
+
+        <!-- Add Progress Button  -->
+        <div>
+            <button type="submit" class="issue_comment_button d-none d-md-block" data-bs-toggle="offcanvas" data-bs-target="#addProgressOffcanvas" aria-controls="addProgressOffcanvas">
+                <i class="bi bi-plus-circle-fill"></i> Add Progress
+            </button>
+        </div>
+        
+    </div>
+
+    <!-- ADD PROGRESS BUTTON SMALL SCREEN  -->
+    <center>
+        <button type="submit" class="issue_comment_button d-md-none mt-0 mb-3" style="width: 90%;" data-bs-toggle="offcanvas" data-bs-target="#addProgressOffcanvas" aria-controls="addProgressOffcanvas">
+            <i class="bi bi-plus-circle-fill"></i> Add Progress
+        </button>
+    </center>
+    
+    <!-- Card List  -->
+     <div class="cv-comment-list">
+        <!-- PROGRESS STAGE -->
+         {% for data in work_stages %}
+        <button type="button"
+                class="cv-comment-row"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#cvCommentCanvas{{data.id}}">
+
+            {% if data.status == 'Completed'  %}
+            <div class="cv-comment-avatar cv-comment-avatar-green">
+                <span class="material-symbols-rounded">
+                    check
+                </span>
+            </div>
+            {% elif data.status == 'In Progress' %}
+            <div class="cv-comment-avatar cv-comment-avatar-blue">
+                <span class="material-symbols-rounded">
+                    engineering
+                </span>
+            </div>
+            {% else %}
+            <div class="cv-comment-avatar cv-comment-avatar-orange">
+                <span class="material-symbols-rounded">
+                    radio_button_unchecked
+                </span>
+            </div>
+            {% endif %}
+
+            <div class="cv-comment-content">
+
+                <div class="cv-comment-top">
+                    <strong class="cv-comment-name">
+                        {{data.status}}
+                    </strong>
+
+                    <span class="cv-comment-time">
+                        {{data.created_at|date:"d M Y, H:i" }}
+                    </span>
+                </div>
+
+                <div class="cv-comment-preview">
+                    {{data.update}}
+                </div>
+
+                <div class="cv-comment-meta">
+                    {% if data.work_stage_attachments.all|length > 0 %}
+                    <span class="cv-comment-attachment-count">
+                        <i class="bi bi-paperclip"></i>
+                        {{data.work_stage_attachments.all|length}} attachment
+                    </span>
+                    {% endif %}
+                </div>
+            </div>
+        </button>
+
+        <!-- PROGRESS OFFCANVAS  -->
+        <div class="offcanvas offcanvas-end cv-comment-canvas" tabindex="-1" id="cvCommentCanvas{{data.id}}">
+            <div class="offcanvas-header cv-comment-canvas-header">
+                <div class="d-flex align-items-center gap-3">
+                    {% if data.status == 'Completed'  %}
+                    <div class="cv-comment-avatar cv-comment-avatar-green">
+                        <span class="material-symbols-rounded">
+                            check
+                        </span>
+                    </div>
+                    {% elif data.status == 'In Progress' %}
+                    <div class="cv-comment-avatar cv-comment-avatar-blue">
+                        <span class="material-symbols-rounded">
+                            engineering
+                        </span>
+                    </div>
+                    {% else %}
+                    <div class="cv-comment-avatar cv-comment-avatar-orange">
+                        <span class="material-symbols-rounded">
+                            radio_button_unchecked
+                        </span>
+                    </div>
+                    {% endif %}
+
+                    <div>
+                        <!-- Progress Status  -->
+                        <div class="cv-comment-author">
+                            {{data.status}}
+                        </div>
+
+                        <!-- Progress Date  -->
+                        <div class="cv-comment-date">
+                            {{data.created_at|date:"d M Y, H:i" }}
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <!-- close offcanvas  -->
+                 <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="offcanvas">
+                </button>
+            </div>
+
+            <!-- OFFCANVAS BODY  -->
+            <div class="offcanvas-body cv-comment-canvas-body">
+                <!-- FULL COMMENT -->
+                <div class="cv-comment-full">
+                    {{data.update|linebreaksbr }}
+                </div>
+
+                <!-- ATTACHMENTS -->
+                 {% if data.work_stage_attachments.all %}
+                <div class="cv-comment-files-section">
+                    <div class="cv-comment-files-heading">
+                        Attachments
+                        <span>{{ data.work_stage_attachments.all|length}}</span>
+                    </div>
+                     {% for attachment in data.work_stage_attachments.all %}
+                    <!-- IMAGE -->
+                     {% if attachment.photo %}
+                    <a href="{{ attachment.photo.url }}"
+                        target="_blank" class="cv-comment-file">
+                        <div class="cv-comment-image">
+                            <img src="{{ attachment.photo.url }}"
+                                alt="{{ attachment.caption|default:'Comment photo' }}">
+                        </div>
+
+                        <div class="cv-comment-file-info">
+                            <div class="cv-comment-file-name">
+                                {{ attachment.photo.name|cut:"media/project_photos/" }}
+                            </div>
+                            <div class="cv-comment-file-size">
+                                {{attachment.filesize}}
+                            </div>
+                        </div>
+                    </a>
+                    {% endif %}
+
+                    <!-- PDF -->
+                     {% if attachment.file %}
+                    <a href="{{ attachment.file.url }}"
+                        target="_blank" class="cv-comment-file cv-comment-file-document">
+                        <div class="cv-comment-document-icon">
+                            <i class="bi bi-file-earmark-pdf"></i>
+                        </div>
+
+                        <div class="cv-comment-file-info">
+                            <div class="cv-comment-file-name">
+                                 {{ attachment.file.name|cut:"media/project_files/" }}
+                            </div>
+                            <div class="cv-comment-file-size">
+                                {{attachment.filesize}}
+                            </div>
+                        </div>
+                        <i class="bi bi-download cv-comment-download"></i>
+                    </a>
+                    {% endif%}
+
+                    <!-- divider  -->
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                <!-- INFORMATION -->
+                <div class="cv-comment-details">
+                    <div class="cv-comment-detail-row">
+                        <span>Posted</span>
+                        <strong>
+                            {{ data.created_at|date:"d M Y, H:i" }}
+                        </strong>
+                    </div>
+
+                    <div class="cv-comment-detail-row">
+                        <span>Project</span>
+                        <strong>
+                            {{ data.issue.project.project_name }}
+                        </strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+         <!-- divider  -->
+        {% empty %}
+        <div class="issue_comments_empty border-0">
+            <div class="issue_comments_empty_icon">
+                <i class="bi bi-gear"></i>
+            </div>
+            <strong> No progress yet </strong>
+            <span> Add a progress to keep the team updated. </span>
+        </div>
+        {% endfor %}
+     </div>
+ </div>
+
+
+ <!-- =========================
+ADD PROGRESS UPDATE OFFCANVAS
+========================== -->
+<div class="offcanvas offcanvas-end cv-comment-canvas" tabindex="-1" id="addProgressOffcanvas" aria-labelledby="addProgressOffcanvasLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="addProgressOffcanvasLabel" style="font-weight: 700;">Add Update</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body cv-comment-canvas-body">
+    <form
+        class="issue_comment_form mt-0 pt-0"
+        style="border: 0px !important;"
+        enctype="multipart/form-data"
+        hx-post="{% url 'contractors:save-contractor-work-stage' issue.uuid contractor.uuid %}"
+        hx-target="#ContractorWorkProgress"
+        hx-swap="innerHTML"
+        hx-push-url="false"
+        hx-on::after-request="
+                if (event.detail.successful) {
+                this.reset();
+                clearStageAttachments();
+                }
+            "
+        >
+        {% csrf_token %}
+        <!-- ================= Status Update ================= -->
+        <div class="status-update">
+            <label for="workStatus">
+                Status
+            </label>
+            <select id="workStatus" class="status-select" name="work_status">
+                <option>
+                    Not Started
+                </option>
+                <option selected>
+                    In Progress
+                </option>
+                <option>
+                    Completed
+                </option>
+            </select>
+        </div>
+
+        <!-- ================= Text Area Update ================= -->
+        <div class="update-box">
+            <label for="contractorUpdate">
+                Your update
+            </label>
+        </div>
+        <textarea
+        name="comment"
+        class="issue_comment_input new_inputs_css"
+        rows="3"
+        placeholder="Tell the project team what you've done..."
+        required
+        style="font-size: 16px !important"
+        ></textarea>
+
+        <!-- ================= Photos & Attachments ================= -->
+        <section class="incident_form_section border-0 px-0 mb-0">
+            <div class="incident_section_header">
+                <div>
+                <h2>Photos & Attachments</h2>
+                <p>Attach photos or documents that help explain the issue.</p>
+                
+                </div>
+            </div>
+
+            <input
+                type="file"
+                name="stage_attachments"
+                id="stage_attachments"
+                class="d-none"
+                accept="image/*,.pdf,.doc,.docx,.xls,.xlsx"
+                multiple
+            />
+            <div
+                id="stage-attachment-preview"
+                class="incident_photo_preview row g-2 mb-3"
+            ></div>
+
+            <label for="stage_attachments" class="incident_upload">
+                <div class="incident_upload_icon">
+                <i class="bi bi-paperclip"></i>
+                </div>
+
+                <div class="incident_upload_content">
+                <strong>Add task photos or attachments</strong>
+
+                <span>Take photos or choose files from your device</span>
+
+                <small id="stage_file_count">No files selected</small>
+                </div>
+
+                <i class="bi bi-plus-lg incident_upload_plus"></i>
+            </label>
+        </section>
+
+        <div class="issue_comment_actions mt-0">
+        <button type="submit" class="issue_comment_button" onclick="closeOffcanvasStage()">
+            <span class="material-symbols-rounded">
+                check
+            </span>
+            Save Update
+        </button>
+        </div>
+    </form>
+  </div>
+</div>
+
+
+<!-- LOAD ATTACHMENTS SCRIPT INCIDENT AND COMMENT -->
+<script>
+    let clearStageAttachments = function () {};
+
+    function StageAttachments() {
+        const attachmentInput = document.getElementById("stage_attachments");
+
+        const attachmentPreview = document.getElementById(
+        "stage-attachment-preview",
+        );
+
+        const fileCount = document.getElementById("stage_file_count");
+
+        if (!attachmentInput || !attachmentPreview) {
+        return;
+        }
+
+        if (attachmentInput.dataset.initialized === "true") {
+        return;
+        }
+
+        attachmentInput.dataset.initialized = "true";
+
+        let selectedFiles = [];
+
+        // Make clear function available outside this function
+        clearStageAttachments = function () {
+        selectedFiles = [];
+
+        // Clear actual file input
+        attachmentInput.value = "";
+
+        // Clear generated previews
+        attachmentPreview.innerHTML = "";
+
+        // Reset file count
+        if (fileCount) {
+            fileCount.textContent = "No files selected";
+        }
+        };
+
+        attachmentInput.addEventListener("change", function () {
+        const newFiles = Array.from(this.files);
+
+        selectedFiles = [...selectedFiles, ...newFiles];
+
+        updateInputFiles();
+        renderPreviews();
+        updateFileCount();
+        });
+
+        function updateInputFiles() {
+        const dataTransfer = new DataTransfer();
+
+        selectedFiles.forEach(function (file) {
+            dataTransfer.items.add(file);
+        });
+
+        attachmentInput.files = dataTransfer.files;
+        }
+
+        function updateFileCount() {
+        if (!fileCount) {
+            return;
+        }
+
+        if (selectedFiles.length === 0) {
+            fileCount.textContent = "No files selected";
+        } else if (selectedFiles.length === 1) {
+            fileCount.textContent = "1 file selected";
+        } else {
+            fileCount.textContent = selectedFiles.length + " files selected";
+        }
+        }
+
+        function renderPreviews() {
+        attachmentPreview.innerHTML = "";
+
+        selectedFiles.forEach(function (file, index) {
+            const col = document.createElement("div");
+
+            col.className = "col-4";
+
+            if (file.type.startsWith("image/")) {
+            const reader = new FileReader();
+
+            reader.onload = function (event) {
+                col.innerHTML = `
+                <div
+                    class="position-relative"
+                    style="aspect-ratio: 1 / 1;"
+                >
+                    <img
+                    src="${event.target.result}"
+                    class="w-100 h-100 rounded report_image"
+                    style="object-fit: cover;"
+                    alt="${file.name}"
+                    >
+
+                    <button
+                    type="button"
+                    class="btn btn-dark btn-sm position-absolute top-0 end-0 m-1 rounded-circle"
+                    data-index="${index}"
+                    aria-label="Remove attachment"
+                    >
+                    <i class="bi bi-x-lg"></i>
+                    </button>
+                </div>
+                `;
+
+                addRemoveListener(col);
+            };
+
+            reader.readAsDataURL(file);
+            } else {
+            col.innerHTML = `
+                <div
+                class="position-relative border rounded p-3 h-100 bg-light"
+                >
+                <div class="text-center">
+                    <i class="bi bi-file-earmark-text fs-2"></i>
+
+                    <div
+                    class="small text-truncate mt-2"
+                    title="${file.name}"
+                    >
+                    ${file.name}
+                    </div>
+                </div>
+
+                <button
+                    type="button"
+                    class="btn btn-dark btn-sm position-absolute top-0 end-0 m-1 rounded-circle"
+                    data-index="${index}"
+                    aria-label="Remove attachment"
+                >
+                    <i class="bi bi-x-lg"></i>
+                </button>
+                </div>
+            `;
+
+            addRemoveListener(col);
+            }
+
+            attachmentPreview.appendChild(col);
+        });
+        }
+
+        function addRemoveListener(element) {
+        const button = element.querySelector("button");
+
+        if (!button) {
+            return;
+        }
+
+        button.addEventListener("click", function () {
+            const index = Number(this.dataset.index);
+
+            selectedFiles.splice(index, 1);
+
+            updateInputFiles();
+            renderPreviews();
+            updateFileCount();
+        });
+        }
+    }
+
+    // Normal page load
+    document.addEventListener("DOMContentLoaded", function () {
+        StageAttachments();
+    });
+
+    // HTMX navigation
+    document.body.addEventListener("htmx:afterSwap", function () {
+        StageAttachments();
+    });
+</script>
+
+
+<!-- CLOSE COMMENT OFFCANVAS  -->
+<script>
+  function closeOffcanvasStage() {
+    var offcanvasElement = document.getElementById("addProgressOffcanvas");
+    var offcanvasInstance = bootstrap.Offcanvas.getInstance(offcanvasElement);
+
+    if (!offcanvasInstance) {
+      offcanvasInstance = new bootstrap.Offcanvas(offcanvasElement);
+    }
+
+    offcanvasInstance.hide();
+  }
+</script>

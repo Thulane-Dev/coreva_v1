@@ -1,0 +1,1244 @@
+{% load static %}
+<!-- divider  -->
+
+
+<div class="row d-flex justify-content-center pt-0 mt-0">
+    <div class="col-12 col-lg-9 pt-0 mt-0">
+        <section class="tm-details-page mt-0 pt-0">
+
+            <!-- =====================================================
+                TOP BAR
+                ===================================================== -->
+
+            <div class="tm-details-topbar mt-0 pt-0">
+
+                <!-- =========================================================
+                COREVA MOBILE TOP NAVBAR AND LARGE SCREEN BACK BUTTON
+                ========================================================= -->
+                {% include 'partials/page_topbar.html' with next_url=next_url brand_name=user.first_name brand_url='#' %}
+
+                <div class="tm-topbar-actions">
+
+                    <!-- =====================================================
+                        EDIT TEAM MEMBER BUTTON
+                    ===================================================== -->
+
+                    {% if user.role == "user" %}
+                    <a
+                        href="#"
+                        class="tm-secondary-btn"
+                        data-bs-toggle="modal"
+                        data-bs-target="#editTeamMemberModal"
+                    >
+                        <span class="material-symbols-outlined">
+                            edit
+                        </span>
+
+                        Edit Member
+                    </a>
+                    {% endif %}
+
+
+                    <!-- =====================================================
+                        EDIT TEAM MEMBER MODAL
+                    ===================================================== -->
+
+                    <div
+                        class="modal fade"
+                        id="editTeamMemberModal"
+                        tabindex="-1"
+                        aria-labelledby="editTeamMemberModalLabel"
+                        aria-hidden="true"
+                    >
+
+                        <div class="modal-dialog modal-dialog-centered">
+
+                            <div class="modal-content tm-edit-member-modal">
+
+                                <!-- HEADER -->
+
+                                <div class="tm-edit-member-header">
+
+                                    <div class="tm-edit-member-header-content">
+
+                                        <div class="tm-edit-member-icon">
+                                            <span class="material-symbols-outlined">
+                                                manage_accounts
+                                            </span>
+                                        </div>
+
+                                        <div>
+                                            <h5 id="editTeamMemberModalLabel">
+                                                Edit Team Member
+                                            </h5>
+
+                                            <p>
+                                                Manage this member's project access and account.
+                                            </p>
+                                        </div>
+
+                                    </div>
+
+                                    <button
+                                        type="button"
+                                        class="tm-edit-member-close"
+                                        data-bs-dismiss="modal"
+                                        aria-label="Close"
+                                    >
+                                        <span class="material-symbols-outlined">
+                                            close
+                                        </span>
+                                    </button>
+
+                                </div>
+
+
+                                <!-- MEMBER PROFILE -->
+
+                                <div class="tm-edit-member-profile">
+
+                                    <div class="tm-edit-member-avatar">
+                                        {{user.first_name|first|upper }}
+                                    </div>
+
+                                    <div>
+
+                                        <strong>
+                                            {{user.first_name }}
+                                            {{user.last_name }}
+                                        </strong>
+
+                                        <span>
+                                            {{user.email }}
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- ACTIONS -->
+
+                                <div class="tm-edit-member-actions">
+
+                                    <!-- REMOVE FROM PROJECT -->
+                                    
+                                    <form action="{% url 'team:remove-member-project' project.uuid user.uuid %}" method="POST">
+                                        {% csrf_token %}
+                                        <button
+                                            type="submit"
+                                            class="tm-edit-action"
+                                            data-action="remove-project"
+                                        >
+
+                                            <div class="tm-edit-action-icon">
+                                                <span class="material-symbols-outlined">
+                                                    person_remove
+                                                </span>
+                                            </div>
+
+                                            <div class="tm-edit-action-content">
+
+                                                <strong>
+                                                    Remove from Project
+                                                </strong>
+
+                                                <span>
+                                                    Remove this member from this project.
+                                                    Their Coreva account will remain active.
+                                                </span>
+
+                                            </div>
+
+                                            <span class="material-symbols-outlined tm-edit-action-arrow">
+                                                chevron_right
+                                            </span>
+
+                                        </button>
+                                    </form>
+
+
+                                    <!-- DEACTIVATE / ACTIVATE ACCOUNT -->
+
+                                    {% if project_user.project_user.is_active %}
+
+                                    <button
+                                        type="button"
+                                        class="tm-edit-action d-none"
+                                        data-action="deactivate-account"
+                                    >
+
+                                        <div class="tm-edit-action-icon">
+                                            <span class="material-symbols-outlined">
+                                                person_off
+                                            </span>
+                                        </div>
+
+                                        <div class="tm-edit-action-content">
+
+                                            <strong>
+                                                Deactivate Account
+                                            </strong>
+
+                                            <span>
+                                                Prevent this member from signing in to Coreva.
+                                            </span>
+
+                                        </div>
+
+                                        <span class="material-symbols-outlined tm-edit-action-arrow">
+                                            chevron_right
+                                        </span>
+
+                                    </button>
+
+                                    {% else %}
+
+                                    <button
+                                        type="button"
+                                        class="tm-edit-action d-none"
+                                        data-action="activate-account"
+                                    >
+
+                                        <div class="tm-edit-action-icon">
+                                            <span class="material-symbols-outlined">
+                                                person_add
+                                            </span>
+                                        </div>
+
+                                        <div class="tm-edit-action-content">
+
+                                            <strong>
+                                                Activate Account
+                                            </strong>
+
+                                            <span>
+                                                Allow this member to sign in to Coreva again.
+                                            </span>
+
+                                        </div>
+
+                                        <span class="material-symbols-outlined tm-edit-action-arrow">
+                                            chevron_right
+                                        </span>
+
+                                    </button>
+
+                                    {% endif %}
+
+
+                                    <!-- DELETE ACCOUNT -->
+
+                                    <button
+                                        type="button"
+                                        class="tm-edit-action tm-edit-action-danger d-none"
+                                        data-action="delete-account"
+                                    >
+
+                                        <div class="tm-edit-action-icon">
+                                            <span class="material-symbols-outlined">
+                                                delete_forever
+                                            </span>
+                                        </div>
+
+                                        <div class="tm-edit-action-content">
+
+                                            <strong>
+                                                Delete Account
+                                            </strong>
+
+                                            <span>
+                                                Permanently delete this member's Coreva account.
+                                            </span>
+
+                                        </div>
+
+                                        <span class="material-symbols-outlined tm-edit-action-arrow">
+                                            chevron_right
+                                        </span>
+
+                                    </button>
+
+                                </div>
+
+
+                                <!-- FOOTER -->
+
+                                <div class="tm-edit-member-footer">
+
+                                    <button
+                                        type="button"
+                                        class="tm-edit-cancel-btn"
+                                        data-bs-dismiss="modal"
+                                    >
+                                        Cancel
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <!-- =====================================================
+                MEMBER HERO
+                ===================================================== -->
+
+            <div class="tm-member-hero mt-0">
+
+                <div class="tm-member-identity">
+
+                    <div class="tm-large-avatar">
+
+                        {% if user.first_name %}
+                            {{ user.first_name|first|upper }}
+                        {% else %}
+                            ?
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="tm-member-info">
+
+                        <div class="tm-member-name-row">
+
+                            <h1>
+                                {{ user.first_name }}
+                                {{ user.last_name }}
+                            </h1>
+
+                            {% if user.role == "admin" %}
+
+                                <span class="tm-role-badge admin">
+                                    Admin
+                                </span>
+
+                            {% else %}
+
+                                <span class="tm-role-badge user">
+                                    Team Member
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <p class="tm-job-title">
+
+                            {% if user.job_title %}
+                                {{ user.job_title }}
+                            {% else %}
+                                Team Member
+                            {% endif %}
+
+                        </p>
+
+
+                        <div class="tm-member-meta">
+
+                            <span>
+                                <span class="material-symbols-outlined">
+                                    business
+                                </span>
+
+                                {{ project.project_name }}
+                            </span>
+
+
+                            {% if user.email %}
+
+                                <span>
+                                    <span class="material-symbols-outlined">
+                                        mail
+                                    </span>
+
+                                    {{ user.email }}
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="tm-member-status">
+
+                    {% if user.is_active %}
+
+                        <span class="tm-active-badge">
+                            <span></span>
+                            Active
+                        </span>
+
+                    {% else %}
+
+                        <span class="tm-inactive-badge">
+                            <span></span>
+                            Inactive
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <!-- =====================================================
+                SUMMARY CARDS
+                ===================================================== -->
+
+            <div class="row g-2 mb-3">
+                <div class="col-6 col-md-3">
+                    <!-- Assigned Work -->
+                    <div class="tm-summary-card">
+
+                        <div class="tm-summary-icon blue">
+
+                            <span class="material-symbols-outlined">
+                                assignment
+                            </span>
+
+                        </div>
+
+                        <div>
+
+                            <span class="tm-summary-label">
+                                Assigned Work
+                            </span>
+
+                            <strong>
+                                {{ total_items }}
+                            </strong>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <!-- Open Issues -->
+                    <div class="tm-summary-card">
+
+                        <div class="tm-summary-icon red">
+
+                            <span class="material-symbols-outlined">
+                                report_problem
+                            </span>
+
+                        </div>
+
+                        <div>
+
+                            <span class="tm-summary-label">
+                                Open Issues
+                            </span>
+
+                            <strong>
+                                {{ open_issues_count }}
+                            </strong>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <!-- Open Tasks -->
+                    <div class="tm-summary-card">
+
+                        <div class="tm-summary-icon amber">
+
+                            <span class="material-symbols-outlined">
+                                task_alt
+                            </span>
+
+                        </div>
+
+                        <div>
+
+                            <span class="tm-summary-label">
+                                Open Tasks
+                            </span>
+
+                            <strong>
+                                {{ open_tasks_count }}
+                            </strong>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <!-- Completed -->
+                    <div class="tm-summary-card">
+
+                        <div class="tm-summary-icon green">
+
+                            <span class="material-symbols-outlined">
+                                check_circle
+                            </span>
+
+                        </div>
+
+                        <div>
+
+                            <span class="tm-summary-label">
+                                Completed
+                            </span>
+
+                            <strong>
+                                {{ closed_issues_count|add:closed_tasks_count }}
+                            </strong>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- =====================================================
+                MAIN CONTENT
+                ===================================================== -->
+
+            <div class="tm-details-layout">
+
+
+                <!-- =================================================
+                    LEFT COLUMN
+                    ================================================= -->
+
+                <div class="tm-main-column">
+
+
+                    <!-- =================================================
+                        ISSUES
+                        ================================================= -->
+
+                    <div class="tm-work-card">
+
+                        <div class="tm-work-card-header">
+
+                            <div>
+
+                                <div class="tm-section-title">
+
+                                    <div class="tm-section-icon issue">
+
+                                        <span class="material-symbols-outlined">
+                                            report_problem
+                                        </span>
+
+                                    </div>
+
+                                    <div>
+
+                                        <h2>Assigned Issues</h2>
+
+                                        <p>
+                                            Issues assigned to this team member.
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <span class="tm-count-badge">
+                                {{ issue_count }}
+                            </span>
+
+                        </div>
+
+
+                        {% if assigned_issues %}
+
+                            <div class="tm-work-list">
+
+                                {% for issue in assigned_issues %}
+
+                                    <div class="tm-work-item">
+
+                                        <div class="tm-work-item-main">
+
+                                            <div class="tm-work-item-title-row">
+
+                                                <a
+                                                    href="#"
+                                                    class="tm-work-title"
+                                                >
+                                                    {{ issue.title|default:"Untitled issue" }}
+                                                </a>
+
+
+                                                <span class="tm-priority {{ issue.priority }}">
+                                                    {{ issue.get_priority_display }}
+                                                </span>
+
+                                            </div>
+
+
+                                            {% if issue.description %}
+
+                                                <p class="tm-work-description">
+                                                    {{ issue.description|truncatechars:150 }}
+                                                </p>
+
+                                            {% endif %}
+
+
+                                            <div class="tm-work-meta">
+
+                                                {% if issue.due_date %}
+
+                                                    <span class="
+                                                        {% if issue.status == 'open' and issue.due_date < today %}
+                                                            overdue
+                                                        {% endif %}
+                                                    ">
+
+                                                        <span class="material-symbols-outlined">
+                                                            calendar_today
+                                                        </span>
+
+                                                        {{ issue.due_status }}
+
+                                                    </span>
+
+                                                {% endif %}
+
+
+                                                <span>
+
+                                                    <span class="material-symbols-outlined">
+                                                        schedule
+                                                    </span>
+
+                                                    Created
+                                                    {{ issue.created_at|date:"d M Y" }}
+
+                                                </span>
+
+                                            </div>
+
+                                        </div>
+
+
+                                        <div class="tm-work-item-side">
+
+                                            {% if issue.status == "open" %}
+
+                                                <span class="tm-status open">
+                                                    Open
+                                                </span>
+
+                                            {% else %}
+
+                                                <span class="tm-status closed">
+                                                    Closed
+                                                </span>
+
+                                            {% endif %}
+
+
+                                            <a
+                                                href="{% url 'issues:issue' issue.uuid %}?next={{ request.get_full_path|urlencode }}"
+                                                class="tm-view-btn"
+                                            >
+                                                <span class="material-symbols-outlined">
+                                                    arrow_forward
+                                                </span>
+                                            </a>
+
+                                        </div>
+
+                                    </div>
+
+                                {% endfor %}
+
+                            </div>
+
+                        {% else %}
+
+                            <div class="tm-work-empty">
+
+                                <div class="tm-work-empty-icon">
+                                    <span class="material-symbols-outlined">
+                                        report_problem
+                                    </span>
+                                </div>
+
+                                <h3>No assigned issues</h3>
+
+                                <p>
+                                    This team member currently has no issues assigned
+                                    to them for this project.
+                                </p>
+
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- =================================================
+                        TASKS
+                        ================================================= -->
+
+                    <div class="tm-work-card">
+
+                        <div class="tm-work-card-header">
+
+                            <div>
+
+                                <div class="tm-section-title">
+
+                                    <div class="tm-section-icon task">
+
+                                        <span class="material-symbols-outlined">
+                                            task_alt
+                                        </span>
+
+                                    </div>
+
+                                    <div>
+
+                                        <h2>Assigned Tasks</h2>
+
+                                        <p>
+                                            Tasks assigned to this team member.
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <span class="tm-count-badge">
+                                {{ task_count }}
+                            </span>
+
+                        </div>
+
+
+                        {% if assigned_tasks %}
+
+                            <div class="tm-work-list">
+
+                                {% for task in assigned_tasks %}
+
+                                    <div class="tm-work-item">
+
+                                        <div class="tm-work-item-main">
+
+                                            <div class="tm-work-item-title-row">
+
+                                                <a
+                                                    href="#"
+                                                    class="tm-work-title"
+                                                >
+                                                    {{ task.title|default:"Untitled task" }}
+                                                </a>
+
+
+                                                <span class="tm-priority {{ task.priority }}">
+                                                    {{ task.get_priority_display }}
+                                                </span>
+
+                                            </div>
+
+
+                                            {% if task.description %}
+
+                                                <p class="tm-work-description">
+                                                    {{ task.description|truncatechars:150 }}
+                                                </p>
+
+                                            {% endif %}
+
+
+                                            <div class="tm-work-meta">
+
+                                                {% if task.due_date %}
+
+                                                    <span>
+
+                                                        <span class="material-symbols-outlined">
+                                                            calendar_today
+                                                        </span>
+
+                                                        {{ task.due_status }}
+
+                                                    </span>
+
+                                                {% endif %}
+
+
+                                                <span>
+
+                                                    <span class="material-symbols-outlined">
+                                                        schedule
+                                                    </span>
+
+                                                    Created
+                                                    {{ task.created_at|date:"d M Y" }}
+
+                                                </span>
+
+                                            </div>
+
+                                        </div>
+
+
+                                        <div class="tm-work-item-side">
+
+                                            {% if task.status == "open" %}
+
+                                                <span class="tm-status open">
+                                                    Open
+                                                </span>
+
+                                            {% else %}
+
+                                                <span class="tm-status closed">
+                                                    Closed
+                                                </span>
+
+                                            {% endif %}
+
+
+                                            <a
+                                                href="{% url 'issues:task' task.uuid %}?next={{ request.get_full_path|urlencode }}"
+                                                class="tm-view-btn"
+                                            >
+                                                <span class="material-symbols-outlined">
+                                                    arrow_forward
+                                                </span>
+                                            </a>
+
+                                        </div>
+
+                                    </div>
+
+                                {% endfor %}
+
+                            </div>
+
+                        {% else %}
+
+                            <div class="tm-work-empty">
+
+                                <div class="tm-work-empty-icon">
+                                    <span class="material-symbols-outlined">
+                                        task_alt
+                                    </span>
+                                </div>
+
+                                <h3>No assigned tasks</h3>
+
+                                <p>
+                                    This team member currently has no tasks assigned
+                                    to them for this project.
+                                </p>
+
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                    RIGHT SIDEBAR
+                    ================================================= -->
+
+                <aside class="tm-sidebar">
+
+
+                    <!-- =================================================
+                        MEMBER INFORMATION
+                        ================================================= -->
+
+                    <div class="tm-info-card w-100">
+
+                        <div class="tm-info-card-header">
+
+                            <h3>Member Information</h3>
+
+                        </div>
+
+
+                        <div class="tm-info-list">
+
+                            <div class="tm-info-row">
+
+                                <span class="tm-info-icon">
+                                    <span class="material-symbols-outlined">
+                                        person
+                                    </span>
+                                </span>
+
+                                <div>
+
+                                    <span class="tm-info-label">
+                                        Full Name
+                                    </span>
+
+                                    <strong>
+                                        {{ user.first_name }}
+                                        {{ user.last_name }}
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="tm-info-row">
+
+                                <span class="tm-info-icon">
+                                    <span class="material-symbols-outlined">
+                                        work
+                                    </span>
+                                </span>
+
+                                <div>
+
+                                    <span class="tm-info-label">
+                                        Job Title
+                                    </span>
+
+                                    <strong>
+                                        {{ user.job_title|default:"Not specified" }}
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="tm-info-row">
+
+                                <span class="tm-info-icon">
+                                    <span class="material-symbols-outlined">
+                                        mail
+                                    </span>
+                                </span>
+
+                                <div>
+
+                                    <span class="tm-info-label">
+                                        Email
+                                    </span>
+
+                                    <strong class="tm-break">
+                                        {{ user.email }}
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            {% if user.phone %}
+
+                                <div class="tm-info-row">
+
+                                    <span class="tm-info-icon">
+                                        <span class="material-symbols-outlined">
+                                            phone
+                                        </span>
+                                    </span>
+
+                                    <div>
+
+                                        <span class="tm-info-label">
+                                            Phone
+                                        </span>
+
+                                        <strong>
+                                            {{ user.phone }}
+                                        </strong>
+
+                                    </div>
+
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                        PROJECT ASSIGNMENT
+                        ================================================= -->
+
+                    <div class="tm-info-card w-100">
+
+                        <div class="tm-info-card-header">
+                            <h3>Project Assignment</h3>
+                        </div>
+
+
+                        <div class="tm-assignment">
+
+                            <div class="tm-project-icon">
+
+                                <span class="material-symbols-outlined">
+                                    construction
+                                </span>
+
+                            </div>
+
+
+                            <div>
+
+                                <span class="tm-info-label">
+                                    Project
+                                </span>
+
+                                <strong>
+                                    {{ project.project_name }}
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="tm-date-grid">
+
+                            <div>
+
+                                <span class="tm-info-label">
+                                    Added
+                                </span>
+
+                                <strong>
+                                    {{ member.created_at|date:"d M Y" }}
+                                </strong>
+
+                            </div>
+
+
+                            <div>
+
+                                <span class="tm-info-label">
+                                    Account Status
+                                </span>
+
+                                <strong>
+                                    {% if user.is_active %}
+                                        Active
+                                    {% else %}
+                                        Inactive
+                                    {% endif %}
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                        WORK BREAKDOWN
+                        ================================================= -->
+
+                    <div class="tm-info-card  w-100">
+
+                        <div class="tm-info-card-header">
+                            <h3>Work Breakdown</h3>
+                        </div>
+
+
+                        <div class="tm-breakdown-list">
+
+                            <div class="tm-breakdown-row">
+
+                                <span>
+                                    Issues
+                                </span>
+
+                                <strong>
+                                    {{ issue_count }}
+                                </strong>
+
+                            </div>
+
+
+                            <div class="tm-breakdown-row">
+
+                                <span>
+                                    Open Issues
+                                </span>
+
+                                <strong>
+                                    {{ open_issues_count }}
+                                </strong>
+
+                            </div>
+
+
+                            <div class="tm-breakdown-row">
+
+                                <span>
+                                    Tasks
+                                </span>
+
+                                <strong>
+                                    {{ task_count }}
+                                </strong>
+
+                            </div>
+
+
+                            <div class="tm-breakdown-row">
+
+                                <span>
+                                    Open Tasks
+                                </span>
+
+                                <strong>
+                                    {{ open_tasks_count }}
+                                </strong>
+
+                            </div>
+
+
+                            <div class="tm-breakdown-row total">
+
+                                <span>
+                                    Completed
+                                </span>
+
+                                <strong>
+                                    {{ closed_issues_count|add:closed_tasks_count }}
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </aside>
+
+            </div>
+
+        </section>
+    </div>
+</div>
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const editModal = document.getElementById(
+        "editTeamMemberModal"
+    );
+
+    if (!editModal) {
+        return;
+    }
+
+
+    /* =====================================================
+       ACTION BUTTONS
+    ===================================================== */
+
+    const actionButtons = editModal.querySelectorAll(
+        ".tm-edit-action"
+    );
+
+
+    actionButtons.forEach(function (button) {
+
+        button.addEventListener("click", function () {
+
+            const action = this.dataset.action;
+
+            console.log("Team member action:", action);
+
+
+            /* ==============================================
+               REMOVE FROM PROJECT
+            ============================================== */
+
+            if (action === "remove-project") {
+
+                // Add your remove-project URL / HTMX request here.
+
+                console.log("Remove member from project");
+
+            }
+
+
+            /* ==============================================
+               DEACTIVATE ACCOUNT
+            ============================================== */
+
+            if (action === "deactivate-account") {
+
+                // Add your deactivate account URL / HTMX request here.
+
+                console.log("Deactivate account");
+
+            }
+
+
+            /* ==============================================
+               ACTIVATE ACCOUNT
+            ============================================== */
+
+            if (action === "activate-account") {
+
+                // Add your activate account URL / HTMX request here.
+
+                console.log("Activate account");
+
+            }
+
+
+            /* ==============================================
+               DELETE ACCOUNT
+            ============================================== */
+
+            if (action === "delete-account") {
+
+                // Add your delete account URL / HTMX request here.
+
+                console.log("Delete account");
+
+            }
+
+        });
+
+    });
+
+});
+
+</script>

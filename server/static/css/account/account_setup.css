@@ -1,0 +1,707 @@
+      /* =========================================================
+   ACCOUNT SETUP
+========================================================= */
+
+      .account_setup_page {
+        min-height: 100vh;
+        padding-bottom: 60px;
+
+        background: #000637;
+      }
+
+      .account_setup_container {
+        width: 100%;
+        max-width: 820px;
+        margin: 0 auto;
+      }
+
+      /* =========================================================
+   HEADER
+========================================================= */
+
+      .account_setup_header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .account_setup_logo {
+        width: 135px;
+        height: auto;
+        object-fit: contain;
+        margin-bottom: 28px;
+      }
+
+      .account_setup_progress {
+        max-width: 420px;
+        margin: 0 auto 28px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .account_setup_step {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+
+        color: #9aa3af;
+
+        font-size: 11px;
+        font-weight: 700;
+      }
+
+      .account_setup_step span {
+        width: 28px;
+        height: 28px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 50%;
+
+        background: #e9edf2;
+        color: #7a8492;
+
+        font-size: 11px;
+      }
+
+      .account_setup_step.active {
+        color: #2563eb;
+      }
+
+      .account_setup_step.active span {
+        background: #2563eb;
+        color: #fff;
+      }
+
+      .account_setup_progress_line {
+        width: 55px;
+        height: 1px;
+
+        margin: 0 10px;
+
+        background: #dce1e8;
+      }
+
+      .account_setup_intro {
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .account_setup_eyebrow {
+        margin-bottom: 6px;
+
+        color: #2563eb;
+
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+      }
+
+      .account_setup_intro h1 {
+        margin: 0;
+
+        color: #172a46;
+
+        font-size: 27px;
+        font-weight: 750;
+      }
+
+      .account_setup_intro p {
+        max-width: 550px;
+        margin: 8px auto 0;
+
+        color: #727d8b;
+
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+.account_setup_section {
+margin-bottom: 16px;
+padding: 24px;
+
+background: #fff;
+
+border: 1px solid #e5e9ef;
+border-radius: 16px;
+}
+
+.account_setup_section_header {
+display: flex;
+align-items: flex-start;
+gap: 12px;
+
+margin-bottom: 22px;
+}
+
+.account_setup_number {
+width: 35px;
+height: 35px;
+
+flex: 0 0 35px;
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+border-radius: 9px;
+
+background: #eff6ff;
+color: #2563eb;
+
+font-size: 11px;
+font-weight: 800;
+}
+
+.account_setup_section_header h2 {
+margin: 1px 0 3px;
+
+color: #172a46;
+
+font-size: 16px;
+font-weight: 750;
+}
+
+.account_setup_section_header p {
+margin: 0;
+
+color: #7a8492;
+
+font-size: 12px;
+}
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.account_setup_grid {
+display: grid;
+
+grid-template-columns: repeat(2, minmax(0, 1fr));
+
+gap: 16px;
+}
+
+.account_setup_full {
+grid-column: 1 / -1;
+}
+
+.account_setup_field label {
+display: block;
+
+margin-bottom: 7px;
+
+color: #344054;
+
+font-size: 12px;
+font-weight: 700;
+}
+
+.account_setup_field label span {
+color: #dc2626;
+}
+
+.account_setup_input {
+width: 100%;
+min-height: 45px;
+
+padding: 10px 12px;
+
+border: 1px solid #dce1e8;
+border-radius: 9px;
+
+background: #fff;
+
+color: #172a46;
+
+font-size: 13px;
+
+outline: none;
+
+transition: all 0.15s ease;
+}
+
+.account_setup_input:focus {
+border-color: #2563eb;
+
+box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.09);
+}
+
+.account_setup_input::placeholder {
+color: #a0a8b3;
+}
+
+/* =========================================================
+   INPUT ICON
+========================================================= */
+
+.account_setup_input_icon {
+position: relative;
+}
+
+.account_setup_input_icon i {
+position: absolute;
+
+left: 13px;
+top: 50%;
+
+transform: translateY(-50%);
+
+color: #7d8794;
+
+pointer-events: none;
+}
+
+.account_setup_input_icon input {
+padding-left: 37px;
+}
+
+/* =========================================================
+   LOGO UPLOAD
+========================================================= */
+
+.account_logo_upload {
+display: flex;
+align-items: center;
+gap: 12px;
+
+min-height: 70px;
+padding: 12px;
+
+border: 1px dashed #cfd6df;
+border-radius: 11px;
+
+background: #fafbfc;
+}
+
+.account_logo_upload_icon {
+width: 40px;
+height: 40px;
+
+flex: 0 0 40px;
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+border-radius: 9px;
+
+background: #eff6ff;
+color: #2563eb;
+}
+
+.account_logo_upload_content {
+display: flex;
+flex-direction: column;
+gap: 2px;
+
+min-width: 0;
+flex: 1;
+}
+
+.account_logo_upload_content strong {
+color: #344054;
+
+font-size: 12px;
+}
+
+.account_logo_upload_content span {
+color: #8a94a3;
+
+font-size: 10px;
+}
+
+.account_logo_upload_button {
+margin: 0 !important;
+
+padding: 8px 12px;
+
+border: 1px solid #d9e0e8;
+border-radius: 8px;
+
+background: #fff;
+
+color: #2563eb !important;
+
+font-size: 11px !important;
+font-weight: 700 !important;
+
+cursor: pointer;
+}
+
+/* =========================================================
+   LOCATION
+========================================================= */
+
+.account_location_box {
+margin-top: 20px;
+padding: 15px;
+
+border: 1px solid #e1e6ed;
+border-radius: 12px;
+
+background: #fafbfc;
+}
+
+.account_location_header {
+display: flex;
+align-items: center;
+gap: 10px;
+
+margin-bottom: 13px;
+}
+
+.account_location_icon {
+width: 36px;
+height: 36px;
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+border-radius: 9px;
+
+background: #eff6ff;
+color: #2563eb;
+}
+
+.account_location_header > div:last-child {
+display: flex;
+flex-direction: column;
+gap: 2px;
+}
+
+.account_location_header strong {
+color: #344054;
+
+font-size: 12px;
+}
+
+.account_location_header span {
+color: #8a94a3;
+
+font-size: 10px;
+}
+
+.account_location_button {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+gap: 7px;
+
+min-height: 38px;
+padding: 0 13px;
+
+border: 1px solid #bfdbfe;
+border-radius: 8px;
+
+background: #eff6ff;
+color: #2563eb;
+
+font-size: 11px;
+font-weight: 700;
+}
+
+.account_location_button:hover {
+background: #2563eb;
+color: #fff;
+}
+
+.account_location_status {
+margin-top: 8px;
+
+color: #15803d;
+
+font-size: 10px;
+}
+
+.account_coordinates_grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 12px;
+
+margin-top: 14px;
+}
+
+      /* =========================================================
+   WORK DAYS
+========================================================= */
+
+.work_days_grid {
+display: grid;
+
+grid-template-columns: repeat(7, 1fr);
+
+gap: 8px;
+}
+
+.work_day {
+cursor: pointer;
+}
+
+.work_day input {
+position: absolute;
+
+opacity: 0;
+pointer-events: none;
+}
+
+.work_day_content {
+min-height: 72px;
+
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+
+gap: 7px;
+
+padding: 8px;
+
+border: 1px solid #dfe4eb;
+border-radius: 10px;
+
+background: #fff;
+
+color: #596577;
+
+text-align: center;
+
+transition: all 0.15s ease;
+}
+
+.work_day_content strong {
+font-size: 11px;
+}
+
+.work_day_check {
+width: 25px;
+height: 25px;
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+border-radius: 7px;
+
+background: #f1f3f6;
+
+color: transparent;
+
+font-size: 13px;
+}
+
+.work_day input:checked + .work_day_content {
+border-color: #93c5fd;
+
+background: #eff6ff;
+
+color: #2563eb;
+}
+
+.work_day input:checked + .work_day_content .work_day_check {
+background: #2563eb;
+color: #fff;
+}
+
+.work_days_hint {
+display: flex;
+align-items: flex-start;
+gap: 7px;
+
+margin-top: 14px;
+padding: 10px 12px;
+
+border-radius: 9px;
+
+background: #f8fafc;
+
+color: #7a8492;
+
+font-size: 10px;
+line-height: 1.5;
+}
+
+.work_days_hint i {
+color: #2563eb;
+
+margin-top: 1px;
+}
+
+/* =========================================================
+ACTIONS
+========================================================= */
+
+.account_setup_actions {
+display: flex;
+align-items: center;
+justify-content: space-between;
+
+gap: 15px;
+
+padding: 5px 0;
+}
+
+.account_setup_required_note {
+color: #8a94a3;
+
+font-size: 10px;
+}
+
+.account_setup_required_note span {
+color: #dc2626;
+}
+
+.account_setup_submit {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+gap: 9px;
+
+min-height: 46px;
+
+padding: 0 22px;
+
+border: 0;
+border-radius: 9px;
+
+background: #2563eb;
+color: #fff;
+
+font-size: 13px;
+font-weight: 750;
+
+transition: background 0.15s ease;
+}
+
+.account_setup_submit:hover {
+background: #1d4ed8;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767.98px) {
+.account_setup_page {
+    /* padding: 0px 0px 30px; */
+    padding-bottom: 30px;
+}
+
+.account_setup_logo {
+    width: 115px;
+    margin-bottom: 22px;
+}
+
+.account_setup_intro h1 {
+    font-size: 22px;
+}
+
+.account_setup_intro p {
+    font-size: 12px;
+}
+
+.account_setup_progress {
+    margin-bottom: 22px;
+}
+
+.account_setup_step strong {
+    display: none;
+}
+
+.account_setup_progress_line {
+    width: 40px;
+}
+
+.account_setup_section {
+    padding: 16px;
+
+    border-radius: 14px;
+}
+
+.account_setup_grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+}
+
+.account_setup_full {
+    grid-column: auto;
+}
+
+.account_coordinates_grid {
+    grid-template-columns: 1fr;
+}
+
+/* Work days become 2 columns */
+
+.work_days_grid {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.work_day_content {
+    min-height: 52px;
+
+    flex-direction: row;
+    justify-content: flex-start;
+
+    padding: 8px 10px;
+}
+
+.work_day_check {
+    width: 24px;
+    height: 24px;
+    flex: 0 0 24px;
+}
+
+.account_setup_actions {
+    position: sticky;
+
+    bottom: 0;
+
+    z-index: 10;
+
+    margin: 0 -12px;
+
+    padding: 10px 12px;
+
+    /* background: rgba(247, 248, 250, 0.96); */
+
+    /* border-top: 1px solid #e5e9ef; */
+
+    backdrop-filter: blur(8px);
+}
+
+.account_setup_required_note {
+    display: none;
+}
+
+.account_setup_submit {
+    width: 100%;
+}
+}
+
+@media (max-width: 380px) {
+.account_setup_section {
+    padding: 14px;
+}
+
+.account_setup_header {
+    margin-bottom: 22px;
+}
+
+.account_setup_progress {
+    display: none;
+}
+}
+
+.new_inputs_css {
+  background-color: #f8fafc !important;
+  font-size: 16px;
+}

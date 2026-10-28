@@ -1,0 +1,672 @@
+{% load static %}
+<!-- divider  -->
+
+
+<div class="row d-flex justify-content-center">
+    <div class="col-12 col-lg-8">
+        <!-- =========================================================
+        COREVA MOBILE TOP NAVBAR AND LARGE SCREEN BACK BUTTON
+        ========================================================= -->
+        {% include 'partials/page_topbar.html' with next_url=next_url brand_name='Project Team' brand_url='#' %}
+
+        <section class="project-team-page mt-0">
+
+            <!-- =====================================================
+                TOP BAR
+                ===================================================== -->
+            <div class="dashboard_main_card mb-3">
+                <div class="ptm-topbar">
+
+                    <div>
+                        <div class="ptm-heading">
+
+                            <div class="ptm-heading-icon">
+                                <span class="material-symbols-outlined">
+                                    groups
+                                </span>
+                            </div>
+
+                            <div>
+                                <h1>Project Team</h1>
+
+                                <p>
+                                    {{ project.project_name }}
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="ptm-header-action">
+
+                        <a
+                            data-bs-toggle="offcanvas" href="#offcanvasExample" aria-controls="offcanvasExample"
+                            class="ptm-primary-btn"
+                        >
+                            <span class="material-symbols-outlined">
+                                person_add
+                            </span>
+
+                            Add Team Member
+                        </a>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- =====================================================
+            SUMMARY
+            ===================================================== -->
+            <div class="row mb-3 g-2">
+                <div class="col-6 col-md-4">
+                    <!-- Total -->
+                    <div class="ptm-summary-card">
+
+                        <div class="ptm-summary-icon blue">
+                            <span class="material-symbols-outlined">
+                                groups
+                            </span>
+                        </div>
+
+                        <div>
+                            <span class="ptm-summary-label">
+                                Team Members
+                            </span>
+
+                            <strong>
+                                {{ total_members }}
+                            </strong>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-6 col-md-4">
+                    <!-- Admin -->
+                    <div class="ptm-summary-card">
+
+                        <div class="ptm-summary-icon purple">
+                            <span class="material-symbols-outlined">
+                                admin_panel_settings
+                            </span>
+                        </div>
+
+                        <div>
+                            <span class="ptm-summary-label">
+                                Admins
+                            </span>
+
+                            <strong>
+                                {{ admin_count }}
+                            </strong>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <!-- Team -->
+                    <div class="ptm-summary-card">
+
+                        <div class="ptm-summary-icon green">
+                            <span class="material-symbols-outlined">
+                                person
+                            </span>
+                        </div>
+
+                        <div>
+                            <span class="ptm-summary-label">
+                                Team Members
+                            </span>
+
+                            <strong>
+                                {{ user_count }}
+                            </strong>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- =====================================================
+            FILTER TOOLBAR
+            ===================================================== -->
+             <div class="ptm-content-card mb-3 d-none">
+                <div class="ptm-toolbar">
+
+                    <div class="ptm-toolbar-title">
+
+                        <h2>People assigned to this project</h2>
+
+                        <p>
+                            Manage the people working on {{ project.project_name }}.
+                        </p>
+
+                    </div>
+
+
+                    <form
+                        method="GET"
+                        class="ptm-filters"
+                    >
+
+                        <!-- Search -->
+                        <div class="ptm-search">
+
+                            <span class="material-symbols-outlined">
+                                search
+                            </span>
+
+                            <input
+                                type="text"
+                                name="search"
+                                value="{{ search }}"
+                                placeholder="Search team..."
+                            />
+
+                        </div>
+
+
+                        <!-- Role -->
+                        <select
+                            name="role"
+                            class="ptm-role-filter"
+                            onchange="this.form.submit()"
+                        >
+                            <option value="">
+                                All roles
+                            </option>
+
+                            <option
+                                value="admin"
+                                {% if selected_role == "admin" %}selected{% endif %}
+                            >
+                                Admin
+                            </option>
+
+                            <option
+                                value="user"
+                                {% if selected_role == "user" %}selected{% endif %}
+                            >
+                                Team Member
+                            </option>
+
+                        </select>
+
+
+                        {% if search %}
+                            <a
+                                href="#"
+                                class="ptm-clear-filter"
+                            >
+                                Clear
+                            </a>
+                        {% endif %}
+
+                    </form>
+
+                </div>
+            </div>
+
+            <!-- =====================================================
+            TEAM MEMBER
+            ===================================================== -->
+            <div>
+                {% for member in team_members %}
+                <a href="{% url 'team:member' project.uuid member.uuid %}?next={{ request.get_full_path|urlencode }}" id="member-{{ member.uuid }}">
+                    <div class="dashboard_main_card mb-3">
+                        <div class="d-flex gap-3">
+                            <div class="ptm-avatar">
+                                {% if member.first_name %}
+                                    {{ member.first_name|first|upper }}
+                                {% else %}
+                                    ?
+                                {% endif %}
+                            </div>
+                            <div class="d-flex justify-content-between w-100">
+                                <div>
+                                    <div class="ptm-name-row">
+                                        <div class="ptm-name">
+                                            {{ member.first_name }}
+                                            {{ member.last_name }}
+                                        </div>
+                                        {% if member.role == "admin" %}
+                                            <span class="ptm-role-badge admin">
+                                                Admin
+                                            </span>
+                                        {% else %}
+                                            <span class="ptm-role-badge user">
+                                                Team Member
+                                            </span>
+                                        {% endif %}
+                                    </div>
+                                    <div class="ptm-job-title">
+                                        {{ member.email }}
+                                    </div>
+                                </div>
+                                <i class="bi bi-chevron-right"></i>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% empty %}
+                <!-- =================================================
+                EMPTY STATE
+                ================================================= -->
+                <div class="dashboard_main_card">
+                    <div class="ptm-empty">
+                        <div class="ptm-empty-icon">
+                            <span class="material-symbols-outlined">
+                                groups
+                            </span>
+                        </div>
+
+                        {% if search or selected_role %}
+
+                            <h3>No team members found</h3>
+
+                            <p>
+                                No team members match your current search or filter.
+                            </p>
+
+                            <a
+                                href="#"
+                                class="ptm-secondary-btn"
+                            >
+                                Clear Filters
+                            </a>
+
+                        {% else %}
+
+                            <h3>No team members yet</h3>
+
+                            <p>
+                                Add people to this project so they can work on
+                                inspections, issues, tasks and daily reports.
+                            </p>
+
+                            <a
+                                data-bs-toggle="offcanvas" href="#offcanvasExample" aria-controls="offcanvasExample"
+                                class="ptm-primary-btn"
+                            >
+                                <span class="material-symbols-outlined">
+                                    person_add
+                                </span>
+
+                                Add Team Member
+                            </a>
+
+                        {% endif %}
+                    </div>
+                </div>
+                
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+</div>
+
+<!-- =================================================
+ADD TEAM MEMBER OFFCANVAS
+================================================= -->
+
+<form method="post" 
+    action="{% url 'team:add-team-member' project.uuid %}">
+    {% csrf_token %}
+    <div
+        class="offcanvas offcanvas-end ptm-add-member-offcanvas"
+        tabindex="-1"
+        id="offcanvasExample"
+        aria-labelledby="offcanvasExampleLabel"
+    >
+
+        <!-- HEADER -->
+        <div class="ptm-add-header">
+
+            <div class="ptm-add-header-content">
+
+                <div class="ptm-add-icon">
+                    <span class="material-symbols-outlined">
+                        person_add
+                    </span>
+                </div>
+
+                <div>
+                    <h5 id="offcanvasExampleLabel">
+                        Add Team Member
+                    </h5>
+
+                    <p>
+                        Add someone from your company to this project.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="ptm-add-close"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
+            >
+                <span class="material-symbols-outlined">
+                    close
+                </span>
+            </button>
+
+        </div>
+
+
+        <!-- BODY -->
+        <div class="offcanvas-body ptm-add-body">
+
+            <!-- Project context -->
+            <div class="ptm-project-context">
+
+                <div class="ptm-project-context-icon">
+                    <span class="material-symbols-outlined">
+                        construction
+                    </span>
+                </div>
+
+                <div>
+
+                    <span>
+                        Adding to project
+                    </span>
+
+                    <strong>
+                        {{ project.project_name }}
+                    </strong>
+
+                </div>
+
+            </div>
+
+            <!-- INVITE NEW TEAM MEMBER  -->
+            <a
+                href="{% url 'account:invite-team-member' %}?next={{ request.get_full_path|urlencode }}"
+                class="today-project-button my-4"
+                >
+                Invite New Team Member
+                <i class="bi bi-arrow-right"></i>
+            </a>
+
+            <!-- Member list -->
+            <div class="ptm-available-members">
+
+                {% for user in company_users %}
+
+                <label class="ptm-member-option">
+
+                    <input
+                        type="radio"
+                        name="project_user_uuid"
+                        value="{{ user.uuid }}"
+                    >
+
+                    <div class="ptm-member-option-card">
+
+                        <div class="ptm-member-avatar">
+                            {{ user.first_name|first|upper }}
+                        </div>
+
+                        <div class="ptm-member-details">
+
+                            <div class="ptm-member-name-line">
+
+                                <strong>
+                                    {{ user.first_name }} {{ user.last_name }}
+                                </strong>
+
+                                <span class="ptm-member-role {{ user.role }}">
+                                    {% if user.role == "admin" %}
+                                        Admin
+                                    {% else %}
+                                        Team Member
+                                    {% endif %}
+                                </span>
+
+                            </div>
+
+                            <span class="ptm-member-job">
+                                {{ user.job_title|default:"Team Member" }}
+                            </span>
+
+                            <span class="ptm-member-email">
+                                {{ user.email }}
+                            </span>
+
+                        </div>
+
+                        <div class="ptm-member-radio">
+                            <span class="material-symbols-outlined">
+                                radio_button_unchecked
+                            </span>
+                        </div>
+
+                    </div>
+
+                </label>
+
+                {% empty %}
+
+                <div class="ptm-member-empty" style="display: block;">
+
+                    <div class="ptm-member-empty-icon">
+                        <span class="material-symbols-outlined">
+                            group_off
+                        </span>
+                    </div>
+
+                    <strong>No available team members</strong>
+
+                    <p>
+                        Everyone in your company is already assigned to this project.
+                    </p>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="ptm-add-footer">
+
+            <div class="ptm-selected-member">
+
+                <span class="material-symbols-outlined">
+                    person
+                </span>
+
+                <span id="selectedMemberText">
+                    No team member selected
+                </span>
+
+            </div>
+
+
+            <div class="ptm-footer-actions">
+
+                <button
+                    type="button"
+                    class="ptm-cancel-btn"
+                    data-bs-dismiss="offcanvas"
+                >
+                    Cancel
+                </button>
+
+
+                <button
+                    type="submit"
+                    class="ptm-add-submit"
+                    id="addTeamMemberBtn"
+                    disabled
+                >
+                    <span class="material-symbols-outlined">
+                        person_add
+                    </span>
+
+                    Add to Project
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+</form>
+
+<!-- ======== PROJECT BOTTOM NAVBAR ======== -->
+{% if show_project_bottom_nav is not False %}
+<div class="d-block d-lg-none">{% include 'partials/project_bottom_navbar.html' %}</div>
+{% endif %}
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const searchInput = document.getElementById("teamMemberSearch");
+    const members = document.querySelectorAll(".ptm-member-option");
+    const emptyState = document.getElementById("teamMemberEmpty");
+    const selectedText = document.getElementById("selectedMemberText");
+    const addButton = document.getElementById("addTeamMemberBtn");
+
+    if (!selectedText || !addButton) {
+        return;
+    }
+
+
+    /* ==============================================
+       SEARCH
+    ============================================== */
+
+    if (searchInput) {
+
+        searchInput.addEventListener("input", function () {
+
+            const search = this.value.toLowerCase().trim();
+
+            let visibleMembers = 0;
+
+            members.forEach(function (member) {
+
+                if (member.classList.contains("disabled")) {
+                    return;
+                }
+
+                const text = member.textContent.toLowerCase();
+
+                if (text.includes(search)) {
+
+                    member.style.display = "";
+                    visibleMembers++;
+
+                } else {
+
+                    member.style.display = "none";
+
+                }
+
+            });
+
+
+            if (emptyState) {
+
+                if (visibleMembers === 0) {
+                    emptyState.style.display = "block";
+                } else {
+                    emptyState.style.display = "none";
+                }
+
+            }
+
+        });
+
+    }
+
+
+    /* ==============================================
+       MEMBER SELECTION
+    ============================================== */
+
+    const radios = document.querySelectorAll(
+        '.ptm-member-option input[type="radio"]'
+    );
+
+
+    radios.forEach(function (radio) {
+
+        radio.addEventListener("change", function () {
+
+            if (!this.checked) {
+                return;
+            }
+
+
+            /* Remove selected state from all members */
+
+            document
+                .querySelectorAll(".ptm-member-option")
+                .forEach(function (member) {
+
+                    member.classList.remove("selected");
+
+                    const icon = member.querySelector(
+                        ".ptm-member-radio .material-symbols-outlined"
+                    );
+
+                    if (icon) {
+                        icon.textContent = "radio_button_unchecked";
+                    }
+
+                });
+
+
+            /* Add selected state */
+
+            const member = this.closest(".ptm-member-option");
+
+            if (!member) {
+                return;
+            }
+
+            member.classList.add("selected");
+
+
+            /* Change radio icon */
+
+            const icon = member.querySelector(
+                ".ptm-member-radio .material-symbols-outlined"
+            );
+
+            if (icon) {
+                icon.textContent = "radio_button_checked";
+            }
+
+
+            /* Get member name */
+
+            const name = member.querySelector(
+                ".ptm-member-name-line strong"
+            );
+
+
+            if (name) {
+                selectedText.textContent = name.textContent.trim();
+            }
+
+
+            /* Enable button */
+
+            addButton.disabled = false;
+
+        });
+
+    });
+
+});
+</script>

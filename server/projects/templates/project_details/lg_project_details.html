@@ -1,0 +1,775 @@
+<section class="section-spacing">
+  <div class="row">
+    <!-- ======= DAILY INSPECTIONS ======= -->
+    <div class="col-12 col-lg-6 scroll-section mb-4" id="DailyInspection">
+      {% if project_data.checklist_items %}
+      <!--  HEADER -->
+        <div class="portal-work-section portal-work-section--inspection mb-3">
+            <div class="portal-work-header">
+
+                <div class="portal-work-icon">
+                    <i class="bi bi-clipboard-check text-warning"></i>
+                </div>
+
+                <div class="portal-work-heading">
+                    <h3>Daily Inspection</h3>
+                    <span>Today's safety checklist</span>
+                </div>
+
+                <!-- INSPECTION STATUS -->
+                {% if project_data.inspection_status == 'Incomplete' %}
+
+                <span class="status-pill status-incomplete">
+                  <span class="status-dot"></span>
+                  {{project_data.inspection_status}}
+                </span>
+
+                {% elif project_data.inspection_status == 'Ready to Save' %}
+
+                <span class="status-pill status-ready">
+                  <i class="bi bi-check-circle"></i>
+                  {{project_data.inspection_status}}
+                </span>
+
+                {% else %}
+
+                <span class="status-pill status-complete">
+                  <i class="bi bi-check-circle-fill"></i>
+                  {{project_data.inspection_status}}
+                </span>
+
+                {% endif %}
+            </div>
+        </div>
+
+      <div class="inspection-report-card">
+        <!-- ================================
+        READY TO SAVE ALERT
+      ================================= -->
+        {% if project_data.inspection_status == 'Ready to Save' %}
+        <div
+          class="ready-save-banner mb-3"
+          style="background-color: #e1eefc !important"
+        >
+          <div
+            class="ready-save-icon"
+            style="background-color: #eef6ff !important"
+          >
+            <i
+              class="bi bi-check-lg"
+              style="color: rgb(49, 113, 189) !important"
+            ></i>
+          </div>
+          <div class="ready-save-content">
+            <span
+              class="ready-save-title"
+              style="color: rgb(49, 113, 189) !important"
+            >
+              Ready to Save
+            </span>
+
+            <span
+              class="ready-save-text"
+              style="color: rgb(49, 113, 189) !important"
+            >
+              All inspection items have been completed
+            </span>
+          </div>
+          <i
+            class="bi bi-exclamation-circle-fill ready-save-check"
+            style="color: rgb(49, 113, 189) !important"
+          ></i>
+        </div>
+        {% endif %}
+
+        <!-- ================================
+           ADMIN SIGN-OFF ALERT
+      ================================= -->
+      {% if project_data.inspection_status == 'Complete' %}
+        <!-- divider  -->
+        {% if project_data.inspection.admin_sign_off == None %}
+        <div class="inspection-signoff-alert mb-3">
+            <div class="inspection-signoff-icon">
+                <i class="bi bi-person-check"></i>
+            </div>
+
+            <div class="inspection-signoff-content">
+                <span class="inspection-signoff-title">
+                    Awaiting Admin Sign-Off
+                </span>
+
+                <span class="inspection-signoff-text">
+                    This inspection has been completed and is awaiting admin review and sign-off.
+                </span>
+            </div>
+        </div>
+        {% endif %}
+        <!-- divider  -->
+       {% endif %}
+
+
+      <!-- ================================
+      SAVED AS DRAFT
+      ================================= -->
+      {% if project_data.inspection_status == 'Draft' %}
+      <div class="inspection-signoff-alert mb-3">
+          <div class="inspection-signoff-icon">
+              <i class="bi bi-file-earmark-text"></i>
+          </div>
+
+          <div class="inspection-signoff-content">
+              <span class="inspection-signoff-title">
+                  Daily Inspection Awaiting Completion
+              </span>
+
+              <span class="inspection-signoff-text">
+                  This daily inspection has been saved as a draft. Complete the remaining checks and submit the inspection when ready.
+              </span>
+          </div>
+      </div>
+      {% endif %}
+
+
+      <!-- ================================
+      INCOMPLETE INSPECTION
+      ================================= -->
+      {% if project_data.inspection_status == 'Incomplete' %}
+      <div class="inspection-signoff-alert mb-3">
+            <div class="inspection-signoff-icon">
+                <i class="bi bi-pencil-fill"></i>
+            </div>
+
+            <div class="inspection-signoff-content">
+                <span class="inspection-signoff-title">
+                    Daily Inspection Incomplete
+                </span>
+
+                <span class="inspection-signoff-text">
+                  Complete the remaining checks and submit today’s inspection when ready.
+                </span>
+            </div>
+      </div>
+      {% endif %}
+
+      
+       <!-- ================================
+           COMPLETE INSPECTION ALERT
+      ================================= -->
+       {% if project_data.inspection_status == 'Complete' %}
+        <div class="report-status-banner report-success-banner ">
+          <div class="report-banner-icon">
+            <i class="bi bi-check-lg"></i>
+          </div>
+          <div>
+            <strong class="font_size_12">Inspection Complete</strong>
+            <span class="font_size_11">
+              Today’s daily inspection has been completed successfully..
+            </span>
+          </div>
+        </div>
+       {% endif %}
+
+        <!-- CHECKLIST SUMMARY -->
+        <div class="inspection-summary">
+          <div>
+            <span class="summary-label font_size_13"> Checklist progress </span>
+
+            <div class="inspection-progress-wrapper">
+              <div class="inspection-progress">
+                <div
+                  class="inspection-progress-bar"
+                  style="--progress-bar: {{ project_data.inspection_percentage}}%;"
+                ></div>
+              </div>
+
+              <span class="inspection-progress-text">
+                {{project_data.inspection_answered}} /
+                {{project_data.inspections_questions_count_new}}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CATEGORY LIST -->
+        <div class="inspection-category-list">
+          {% for category in project_data.checklist_items %}
+
+          <div class="inspection-category">
+            <div class="category-left">
+              <span
+                class="category-status-dot {% if category.status == 'complete' %} category-complete {% elif category.status == 'started' %} category-started {% else %} category-missing {% endif %}"
+              ></span>
+
+              <div class="category-content">
+                <span class="category-title"> {{category.name}} </span>
+
+                <span class="category-progress-text">
+                  {{category.an_questions}} / {{category.tot_question}} answered
+                </span>
+              </div>
+            </div>
+
+            <div class="category-right">
+              {% if category.failed_questions != 0 %}
+
+              <span class="failed-pill">
+                <i class="bi bi-exclamation-circle-fill"></i>
+                {{category.failed_questions}} failed
+              </span>
+
+              {% endif %}
+              <!-- divider  -->
+              {% if category.status == 'missing' %}
+
+              <span class="category-status status-missing"> Pending </span>
+
+              {% else %}
+
+              <span
+                class="category-status {% if category.status == 'Complete' %} status-complete-soft {% elif category.status == 'started' %} status-started-soft {% else %} status-missing {% endif %}"
+              >
+                {{category.status}}
+              </span>
+
+              {% endif %}
+            </div>
+          </div>
+
+          {% endfor %}
+        </div>
+
+        <!-- ACTIONS -->
+        <div class="inspection-report-actions">
+          <a href="{% url 'inspections:project-inspections' project.uuid  %}?next={{ request.get_full_path|urlencode }}&section=DailyInspection">
+            <button type="button" class="secondary-action-button w-100">
+              <span>View History</span>
+              <i class="bi bi-arrow-right"></i>
+            </button>
+          </a>
+
+          <a
+           href="{% if inspection %}{% url 'inspections:checklist' project.uuid inspection.uuid %}{% else %}{% url 'inspections:checklist' project.uuid %}{% endif %}?next={{ request.get_full_path|urlencode }}&section=DailyInspection"
+            class="primary-action-button"
+          >
+            <span>{{project_data.inspection_btn}}</span>
+            <i class="bi bi-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+      {% else %}
+      <!-- =====================================================
+       INSPECTION MISSING
+  ====================================================== -->
+      <div class="inspection-report-card empty-inspection-card h-100">
+        <div class="empty-operation-state">
+          <div class="empty-operation-icon inspection-empty-icon">
+            <span class="material-symbols-outlined"> fact_check </span>
+          </div>
+
+          <span class="missing-label"> ACTION REQUIRED </span>
+
+          <h5>Daily Inspection Missing</h5>
+
+          <p>
+            Today's safety inspection has not been started yet. There are
+            <strong>{{project_data.inspections_questions_count}}</strong>
+            items to check.
+          </p>
+
+          <div class="empty-operation-actions">
+            <a
+              href="{% url 'inspections:checklist' project.uuid %}?next={{ request.get_full_path|urlencode }}&section=DailyInspection"
+              class="primary-action-button"
+            >
+              <span>{{project_data.inspection_btn}}</span>
+              <i class="bi bi-arrow-right"></i>
+            </a>
+
+            <a href="{% url 'inspections:project-inspections' project.uuid %}?next={{ request.get_full_path|urlencode }}&section=DailyInspection">
+              <button type="button" class="secondary-action-button">
+                <span>View History</span>
+                <i class="bi bi-arrow-right"></i>
+              </button>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {% endif %}
+    </div>
+    <!-- ======= DAILY REPORT ======= -->
+    <div class="col-12 col-lg-6 scroll-section mb-4" id="DailyReport">
+      {% if project_data.report %}
+      <!--  HEADER -->
+        <div class="portal-work-section portal-work-section--report mb-3">
+            <div class="portal-work-header">
+
+                <div class="portal-work-icon">
+                    <i class="bi bi-file-earmark-text" style="color: rgb(115, 84, 199) !important;"></i>
+                </div>
+
+                <div class="portal-work-heading">
+                    <h3>Daily Report</h3>
+                    <span>Today's project report</span>
+                </div>
+
+                <!-- REPORT STATUS -->
+                {% if project_data.report.status == 'submitted' %}
+
+                <span class="status-pill status-complete">
+                  <i class="bi bi-check-circle-fill"></i>
+                  Submitted
+                </span>
+
+                {% else %}
+
+                <span class="status-pill status-incomplete">
+                  <span class="status-dot"></span>
+                  Incomplete
+                </span>
+
+                {% endif %}
+            </div>
+        </div>
+        
+      <div class="inspection-report-card">
+
+        <!-- ================================
+           ADMIN SIGN-OFF ALERT
+      ================================= -->
+      {% if report.status == 'submitted' %}
+        <!-- divider  -->
+        {% if report.admin_sign_off == None %}
+          <div class="inspection-signoff-alert mb-3">
+              <div class="inspection-signoff-icon">
+                  <i class="bi bi-person-check"></i>
+              </div>
+
+              <div class="inspection-signoff-content">
+                  <span class="inspection-signoff-title">
+                      Awaiting Admin Review
+                  </span>
+
+                  <span class="inspection-signoff-text">
+                      This daily report has been submitted and is awaiting admin review and approval.
+                  </span>
+              </div>
+          </div>
+        {% endif %}
+        <!-- divider  -->
+      {% endif %}
+
+
+        <!-- REPORT MESSAGE -->
+        <div
+          class="report-status-banner {% if project_data.report.status == 'submitted' %} report-success-banner {% else %} report-incomplete-banner {% endif %}"
+        >
+          <div class="report-banner-icon">
+            {% if project_data.report.status == 'submitted' %}
+
+            <i class="bi bi-check-lg"></i>
+
+            {% else %}
+
+            <i class="bi bi-pencil-fill"></i>
+
+            {% endif %}
+          </div>
+
+          <div>
+            {% if project_data.report.status == 'submitted' %}
+
+            <strong class="font_size_12"> Report submitted </strong>
+
+            <span class="font_size_11">
+              This daily report has been completed successfully.
+            </span>
+
+            {% else %}
+
+            <strong class="font_size_12"> Report incomplete </strong>
+
+            <span class="font_size_11">
+              Continue the report and submit today's information.
+            </span>
+
+            {% endif %}
+          </div>
+        </div>
+
+        
+
+        <!-- REPORT DETAILS -->
+        <div class="report-details">
+          <!-- STATUS -->
+          <div class="report-detail-row">
+            <div class="report-detail-label font_size_13">
+              <i class="bi bi-circle-half"></i>
+              Status
+            </div>
+
+            {% if project_data.report.status == 'submitted' %}
+
+            <span class="detail-status detail-status-success font_size_10">
+              {{project_data.report_status}}
+            </span>
+
+            {% else %}
+
+            <span class="detail-status detail-status-warning font_size_10">
+              {{project_data.report_status}}
+            </span>
+
+            {% endif %}
+          </div>
+
+          <!-- DATE -->
+          <div class="report-detail-row">
+            <div class="report-detail-label font_size_13">
+              <i class="bi bi-calendar3"></i>
+              Report Date
+            </div>
+
+            <span class="report-detail-value font_size_13">
+              {{project_data.report.report_date}}
+            </span>
+          </div>
+
+          <!-- CREATED -->
+          <div class="report-detail-row">
+            <div class="report-detail-label font_size_13">
+              <i class="bi bi-clock"></i>
+              Created
+            </div>
+
+            <span class="report-detail-value font_size_13">
+              {{project_data.report.created_at|time:"g:i A"}}
+            </span>
+          </div>
+
+          <!-- LAST UPDATE -->
+          <div class="report-detail-row">
+            <div class="report-detail-label font_size_13">
+              <i class="bi bi-calendar3"></i>
+              Last Update
+            </div>
+
+            <span class="report-detail-value font_size_13">
+              {{project_data.report.updated_at|time:"g:i A"}}
+            </span>
+          </div>
+
+          <!-- SUBMITTED -->
+          <div class="report-detail-row">
+            <div class="report-detail-label font_size_13">
+              <i class="bi bi-send"></i>
+              Submitted
+            </div>
+
+            {% if project_data.report.submitted_at == None %}
+
+            <span class="report-detail-value font_size_13 report-not-submitted">
+              Not submitted
+            </span>
+
+            {% else %}
+
+            <span class="report-detail-value font_size_13">
+              {{project_data.report.submitted_at}}
+            </span>
+
+            {% endif %}
+          </div>
+
+          <!-- PREPARED BY -->
+          <div class="report-detail-row">
+            <div class="report-detail-label font_size_13">
+              <i class="bi bi-person"></i>
+              Prepared by
+            </div>
+
+            <span class="report-detail-value font_size_13">
+              {{project_data.report.created_by.first_name}}
+              {{project_data.report.created_by.last_name}}
+            </span>
+          </div>
+
+          <!-- COMPLETED BY -->
+          {% if project_data.report.completed_by %}
+
+          <div class="report-detail-row">
+            <div class="report-detail-label font_size_13">
+              <i class="bi bi-person-check"></i>
+              Completed by
+            </div>
+
+            <span class="report-detail-value font_size_13">
+              {{project_data.report.completed_by.first_name}}
+              {{project_data.report.completed_by.last_name}}
+            </span>
+          </div>
+
+          {% endif %}
+        </div>
+
+        <!-- ACTIONS -->
+        <div class="inspection-report-actions">
+          <a href="{% url 'report:project-reports' project.uuid %}?next={{ request.get_full_path|urlencode }}">
+            <button type="button" class="secondary-action-button w-100">
+              <span>View History</span>
+              <i class="bi bi-arrow-right"></i>
+            </button>
+          </a>
+
+          <a
+            href="{% if report %}{% url 'report:create-report' project.uuid report.uuid %}?next={{ request.get_full_path|urlencode }}{% else %}{% url 'report:create-report' project.uuid %}?next={{ request.get_full_path|urlencode }}{% endif %}"
+            class="primary-action-button"
+          >
+            {% if project_data.report.status == 'submitted' %}
+            <span>View Report</span>
+            {% else %}
+            <span>Continue Report</span>
+            {% endif %}
+
+            <i class="bi bi-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+      {% else %}
+      <!-- =====================================================
+       REPORT MISSING
+  ====================================================== -->
+      <div class="inspection-report-card empty-report-card h-100">
+        <div class="empty-operation-state">
+          <div class="empty-operation-icon report-empty-icon">
+            <span class="material-symbols-outlined"> description </span>
+          </div>
+
+          <span class="missing-label"> ACTION REQUIRED </span>
+
+          <h5>Daily Report Missing</h5>
+
+          <p>Today's daily report hasn't been created for this project yet.</p>
+
+          <div class="empty-operation-actions">
+            <a
+              href="{% url 'report:create-report' project.uuid %}?next={{ request.get_full_path|urlencode }}"
+              class="primary-action-button"
+            >
+              <span>Create Daily Report</span>
+              <i class="bi bi-arrow-right"></i>
+            </a>
+            <a href="{% url 'report:project-reports' project.uuid %}?next={{ request.get_full_path|urlencode }}">
+              <button type="button" class="secondary-action-button">
+                <span>View History</span>
+                <i class="bi bi-arrow-right"></i>
+              </button>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {% endif %}
+    </div>
+     <!-- ======= OPEN ISSUE PARTIAL ======= -->
+    <div class="col-12 col-lg-6 scroll-section mb-4" id="IssuesSection">
+      {% include 'issues_templates/issues_md_partial.html' %}
+    </div>
+    <!-- ======= OPEN TASKS PARTIAL ======= -->
+    <div class="col-12 col-lg-6 scroll-section mb-4" id="TaskSession">
+      {% include 'tasks_templates/tasks_md_partial.html' %}
+    </div>
+    <!-- ======= INCIDENTS PARTIAL ======= -->
+    <div class="col-12 col-lg-6 scroll-section mb-4" id="IncidentsSession">
+      {% include 'partials/incidents_md_partial.html' %}
+    </div>
+    <!-- ======= DELIVERIES PARTIAL ======= -->
+    <div class="col-12 col-lg-6 scroll-section mb-4" id="DeliveriesSession">
+      {% include 'deliveries/deliveries_md_partial.html' %}
+    </div>
+    <!-- ======= PHOTOS PARTIAL ======= -->
+    <div class="col-12 col-lg-6 scroll-section mb-4" id="SiteAttachmentsSession">
+      {% include 'project_attachments/projects_attachments_partials.html' %}
+    </div>
+    <!-- ======= PROJECT ACTIVITY ======= -->
+    {% if project_activity %}
+    <div class="col-12">
+      <!-- ACTIVITY HEADER -->
+      <div class="portal-work-section portal-work-section--activity mb-3">
+          <div class="portal-work-header">
+
+              <div class="portal-work-icon">
+                  <i class="bi bi-activity" style="color: #2563eb;"></i>
+              </div>
+
+              <div class="portal-work-heading">
+                  <h3>Project activity</h3>
+                  <span>{{ project_data.total_activities }} Recent activity across this project</span>
+              </div>
+
+              <!-- ALL ACTIVITY ACTION  -->
+              <div class="d-flex gap-2">
+                  <a href="{% url 'projects:project-activity' project.uuid %}?next={{ request.get_full_path|urlencode }}">
+                      <div class="portal-work-count">
+                          <div class="d-flex gap-1">
+                              <span class="text-capitalize">See All</span>
+                          </div>
+                      </div>
+                  </a>
+              </div>
+          </div>
+      </div>
+
+      <section class="project_activity_card">
+        <!-- ========================= ACTIVITY TIMELINE ========================== -->
+        <div class="project_activity_timeline">
+          {% for group in project_activity %}
+          <!-- DATE -->
+          <div class="activity_date_divider">
+            <span class="activity_date_label">
+              {{ group.date|date:"d F Y" }}
+            </span>
+          </div>
+          <!-- ACTIVITIES -->
+          <div class="activity_day">
+            {% for data in group.activities %}
+            <div class="activity_item">
+              <!-- TIME -->
+              <div class="activity_time">
+                {{ data.created_at|time:"g:i A" }}
+              </div>
+              <!-- ICON / TIMELINE -->
+              <div class="activity_timeline">
+                <div class="activity_icon_wrapper">
+                  {% include 'partials/timeline_icons.html' %}
+                </div>
+              </div>
+              <!-- CONTENT -->
+              <div class="activity_content">
+                <div class="activity_content_header">
+                  <h6 class="activity_type mb-0">{{ data.activity_type }}</h6>
+                </div>
+                {% if data.description %}
+                <p class="activity_description mb-0">{{ data.description }}</p>
+                {% endif %}
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          {% endfor %}
+        </div>
+        <!-- ========================= FOOTER ========================== -->
+        {% if project_data.total_activities > 5 %}
+        <div class="project_activity_footer">
+          <a href="{% url 'projects:project-activity' project.uuid %}?next={{ request.get_full_path|urlencode }}">
+          <button type="button" class="btn project_activity_footer_btn">
+            View all activity <i class="bi bi-arrow-right"></i>
+          </button>
+          </a>
+        </div>
+        {% endif %}
+      </section>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+<!-- ======= Project Management ======= -->
+<section class="section-spacing project_management_section">
+  <div class="project_management_header">
+    <div>
+      <h4 class="new_section_title mb-1">Project Management</h4>
+      <p class="project_management_subtitle mb-0">
+        Manage people, project information and settings
+      </p>
+    </div>
+  </div>
+
+  <div class="row g-3">
+    <!-- TEAM -->
+    <div class="col-12 col-md-6 col-xl-3">
+      <a href="{% url 'team:project-team' project.uuid %}?next={{ request.get_full_path|urlencode }}" class="project_action_card">
+        <div class="project_action_top">
+          <div class="project_action_icon blue">
+            <i class="bi bi-people"></i>
+          </div>
+
+          <i class="bi bi-arrow-up-right project_action_arrow"></i>
+        </div>
+
+        <div class="project_action_content">
+          <h6 class="project_action_title">Team Members</h6>
+
+          <p class="project_action_meta">{{team_members|length}} members</p>
+
+          <p class="project_action_description">View and manage project team</p>
+        </div>
+      </a>
+    </div>
+
+    <!-- SUBCONTRACTORS -->
+    <div class="col-12 col-md-6 col-xl-3" id="Contractors">
+      <a href="{% url 'contractors:project-contractors' project.uuid %}?next={{ request.get_full_path|urlencode }}" class="project_action_card">
+        <div class="project_action_top">
+          <div class="project_action_icon green">
+            <i class="bi bi-building"></i>
+          </div>
+
+          <i class="bi bi-arrow-up-right project_action_arrow"></i>
+        </div>
+
+        <div class="project_action_content">
+          <h6 class="project_action_title">Subcontractors</h6>
+
+          <p class="project_action_meta">{{project_data.contractors_count}} subcontractor{%if project_data.contractors_count > 1%}s{%endif%}</p>
+
+          <p class="project_action_description">
+            View and manage subcontractors
+          </p>
+        </div>
+      </a>
+    </div>
+
+    <!-- ACTIVITY -->
+    <div class="col-12 col-md-6 col-xl-3">
+      <a href="{% url 'projects:project-activity' project.uuid %}?next={{ request.get_full_path|urlencode }}" class="project_action_card">
+        <div class="project_action_top">
+          <div class="project_action_icon purple">
+            <i class="bi bi-clock-history"></i>
+          </div>
+
+          <i class="bi bi-arrow-up-right project_action_arrow"></i>
+        </div>
+
+        <div class="project_action_content">
+          <h6 class="project_action_title">Activity Log</h6>
+
+          <p class="project_action_meta">Full project history</p>
+
+          <p class="project_action_description">View all project activity</p>
+        </div>
+      </a>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="col-12 col-md-6 col-xl-3">
+      <a href="{% url 'projects:project-setting' project.uuid %}?next={{ request.get_full_path|urlencode }}" class="project_action_card">
+        <div class="project_action_top">
+          <div class="project_action_icon gray">
+            <i class="bi bi-gear"></i>
+          </div>
+
+          <i class="bi bi-arrow-up-right project_action_arrow"></i>
+        </div>
+
+        <div class="project_action_content">
+          <h6 class="project_action_title">Project Settings</h6>
+
+          <p class="project_action_meta">Project configuration</p>
+
+          <p class="project_action_description">Update project details</p>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>

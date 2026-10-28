@@ -1,0 +1,513 @@
+<div class="offcanvas offcanvas-end offcanvas_form offcanvas_background" tabindex="-1" id="addProjectDeliveryOffvanvas" aria-labelledby="addProjectDeliveryOffvanvasLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="addProjectDeliveryOffvanvasLabel"></h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body offcanvas_background">
+    
+    <!-- ================= HEADER ================= -->
+    <div class="dashboard_main_card mb-3">
+        <div class="delivery_header_content">
+            <div class="delivery_header_icon">
+                <i class="bi bi-box-seam"></i>
+            </div>
+            <div>
+                <div class="delivery_eyebrow">PROJECT DELIVERY</div>
+                <h1>Record Delivery</h1>
+                <p>Record materials, equipment, or other items delivered to site.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= FORM ================= -->
+    <form
+        method="POST"
+        enctype="multipart/form-data"
+        hx-post="{% url 'projects:save-new-project-delivery' project.uuid %}"
+        hx-target="#{{delivery_target_id}}"
+        hx-swap="innerHTML"
+        hx-push-url="false"
+        hx-on::after-request="
+            if (event.detail.successful) {
+            this.reset();
+            closeNewDeliveryOffcanvas();
+            }
+        "
+    >
+        {% csrf_token %}
+
+        <input type="text" value="{{next_url}}" name="next_url" hidden>
+        <input type="text" value="{{delivery_target_id}}" name="delivery_target_id" hidden>
+
+        <!-- ================= 01 DELIVERY DETAILS ================= -->
+        <section class="delivery_form_section">
+            <div class="delivery_section_header">
+                <div class="delivery_section_number">01</div>
+                <div>
+                    <h2>Delivery Details</h2>
+                    <p>Provide the basic details about this delivery.</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Delivery DATE -->
+                <div class="col-12 col-md-6 mb-3">
+                    <div class="form_field">
+                        <label for="delivery_date" class="form_field_label">
+                            Delivery Date <span class="delivery_required">*</span>
+                        </label>
+                        <div class="form_date_wrapper">
+                            <i class="bi bi-calendar3"></i>
+                            <input type="date" class="form-control modern_form_input form_date_input new_inputs_css" style="font-size: 16px !important;" name="delivery_date" id="delivery_date" value="{{ today|date:'Y-m-d' }}" required onfocus="this.showPicker()" onclick="this.showPicker()" />
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Delivery TIME -->
+                <div class="col-12 col-md-6 mb-3">
+                    <div class="form_field">
+                        <label for="delivery_time" class="form_field_label">
+                            Delivery Time 
+                        </label>
+                        <div class="form_date_wrapper">
+                            <i class="bi bi-clock"></i>
+                            <input class="form-control modern_form_input form_date_input new_inputs_css" style="font-size: 16px !important;" type="time" name="delivery_time" id="delivery_time" onfocus="this.showPicker()" onclick="this.showPicker()" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="delivery_form_grid">
+                <!-- Supplier -->
+                <div class="delivery_field delivery_field_full">
+                    <label for="supplier">
+                        Supplier <span class="delivery_required">*</span>
+                    </label>
+                    <div class="delivery_input_icon">
+                        <i class="bi bi-building"></i>
+                        <input class="inputs_css_style new_inputs_css" type="text" name="supplier" id="supplier" placeholder="e.g. ABC Building Supplies" required />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 02 DELIVERY ITEMS ================= -->
+        <section class="delivery_form_section">
+            <div class="delivery_section_header delivery_section_header_action">
+                <div class="delivery_section_header_left">
+                    <div class="delivery_section_number">02</div>
+                    <div>
+                        <h2>Delivery Items</h2>
+                        <p>Add the materials or equipment included in this delivery.</p>
+                    </div>
+                </div>
+                <button type="button" id="add-delivery-item" class="delivery_add_button" onclick="addDeliveryItem()">
+                    <i class="bi bi-plus-lg"></i> <span>Add Item</span>
+                </button>
+            </div>
+
+            <div id="delivery-items">
+                <!-- Dynamic delivery items inserted here -->
+                <div class="delivery_empty_items" id="hide-delivery-state">
+                    <div class="delivery_empty_icon">
+                        <i class="bi bi-box"></i>
+                    </div>
+                    <div>
+                        <strong>No delivery items added</strong>
+                        <span> Add the materials or equipment received. </span>
+                    </div>
+                    <button type="button" class="delivery_empty_add" onclick="addDeliveryItem()">
+                        <i class="bi bi-plus-lg"></i> Add Item
+                    </button>
+                </div>
+            </div>
+
+            <!-- Bottom Add Button -->
+            <div id="delivery-bottom-btn" style="display: none;" class="mt-3 text-center">
+                <button type="button" class="btn btn-outline-secondary w-100 py-2" onclick="addDeliveryItem()">
+                    <i class="bi bi-plus-lg"></i> Add Another Delivery Item
+                </button>
+            </div>
+        </section>
+
+        <!-- ================= 03 DELIVERY STATUS ================= -->
+        <section class="delivery_form_section">
+            <div class="delivery_section_header">
+                <div class="delivery_section_number">03</div>
+                <div>
+                    <h2>Delivery Status</h2>
+                    <p>Record the condition and status of the delivery.</p>
+                </div>
+            </div>
+
+            <div class="delivery_status_options">
+                <label class="delivery_status_option status_received">
+                    <input type="radio" name="status" value="received" required />
+                    <div class="delivery_status_content">
+                        <div class="delivery_status_icon"><i class="bi bi-check-lg"></i></div>
+                        <div>
+                            <strong>Received</strong>
+                            <span>Everything received as expected</span>
+                        </div>
+                    </div>
+                </label>
+
+                <label class="delivery_status_option status_partial">
+                    <input type="radio" name="status" value="partial" />
+                    <div class="delivery_status_content">
+                        <div class="delivery_status_icon"><i class="bi bi-hourglass-split"></i></div>
+                        <div>
+                            <strong>Partially Received</strong>
+                            <span>Only some items were delivered</span>
+                        </div>
+                    </div>
+                </label>
+
+                <label class="delivery_status_option status_damaged">
+                    <input type="radio" name="status" value="damaged" />
+                    <div class="delivery_status_content">
+                        <div class="delivery_status_icon"><i class="bi bi-exclamation-triangle"></i></div>
+                        <div>
+                            <strong>Received Damaged</strong>
+                            <span>Items arrived damaged</span>
+                        </div>
+                    </div>
+                </label>
+
+                <label class="delivery_status_option status_rejected">
+                    <input type="radio" name="status" value="rejected" />
+                    <div class="delivery_status_content">
+                        <div class="delivery_status_icon"><i class="bi bi-x-lg"></i></div>
+                        <div>
+                            <strong>Rejected</strong>
+                            <span>Delivery was not accepted</span>
+                        </div>
+                    </div>
+                </label>
+            </div>
+
+            <!-- Notes -->
+            <div class="delivery_field delivery_notes_field">
+                <label for="notes"> Delivery Notes </label>
+                <textarea class="inputs_css_style new_inputs_css" name="notes" id="notes" rows="4" placeholder="Add any notes about the delivery, quantities, condition, shortages, or other details..."></textarea>
+            </div>
+        </section>
+
+        <!-- ================= 04 Photos & Attachments ================= -->
+        <section class="incident_form_section">
+            <div class="incident_section_header">
+                <div class="incident_section_number">04</div>
+                <div>
+                    <h2>Photos & Attachments</h2>
+                    <p>Add photos of the delivery, materials, or delivery note.</p>
+                </div>
+            </div>
+
+            <input type="file" name="project_deliveries__attachments" id="project_deliveries__attachments" class="d-none" accept="image/*,.pdf,.doc,.docx,.xls,.xlsx" multiple />
+
+            <div id="project_deliveries_-attachment-preview" class="incident_photo_preview row g-2 mb-3"></div>
+
+            <label for="project_deliveries__attachments" class="incident_upload">
+                <div class="incident_upload_icon">
+                    <i class="bi bi-paperclip"></i>
+                </div>
+                <div class="incident_upload_content">
+                    <strong>Add delivery photos or attachments</strong>
+                    <span>Take photos or choose files from your device</span>
+                    <small id="project_deliveries__file_count">No files selected</small>
+                </div>
+                <i class="bi bi-plus-lg incident_upload_plus"></i>
+            </label>
+        </section>
+
+        <!-- ================= ACTIONS ================= -->
+        <div class="delivery_form_actions">
+            <button type="button" data-bs-dismiss="offcanvas" class="delivery_cancel">
+                Cancel
+            </button>
+            <button type="submit" class="delivery_submit">
+                <i class="bi bi-check-lg"></i> Record Delivery
+            </button>
+        </div>
+    </form>
+
+    <div style="height: 150px;"></div>
+  </div>
+</div>
+
+<!-- ADD DELIVERY SCRIPT -->
+<script>
+  const deliveryItemsContainer = document.getElementById("delivery-items");
+  const emptyDeliveryState = document.getElementById("hide-delivery-state");
+  const deliveryBottomBtn = document.getElementById("delivery-bottom-btn");
+
+  function addDeliveryItem() {
+    if (!deliveryItemsContainer) return;
+
+    // Hide empty state and show bottom button
+    if (emptyDeliveryState) emptyDeliveryState.style.display = "none";
+    if (deliveryBottomBtn) deliveryBottomBtn.style.display = "block";
+
+    const item = document.createElement("div");
+    item.classList.add("delivery-item", "border", "rounded", "p-3", "mb-3");
+
+    item.innerHTML = `
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <strong class="item-title">Delivery Item</strong>
+        <button type="button" class="btn btn-sm btn-outline-danger remove-delivery-item">
+          <i class="bi bi-trash"></i>
+        </button>
+      </div>
+
+      <div class="mb-3 delivery_field delivery_field_full">
+        <label>
+          What Was Delivered?
+          <span class="incident_required">*</span>
+        </label>
+        <input type="text" name="delivery_item[]" class="inputs_css_style new_inputs_css" placeholder="e.g. Bricks" required>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 mb-3 delivery_field delivery_field_full">
+            <label>Quantity</label>
+          <input type="number" name="delivery_quantity[]" class="inputs_css_style new_inputs_css" min="0" step="0.01" placeholder="e.g. 500">
+        </div>
+
+        <div class="col-md-6 mb-3 delivery_field delivery_field_full">
+          <label>Unit</label>
+          <select name="delivery_unit[]" class="inputs_css_style new_inputs_css">
+            <option value="">Select unit</option>
+            <option value="units">Units</option>
+            <option value="bags">Bags</option>
+            <option value="boxes">Boxes</option>
+            <option value="pallets">Pallets</option>
+            <option value="loads">Loads</option>
+            <option value="metres">Metres</option>
+            <option value="tonnes">Tonnes</option>
+            <option value="litres">Litres</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+      </div>
+    `;
+
+    deliveryItemsContainer.appendChild(item);
+    renumberDeliveryItems();
+  }
+
+  // Remove delivery item
+  document.addEventListener("click", function (event) {
+    const button = event.target.closest(".remove-delivery-item");
+    if (!button) return;
+
+    button.closest(".delivery-item")?.remove();
+    renumberDeliveryItems();
+
+    // If no items left, reset UI
+    const remainingItems = deliveryItemsContainer.querySelectorAll(".delivery-item");
+    if (remainingItems.length === 0) {
+      if (emptyDeliveryState) emptyDeliveryState.style.display = "flex";
+      if (deliveryBottomBtn) deliveryBottomBtn.style.display = "none";
+    }
+  });
+
+  // Renumber logic
+  function renumberDeliveryItems() {
+    const items = deliveryItemsContainer.querySelectorAll(".delivery-item");
+    items.forEach((item, index) => {
+      const title = item.querySelector(".item-title");
+      if (title) title.textContent = `Delivery Item ${index + 1}`;
+    });
+  }
+</script>
+
+<!-- LOAD ATTACHMENTS SCRIPT -->
+<script>
+  function project_deliveries_Attachments() {
+    const attachmentInput = document.getElementById("project_deliveries__attachments");
+    const attachmentPreview = document.getElementById("project_deliveries_-attachment-preview");
+    const fileCount = document.getElementById("project_deliveries__file_count");
+
+    if (!attachmentInput || !attachmentPreview) return;
+    if (attachmentInput.dataset.initialized === "true") return;
+    attachmentInput.dataset.initialized = "true";
+
+    let selectedFiles = [];
+
+    attachmentInput.addEventListener("change", function () {
+      const newFiles = Array.from(this.files);
+      selectedFiles = [...selectedFiles, ...newFiles];
+      updateInputFiles();
+      renderPreviews();
+      updateFileCount();
+    });
+
+    function updateInputFiles() {
+      const dataTransfer = new DataTransfer();
+      selectedFiles.forEach(function (file) {
+        dataTransfer.items.add(file);
+      });
+      attachmentInput.files = dataTransfer.files;
+    }
+
+    function updateFileCount() {
+      if (!fileCount) return;
+      if (selectedFiles.length === 0) fileCount.textContent = "No files selected";
+      else if (selectedFiles.length === 1) fileCount.textContent = "1 file selected";
+      else fileCount.textContent = selectedFiles.length + " files selected";
+    }
+
+    function renderPreviews() {
+      attachmentPreview.innerHTML = "";
+
+      selectedFiles.forEach(function (file, index) {
+        const col = document.createElement("div");
+        col.className = "col-4";
+
+        if (file.type.startsWith("image/")) {
+          const reader = new FileReader();
+          reader.onload = function (event) {
+            col.innerHTML = `
+              <div class="position-relative" style="aspect-ratio: 1 / 1;">
+                <img src="${event.target.result}" class="w-100 h-100 rounded report_image" style="object-fit: cover;" alt="${file.name}">
+                <button type="button" class="btn btn-dark btn-sm position-absolute top-0 end-0 m-1 rounded-circle" data-index="${index}" aria-label="Remove attachment">
+                  <i class="bi bi-x-lg"></i>
+                </button>
+              </div>
+            `;
+            addRemoveListener(col);
+          };
+          reader.readAsDataURL(file);
+        } else {
+          col.innerHTML = `
+            <div class="position-relative border rounded p-3 h-100 bg-light">
+              <div class="text-center">
+                <i class="bi bi-file-earmark-text fs-2"></i>
+                <div class="small text-truncate mt-2" title="${file.name}">
+                  ${file.name}
+                </div>
+              </div>
+              <button type="button" class="btn btn-dark btn-sm position-absolute top-0 end-0 m-1 rounded-circle" data-index="${index}" aria-label="Remove attachment">
+                <i class="bi bi-x-lg"></i>
+              </button>
+            </div>
+          `;
+          addRemoveListener(col);
+        }
+        attachmentPreview.appendChild(col);
+      });
+    }
+
+    function addRemoveListener(element) {
+      const button = element.querySelector("button");
+      if (!button) return;
+      button.addEventListener("click", function () {
+        const index = Number(this.dataset.index);
+        selectedFiles.splice(index, 1);
+        updateInputFiles();
+        renderPreviews();
+        updateFileCount();
+      });
+    }
+  }
+
+  // Normal page load
+  document.addEventListener("DOMContentLoaded", function () {
+    project_deliveries_Attachments();
+  });
+
+  // HTMX navigation
+  document.body.addEventListener("htmx:afterSwap", function () {
+    project_deliveries_Attachments();
+  });
+</script>
+
+<!-- CLOSE DELIVERY OFFCANVAS  -->
+<script>
+  function closeNewDeliveryOffcanvas() {
+    var offcanvasElement = document.getElementById("addProjectDeliveryOffvanvas");
+    var offcanvasInstance = bootstrap.Offcanvas.getInstance(offcanvasElement);
+
+    if (!offcanvasInstance) {
+      offcanvasInstance = new bootstrap.Offcanvas(offcanvasElement);
+    }
+
+    offcanvasInstance.hide();
+  }
+</script>
+
+
+
+<script>
+    document.body.addEventListener('htmx:afterSettle', function (event) {
+        const targetId = event.detail.target.id;
+
+        if (
+            targetId === 'DeliveriesSession' ||
+            targetId === 'DeliveriesSessionSM' ||
+            targetId === 'DeliveriesSessionList'
+        ) {
+            // Wait until the layout has settled
+            requestAnimationFrame(() => {
+                const mobileSection = document.getElementById('DeliveriesSessionSM');
+                const desktopSection = document.getElementById('DeliveriesSession');
+                const deliveriesList = document.getElementById('DeliveriesSessionList');
+
+                const isVisible = (element) =>
+                    element && element.getClientRects().length > 0;
+
+                // Choose the section to scroll to
+                let section;
+
+                if (targetId === 'DeliveriesSessionList') {
+                    section = deliveriesList;
+                } else {
+                    section = isVisible(mobileSection)
+                        ? mobileSection
+                        : desktopSection;
+                }
+
+                if (isVisible(section)) {
+                    section.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        }
+    });
+</script>
+
+
+
+<!-- <script>
+    document.body.addEventListener('htmx:afterSettle', function (event) {
+        const targetId = event.detail.target.id;
+
+        if (
+            targetId === 'DeliveriesSession' ||
+            targetId === 'DeliveriesSessionSM'
+        ) {
+            // Wait until the layout has settled
+            requestAnimationFrame(() => {
+                const mobileSection = document.getElementById('DeliveriesSessionSM');
+                const desktopSection = document.getElementById('DeliveriesSession');
+
+                const isVisible = (element) =>
+                    element && element.getClientRects().length > 0;
+
+                // Scroll to the visible section
+                const section = isVisible(mobileSection)
+                    ? mobileSection
+                    : desktopSection;
+
+                if (isVisible(section)) {
+                    section.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        }
+    });
+</script> -->

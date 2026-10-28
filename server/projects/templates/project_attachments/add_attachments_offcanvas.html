@@ -1,0 +1,221 @@
+<div class="offcanvas offcanvas-end offcanvas_form offcanvas_background" tabindex="-1" id="addProjectAttachmentsOffcanvas" aria-labelledby="addProjectAttachmentsOffcanvasLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="addProjectAttachmentsOffcanvasLabel"></h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body offcanvas_background">
+    <!-- ================= HEADER ================= -->
+    <div class="dashboard_main_card mb-3">
+        <div class="delivery_header_content">
+            <div class="delivery_header_icon" style=" background: #eef2ff !important;color: #4f46e5 !important;">
+                <i class="bi bi-camera"></i>
+            </div>
+            <div>
+                <div class="delivery_eyebrow">PHOTOS & ATTACHMENTS</div>
+                <h1>Add Site Attachment</h1>
+                <p>Upload site photos or files with a title or caption for reference.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= FORM ================= -->
+    <form method="POST"
+        enctype="multipart/form-data"
+        hx-post="{% url 'projects:save-new-project-attachments' project.uuid %}"
+        hx-target="#SiteAttachmentsSession"
+        hx-swap="innerHTML"
+        hx-push-url="false" 
+        hx-on::after-request="
+            if (event.detail.successful) {
+            this.reset();
+            closePhotosAttachmentsOffcanvas();
+            }
+        "
+        >
+
+        {% csrf_token %}
+
+      <!-- Photo or attachment title -->
+       <div class="coreva-issue-form">
+        <div class="form-section delivery_form_section mx-0">
+          <div class="mb-3">
+              <label for="attachmentTitle" class="form-label">
+                  Title or Caption <span class="required">*</span>
+              </label>
+
+              <input
+                  type="text"
+                  name="title"
+                  id="attachmentTitle"
+                  class="form-control new_inputs_css"
+                  placeholder="e.g. Concrete pouring progress"
+                  maxlength="200"
+                  required
+              >
+
+              <div class="form-text">
+                  Add a short caption to describe the photo or attachment.
+              </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================= 02 Photos & Attachments ================= -->
+      <section class="incident_form_section">
+          <div class="incident_section_header">
+              <div class="incident_section_number">02</div>
+              <div>
+                  <h2>Photos & Attachments</h2>
+                  <p>Add photos or files to document activity on this site.</p>
+              </div>
+          </div>
+
+          <input type="file" name="project_photos__attachments" id="project_photos__attachments" class="d-none" accept="image/*,.pdf,.doc,.docx,.xls,.xlsx" multiple />
+
+          <div id="project-photos-attachment-preview" class="incident_photo_preview row g-2 mb-3"></div>
+
+          <label for="project_photos__attachments" class="incident_upload">
+              <div class="incident_upload_icon">
+                  <i class="bi bi-paperclip"></i>
+              </div>
+              <div class="incident_upload_content">
+                  <strong>Add photos or attachments</strong>
+                  <span>Take a photo or choose files from your device.</span>
+                  <small id="project_photos__file_count">No files selected</small>
+              </div>
+              <i class="bi bi-plus-lg incident_upload_plus"></i>
+          </label>
+      </section>
+
+      <!-- ================= ACTIONS ================= -->
+        <div class="delivery_form_actions">
+            <button type="button" data-bs-dismiss="offcanvas" class="delivery_cancel">
+                Cancel
+            </button>
+            <button type="submit" class="delivery_submit">
+                <i class="bi bi-floppy"></i> Save Files
+            </button>
+        </div>
+    </form>
+
+    <div style="height: 150px;"></div>
+  </div>
+</div>
+
+
+
+<!-- LOAD ATTACHMENTS SCRIPT -->
+<script>
+  function project_photos_Attachments() {
+    const attachmentInput = document.getElementById("project_photos__attachments");
+    const attachmentPreview = document.getElementById("project-photos-attachment-preview");
+    const fileCount = document.getElementById("project_photos__file_count");
+
+    if (!attachmentInput || !attachmentPreview) return;
+    if (attachmentInput.dataset.initialized === "true") return;
+    attachmentInput.dataset.initialized = "true";
+
+    let selectedFiles = [];
+
+    attachmentInput.addEventListener("change", function () {
+      const newFiles = Array.from(this.files);
+      selectedFiles = [...selectedFiles, ...newFiles];
+      updateInputFiles();
+      renderPreviews();
+      updateFileCount();
+    });
+
+    function updateInputFiles() {
+      const dataTransfer = new DataTransfer();
+      selectedFiles.forEach(function (file) {
+        dataTransfer.items.add(file);
+      });
+      attachmentInput.files = dataTransfer.files;
+    }
+
+    function updateFileCount() {
+      if (!fileCount) return;
+      if (selectedFiles.length === 0) fileCount.textContent = "No files selected";
+      else if (selectedFiles.length === 1) fileCount.textContent = "1 file selected";
+      else fileCount.textContent = selectedFiles.length + " files selected";
+    }
+
+    function renderPreviews() {
+      attachmentPreview.innerHTML = "";
+
+      selectedFiles.forEach(function (file, index) {
+        const col = document.createElement("div");
+        col.className = "col-4";
+
+        if (file.type.startsWith("image/")) {
+          const reader = new FileReader();
+          reader.onload = function (event) {
+            col.innerHTML = `
+              <div class="position-relative" style="aspect-ratio: 1 / 1;">
+                <img src="${event.target.result}" class="w-100 h-100 rounded report_image" style="object-fit: cover;" alt="${file.name}">
+                <button type="button" class="btn btn-dark btn-sm position-absolute top-0 end-0 m-1 rounded-circle" data-index="${index}" aria-label="Remove attachment">
+                  <i class="bi bi-x-lg"></i>
+                </button>
+              </div>
+            `;
+            addRemoveListener(col);
+          };
+          reader.readAsDataURL(file);
+        } else {
+          col.innerHTML = `
+            <div class="position-relative border rounded p-3 h-100 bg-light">
+              <div class="text-center">
+                <i class="bi bi-file-earmark-text fs-2"></i>
+                <div class="small text-truncate mt-2" title="${file.name}">
+                  ${file.name}
+                </div>
+              </div>
+              <button type="button" class="btn btn-dark btn-sm position-absolute top-0 end-0 m-1 rounded-circle" data-index="${index}" aria-label="Remove attachment">
+                <i class="bi bi-x-lg"></i>
+              </button>
+            </div>
+          `;
+          addRemoveListener(col);
+        }
+        attachmentPreview.appendChild(col);
+      });
+    }
+
+    function addRemoveListener(element) {
+      const button = element.querySelector("button");
+      if (!button) return;
+      button.addEventListener("click", function () {
+        const index = Number(this.dataset.index);
+        selectedFiles.splice(index, 1);
+        updateInputFiles();
+        renderPreviews();
+        updateFileCount();
+      });
+    }
+  }
+
+  // Normal page load
+  document.addEventListener("DOMContentLoaded", function () {
+    project_photos_Attachments();
+  });
+
+  // HTMX navigation
+  document.body.addEventListener("htmx:afterSwap", function () {
+    project_photos_Attachments();
+  });
+</script>
+
+
+<!-- CLOSE DELIVERY OFFCANVAS  -->
+<script>
+  function closePhotosAttachmentsOffcanvas() {
+    var offcanvasElement = document.getElementById("addProjectAttachmentsOffcanvas");
+    var offcanvasInstance = bootstrap.Offcanvas.getInstance(offcanvasElement);
+
+    if (!offcanvasInstance) {
+      offcanvasInstance = new bootstrap.Offcanvas(offcanvasElement);
+    }
+
+    offcanvasInstance.hide();
+  }
+</script>

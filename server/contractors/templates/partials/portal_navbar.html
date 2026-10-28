@@ -1,0 +1,660 @@
+<!-- COREVA CONTRACTOR PORTAL NAVBAR -->
+<!-- =========================================
+     COREVA CONTRACTOR PORTAL NAVBAR
+     ========================================= -->
+
+<nav class="cv-portal-navbar">
+
+    <div class="cv-portal-navbar-inner">
+
+        <!-- Brand -->
+        <a href="#" class="cv-portal-brand">
+
+            <span class="cv-portal-logo">
+                C
+            </span>
+
+            <span class="cv-portal-brand-text">
+                <strong>COREVA</strong>
+                <small>Contractor Workspace</small>
+            </span>
+
+        </a>
+
+
+        <!-- Desktop Navigation -->
+        <div class="cv-portal-nav">
+
+            <a href="#" class="cv-portal-learn">
+                <i class="bi bi-info-circle"></i>
+                <span>Learn about Coreva</span>
+            </a>
+
+            <a href="#" class="cv-portal-signup">
+                <span>Create your free account</span>
+                <i class="bi bi-arrow-up-right"></i>
+            </a>
+
+        </div>
+
+
+        <!-- Mobile Menu Button -->
+        <button
+            type="button"
+            class="cv-portal-menu-btn"
+            id="cvPortalMenuButton"
+            aria-label="Open menu"
+            aria-expanded="false"
+        >
+            <i class="bi bi-list"></i>
+        </button>
+
+    </div>
+
+
+    <!-- =========================================
+         MOBILE MENU
+         ========================================= -->
+
+    <div
+        class="cv-portal-mobile-menu"
+        id="cvPortalMobileMenu"
+    >
+
+        <a href="#" class="cv-portal-mobile-link">
+
+            <i class="bi bi-info-circle"></i>
+
+            <span>
+                Learn about Coreva
+            </span>
+
+            <i class="bi bi-chevron-right"></i>
+
+        </a>
+
+
+        <a href="#" class="cv-portal-mobile-signup">
+
+            <span>
+                Create your free account
+            </span>
+
+            <i class="bi bi-arrow-up-right"></i>
+
+        </a>
+
+    </div>
+
+</nav>
+
+
+<style>
+    /* =========================================
+   COREVA PORTAL NAVBAR
+   ========================================= */
+
+.cv-portal-navbar {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+    z-index: 1050;
+
+    height: 64px;
+
+    /* background: rgba(23, 42, 70, 0.97);  */
+    background-color: #172a46;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+    box-shadow:
+        0 4px 18px rgba(15, 23, 42, 0.12);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+
+/* =========================================
+   NAVBAR INNER
+   ========================================= */
+
+.cv-portal-navbar-inner {
+    width: 100%;
+    max-width: 1400px;
+
+    height: 64px;
+
+    margin: 0 auto;
+    padding: 0 22px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+/* =========================================
+   BRAND
+   ========================================= */
+
+.cv-portal-brand {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.cv-portal-brand:hover {
+    color: #ffffff;
+}
+
+
+.cv-portal-logo {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9px;
+
+    background: #2563EB;
+
+    color: #ffffff;
+
+    font-size: 16px;
+    font-weight: 700;
+}
+
+
+.cv-portal-brand-text {
+    display: flex;
+    flex-direction: column;
+
+    line-height: 1.1;
+}
+
+
+.cv-portal-brand-text strong {
+    color: #ffffff;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    letter-spacing: 0.04em;
+}
+
+
+.cv-portal-brand-text small {
+    margin-top: 3px;
+
+    color: rgba(255, 255, 255, 0.48);
+
+    font-size: 10px;
+    font-weight: 500;
+}
+
+
+/* =========================================
+   DESKTOP NAVIGATION
+   ========================================= */
+
+.cv-portal-nav {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+}
+
+
+.cv-portal-learn {
+    height: 38px;
+
+    display: inline-flex;
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 0 13px;
+
+    border-radius: 8px;
+
+    color: rgba(255, 255, 255, 0.7);
+
+    text-decoration: none;
+
+    font-size: 13px;
+    font-weight: 500;
+
+    transition:
+        background 0.18s ease,
+        color 0.18s ease;
+}
+
+
+.cv-portal-learn:hover {
+    color: #ffffff;
+
+    background: rgba(255, 255, 255, 0.07);
+}
+
+
+.cv-portal-learn i {
+    font-size: 14px;
+}
+
+
+/* =========================================
+   SIGN UP BUTTON
+   ========================================= */
+
+.cv-portal-signup {
+    height: 38px;
+
+    display: inline-flex;
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 0 15px;
+
+    border-radius: 8px;
+
+    background: #2563EB;
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    transition:
+        background 0.18s ease,
+        transform 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+
+.cv-portal-signup:hover {
+    background: #1D4ED8;
+
+    color: #ffffff;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 5px 14px rgba(37, 99, 235, 0.25);
+}
+
+
+.cv-portal-signup i {
+    font-size: 12px;
+}
+
+
+/* =========================================
+   MOBILE MENU BUTTON
+   ========================================= */
+
+.cv-portal-menu-btn {
+    display: none;
+
+    width: 38px;
+    height: 38px;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    border-radius: 8px;
+
+    background: rgba(255, 255, 255, 0.06);
+
+    color: #ffffff;
+
+    font-size: 19px;
+
+    cursor: pointer;
+}
+
+
+/* =========================================
+   MOBILE MENU
+   ========================================= */
+
+.cv-portal-mobile-menu {
+    display: none;
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 700px) {
+
+    .cv-portal-navbar {
+        height: 58px;
+    }
+
+
+    .cv-portal-navbar-inner {
+        height: 58px;
+
+        padding: 0 14px;
+    }
+
+
+    /* Hide desktop navigation */
+
+    .cv-portal-nav {
+        display: none;
+    }
+
+
+    /* Show menu button */
+
+    .cv-portal-menu-btn {
+        display: flex;
+    }
+
+
+    /* Smaller logo */
+
+    .cv-portal-logo {
+        width: 31px;
+        height: 31px;
+
+        border-radius: 8px;
+
+        font-size: 14px;
+    }
+
+
+    .cv-portal-brand-text strong {
+        font-size: 14px;
+    }
+
+
+    .cv-portal-brand-text small {
+        font-size: 9px;
+    }
+
+
+    /* =====================================
+       MOBILE DROPDOWN
+       ===================================== */
+
+    .cv-portal-mobile-menu {
+        position: absolute;
+
+        top: 58px;
+        left: 0;
+        right: 0;
+
+        display: flex;
+        flex-direction: column;
+
+        gap: 6px;
+
+        padding: 10px 14px 14px;
+
+        background: #172A46;
+
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+        box-shadow:
+            0 8px 20px rgba(15, 23, 42, 0.18);
+
+        opacity: 0;
+        visibility: hidden;
+
+        transform: translateY(-8px);
+
+        transition:
+            opacity 0.18s ease,
+            visibility 0.18s ease,
+            transform 0.18s ease;
+    }
+
+
+    .cv-portal-mobile-menu.is-open {
+        opacity: 1;
+
+        visibility: visible;
+
+        transform: translateY(0);
+    }
+
+
+    /* =====================================
+       MOBILE LINK
+       ===================================== */
+
+    .cv-portal-mobile-link {
+        min-height: 48px;
+
+        display: flex;
+        align-items: center;
+
+        gap: 11px;
+
+        padding: 0 12px;
+
+        border-radius: 9px;
+
+        color: rgba(255, 255, 255, 0.72);
+
+        text-decoration: none;
+
+        font-size: 13px;
+    }
+
+
+    .cv-portal-mobile-link:hover {
+        background: rgba(255, 255, 255, 0.06);
+
+        color: #ffffff;
+    }
+
+
+    .cv-portal-mobile-link > i:first-child {
+        font-size: 16px;
+    }
+
+
+    .cv-portal-mobile-link > i:last-child {
+        margin-left: auto;
+
+        font-size: 12px;
+
+        opacity: 0.45;
+    }
+
+
+    /* =====================================
+       MOBILE SIGN UP
+       ===================================== */
+
+    .cv-portal-mobile-signup {
+        min-height: 46px;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        padding: 0 13px;
+
+        border-radius: 9px;
+
+        background: #2563EB;
+
+        color: #ffffff;
+
+        text-decoration: none;
+
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+
+    .cv-portal-mobile-signup:hover {
+        background: #1D4ED8;
+
+        color: #ffffff;
+    }
+
+}
+</style>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+    const menuButton = document.getElementById(
+        "cvPortalMenuButton"
+    );
+
+    const mobileMenu = document.getElementById(
+        "cvPortalMobileMenu"
+    );
+
+
+    if (!menuButton || !mobileMenu) {
+        return;
+    }
+
+
+    /*
+     * Toggle mobile menu
+     */
+
+    menuButton.addEventListener("click", function (event) {
+
+        event.stopPropagation();
+
+        const isOpen =
+            mobileMenu.classList.toggle("is-open");
+
+
+        menuButton.setAttribute(
+            "aria-expanded",
+            isOpen
+        );
+
+
+        const icon =
+            menuButton.querySelector("i");
+
+
+        if (!icon) {
+            return;
+        }
+
+
+        if (isOpen) {
+
+            icon.classList.remove("bi-list");
+
+            icon.classList.add("bi-x-lg");
+
+        } else {
+
+            icon.classList.remove("bi-x-lg");
+
+            icon.classList.add("bi-list");
+
+        }
+
+    });
+
+
+    /*
+     * Close when clicking outside
+     */
+
+    document.addEventListener("click", function (event) {
+
+        if (
+            !event.target.closest(
+                ".cv-portal-navbar"
+            )
+        ) {
+
+            closePortalMenu();
+
+        }
+
+    });
+
+
+    /*
+     * Close after clicking a mobile link
+     */
+
+    mobileMenu
+        .querySelectorAll("a")
+        .forEach(function (link) {
+
+            link.addEventListener(
+                "click",
+                function () {
+
+                    closePortalMenu();
+
+                }
+            );
+
+        });
+
+
+    /*
+     * Close menu
+     */
+
+    function closePortalMenu() {
+
+        mobileMenu.classList.remove(
+            "is-open"
+        );
+
+
+        menuButton.setAttribute(
+            "aria-expanded",
+            "false"
+        );
+
+
+        const icon =
+            menuButton.querySelector("i");
+
+
+        if (!icon) {
+            return;
+        }
+
+
+        icon.classList.remove(
+            "bi-x-lg"
+        );
+
+        icon.classList.add(
+            "bi-list"
+        );
+
+    }
+
+});
+</script>

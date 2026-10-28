@@ -1,0 +1,500 @@
+/* =====================================================
+   COREVA — ISSUES FILTER PANEL
+===================================================== */
+
+.cp-issues-filter-panel {
+    width: 100%;
+    margin-bottom: 24px;
+
+    background: #ffffff;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+
+    box-shadow:
+        0 4px 18px rgba(15, 23, 42, 0.045);
+
+    overflow: hidden;
+}
+
+
+/* =====================================================
+   SEARCH + FILTER TOOLBAR
+===================================================== */
+
+.cp-issues-filter-toolbar {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    gap: 12px;
+
+    padding: 14px;
+
+    background: #f8fafc;
+
+    border-bottom: 1px solid #e8edf3;
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+.cp-issues-filter-search {
+    position: relative;
+
+    flex: 1;
+    min-width: 0;
+}
+
+
+.cp-issues-filter-search-icon {
+    position: absolute;
+
+    left: 14px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #94a3b8;
+
+    font-size: 15px;
+
+    pointer-events: none;
+}
+
+
+.cp-issues-filter-search-input {
+    width: 100%;
+    height: 44px;
+
+    padding: 0 42px 0 39px;
+
+    border: 1px solid #dbe3ec;
+    border-radius: 11px;
+
+    background: #ffffff;
+
+    color: #172a46;
+
+    font-size: 13px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.cp-issues-filter-search-input::placeholder {
+    color: #94a3b8;
+}
+
+
+.cp-issues-filter-search-input:focus {
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+
+/* =====================================================
+   SEARCH SHORTCUT
+===================================================== */
+
+.cp-issues-filter-search-shortcut {
+    position: absolute;
+
+    right: 12px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 22px;
+    height: 22px;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 5px;
+
+    background: #f8fafc;
+
+    color: #94a3b8;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    pointer-events: none;
+}
+
+
+/* =====================================================
+   FILTER TOGGLE BUTTON
+===================================================== */
+
+.cp-issues-filter-toggle {
+    flex-shrink: 0;
+
+    height: 44px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    padding: 0 14px;
+
+    border: 1px solid #dbe3ec;
+    border-radius: 11px;
+
+    background: #ffffff;
+
+    color: #334155;
+
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    outline: none;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.cp-issues-filter-toggle > i:first-child {
+    font-size: 15px;
+}
+
+
+.cp-issues-filter-toggle:hover {
+    background: #f8fafc;
+
+    border-color: #cbd5e1;
+}
+
+
+.cp-issues-filter-toggle:focus-visible {
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+
+.cp-issues-filter-toggle[aria-expanded="true"] {
+    background: #eff6ff;
+
+    border-color: #bfdbfe;
+
+    color: #2563eb;
+}
+
+
+/* =====================================================
+   FILTER TOGGLE CHEVRON
+===================================================== */
+
+.cp-issues-filter-toggle-chevron {
+    margin-left: 2px;
+
+    color: currentColor;
+
+    font-size: 10px;
+
+    transition:
+        transform 0.2s ease;
+}
+
+
+.cp-issues-filter-toggle[aria-expanded="true"]
+.cp-issues-filter-toggle-chevron {
+    transform: rotate(180deg);
+}
+
+
+/* =====================================================
+   EXPANDED FILTER PANEL
+===================================================== */
+
+.cp-issues-filter-panel-inner {
+    padding: 16px 14px 18px;
+
+    background: #fbfcfe;
+
+    border-top: 1px solid #e8edf3;
+}
+
+
+/* =====================================================
+   FILTER HEADER
+===================================================== */
+
+.cp-issues-filter-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 14px;
+}
+
+
+.cp-issues-filter-header-content {
+    display: flex;
+    flex-direction: column;
+
+    gap: 2px;
+}
+
+
+.cp-issues-filter-header-content strong {
+    color: #334155;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+.cp-issues-filter-header-content span {
+    color: #94a3b8;
+
+    font-size: 11px;
+}
+
+
+/* =====================================================
+   CLEAR FILTERS
+===================================================== */
+
+.cp-issues-filter-clear {
+    flex-shrink: 0;
+
+    padding: 0;
+
+    border: 0;
+
+    background: transparent;
+
+    color: #64748b;
+
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease;
+}
+
+
+.cp-issues-filter-clear:hover {
+    color: #2563eb;
+}
+
+
+/* =====================================================
+   FILTER GRID
+===================================================== */
+
+.cp-issues-filter-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 12px;
+}
+
+
+/* =====================================================
+   FILTER CONTROL
+===================================================== */
+
+.cp-issues-filter-control {
+    min-width: 0;
+}
+
+
+.cp-issues-filter-label {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #64748b;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    letter-spacing: 0.05em;
+
+    text-transform: uppercase;
+}
+
+
+/* =====================================================
+   SELECT WRAPPER
+===================================================== */
+
+.cp-issues-filter-select-wrap {
+    position: relative;
+}
+
+
+/* =====================================================
+   SELECT
+===================================================== */
+
+.cp-issues-filter-select {
+    width: 100%;
+    height: 40px;
+
+    appearance: none;
+    -webkit-appearance: none;
+
+    padding: 0 34px 0 12px;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 9px;
+
+    background: #ffffff;
+
+    color: #334155;
+
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.cp-issues-filter-select:hover {
+    border-color: #cbd5e1;
+}
+
+
+.cp-issues-filter-select:focus {
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.08);
+}
+
+
+/* =====================================================
+   SELECT CHEVRON
+===================================================== */
+
+.cp-issues-filter-select-wrap > i {
+    position: absolute;
+
+    right: 12px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #94a3b8;
+
+    font-size: 10px;
+
+    pointer-events: none;
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .cp-issues-filter-toolbar {
+        padding: 12px;
+    }
+
+
+    .cp-issues-filter-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 576px) {
+
+    .cp-issues-filter-panel {
+        border-radius: 14px;
+    }
+
+
+    .cp-issues-filter-toolbar {
+        gap: 8px;
+
+        padding: 11px;
+    }
+
+
+    .cp-issues-filter-search {
+        min-width: 0;
+    }
+
+
+    .cp-issues-filter-toggle {
+        width: 44px;
+
+        padding: 0;
+    }
+
+
+    .cp-issues-filter-toggle span {
+        display: none;
+    }
+
+
+    .cp-issues-filter-toggle-chevron {
+        display: none;
+    }
+
+
+    .cp-issues-filter-panel-inner {
+        padding: 14px 11px 15px;
+    }
+
+
+    .cp-issues-filter-grid {
+        grid-template-columns: 1fr;
+
+        gap: 12px;
+    }
+
+
+    .cp-issues-filter-header {
+        align-items: flex-start;
+    }
+
+}

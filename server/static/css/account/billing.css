@@ -1,0 +1,558 @@
+/* =========================================================
+   COREVA BILLING / SUBSCRIPTION
+   ========================================================= */
+
+.cv-billing-section {
+    width: 100%;
+    padding: 24px 0;
+}
+
+.cv-billing-container {
+    width: 100%;
+    max-width: 1180px;
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   TRIAL ENDING SOON
+   ========================================================= */
+
+.billing-trial-alert {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    width: 100%;
+    padding: 20px 22px;
+    background: #fffaf0;
+    border: 1px solid #fde3a7;
+    border-radius: 14px;
+}
+
+.billing-trial-alert-icon {
+    flex: 0 0 46px;
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff1c7;
+    color: #d97706;
+    border-radius: 12px;
+    font-size: 20px;
+}
+
+.billing-trial-alert-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.billing-trial-alert-label {
+    display: block;
+    margin-bottom: 4px;
+    color: #b45309;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.billing-trial-alert-content h3 {
+    margin: 0 0 5px;
+    color: #172a46;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.billing-trial-alert-content p {
+    margin: 0;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.55;
+}
+
+.billing-trial-alert-action {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 7px;
+}
+
+.billing-trial-alert-action > span {
+    color: #64748b;
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   SUBSCRIPTION REQUIRED / TRIAL ENDED
+   ========================================================= */
+
+.billing-subscription-required {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    width: 100%;
+    padding: 24px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    box-shadow: 0 4px 18px rgba(15, 23, 42, .04);
+}
+
+.billing-subscription-icon {
+    flex: 0 0 52px;
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #eff6ff;
+    color: #2563eb;
+    border-radius: 14px;
+    font-size: 21px;
+}
+
+.billing-subscription-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.billing-subscription-label {
+    display: block;
+    margin-bottom: 5px;
+    color: #2563eb;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.billing-subscription-content h2 {
+    margin: 0 0 6px;
+    color: #172a46;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.billing-subscription-content p {
+    max-width: 650px;
+    margin: 0;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.billing-subscription-price {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    margin-top: 12px;
+}
+
+.billing-subscription-price strong {
+    color: #172a46;
+    font-size: 21px;
+    font-weight: 800;
+}
+
+.billing-subscription-price span {
+    color: #64748b;
+    font-size: 12px;
+}
+
+.billing-subscription-actions {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 9px;
+    min-width: 185px;
+}
+
+
+/* =========================================================
+   SUBSCRIPTION ENDED
+   ========================================================= */
+
+.billing-subscription-ended {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    width: 100%;
+    padding: 24px;
+    background: #fffafa;
+    border: 1px solid #fecaca;
+    border-radius: 16px;
+}
+
+.billing-ended-icon {
+    flex: 0 0 52px;
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fee2e2;
+    color: #dc2626;
+    border-radius: 14px;
+    font-size: 21px;
+}
+
+.billing-ended-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.billing-ended-label {
+    display: block;
+    margin-bottom: 5px;
+    color: #dc2626;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.billing-ended-content h2 {
+    margin: 0 0 6px;
+    color: #172a46;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.billing-ended-content p {
+    max-width: 650px;
+    margin: 0;
+    color: #64748b;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.billing-ended-actions {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    min-width: 185px;
+}
+
+
+/* =========================================================
+   PRIMARY BUTTON
+   ========================================================= */
+
+.billing-primary-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 42px;
+    padding: 0 17px;
+    border-radius: 9px;
+    background: #2563eb;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    border: 1px solid #2563eb;
+    transition:
+        background-color .2s ease,
+        border-color .2s ease,
+        transform .2s ease,
+        box-shadow .2s ease;
+}
+
+.billing-primary-btn:hover {
+    background: #1d4ed8;
+    border-color: #1d4ed8;
+    color: #ffffff;
+    text-decoration: none;
+    transform: translateY(-1px);
+    box-shadow: 0 5px 14px rgba(37, 99, 235, .18);
+}
+
+.billing-primary-btn i {
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   SECONDARY BUTTON
+   ========================================================= */
+
+.billing-secondary-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 40px;
+    padding: 0 16px;
+    border-radius: 9px;
+    background: #ffffff;
+    color: #334155;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    border: 1px solid #dbe2ea;
+    transition:
+        background-color .2s ease,
+        border-color .2s ease,
+        color .2s ease;
+}
+
+.billing-secondary-btn:hover {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    color: #172a46;
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   INVOICE LINK
+   ========================================================= */
+
+.billing-invoice-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    color: #475569;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color .2s ease;
+}
+
+.billing-invoice-link:hover {
+    color: #2563eb;
+    text-decoration: none;
+}
+
+.billing-invoice-link i {
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   BILLING HISTORY / INVOICES
+   ========================================================= */
+
+.billing-invoices {
+    width: 100%;
+    margin-top: 24px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.billing-invoices-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 22px;
+    border-bottom: 1px solid #eef2f7;
+}
+
+.billing-section-eyebrow {
+    display: block;
+    margin-bottom: 4px;
+    color: #64748b;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.billing-invoices-header h3 {
+    margin: 0;
+    color: #172a46;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.billing-invoice-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 17px 22px;
+    border-bottom: 1px solid #eef2f7;
+}
+
+.billing-invoice-row:last-child {
+    border-bottom: 0;
+}
+
+.billing-invoice-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.billing-invoice-info strong {
+    color: #172a46;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.billing-invoice-info span {
+    color: #64748b;
+    font-size: 11px;
+}
+
+.billing-invoice-amount {
+    flex: 0 0 auto;
+    color: #172a46;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.billing-invoice-download {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #2563eb;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.billing-invoice-download:hover {
+    color: #1d4ed8;
+    text-decoration: none;
+}
+
+.billing-invoice-download i {
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 767px) {
+
+    .cv-billing-section {
+        padding: 16px 0;
+    }
+
+    .billing-trial-alert {
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 14px;
+        padding: 17px;
+    }
+
+    .billing-trial-alert-icon {
+        flex: 0 0 42px;
+        width: 42px;
+        height: 42px;
+    }
+
+    .billing-trial-alert-content {
+        flex: 1;
+        width: calc(100% - 56px);
+    }
+
+    .billing-trial-alert-content h3 {
+        font-size: 16px;
+    }
+
+    .billing-trial-alert-action {
+        width: 100%;
+        align-items: stretch;
+        padding-left: 56px;
+    }
+
+    .billing-trial-alert-action > span {
+        text-align: center;
+    }
+
+    .billing-subscription-required,
+    .billing-subscription-ended {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 16px;
+        padding: 20px;
+    }
+
+    .billing-subscription-icon,
+    .billing-ended-icon {
+        flex: 0 0 46px;
+        width: 46px;
+        height: 46px;
+    }
+
+    .billing-subscription-content h2,
+    .billing-ended-content h2 {
+        font-size: 18px;
+    }
+
+    .billing-subscription-actions,
+    .billing-ended-actions {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .billing-subscription-price {
+        margin-top: 10px;
+    }
+
+    .billing-invoices-header {
+        padding: 17px;
+    }
+
+    .billing-invoice-row {
+        flex-wrap: wrap;
+        gap: 10px 14px;
+        padding: 16px 17px;
+    }
+
+    .billing-invoice-info {
+        width: calc(100% - 50px);
+        flex: 1 1 calc(100% - 50px);
+    }
+
+    .billing-invoice-amount {
+        width: 100%;
+        order: 3;
+    }
+
+    .billing-invoice-download {
+        margin-left: auto;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    .billing-trial-alert-action {
+        padding-left: 0;
+    }
+
+    .billing-trial-alert-action > span {
+        font-size: 10px;
+    }
+
+    .billing-primary-btn,
+    .billing-secondary-btn {
+        width: 100%;
+    }
+
+    .billing-subscription-content p,
+    .billing-ended-content p {
+        font-size: 12px;
+    }
+}

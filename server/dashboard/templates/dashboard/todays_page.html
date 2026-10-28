@@ -1,0 +1,479 @@
+{% load static %}
+<!-- divider  -->
+
+<!-- =========================
+BRAND / PAGE NAME
+========================== -->
+<nav class="cv-mobile-topbar fixed-top">
+    <a
+        href="{{ brand_url|default:'#' }}"
+        class="cv-mobile-topbar-brand"
+        aria-label="Coreva"
+        >
+        Coreva
+    </a>
+
+    <!-- =========================
+    LOGOUT
+    ========================== -->
+
+    <a
+        href="{% url 'logout' %}"
+        class="cv-mobile-topbar-logout"
+        aria-label="Logout"
+        title="Logout"
+    >
+        <i class="bi bi-box-arrow-right"></i>
+    </a>
+</nav>
+
+
+
+<!-- =========================================================
+     TODAY'S WORK HEADER
+========================================================= -->
+<section class="tw-header-section mt-0">
+    <section class="coreva-today-hero">
+
+        <div class="coreva-today-hero-content">
+
+            <div class="coreva-today-hero-copy">
+
+                <span class="coreva-today-hero-label" style="color: rgb(14, 199, 122) !important;">
+                    TODAY'S WORK
+                </span>
+
+                <h1 class="coreva-today-hero-title">
+                    {{ greeting }}, {{ current_user.first_name }}
+                </h1>
+
+                <p class="coreva-today-hero-date">
+                    <i class="bi bi-calendar3"></i>
+                    {{ today|date:"l, d F Y" }}
+                </p>
+
+            </div>
+
+            <div class="coreva-today-hero-visual">
+
+                <div class="coreva-today-hero-icon">
+                    <i class="bi bi-sun" style="color: rgb(14, 199, 122) !important;"></i>
+                </div>
+
+                <div class="coreva-today-hero-glow"></div>
+
+            </div>
+
+        </div>
+
+    </section>
+</section>
+
+{% if user_projects %}
+<!-- =====================================================
+  PROJECTS SUMMARY
+====================================================== -->
+<section class="mb-4">
+    <div class="row g-2">
+       <!-- My Projects  -->
+        <div class="col-6 col-md">
+            <div class="cpd-summary-card h-100">
+                <div class="tw-summary-icon tw-summary-blue">
+                  <i class="bi bi-buildings"></i>
+              </div>
+                <div class="cpd-summary-content">
+
+                    <span class="cpd-summary-label">
+                         My Projects
+                    </span>
+
+                    <strong class="cpd-summary-value">
+                         {{ total_projects }}
+                    </strong>
+
+                    <span class="cpd-summary-detail ">
+                        Total Projects
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- Needs Attention Projects -->
+        <div class="col-6 col-md">
+            <div class="cpd-summary-card h-100">
+                <div class="tw-summary-icon tw-summary-red">
+                  <i class="bi bi-exclamation-circle"></i>
+              </div>
+                <div class="cpd-summary-content">
+                    <span class="cpd-summary-label">
+                        Needs Attention
+                    </span>
+
+                    <strong class="cpd-summary-value">
+                        {{ projects_data.needs_attention_projects }}
+                    </strong>
+                    <span class="cpd-summary-detail cpd-detail-danger">
+                        Action required
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!-- On Track Projects  -->
+          <div class="col-12 col-md">
+              <div class="cpd-summary-card h-100">
+                  <div class="tw-summary-icon tw-summary-green">
+                      <i class="bi bi-check-circle"></i>
+                  </div>
+
+                  <div class="cpd-summary-content">
+
+                      <span class="cpd-summary-label">
+                          On Track
+                      </span>
+
+                      <strong class="cpd-summary-value">
+                          {{ projects_data.on_track_projects }}
+                      </strong>
+
+                      <span class="cpd-summary-detail">
+                          Everything good
+                      </span>
+                  </div>
+              </div>
+          </div>
+    </div>
+</section>
+
+
+<!-- =========================================================
+     MY PROJECTS HEADER
+========================================================= -->
+<section class="mb-3 d-flex justify-content-end d-none d-md-block">
+    <div class="tw-projects-actions">
+
+        {% if project_count == plan.max_projects %}
+        <a
+            href="#"
+            class="tw-project-action tw-project-action-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#projectLimitModal"
+        >
+            <span>Project Limit Reached</span>
+        </a>
+        {% else %}
+        <a
+            href="{% url 'projects:add-project' %}?next={{ request.get_full_path|urlencode }}"
+            class="tw-project-action tw-project-action-primary"
+        >
+            <i class="bi bi-plus-lg"></i>
+            <span>Add Project</span>
+        </a>
+        {% endif %}
+
+        <a
+            href="{% url 'projects:projects' %}"
+            class="tw-project-action tw-project-action-secondary d-none"
+        >
+            <span>See All</span>
+            <i class="bi bi-arrow-right"></i>
+        </a>
+
+    </div>
+</section>
+
+<section class="mb-3 d-block d-md-none">
+    <div>
+        <a
+            href="{% url 'projects:add-project' %}?next={{ request.get_full_path|urlencode }}"
+            class="today-project-button"
+        >
+            <i class="bi bi-plus-lg"></i>
+            <span>Add Project</span>
+        </a>
+    </div>
+</section>
+
+
+
+
+<!-- =====================================================
+COREVA  FILTER PANEL
+====================================================== -->
+<section class="cp-issues-filter-panel">
+
+    <form>
+
+        {% csrf_token %}
+
+        <!-- =============================================
+            SEARCH + FILTER TOGGLE
+        ============================================== -->
+        <div class="cp-issues-filter-toolbar">
+
+            <!-- Search -->
+            <div class="cp-issues-filter-search">
+
+                <i class="bi bi-search cp-issues-filter-search-icon"></i>
+
+                <input
+                    type="search"
+                    name="query"
+                    class="cp-issues-filter-search-input"
+                    placeholder="Search project..."
+                    aria-label="Search issues"
+
+                    hx-post="{% url 'dashboard:filter-projects'%}"
+                    hx-trigger="keyup changed delay:300ms"
+                    hx-target="#todays_projects"
+                    hx-indicator=".loading"
+                    hx-swap="innerHTML"
+                />
+
+                <span class="cp-issues-filter-search-shortcut">
+                    /
+                </span>
+
+            </div>
+
+
+            <!-- Filters Toggle -->
+            <button
+                type="button"
+                class="cp-issues-filter-toggle"
+                data-bs-toggle="collapse"
+                data-bs-target="#cpMoreIssueFilters"
+                aria-expanded="false"
+                aria-controls="cpMoreIssueFilters"
+            >
+
+                <i class="bi bi-sliders2"></i>
+
+                <span>
+                    Filters
+                </span>
+
+                <i class="bi bi-chevron-down cp-issues-filter-toggle-chevron"></i>
+
+            </button>
+
+        </div>
+
+
+        <!-- =============================================
+            EXPANDABLE FILTERS
+        ============================================== -->
+        <div
+            class="collapse"
+            id="cpMoreIssueFilters"
+        >
+
+            <div class="cp-issues-filter-panel-inner">
+
+                <!-- Filter Header -->
+                <div class="cp-issues-filter-header">
+
+                    <div class="cp-issues-filter-header-content">
+
+                        <strong>
+                            Filter Projects
+                        </strong>
+
+                        <span>
+                            Refine the projects shown below
+                        </span>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="cp-issues-filter-clear"
+                        hx-post="{% url 'dashboard:filter-projects'%}"
+                        hx-target="#todays_projects"
+                        hx-swap="innerHTML"
+                        hx-vals='{"query": "", "overall_status": "", "project_status": ""}'
+                        onclick="
+                            document.querySelector('[name=query]').value = '';
+                            document.querySelector('[name=overall_status]').value = '';
+                            document.querySelector('[name=project_status]').value = '';
+                        "
+                    >
+                        Clear all
+                    </button>
+
+                </div>
+
+
+                <!-- Filter Grid -->
+                <div class="cp-issues-filter-grid">
+
+                    <!-- Overall status -->
+                    <div class="cp-issues-filter-control">
+
+                        <label
+                            for="cpIssueStatus"
+                            class="cp-issues-filter-label"
+                        >
+                            Overall status
+                        </label>
+
+                        <div class="cp-issues-filter-select-wrap">
+
+                            <select
+                                id="cpIssueStatus"
+                                class="cp-issues-filter-select"
+                                name="overall_status"
+                                hx-post="{% url 'dashboard:filter-projects'%}"
+                                hx-trigger="change"
+                                hx-target="#todays_projects"
+                                hx-swap="innerHTML"
+                                hx-indicator=".loading"
+                            >
+                                <option value="" selected>
+                                    All
+                                </option>
+
+                                <option value="Needs Attention">
+                                    Needs Attention
+                                </option>
+
+                                <option value="Everything in order">
+                                    On Track
+                                </option>
+                            </select>
+
+                            <i class="bi bi-chevron-down"></i>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Project status -->
+                    <div class="cp-issues-filter-control">
+
+                        <label
+                            for="cpIssueStatus"
+                            class="cp-issues-filter-label"
+                        >
+                            Project status
+                        </label>
+
+                        <div class="cp-issues-filter-select-wrap">
+
+                            <select
+                                id="cpIssueStatus"
+                                class="cp-issues-filter-select"
+                                name="project_status"
+                                hx-post="{% url 'dashboard:filter-projects'%}"
+                                hx-trigger="change"
+                                hx-target="#todays_projects"
+                                hx-swap="innerHTML"
+                                hx-indicator=".loading"
+                            >
+                                <option value="" selected>
+                                    All
+                                </option>
+
+                                <option value="active">
+                                    Active
+                                </option>
+
+                                <option value="completed">
+                                    completed
+                                </option>
+
+                                <option value="on_hold">
+                                    On Hold
+                                </option>
+                            </select>
+
+                            <i class="bi bi-chevron-down"></i>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </form>
+
+  </section>
+
+<!-- ======= PROJECTS  ======= -->
+<section class="section-spacing">
+  <div id="todays_projects">
+    {% include 'partials/todays_projects_partial.html' %}
+  </div>
+  
+</section>
+<!-- ======= NO PROJECTS CREATED  ======= -->
+{% else %}
+<!-- divider  -->
+{% if current_user.role == 'admin' %}
+<!-- =====================================================
+     ADMIN - NO PROJECTS CREATED
+====================================================== -->
+<div class="cpe-empty-state">
+
+    <div class="cpe-empty-icon">
+        <i class="bi bi-buildings"></i>
+    </div>
+
+    <div class="cpe-empty-content">
+
+        <h3>No projects yet</h3>
+
+        <p>
+            You haven't created any projects yet.
+            Create your first project to start managing your work with Coreva.
+        </p>
+
+        <a
+            href="{% url 'projects:add-project' %}?next={{ request.get_full_path|urlencode }}"
+            class="cpe-empty-action"
+        >
+            <i class="bi bi-plus-lg"></i>
+            Create your first project
+        </a>
+
+    </div>
+
+</div>
+{% else %}
+<!-- =====================================================
+     TEAM MEMBER - NO PROJECTS ASSIGNED
+====================================================== -->
+<div class="cpe-empty-state">
+
+    <div class="cpe-empty-icon">
+        <i class="bi bi-buildings"></i>
+    </div>
+
+    <div class="cpe-empty-content">
+
+        <h3>No projects assigned</h3>
+
+        <p>
+            You don't have any projects assigned to you yet.
+            Projects will appear here once you're added to a project.
+        </p>
+
+        <span class="cpe-empty-note">
+            <i class="bi bi-info-circle"></i>
+            Nothing is required from you right now.
+        </span>
+
+    </div>
+
+</div>
+{% endif %}
+<!-- divider  -->
+{% endif %}
+
+<!-- ======== BOTTOM NAVBAR ======== -->
+{% if show_bottom_nav is not False %}
+<div class="d-block d-lg-none">{% include 'partials/bottom_navbar.html' %}</div>
+{% endif %}
+

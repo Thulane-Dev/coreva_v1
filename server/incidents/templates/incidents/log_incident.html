@@ -1,0 +1,44 @@
+{% load static %}
+
+<div class="row d-flex justify-content-center">
+  <div class="col-12 col-md-10 col-lg-6">
+    <section class="incident_form_page mt-0">
+      <div class="incident_form_container mt-0">
+        <!-- HEADER -->
+        <div class="incident_form_header mt-0">
+          <!-- =========================================================
+          COREVA MOBILE TOP NAVBAR AND LARGE SCREEN BACK BUTTON
+          ========================================================= -->
+          {% include 'partials/page_topbar.html' with next_url=next_url brand_name='Add Incident' brand_url='#' %}
+
+
+          <div class="dashboard_main_card mt-0">
+            <div class="incident_header_content">
+              <div class="incident_header_icon">
+                <i class="bi bi-exclamation-triangle"></i>
+              </div>
+
+              <div>
+                <div class="incident_eyebrow">PROJECT INCIDENT</div>
+
+                <h1>Add Incident</h1>
+
+                <p>
+                  Record what happened, where it happened, and what action was
+                  taken.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+       
+      </div>
+    </section>
+  </div>
+</div>
+
+
+
+
+

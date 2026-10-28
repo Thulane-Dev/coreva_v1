@@ -1,0 +1,166 @@
+{% load static %}
+
+<!-- =========================
+     MOBILE BOTTOM NAV
+========================= -->
+<nav class="cv-bottom-nav d-lg-none">
+
+    <!-- Today -->
+    <a
+        href="{% url 'dashboard:today'%}"
+        class="cv-bottom-nav-item
+        {% if request.resolver_match.url_name == 'dashboard' %}
+            cv-bottom-nav-item-active
+        {% endif %}"
+    >
+        <i class="bi bi-house"></i>
+        <span>Today</span>
+    </a>
+
+    <!-- Team -->
+    <a
+        href="{% url 'team:team' %}"
+        class="cv-bottom-nav-item
+        {% if request.resolver_match.namespace == 'account' %}
+            cv-bottom-nav-item-active
+        {% endif %}"
+    >
+        <i class="bi bi-people"></i>
+        <span>Team</span>
+    </a>
+
+    <!-- More -->
+    <button
+        type="button"
+        class="cv-bottom-nav-item cv-bottom-nav-more"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#cvMobileMore"
+        aria-controls="cvMobileMore"
+    >
+        <i class="bi bi-three-dots"></i>
+        <span>More</span>
+    </button>
+
+</nav>
+
+
+<!-- =========================
+     MOBILE MORE MENU
+========================= -->
+<div
+    class="offcanvas offcanvas-bottom cv-mobile-more"
+    tabindex="-1"
+    id="cvMobileMore"
+    aria-labelledby="cvMobileMoreLabel"
+>
+
+    <div class="cv-mobile-more-handle"></div>
+
+    <div class="cv-mobile-more-header">
+
+        <div>
+            <span class="cv-mobile-more-eyebrow">
+                COREVA
+            </span>
+
+            <h5 id="cvMobileMoreLabel">
+                More
+            </h5>
+        </div>
+
+        <button
+            type="button"
+            class="cv-mobile-more-close"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+        >
+            <i class="bi bi-x-lg"></i>
+        </button>
+
+    </div>
+
+
+    <div class="cv-mobile-more-body">
+
+        <!-- Subcontractor Portal -->
+        <a
+            href="{% url 'contractors:workspace' company.uuid %}"
+            class="cv-mobile-more-link"
+        >
+            <div class="cv-mobile-more-icon cv-mobile-more-icon-blue">
+                <i class="bi bi-building-check"></i>
+            </div>
+
+            <div class="cv-mobile-more-content">
+                <strong>Subcontractor Portal</strong>
+                <span>
+                    Manage subcontractor project access
+                </span>
+            </div>
+
+            <i class="bi bi-chevron-right cv-mobile-more-arrow"></i>
+        </a>
+
+
+        <!-- My Company -->
+        <a
+            href="{% url 'account:company-details' %}"
+            class="cv-mobile-more-link"
+        >
+            <div class="cv-mobile-more-icon cv-mobile-more-icon-purple">
+                <i class="bi bi-building"></i>
+            </div>
+
+            <div class="cv-mobile-more-content">
+                <strong>My Company</strong>
+                <span>
+                    Company details and team access
+                </span>
+            </div>
+
+            <i class="bi bi-chevron-right cv-mobile-more-arrow"></i>
+        </a>
+
+
+        <!-- Settings -->
+        <a
+            href="{% url 'account:account' %}"
+            class="cv-mobile-more-link"
+        >
+            <div class="cv-mobile-more-icon cv-mobile-more-icon-slate">
+                <i class="bi bi-gear"></i>
+            </div>
+
+            <div class="cv-mobile-more-content">
+                <strong>Settings</strong>
+                <span>
+                    Manage your account and preferences
+                </span>
+            </div>
+
+            <i class="bi bi-chevron-right cv-mobile-more-arrow"></i>
+        </a>
+
+
+        <!-- Logout -->
+        <a
+            href="{% url 'logout' %}"
+            class="cv-mobile-more-link cv-mobile-more-link-danger"
+        >
+            <div class="cv-mobile-more-icon cv-mobile-more-icon-red">
+                <i class="bi bi-box-arrow-right"></i>
+            </div>
+
+            <div class="cv-mobile-more-content">
+                <strong>Logout</strong>
+                <span>
+                    Sign out of Coreva
+                </span>
+            </div>
+
+            <i class="bi bi-chevron-right cv-mobile-more-arrow"></i>
+        </a>
+
+    </div>
+
+</div>

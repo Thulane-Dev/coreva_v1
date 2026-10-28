@@ -1,0 +1,389 @@
+  /* ========================================
+   ISSUE CARD
+======================================== */
+
+  .issue-card {
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 16px;
+    padding: 18px;
+    transition: all 0.2s ease;
+  }
+
+  .issue-card:hover {
+    border-color: #d9dee3;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+  }
+
+  /* ========================================
+   HEADER
+======================================== */
+
+  .issue-card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .issue-icon {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    border-radius: 12px;
+    background: #fff1f1;
+    color: #dc3545;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .issue-icon .material-symbols-outlined {
+    font-size: 21px;
+  }
+
+  /* ========================================
+   MAIN CONTENT
+======================================== */
+
+  .issue-main {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .issue-title-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .issue-title {
+    color: #202428;
+    font-size: 15px;
+    line-height: 1.4;
+    font-weight: 700;
+  }
+
+  /* ========================================
+   PRIORITY BADGES
+======================================== */
+
+  .issue-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 4px 9px;
+    border-radius: 999px;
+
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .priority-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .priority-high {
+    background: #fff0f1;
+    color: #c92a3a;
+  }
+
+  .priority-high .priority-dot {
+    background: #dc3545;
+  }
+
+  .priority-medium {
+    background: #fff7df;
+    color: #9a7000;
+  }
+
+  .priority-medium .priority-dot {
+    background: #e5a900;
+  }
+
+  .priority-low {
+    background: #eaf8ef;
+    color: #258348;
+  }
+
+  .priority-low .priority-dot {
+    background: #2eaa5b;
+  }
+
+  /* ========================================
+   DESCRIPTION
+======================================== */
+
+  .issue-description {
+    color: #6c757d;
+    font-size: 14px;
+    line-height: 1.55;
+    margin-top: 7px;
+  }
+
+  /* ========================================
+   META
+======================================== */
+
+  .issue-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 12px;
+  }
+
+  .issue-meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 5px 9px;
+    border-radius: 7px;
+
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .issue-meta-item i {
+    font-size: 12px;
+  }
+
+  .due-today {
+    background: #fff0f1;
+    color: #c92a3a;
+  }
+
+  .due-date {
+    background: #fff7df;
+    color: #876500;
+  }
+
+  .assigned-you {
+    background: #eef4ff;
+    color: #356dcc;
+  }
+
+  /* ========================================
+   FOOTER
+======================================== */
+
+  .issue-card-footer {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+
+    margin-top: 17px;
+    padding-top: 14px;
+
+    border-top: 1px solid #f0f1f2;
+  }
+
+  .issue-person {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-width: 0;
+  }
+
+  .person-avatar {
+    width: 30px;
+    height: 30px;
+    min-width: 30px;
+
+    border-radius: 50%;
+    background: #f1f3f5;
+    color: #495057;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .issue-person > div:last-child {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .person-label {
+    color: #9aa0a6;
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .person-name {
+    color: #343a40;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.4;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* ========================================
+   MOBILE
+======================================== */
+
+  @media (max-width: 576px) {
+    .issue-card {
+      padding: 15px;
+      border-radius: 14px;
+    }
+
+    .issue-card-header {
+      gap: 11px;
+    }
+
+    .issue-icon {
+      width: 36px;
+      height: 36px;
+      min-width: 36px;
+      border-radius: 10px;
+    }
+
+    .issue-icon .material-symbols-outlined {
+      font-size: 19px;
+    }
+
+    .issue-title {
+      font-size: 14px;
+    }
+
+    .issue-description {
+      font-size: 13px;
+      margin-top: 6px;
+    }
+
+    .issue-meta {
+      margin-top: 10px;
+      gap: 6px;
+    }
+
+    .issue-meta-item {
+      font-size: 11px;
+      padding: 5px 8px;
+    }
+
+    .issue-card-footer {
+      gap: 15px;
+      margin-top: 14px;
+      padding-top: 12px;
+    }
+
+    .issue-person {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .person-name {
+      max-width: 120px;
+    }
+  }
+
+  /* ========================================
+   VERY SMALL PHONES
+======================================== */
+
+  @media (max-width: 380px) {
+    .issue-card-footer {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .issue-person {
+      width: 100%;
+    }
+
+    .person-name {
+      max-width: none;
+    }
+  }
+
+
+
+  .cp-issues-filter-date-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.cp-issues-filter-date-wrap > i {
+    position: absolute;
+    left: 13px;
+    z-index: 1;
+    color: #94A3B8;
+    font-size: 14px;
+    pointer-events: none;
+}
+
+.cp-issues-filter-date {
+    width: 100%;
+    height: 40px;
+    padding: 0 12px 0 36px;
+    border: 1px solid #E2E8F0;
+    border-radius: 9px;
+    background: #FFFFFF;
+    color: #334155;
+    font-size: 12px;
+    outline: none;
+    cursor: pointer;
+    transition: border-color .2s ease,
+                box-shadow .2s ease;
+}
+
+.cp-issues-filter-date:focus {
+    border-color: #2563EB;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, .08);
+}
+
+.cp-issues-filter-date::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    opacity: .6;
+}
+
+
+.cpd-section-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    margin: 20px 0 12px;
+
+    color: #64748b;
+
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.cpd-section-divider::before,
+.cpd-section-divider::after {
+    content: "";
+    height: 1px;
+    background: #e5e7eb;
+}
+
+.cpd-section-divider::before {
+    width: 0;
+}
+
+.cpd-section-divider::after {
+    flex: 1;
+}

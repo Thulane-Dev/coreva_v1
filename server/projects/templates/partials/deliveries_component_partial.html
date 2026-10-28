@@ -1,0 +1,118 @@
+<!-- DELIVERIES HEADER -->
+<div class="portal-work-section portal-work-section--deliveries mb-3">
+    <div class="portal-work-header">
+        <div class="portal-work-icon">
+            <i class="bi bi-truck" style="color: #08855f !important;"></i>
+        </div>
+        <div class="portal-work-heading">
+            <h3>Deliveries</h3>
+            <span>{{ deliveries_count }}  Deliver{% if deliveries_count > 1%}ies{% else %}y{% endif %} recorded today</span>
+        </div>
+        <!-- ALL DELIVERIES ACTION  -->
+        <div class="d-flex gap-2">
+            <a href="{% url 'projects:project-deliveries' project.uuid %}?next={{ request.get_full_path|urlencode }}">
+                <div class="portal-work-count">
+                    <div class="d-flex gap-1">
+                        <span class="text-capitalize">See All</span>
+                    </div>
+                </div>
+            </a>
+            <!-- ADD DELIVERY ACTION  -->
+            <a data-bs-toggle="offcanvas" href="#addProjectDeliveryOffvanvas" aria-controls="addProjectDeliveryOffvanvas">
+                <div class="portal-work-count">
+                    <div class="d-flex gap-1">
+                        <strong><i class="bi bi-plus"></i></strong>
+                        <span class="text-capitalize">Delivery</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+<!-- DATABASE DELIVERIES -->
+<div class="cpd-list-section">
+    <div class="cpd-items">
+        {% for data in deliveries %}
+        <article class="cpd-item cpd-task-item cpd-item-delivery">
+            <div class="cpd-item-main">
+                <div class="cpd-item-icon cpd-item-icon-green" >
+                    <i class="bi bi-truck"></i>
+                </div>
+
+                <div class="cpd-item-content">
+
+                    <div class="cpd-item-title-row">
+
+                        <h4 class="text-capitalize">
+                            {{ data.reference }}
+                        </h4>
+                        <!-- Status -->
+                        {% if data.status == 'received' %}
+                        <span class="delivery_badge delivery_badge_received text-capitalize">
+                        <span class="delivery_badge_dot"></span> Received
+                        </span>
+                        {% elif data.status == 'partial' %}
+                        <span class="delivery_badge delivery_badge_partial text-capitalize">
+                        <span class="delivery_badge_dot"></span> Partially received
+                        </span>
+                        {% else %}
+                        <span class="delivery_badge delivery_badge_other text-capitalize">
+                        <span class="delivery_badge_dot"></span> {{ data.status }}
+                        </span>
+                        {% endif %}
+
+                    </div>
+
+                        <p class="cpd-item-description" style="font-size: 12.5px !important;">
+                        {{ data.supplier }}
+                    </p>
+
+                    <div class="cpd-item-meta">
+
+                        <span class="cpd-meta-overdue text-secondary">
+                            <i class="bi bi-clock"></i>
+                            {{ data.delivery_time|time:"g:i A" }}
+                        </span>
+
+                        <!-- {% if data.comment_count > 0 %}
+                        <span class="text-primary">
+                            <i class="bi bi-chat-dots"></i>
+                            {{data.comment_count}} new comment{% if data.comment_count > 1%}s{% endif %}
+                        </span>
+                        {% endif %} -->
+
+                        <!-- ASSIGNED TO YOU  -->
+                         <!-- {% if data.task.assigned_to == current_user %}
+                        <span class="text-success">
+                            <i class="bi bi-person-check-fill"></i>
+                            Assigned to you
+                        </span>
+                        {% else %}
+                        <span style="
+                            color: rgb(111, 118, 125) !important;
+                            ">
+                            <i class="bi bi-person-fill"></i>
+                            Unassigned
+                        </span>
+                        {% endif %} -->
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="cpd-item-action">
+
+                <a href="{% url 'projects:delivery' data.uuid %}?next={{ request.get_full_path|urlencode }}" class="cpd-view-btn">
+                    View
+                    <i class="bi bi-chevron-right"></i>
+                </a>
+
+            </div>
+
+        </article>
+        {% endfor %}
+    </div>
+</div>

@@ -1,0 +1,94 @@
+<!-- DATABASE DELIVERIES -->
+<div class="cpd-list-section">
+    <div class="cpd-items">
+        {% for data in deliveries %}
+        <article class="cpd-item cpd-task-item cpd-item-delivery">
+            <div class="cpd-item-main">
+                <div class="cpd-item-icon cpd-item-icon-green" >
+                    <i class="bi bi-truck"></i>
+                </div>
+
+                <div class="cpd-item-content">
+
+                    <div class="cpd-item-title-row">
+
+                        <h4 class="text-capitalize">
+                            {{ data.reference }} 
+                        </h4>
+
+                        <!-- Status -->
+                        {% if data.status == 'received' %}
+                        <span class="delivery_badge delivery_badge_received text-capitalize">
+                        <span class="delivery_badge_dot"></span> Received
+                        </span>
+                        {% elif data.status == 'partial' %}
+                        <span class="delivery_badge delivery_badge_partial text-capitalize">
+                        <span class="delivery_badge_dot"></span> Partially received
+                        </span>
+                        {% else %}
+                        <span class="delivery_badge delivery_badge_other text-capitalize">
+                        <span class="delivery_badge_dot"></span> {{ data.status }}
+                        </span>
+                        {% endif %}
+
+                    </div>
+
+                        <p class="cpd-item-description" style="font-size: 12.5px !important;">
+                        {{ data.supplier }}
+                    </p>
+
+                    <div class="cpd-item-meta">
+
+                        <span class="cpd-meta-overdue text-secondary">
+                            <i class="bi bi-calendar-event"></i>
+                            {{data.delivery_date|date:"d M Y" }} -
+                            {{ data.delivery_time|time:"g:i A" }}
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="cpd-item-action">
+
+                <a href="{% url 'projects:delivery' data.uuid %}?next={{ next_url|urlencode }}&section=DeliveriesSessionList" class="cpd-view-btn">
+                    View
+                    <i class="bi bi-chevron-right"></i>
+                </a>
+
+                 
+
+            </div>
+
+        </article>
+        {% empty %}
+        <!-- =====================================================
+        DELIVERIES - EMPTY STATE
+        ====================================================== -->
+        <div class="cv-projects-empty">
+
+            <div class="cv-projects-empty-icon">
+                <i class="bi bi-truck"></i>
+            </div>
+
+            <div class="cv-projects-empty-content">
+
+                <h3>No deliveries recorded</h3>
+
+                <p>
+                    No deliveries have been recorded for this project yet.
+                    Add a delivery to keep track of materials and items arriving on site.
+                </p>
+
+                <a href="{% url 'projects:log-delivery' project.uuid %}?next={{ request.get_full_path|urlencode }}"
+                class="btn btn-primary">
+                    <i class="bi bi-plus-lg me-1"></i>
+                    Add Delivery
+                </a>
+
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>

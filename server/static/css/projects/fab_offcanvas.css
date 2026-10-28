@@ -1,0 +1,424 @@
+/* =========================================
+   COREVA PROJECT ACTION SHEET
+========================================= */
+
+.cv-project-actions {
+    height: auto !important;
+    max-height: 88vh;
+
+    background: #ffffff;
+
+    border: 0;
+    border-radius: 22px 22px 0 0;
+
+    box-shadow:
+        0 -10px 35px rgba(15, 23, 42, 0.14);
+
+    overflow: hidden;
+}
+
+
+/* =========================================
+   HANDLE
+========================================= */
+
+.cv-project-actions-handle {
+    width: 40px;
+    height: 4px;
+
+    margin: 9px auto 3px;
+
+    background: #d8dee7;
+
+    border-radius: 20px;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.cv-project-actions-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 16px 20px 15px;
+
+    border-bottom: 1px solid #eef2f6;
+}
+
+
+.cv-project-actions-heading {
+    min-width: 0;
+}
+
+
+.cv-project-actions-eyebrow {
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: #64748b;
+
+    font-size: 9px;
+    font-weight: 800;
+
+    letter-spacing: 0.1em;
+}
+
+
+.cv-project-actions-title {
+    margin: 0;
+
+    color: #172a46;
+
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+
+/* =========================================
+   CLOSE BUTTON
+========================================= */
+
+.cv-project-actions-close {
+    width: 36px;
+    height: 36px;
+
+    flex: 0 0 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    border: 0;
+    border-radius: 10px;
+
+    background: #f1f5f9;
+    color: #475569;
+
+    font-size: 13px;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+
+.cv-project-actions-close:hover {
+    background: #e2e8f0;
+    color: #172a46;
+}
+
+
+/* =========================================
+   BODY
+========================================= */
+
+.cv-project-actions-body {
+    max-height: calc(88vh - 82px);
+
+    padding: 8px 14px calc(20px + env(safe-area-inset-bottom));
+
+    overflow-y: auto;
+
+    -webkit-overflow-scrolling: touch;
+}
+
+
+/* =========================================
+   SECTIONS
+========================================= */
+
+.cv-project-actions-section {
+    margin-bottom: 18px;
+}
+
+
+.cv-project-actions-section-last {
+    margin-bottom: 0;
+}
+
+
+.cv-project-actions-section-title {
+    padding: 10px 7px 7px;
+
+    color: #94a3b8;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+
+/* =========================================
+   ACTION
+========================================= */
+
+.cv-project-action {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+
+    width: 100%;
+
+    min-height: 64px;
+
+    padding: 10px 7px;
+
+    color: inherit;
+    text-decoration: none;
+
+    border-bottom: 1px solid #eef2f6;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.15s ease;
+}
+
+
+.cv-project-action:last-child {
+    border-bottom: 0;
+}
+
+
+.cv-project-action:hover {
+    color: inherit;
+    text-decoration: none;
+
+    background: #f8fafc;
+}
+
+
+.cv-project-action:active {
+    background: #f1f5f9;
+    transform: scale(0.99);
+}
+
+
+/* =========================================
+   ICON
+========================================= */
+
+.cv-project-action-icon {
+    width: 43px;
+    height: 43px;
+
+    flex: 0 0 43px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 11px;
+
+    font-size: 18px;
+}
+
+
+.cv-project-action-icon .material-symbols-outlined {
+    font-size: 21px;
+    line-height: 1;
+}
+
+
+/* =========================================
+   ICON COLOURS
+========================================= */
+
+.cv-project-action-icon-blue {
+    background: #eff6ff;
+    color: #2563eb;
+}
+
+
+.cv-project-action-icon-purple {
+    background: #f5f3ff;
+    color: #7c3aed;
+}
+
+
+.cv-project-action-icon-red {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+
+.cv-project-action-icon-green {
+    background: #ecfdf5;
+    color: #059669;
+}
+
+
+.cv-project-action-icon-orange {
+    background: #fff7ed;
+    color: #ea580c;
+}
+
+
+.cv-project-action-icon-teal {
+    background: #f0fdfa;
+    color: #0f766e;
+}
+
+
+.cv-project-action-icon-indigo {
+    background: #eef2ff;
+    color: #4f46e5;
+}
+
+
+.cv-project-action-icon-slate {
+    background: #f1f5f9;
+    color: #64748b;
+}
+
+
+/* =========================================
+   ACTION CONTENT
+========================================= */
+
+.cv-project-action-content {
+    flex: 1;
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+
+.cv-project-action-content strong {
+    color: #172a46;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    line-height: 1.3;
+}
+
+
+.cv-project-action-content span {
+    color: #64748b;
+
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+
+/* =========================================
+   ARROW
+========================================= */
+
+.cv-project-action-arrow {
+    flex: 0 0 auto;
+
+    margin-left: 4px;
+
+    color: #94a3b8;
+
+    font-size: 12px;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.cv-project-action:hover .cv-project-action-arrow {
+    color: #2563eb;
+    transform: translateX(2px);
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 480px) {
+
+    .cv-project-actions {
+        max-height: 92vh;
+
+        border-radius: 20px 20px 0 0;
+    }
+
+
+    .cv-project-actions-header {
+        padding-left: 17px;
+        padding-right: 17px;
+    }
+
+
+    .cv-project-actions-body {
+        padding-left: 11px;
+        padding-right: 11px;
+    }
+
+
+    .cv-project-action {
+        min-height: 61px;
+    }
+
+
+    .cv-project-action-icon {
+        width: 41px;
+        height: 41px;
+        flex-basis: 41px;
+    }
+
+
+    .cv-project-action-content strong {
+        font-size: 12.5px;
+    }
+
+
+    .cv-project-action-content span {
+        font-size: 10.5px;
+    }
+
+}
+
+
+/* =========================================
+   SMALL PHONES
+========================================= */
+
+@media (max-width: 360px) {
+
+    .cv-project-actions-title {
+        font-size: 16px;
+    }
+
+
+    .cv-project-action {
+        gap: 10px;
+        padding-left: 4px;
+        padding-right: 4px;
+    }
+
+
+    .cv-project-action-icon {
+        width: 39px;
+        height: 39px;
+        flex-basis: 39px;
+    }
+
+
+    .cv-project-action-content span {
+        display: none;
+    }
+
+}

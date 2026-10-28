@@ -1,0 +1,117 @@
+{% if company_not_found == True %}
+<section class="lca-result-card">
+
+    <div class="lca-result-header">
+
+        <div class="lca-result-icon">
+            <i class="bi bi-buildings"></i>
+        </div>
+
+        <div>
+            <span class="lca-result-label">Coreva company found</span>
+            <h2>{{ found_company.company_name }}</h2>
+        </div>
+
+    </div>
+
+
+    <div class="lca-result-details">
+
+        <div class="lca-detail">
+            <span>Company</span>
+            <strong>{{ found_company.company_name }}</strong>
+        </div>
+
+        {% if found_company.email %}
+        <div class="lca-detail">
+            <span>Email</span>
+            <strong>{{ found_company.email }}</strong>
+        </div>
+        {% endif %}
+
+        {% if found_company.phone %}
+        <div class="lca-detail">
+            <span>Phone</span>
+            <strong>{{ found_company.phone }}</strong>
+        </div>
+        {% endif %}
+
+    </div>
+
+
+    <div class="lca-confirm">
+
+        <div class="lca-confirm-text">
+            <i class="bi bi-shield-check"></i>
+
+            <div>
+                <strong>Is this the correct company?</strong>
+                <span>
+                    Connecting this company will link their Coreva profile
+                    to this contractor.
+                </span>
+            </div>
+        </div>
+
+        <form
+            method="post" 
+            action="{% url 'contractors:add-found-contractor' project.uuid  found_company.uuid %}"
+           >
+            {% csrf_token %}
+            <button
+                type="submit"
+                name="action"
+                value="connect"
+                class="lca-connect-btn"
+            >
+                <i class="bi bi-link-45deg"></i>
+                Add Contractor
+            </button>
+        </form>
+    </div>
+</section>
+{% endif %}
+
+
+{% if company_not_found == False %}
+<section class="lca-result-card lca-not-found-card">
+
+    <div class="lca-result-header">
+
+        <div class="lca-result-icon lca-not-found-icon">
+            <i class="bi bi-search"></i>
+        </div>
+
+        <div>
+            <span class="lca-result-label lca-not-found-label">
+                Company not found
+            </span>
+
+            <h2>
+                No Coreva company was found
+            </h2>
+        </div>
+
+    </div>
+
+
+    <div class="lca-not-found-message">
+
+        <p>
+            We couldn't find a Coreva company with the UUID you entered.
+            Check the UUID and try again.
+        </p>
+
+        <div class="lca-not-found-help">
+            <i class="bi bi-info-circle"></i>
+
+            <span>
+                Make sure the subcontractor has provided their
+                correct Coreva company UUID.
+            </span>
+        </div>
+
+    </div>
+
+</section>
+{% endif %}

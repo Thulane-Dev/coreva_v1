@@ -1,0 +1,36 @@
+{% if project_data.open_issues %}
+<!-- divider  -->
+{% include 'partials/issue_component_partial.html' %}
+{% else %}
+<!-- EMPTY ISSUES STATE -->
+<div class="operations-card empty-operation-card h-100">
+<div class="empty-state">
+    <div class="empty-icon issue-empty-icon">
+    <i class="bi bi-check-lg"></i>
+    </div>
+
+    <h5>No Open Issues</h5>
+
+    <p>
+    There are currently no open issues for this project. Everything is
+    on track.
+    </p>
+
+    <div class="empty-actions">
+    <a
+        data-bs-toggle="offcanvas" href="#addIssueOffcanvas" aria-controls="addIssueOffcanvas"
+        class="empty-primary-button"
+    >
+        <i class="bi bi-plus-lg"></i>
+        Add Issue
+    </a>
+    <a href="{% url 'issues:project-issues' project.uuid %}?next={{ request.get_full_path|urlencode }}">
+        <button type="button" class="empty-secondary-button">
+        View History
+        <i class="bi bi-arrow-right"></i>
+        </button>
+    </a>
+    </div>
+</div>
+</div>
+{% endif %}

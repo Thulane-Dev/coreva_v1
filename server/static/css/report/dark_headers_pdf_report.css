@@ -1,0 +1,62 @@
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+.drp-section {
+    margin-bottom: 14px;
+    border: 1px solid #dfe5ec;
+    border-radius: 7px;
+    overflow: hidden;
+    background: #ffffff;
+}
+
+.drp-section-heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 48px;
+    padding: 10px 12px;
+
+    border-bottom: 1px solid #172a46;
+
+    background: #172a46;
+}
+
+.drp-section-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+
+    border-radius: 6px;
+
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+
+    font-size: 9px;
+    font-weight: 800;
+}
+
+.drp-section-heading h2 {
+    margin: 0;
+
+    color: #ffffff;
+
+    font-size: 13px;
+    font-weight: 750;
+}
+
+.drp-section-heading p {
+    margin: 2px 0 0;
+
+    color: rgba(255, 255, 255, 0.58);
+
+    font-size: 9px;
+}
+
+.drp-section-heading .drp-status {
+    margin-left: auto;
+}

@@ -1,0 +1,622 @@
+<div class="offcanvas offcanvas-end offcanvas_form offcanvas_background" tabindex="-1" id="addIncidentOffcanvas" aria-labelledby="addIncidentOffcanvasLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="addIncidentOffcanvasLabel"></h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body offcanvas_background" >
+    
+    <!-- Header  -->
+    <div class="dashboard_main_card mt-0 mb-3">
+        <div class="incident_header_content">
+            <div class="incident_header_icon">
+                <i class="bi bi-exclamation-triangle"></i>
+            </div>
+            <div>
+                <div class="form_page_eyebrow">PROJECT</div>
+                <h1 class="form_page_title">Add Incident</h1>
+                <p class="form_page_subtitle mb-0">Record what happened, where it happened, and what action was taken.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form  -->
+    <form
+        method="POST"
+        enctype="multipart/form-data"
+        hx-post="{% url 'projects:log-new-project-incident' project.uuid %}"
+        hx-target="#{{incidents_target_id}}"
+        hx-swap="innerHTML"
+        hx-push-url="false"
+        hx-on::after-request="
+            if (event.detail.successful) {
+                this.reset();
+                document.getElementById('injured-persons-section').style.display = 'none';
+                closeNewIncidentOffcanvas();
+            }
+        "
+    >
+        {% csrf_token %}
+        <input type="text" value="{{next_url}}" name="next_url" hidden>
+        <input type="text" value="{{incidents_target_id}}" name="incidents_target_id" hidden>
+
+        <!-- =====================================================
+             01 — INCIDENT DETAILS
+        ====================================================== -->
+        <section class="incident_form_section">
+            <div class="incident_section_header">
+                <div class="incident_section_number">01</div>
+                <div>
+                    <h2>Incident Details</h2>
+                    <p>Provide the basic details about the incident.</p>
+                </div>
+            </div>
+
+            <div class="incident_form_grid">
+                <!-- Incident Type -->
+                <div class="incident_field incident_field_full">
+                    <label for="incident_type">
+                        Incident Type <span class="incident_required">*</span>
+                    </label>
+                    <select name="incident_type" id="incident_type" class="incident_input new_inputs_css" required>
+                        <option value="">Select incident type</option>
+                        <option value="near_miss">Near Miss</option>
+                        <option value="first_aid">First Aid</option>
+                        <option value="medical_treatment">Medical Treatment</option>
+                        <option value="lost_time_injury">Lost Time Injury</option>
+                        <option value="property_damage">Property Damage</option>
+                        <option value="environmental_incident">Environmental Incident</option>
+                        <option value="vehicle_accident">Vehicle Accident</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <!-- Title -->
+                <div class="incident_field incident_field_full">
+                    <label for="title">
+                        Incident Title <span class="incident_required">*</span>
+                    </label>
+                    <input type="text" name="title" id="title" class="incident_input new_inputs_css" placeholder="e.g. Worker injured during lifting operation" required />
+                </div>
+
+                <!-- Incident Date -->
+                <div class="form_field">
+                    <label for="incident_date" class="form_field_label">
+                        Date <span class="required">*</span>
+                    </label>
+                    <div class="form_date_wrapper">
+                        <i class="bi bi-calendar3"></i>
+                        <input type="date" class="form-control modern_form_input form_date_input new_inputs_css" style="font-size: 16px !important;" name="incident_date" id="incident_date" value="{{ today|date:'Y-m-d' }}" required onfocus="this.showPicker()" onclick="this.showPicker()" />
+                    </div>
+                </div>
+
+                <!-- Incident Time -->
+                <div class="form_field">
+                    <label for="incident_time" class="form_field_label">
+                        Time <span class="incident_required">*</span>
+                    </label>
+                    <div class="form_date_wrapper">
+                        <i class="bi bi-clock"></i>
+                        <input class="form-control modern_form_input form_date_input new_inputs_css" style="font-size: 16px !important;" type="time" name="incident_time" id="incident_time" required onfocus="this.showPicker()" onclick="this.showPicker()" />
+                    </div>
+                </div>
+             
+                <!-- Location -->
+                <div class="incident_field">
+                    <label for="location">
+                        Location <span class="incident_required">*</span>
+                    </label>
+                    <div class="incident_input_icon">
+                        <i class="bi bi-geo-alt"></i>
+                        <input class="inputs_css_style new_inputs_css" type="text" name="location" id="location" placeholder="e.g. Block B, Level 2" required />
+                    </div>
+                </div>
+
+                <!-- Activity -->
+                <div class="incident_field">
+                    <label for="activity"> Work / Activity Involved </label>
+                    <input type="text" name="activity" id="activity" class="incident_input new_inputs_css" placeholder="e.g. Scaffolding" />
+                </div>
+
+                <!-- Weather -->
+                <div class="incident_field">
+                    <label for="weather_condition">
+                        Weather Condition <span class="incident_required">*</span>
+                    </label>
+                    <select name="weather_condition" id="weather_condition" class="incident_input new_inputs_css" required>
+                        <option value="">Select condition</option>
+                        <option value="clear">Clear / Sunny</option>
+                        <option value="partly_cloudy">Partly Cloudy</option>
+                        <option value="overcast">Overcast</option>
+                        <option value="light_rain">Light Rain / Drizzle</option>
+                        <option value="heavy_rain">Heavy Rain</option>
+                        <option value="thunderstorm">Thunderstorm</option>
+                        <option value="fog">Fog / Mist</option>
+                        <option value="windy">Windy</option>
+                        <option value="extreme_heat">Extreme Heat</option>
+                        <option value="cold">Cold / Freezing</option>
+                        <option value="dust_storm">Dust Storm</option>
+                    </select>
+                </div>
+
+                <!-- Severity -->
+                <div class="incident_field">
+                    <label for="severity">
+                        Severity <span class="incident_required">*</span>
+                    </label>
+                    <select name="severity" id="severity" class="incident_input new_inputs_css" required>
+                        <option value="">Select severity</option>
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                        <option value="critical">Critical</option>
+                    </select>
+                </div>
+
+                <!-- What happened -->
+                <div class="incident_field incident_field_full">
+                    <label for="description">
+                        What Happened? <span class="incident_required">*</span>
+                    </label>
+                    <textarea name="description" id="description" class="incident_input incident_textarea new_inputs_css" rows="4" placeholder="Describe what happened, what led to the incident, and any relevant circumstances..." required></textarea>
+                </div>
+            </div>
+        </section>
+
+        <!-- =====================================================
+             02 — INJURED PERSONS (Conditional)
+        ====================================================== -->
+        <section class="incident_form_section" id="injured-persons-section" style="display: none;">
+            <div class="incident_section_header incident_section_header_action">
+                <div class="incident_section_header_left">
+                    <div class="incident_section_number">02</div>
+                    <div>
+                        <h2>Injured Persons</h2>
+                        <p>Add anyone who was injured in the incident.</p>
+                    </div>
+                </div>
+                <button type="button" id="add-injured-person" class="incident_add_button">
+                    <i class="bi bi-plus-lg"></i> <span>Add Person</span>
+                </button>
+            </div>
+
+            <div id="injured-persons">
+                <div class="incident_empty_people mb-3" id="hide-injured-persons">
+                    <i class="bi bi-person-plus"></i>
+                    <span> No injured persons added </span>
+                    <button type="button" class="incident_empty_add" onclick="document.getElementById('add-injured-person').click()">
+                        Add Injured Person
+                    </button>
+                </div>
+            </div>
+            
+            <div id="injured-persons-bottom-btn" style="display: none;" class="mt-2 text-center">
+                <button type="button" class="btn btn-sm btn-outline-secondary w-100" onclick="document.getElementById('add-injured-person').click()">
+                    <i class="bi bi-plus-lg"></i> Add Another Injured Person
+                </button>
+            </div>
+        </section>
+
+        <!-- =====================================================
+             03 — WITNESSES
+        ====================================================== -->
+        <section class="incident_form_section">
+            <div class="incident_section_header incident_section_header_action">
+                <div class="incident_section_header_left">
+                    <div class="incident_section_number">03</div>
+                    <div>
+                        <h2>Witnesses</h2>
+                        <p>Add anyone who witnessed the incident.</p>
+                    </div>
+                </div>
+                <button type="button" id="add-witness" class="incident_add_button">
+                    <i class="bi bi-plus-lg"></i> <span>Add Witness</span>
+                </button>
+            </div>
+
+            <div id="witnesses">
+                <div class="incident_empty_people mb-3" id="hide-witness-empty">
+                    <i class="bi bi-people"></i>
+                    <span> No witnesses added </span>
+                    <button type="button" class="incident_empty_add" onclick="document.getElementById('add-witness').click()">
+                        Add Witness
+                    </button>
+                </div>
+            </div>
+            
+            <div id="witnesses-bottom-btn" style="display: none;" class="mt-2 text-center">
+                <button type="button" class="btn btn-sm btn-outline-secondary w-100" onclick="document.getElementById('add-witness').click()">
+                    <i class="bi bi-plus-lg"></i> Add Another Witness
+                </button>
+            </div>
+        </section>
+
+        <!-- =====================================================
+             04 — IMMEDIATE ACTION
+        ====================================================== -->
+        <section class="incident_form_section">
+            <div class="incident_section_header">
+                <div class="incident_section_number">04</div>
+                <div>
+                    <h2>Immediate Action</h2>
+                    <p>Record what was done immediately after the incident.</p>
+                </div>
+            </div>
+
+            <div class="incident_action_notice">
+                <div class="incident_action_icon">
+                    <i class="bi bi-shield-check"></i>
+                </div>
+                <div>
+                    <strong>What action was taken?</strong>
+                    <span>Include any work stoppage, first aid, barricading, evacuation or other immediate response.</span>
+                </div>
+            </div>
+
+            <textarea name="immediate_action" id="immediate_action" class="incident_input incident_textarea" rows="4" placeholder="e.g. Area was barricaded and work was stopped..."></textarea>
+        </section>
+
+        <!-- =====================================================
+             05 — PHOTOS & ATTACHMENTS
+        ====================================================== -->
+        <section class="incident_form_section">
+            <div class="incident_section_header">
+                <div class="incident_section_number">05</div>
+                <div>
+                    <h2>Photos & Attachments</h2>
+                    <p>Add photos showing the incident, damage or site conditions.</p>
+                </div>
+            </div>
+
+            <input type="file" name="project_incidents__attachments" id="project_incidents__attachments" class="d-none" accept="image/*,.pdf,.doc,.docx,.xls,.xlsx" multiple />
+
+            <div id="project_incidents_-attachment-preview" class="incident_photo_preview row g-2 mb-3"></div>
+
+            <label for="project_incidents__attachments" class="incident_upload">
+                <div class="incident_upload_icon"><i class="bi bi-paperclip"></i></div>
+                <div class="incident_upload_content">
+                    <strong>Add incident photos or attachments</strong>
+                    <span>Take photos or choose files from your device</span>
+                    <small id="project_incidents__file_count">No files selected</small>
+                </div>
+                <i class="bi bi-plus-lg incident_upload_plus"></i>
+            </label>
+        </section>
+
+        <!-- =====================================================
+             ACTIONS
+        ====================================================== -->
+        <div class="incident_form_actions">
+            <button type="button" data-bs-dismiss="offcanvas" class="incident_cancel">Cancel</button>
+            <button type="submit" class="incident_submit">
+                <i class="bi bi-check-lg"></i> Record Incident
+            </button>
+        </div>
+    </form>
+
+    <div style="height: 150px;"></div>
+  </div>
+</div>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    
+    // =====================================================
+    // 1. CONDITIONAL LOGIC FOR INJURED PERSONS
+    // =====================================================
+    const incidentTypeSelect = document.getElementById("incident_type");
+    const injuredSection = document.getElementById("injured-persons-section");
+    
+    // These MUST exactly match the 'value' attribute in your HTML <option> tags
+    const injuryTypes = ["first_aid", "medical_treatment", "lost_time_injury"];
+
+    if (incidentTypeSelect) {
+        incidentTypeSelect.addEventListener("change", function() {
+            if (injuryTypes.includes(this.value)) {
+                injuredSection.style.display = "block";
+            } else {
+                injuredSection.style.display = "none";
+            }
+        });
+    }
+
+    // =====================================================
+    // 2. INJURED PERSONS
+    // =====================================================
+    const injuredContainer = document.getElementById("injured-persons");
+    const addInjuredBtn = document.getElementById("add-injured-person");
+    const emptyInjured = document.getElementById("hide-injured-persons");
+    const injuredBottomBtn = document.getElementById("injured-persons-bottom-btn");
+
+    if (addInjuredBtn) {
+        addInjuredBtn.addEventListener("click", function () {
+            if (emptyInjured) emptyInjured.style.display = "none";
+            if (injuredBottomBtn) injuredBottomBtn.style.display = "block";
+
+            const person = document.createElement("div");
+            person.className = "injured-person border rounded p-3 mb-3";
+            person.innerHTML = `
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <strong class="person-title">Injured Person</strong>
+                    <button type="button" class="btn btn-sm btn-outline-danger remove-injured-person">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </div>
+
+                <!-- Company / Role -->
+                <div class="mb-3 incident_field">
+                    <label>Company / Role <span class="incident_required">*</span></label>
+                    <select name="injured_company[]" class="incident_input new_inputs_css" required>
+                        <option value="">Select affiliation</option>
+                        <option value="own_company">Own Company (Employee)</option>
+                        <option value="subcontractor">Subcontractor</option>
+                        <option value="client">Client</option>
+                        <option value="visitor">Visitor / Public</option>
+                    </select>
+                </div>
+
+                <div class="row g-3 mb-3">
+                    <div class="col-12 col-md-6 incident_field">
+                        <label>First Name <span class="incident_required">*</span></label>
+                        <input type="text" name="injured_first_name[]" class="incident_input new_inputs_css" placeholder="First name" required>
+                    </div>
+                    <div class="col-12 col-md-6 incident_field">
+                        <label>Last Name <span class="incident_required">*</span></label>
+                        <input type="text" name="injured_last_name[]" class="incident_input new_inputs_css" placeholder="Last name" required>
+                    </div>
+                </div>
+
+                <div class="mb-3 incident_field">
+                    <label>Injury / Effect <span class="incident_required">*</span></label>
+                    <select name="injured_injury[]" class="incident_input new_inputs_css" required>
+                        <option value="">Select injury / effect</option>
+                        <option value="sprain">Sprain / Strain</option>
+                        <option value="contusion">Contusion / Wound</option>
+                        <option value="fracture">Fracture</option>
+                        <option value="burn">Burn</option>
+                        <option value="amputation">Amputation</option>
+                        <option value="electric_shock">Electric Shock</option>
+                        <option value="asphyxiation">Asphyxiation</option>
+                        <option value="unconsciousness">Unconsciousness</option>
+                        <option value="poisoning">Poisoning</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="mb-3 incident_field">
+                    <label>Part of Body Affected</label>
+                    <select name="injured_body_part[]" class="incident_input new_inputs_css">
+                        <option value="">Select body part</option>
+                        <option value="head_neck">Head / Neck</option>
+                        <option value="eye">Eye</option>
+                        <option value="trunk">Trunk</option>
+                        <option value="finger">Finger</option>
+                        <option value="hand">Hand</option>
+                        <option value="arm">Arm</option>
+                        <option value="foot">Foot</option>
+                        <option value="leg">Leg</option>
+                        <option value="internal">Internal</option>
+                        <option value="multiple">Multiple</option>
+                    </select>
+                </div>
+
+                <div class="incident_field">
+                    <label>Treatment Required</label>
+                    <select name="injured_treatment[]" class="incident_input new_inputs_css">
+                        <option value="">Select treatment</option>
+                        <option value="none">None</option>
+                        <option value="first_aid">First Aid</option>
+                        <option value="medical">Medical Treatment</option>
+                        <option value="hospital">Hospitalisation</option>
+                    </select>
+                </div>
+            `;
+            injuredContainer.appendChild(person);
+            renumberPeople("injured-person", "Injured Person");
+        });
+    }
+
+    // =====================================================
+    // 3. WITNESSES
+    // =====================================================
+    const witnessesContainer = document.getElementById("witnesses");
+    const addWitnessBtn = document.getElementById("add-witness");
+    const emptyWitness = document.getElementById("hide-witness-empty");
+    const witnessBottomBtn = document.getElementById("witnesses-bottom-btn");
+
+    if (addWitnessBtn) {
+        addWitnessBtn.addEventListener("click", function () {
+            if (emptyWitness) emptyWitness.style.display = "none";
+            if (witnessBottomBtn) witnessBottomBtn.style.display = "block";
+
+            const witness = document.createElement("div");
+            witness.className = "witness border rounded p-3 mb-3";
+            witness.innerHTML = `
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <strong class="person-title">Witness</strong>
+                    <button type="button" class="btn btn-sm btn-outline-danger remove-witness">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </div>
+
+                <div class="mb-3 incident_field incident_field_full">
+                    <label>Full Name <span class="incident_required">*</span></label>
+                    <input type="text" name="witness_name[]" class="incident_input new_inputs_css" placeholder="e.g. Thabo Mokoena" required>
+                </div>
+
+                <div class="mb-3 incident_field incident_field_full">
+                    <label>Contact Number</label>
+                    <input type="tel" inputmode="numeric" name="witness_contact[]" class="incident_input new_inputs_css" placeholder="e.g. 082 123 4567">
+                </div>
+            `;
+            witnessesContainer.appendChild(witness);
+            renumberPeople("witness", "Witness");
+        });
+    }
+
+    // =====================================================
+    // 4. RE-NUMBERING LOGIC & REMOVAL
+    // =====================================================
+    function renumberPeople(className, baseLabel) {
+        const container = className === "witness" ? witnessesContainer : injuredContainer;
+        const items = container.querySelectorAll(`.${className}`);
+        items.forEach((item, index) => {
+            const title = item.querySelector(".person-title");
+            if (title) title.textContent = `${baseLabel} ${index + 1}`;
+        });
+    }
+
+    if (injuredContainer) {
+        injuredContainer.addEventListener("click", function (e) {
+            const btn = e.target.closest(".remove-injured-person");
+            if (!btn) return;
+            btn.closest(".injured-person").remove();
+            renumberPeople("injured-person", "Injured Person");
+            
+            if (injuredContainer.querySelectorAll(".injured-person").length === 0) {
+                if (emptyInjured) emptyInjured.style.display = "block";
+                if (injuredBottomBtn) injuredBottomBtn.style.display = "none";
+            }
+        });
+    }
+
+    if (witnessesContainer) {
+        witnessesContainer.addEventListener("click", function (e) {
+            const btn = e.target.closest(".remove-witness");
+            if (!btn) return;
+            btn.closest(".witness").remove();
+            renumberPeople("witness", "Witness");
+
+            if (witnessesContainer.querySelectorAll(".witness").length === 0) {
+                if (emptyWitness) emptyWitness.style.display = "block";
+                if (witnessBottomBtn) witnessBottomBtn.style.display = "none";
+            }
+        });
+    }
+
+    // =====================================================
+    // 5. ATTACHMENTS SCRIPT
+    // =====================================================
+    function project_incidents_Attachments() {
+        const attachmentInput = document.getElementById("project_incidents__attachments");
+        const attachmentPreview = document.getElementById("project_incidents_-attachment-preview");
+        const fileCount = document.getElementById("project_incidents__file_count");
+
+        if (!attachmentInput || !attachmentPreview) return;
+        if (attachmentInput.dataset.initialized === "true") return;
+        attachmentInput.dataset.initialized = "true";
+
+        let selectedFiles = [];
+
+        attachmentInput.addEventListener("change", function () {
+            const newFiles = Array.from(this.files);
+            selectedFiles = [...selectedFiles, ...newFiles];
+            updateInputFiles();
+            renderPreviews();
+            updateFileCount();
+        });
+
+        function updateInputFiles() {
+            const dataTransfer = new DataTransfer();
+            selectedFiles.forEach(file => dataTransfer.items.add(file));
+            attachmentInput.files = dataTransfer.files;
+        }
+
+        function updateFileCount() {
+            if (!fileCount) return;
+            if (selectedFiles.length === 0) fileCount.textContent = "No files selected";
+            else if (selectedFiles.length === 1) fileCount.textContent = "1 file selected";
+            else fileCount.textContent = selectedFiles.length + " files selected";
+        }
+
+        function renderPreviews() {
+            attachmentPreview.innerHTML = "";
+            selectedFiles.forEach((file, index) => {
+                const col = document.createElement("div");
+                col.className = "col-4";
+
+                if (file.type.startsWith("image/")) {
+                    const reader = new FileReader();
+                    reader.onload = function (event) {
+                        col.innerHTML = `
+                            <div class="position-relative" style="aspect-ratio: 1 / 1;">
+                                <img src="${event.target.result}" class="w-100 h-100 rounded report_image" style="object-fit: cover;" alt="${file.name}">
+                                <button type="button" class="btn btn-dark btn-sm position-absolute top-0 end-0 m-1 rounded-circle" data-index="${index}" aria-label="Remove attachment">
+                                    <i class="bi bi-x-lg"></i>
+                                </button>
+                            </div>
+                        `;
+                        addRemoveListener(col);
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    col.innerHTML = `
+                        <div class="position-relative border rounded p-3 h-100 bg-light">
+                            <div class="text-center">
+                                <i class="bi bi-file-earmark-text fs-2"></i>
+                                <div class="small text-truncate mt-2" title="${file.name}">${file.name}</div>
+                            </div>
+                            <button type="button" class="btn btn-dark btn-sm position-absolute top-0 end-0 m-1 rounded-circle" data-index="${index}" aria-label="Remove attachment">
+                                <i class="bi bi-x-lg"></i>
+                            </button>
+                        </div>
+                    `;
+                    addRemoveListener(col);
+                }
+                attachmentPreview.appendChild(col);
+            });
+        }
+
+        function addRemoveListener(element) {
+            const button = element.querySelector("button");
+            if (!button) return;
+            button.addEventListener("click", function () {
+                const index = Number(this.dataset.index);
+                selectedFiles.splice(index, 1);
+                updateInputFiles();
+                renderPreviews();
+                updateFileCount();
+            });
+        }
+    }
+
+    // Init attachments
+    project_incidents_Attachments();
+    
+    // Re-init on HTMX swap
+    document.body.addEventListener("htmx:afterSwap", function () {
+        project_incidents_Attachments();
+    });
+
+});
+</script>
+
+<!-- CLOSE OFF-CANVAS SCRIPT -->
+<script>
+  function closeNewIncidentOffcanvas() {
+    var offcanvasElement = document.getElementById("addIncidentOffcanvas");
+    var offcanvasInstance = bootstrap.Offcanvas.getInstance(offcanvasElement);
+    if (!offcanvasInstance) {
+        offcanvasInstance = new bootstrap.Offcanvas(offcanvasElement);
+    }
+    offcanvasInstance.hide();
+  }
+</script>
+
+<!-- SCROLL TO SESSION AFTER HTMX -->
+<script>
+    document.body.addEventListener('htmx:afterSettle', function (event) {
+        const targetId = event.detail.target.id;
+        if (targetId === 'IncidentsSession' || targetId === 'IncidentsSessionSM') {
+            requestAnimationFrame(() => {
+                const mobileSection = document.getElementById('IncidentsSessionSM');
+                const desktopSection = document.getElementById('IncidentsSession');
+                const isVisible = (el) => el && el.getClientRects().length > 0;
+                const section = isVisible(mobileSection) ? mobileSection : desktopSection;
+                if (isVisible(section)) {
+                    section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        }
+    });
+</script>

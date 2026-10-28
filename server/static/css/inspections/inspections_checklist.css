@@ -1,0 +1,528 @@
+/* =========================================
+     DAILY INSPECTION
+  ========================================= */
+
+.inspection_page {
+  padding-bottom: 90px;
+}
+
+/* =========================================
+     BACK
+  ========================================= */
+
+.inspection_back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  margin-bottom: 16px;
+
+  color: #667085;
+  font-size: 13px;
+  font-weight: 600;
+
+  text-decoration: none;
+}
+
+.inspection_back:hover {
+  color: #2563eb;
+}
+
+/* =========================================
+     HEADER
+  ========================================= */
+
+.inspection_header_card {
+  padding: 24px;
+  margin-bottom: 18px;
+
+  background: #172a46;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.inspection_header_top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.inspection_label {
+  margin-bottom: 6px;
+
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.inspection_project_name {
+  margin: 0;
+
+  color: #fff;
+  font-size: 23px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+/* =========================================
+     STATUS
+  ========================================= */
+
+.inspection_status_badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 7px 11px;
+
+  border-radius: 999px;
+
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.inspection_status_badge.in_progress {
+  background: rgba(245, 158, 11, 0.16);
+  color: #fbbf24;
+}
+
+.inspection_status_badge.pending {
+  background: rgba(239, 68, 68, 0.16);
+  color: #f87171;
+}
+
+.inspection_status_badge.complete {
+  background: rgba(34, 197, 94, 0.16);
+  color: #4ade80;
+}
+
+.inspection_status_dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* =========================================
+     PROGRESS
+  ========================================= */
+
+.inspection_progress_section {
+  margin-top: 24px;
+}
+
+.inspection_progress_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 8px;
+
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 11px;
+}
+
+.inspection_progress_header strong {
+  color: #fff;
+  font-size: 12px;
+}
+
+.inspection_progress_bar {
+  height: 7px;
+
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.inspection_progress_fill {
+  height: 100%;
+  background: #4ade80;
+  border-radius: inherit;
+
+  transition: width 0.25s ease;
+}
+
+/* =========================================
+     CATEGORY
+  ========================================= */
+
+.inspection_category {
+  margin-bottom: 10px;
+
+  background: #fff;
+  border: 1px solid #e6e9ef;
+  border-radius: 15px;
+
+  overflow: hidden;
+}
+
+/* =========================================
+     CATEGORY HEADER
+  ========================================= */
+
+.inspection_category_header {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+
+  padding: 16px;
+
+  background: #fff;
+  border: 0;
+
+  text-align: left;
+}
+
+.inspection_category_header:hover {
+  background: #fafbfc;
+}
+
+.inspection_category_left {
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.inspection_category_icon {
+  flex: 0 0 38px;
+
+  width: 38px;
+  height: 38px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 11px;
+  font-size: 15px;
+}
+
+.inspection_category_icon.complete {
+  background: #ecfdf3;
+  color: #16a34a;
+}
+
+.inspection_category_icon.pending {
+  background: #f1f4f8;
+  color: #64748b;
+}
+
+.inspection_category_icon.failed {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.inspection_category_info {
+  min-width: 0;
+}
+
+.inspection_category_info h5 {
+  margin: 0 0 3px;
+  color: #172033;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.inspection_category_info span {
+  color: #8a93a1;
+  font-size: 11px;
+}
+
+/* =========================================
+     CATEGORY RIGHT
+  ========================================= */
+
+.inspection_category_right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.inspection_category_badge {
+  padding: 5px 8px;
+
+  border-radius: 999px;
+
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.inspection_category_badge.complete {
+  background: #ecfdf3;
+  color: #15803d;
+}
+
+.inspection_category_badge.pending {
+  background: #f1f3f6;
+  color: #64748b;
+}
+
+.inspection_category_badge.failed {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.inspection_category_chevron {
+  color: #9aa2af;
+  font-size: 13px;
+
+  transition: transform 0.2s ease;
+}
+
+.inspection_category_header:not(.collapsed) .inspection_category_chevron {
+  transform: rotate(180deg);
+}
+
+/* =========================================
+     QUESTIONS
+  ========================================= */
+
+.inspection_questions {
+  padding: 0 12px 12px;
+}
+
+.inspection_question_card {
+  margin-top: 8px;
+  padding: 15px;
+
+  background: #f8fafc;
+  border: 1px solid #edf0f4;
+  border-radius: 12px;
+}
+
+/* =========================================
+     ANSWER BUTTONS
+  ========================================= */
+
+.inspections_answer_btn {
+  min-height: 42px;
+
+  border-radius: 9px !important;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.inspections_answer_btn.btn-success {
+  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.12);
+}
+
+.inspections_answer_btn.btn-danger {
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.12);
+}
+
+/* =========================================
+     BOTTOM ACTIONS
+  ========================================= */
+
+.inspection_actions_form {
+  margin-top: 20px;
+}
+
+.inspection_actions {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 10px;
+}
+
+.inspection_save_draft,
+.inspection_save {
+  min-height: 46px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  border-radius: 11px;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.inspection_save_draft {
+  background: #fff;
+  border: 1px solid #dce1e8;
+  color: #4b5565;
+}
+
+.inspection_save {
+  background: #2563eb;
+  border: 1px solid #2563eb;
+  color: #fff;
+}
+
+/* =========================================
+     MOBILE
+  ========================================= */
+
+@media (max-width: 767.98px) {
+  .inspection_page {
+    padding-bottom: 85px;
+  }
+
+  .inspection_header_card {
+    padding: 18px;
+    border-radius: 15px;
+  }
+
+  .inspection_header_top {
+    display: block;
+  }
+
+  .inspection_project_name {
+    font-size: 19px;
+  }
+
+  .inspection_status {
+    margin-top: 12px;
+  }
+
+  .inspection_progress_section {
+    margin-top: 20px;
+  }
+
+  .inspection_category_header {
+    padding: 14px;
+  }
+
+  .inspection_category_left {
+    gap: 10px;
+  }
+
+  .inspection_category_icon {
+    flex-basis: 34px;
+    width: 34px;
+    height: 34px;
+  }
+
+  .inspection_category_info h5 {
+    font-size: 13px;
+  }
+
+  .inspection_category_right {
+    gap: 6px;
+  }
+
+  .inspection_category_badge {
+    display: none;
+  }
+
+  .inspection_questions {
+    padding: 0 8px 8px;
+  }
+
+  .inspection_question_card {
+    padding: 13px;
+  }
+
+  .inspection_actions {
+    grid-template-columns: 1fr 1.3fr;
+  }
+}
+
+/* =========================================
+     SMALL PHONES
+  ========================================= */
+
+@media (max-width: 420px) {
+  .inspection_project_name {
+    font-size: 18px;
+  }
+
+  .inspection_category_info h5 {
+    font-size: 12px;
+  }
+
+  .inspection_actions {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .inspection_save_draft,
+  .inspection_save {
+    min-height: 44px;
+    font-size: 12px;
+  }
+}
+
+/* PROGRESS BAR  */
+.inspection_progress_fill {
+  width: var(--progress-bar);
+}
+
+.inspection-progress-bar {
+  width: var(--progress-bar);
+}
+
+/* =========================================
+   READY TO SAVE BANNER
+========================================= */
+
+.ready-save-banner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  width: 100%;
+  padding: 13px 15px;
+
+  background: #effaf3;
+  border: 1px solid #ccebd7;
+  border-radius: 12px;
+
+  color: #237a42;
+}
+
+.ready-save-icon {
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #d9f3e2;
+  color: #218342;
+
+  border-radius: 50%;
+}
+
+.ready-save-icon i {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.ready-save-content {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ready-save-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #216b3b;
+}
+
+.ready-save-text {
+  font-size: 12px;
+  color: #5b8068;
+}
+
+.ready-save-check {
+  margin-left: auto;
+  font-size: 18px;
+  color: #2e9650;
+}

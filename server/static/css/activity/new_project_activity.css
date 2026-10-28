@@ -1,0 +1,304 @@
+/* ========================================= PROJECT ACTIVITY ========================================= */
+.project_activity_card {
+  width: 100%;
+  padding: 22px;
+  background: #fff;
+  border: 1px solid #e7eaf0;
+  border-radius: 16px;
+} /* ========================================= HEADER ========================================= */
+.project_activity_header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+.project_activity_title {
+  color: #172033;
+  font-size: 18px;
+  font-weight: 700;
+}
+.project_activity_count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26px;
+  height: 24px;
+  padding: 0 8px;
+  border-radius: 999px;
+  background: #f1f3f5;
+  color: #495057;
+  font-size: 12px;
+  font-weight: 700;
+}
+.project_activity_subtitle {
+  margin-top: 4px;
+  color: #8a94a6;
+  font-size: 13px;
+} /* ========================================= VIEW ALL ========================================= */
+.project_activity_view_all {
+  min-height: 38px;
+  padding: 0 13px;
+  border: 1px solid #dee2e6;
+  border-radius: 10px;
+  background: #fff;
+  color: #0d6efd;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}
+.project_activity_view_all:hover {
+  background: #f8f9fa;
+  color: #0b5ed7;
+} /* ========================================= TIMELINE ========================================= */
+.project_activity_timeline {
+  position: relative;
+} /* ========================================= DATE DIVIDER ========================================= */
+.activity_date_divider {
+  display: flex;
+  align-items: center;
+  margin: 20px 0 14px;
+}
+.activity_date_divider:first-child {
+  margin-top: 0;
+}
+.activity_date_divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  margin-left: 12px;
+  background: #edf0f3;
+}
+.activity_date_label {
+  color: #7b8494;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+} /* ========================================= ACTIVITY DAY ========================================= */
+.activity_day {
+  position: relative;
+} /* ========================================= ACTIVITY ITEM ========================================= */
+.activity_item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 72px 42px minmax(0, 1fr);
+  column-gap: 12px;
+  min-height: 72px;
+} /* ========================================= VERTICAL TIMELINE ========================================= */
+.activity_timeline {
+  position: relative;
+  display: flex;
+  justify-content: center;
+} /* Line */
+.activity_timeline::after {
+  content: "";
+  position: absolute;
+  top: 42px;
+  bottom: -1px;
+  width: 1px;
+  background: #e9ecef;
+} /* Remove line from final activity */
+.activity_item:last-child .activity_timeline::after {
+  display: none;
+} /* ========================================= ACTIVITY ICON ========================================= */
+.activity_icon_wrapper {
+  position: relative;
+  z-index: 2;
+  width: 36px;
+  height: 36px;
+  margin-top: 1px;
+  border: 3px solid #fff;
+  border-radius: 11px;
+  background: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 0 1px #e6e9ee;
+}
+.activity_icon_wrapper .time_line_icon {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: none;
+}
+.activity_icon_wrapper .material-symbols-outlined {
+  font-size: 18px;
+}
+.activity_icon_wrapper i {
+  font-size: 15px;
+} /* ========================================= TIME ========================================= */
+.activity_time {
+  padding-top: 8px;
+  color: #8a94a6;
+  font-size: 11px;
+  font-weight: 600;
+  text-align: right;
+  white-space: nowrap;
+} /* ========================================= CONTENT ========================================= */
+.activity_content {
+  min-width: 0;
+  padding: 5px 0 20px;
+}
+.activity_type {
+  color: #172033;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+.activity_description {
+  margin-top: 4px;
+  color: #7b8494;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.5;
+} /* ========================================= FOOTER ========================================= */
+.project_activity_footer {
+  margin-top: 4px;
+  padding-top: 15px;
+  border-top: 1px solid #edf0f3;
+}
+.project_activity_footer_btn {
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #0d6efd;
+  font-size: 13px;
+  font-weight: 650;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.project_activity_footer_btn:hover {
+  color: #0b5ed7;
+} /* ========================================= MOBILE ========================================= */
+@media (max-width: 767.98px) {
+  .project_activity_card {
+    padding: 17px 15px;
+    border-radius: 14px;
+  }
+  .project_activity_header {
+    margin-bottom: 18px;
+  }
+  .project_activity_title {
+    font-size: 16px;
+  }
+  .project_activity_subtitle {
+    font-size: 12px;
+  }
+  .project_activity_view_all {
+    min-height: 36px;
+    padding: 0 11px;
+    font-size: 12px;
+  }
+  .activity_item {
+    grid-template-columns: 58px 36px minmax(0, 1fr);
+    column-gap: 9px;
+    min-height: 68px;
+  }
+  .activity_icon_wrapper {
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+  }
+  .activity_icon_wrapper .material-symbols-outlined {
+    font-size: 16px;
+  }
+  .activity_icon_wrapper i {
+    font-size: 13px;
+  }
+  .activity_timeline::after {
+    top: 38px;
+  }
+  .activity_time {
+    padding-top: 7px;
+    font-size: 10px;
+  }
+  .activity_content {
+    padding-bottom: 18px;
+  }
+  .activity_type {
+    font-size: 13px;
+  }
+  .activity_description {
+    font-size: 12px;
+    line-height: 1.45;
+  }
+  .activity_date_label {
+    font-size: 10px;
+  }
+} /* ========================================= SMALL PHONES ========================================= */
+@media (max-width: 420px) {
+  .project_activity_card {
+    padding: 15px 12px;
+  }
+  .project_activity_subtitle {
+    display: none;
+  }
+  .project_activity_count {
+    min-width: 23px;
+    height: 22px;
+    font-size: 11px;
+  }
+  .activity_item {
+    grid-template-columns: 52px 32px minmax(0, 1fr);
+    column-gap: 7px;
+  }
+  .activity_icon_wrapper {
+    width: 30px;
+    height: 30px;
+  }
+  .activity_timeline::after {
+    top: 36px;
+  }
+  .activity_time {
+    font-size: 9px;
+  }
+  .activity_type {
+    font-size: 12px;
+  }
+  .activity_description {
+    font-size: 11px;
+  }
+}
+
+
+/* RECENT ACTIVITY  */
+.time_line_icon {
+  height: 40px;
+  width: 40px;
+  font-size: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.timeline_green_avatar {
+  background-color: #d1e7dd;
+  color: rgb(15, 81, 50);
+}
+
+.timeline_yellow_avatar {
+  background-color: #fff3cd;
+  color: rgb(102, 77, 3);
+}
+
+.timeline_blue_avatar {
+  background-color: #cfe2ff;
+  color: rgb(8, 66, 152);
+}
+
+.timeline_red_avatar {
+  background-color: #f8d7da;
+  color: rgb(132, 32, 41);
+}

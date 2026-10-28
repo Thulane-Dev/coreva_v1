@@ -1,0 +1,429 @@
+{% load static %}
+
+<div class="ctmd-page mt-0">
+
+         <!-- =========================================================
+        COREVA MOBILE TOP NAVBAR AND LARGE SCREEN BACK BUTTON
+        ========================================================= -->
+        {% include 'partials/page_topbar.html' with next_url=next_url brand_name=member.first_name  brand_url='#' %}
+
+
+        <div class="dashboard_main_card mb-3 mt-0">
+            <div class="ctmd-header mb-0">
+
+                <div class="ctmd-header-left">
+
+                   
+
+
+                    <div class="ctmd-profile">
+
+                        <div class="ctmd-avatar">
+
+                            {% if member.first_name %}
+                                {{ member.first_name|first|upper }}
+                            {% else %}
+                                ?
+                            {% endif %}
+
+                        </div>
+
+
+                        <div class="ctmd-profile-info">
+
+                            <div class="ctmd-name-row">
+
+                                <h1>
+                                    {{ member.first_name }}
+                                    {{ member.last_name }}
+                                </h1>
+
+                                {% if member.role == "admin" %}
+
+                                    <span class="ctmd-role ctmd-role-admin">
+                                        <i class="bi bi-shield-check"></i>
+                                        Admin
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="ctmd-role ctmd-role-user">
+                                        Team Member
+                                    </span>
+
+                                {% endif %}
+
+                            </div>
+
+
+                            <p>
+                                {% if member.job_title %}
+                                    {{ member.job_title }}
+                                {% else %}
+                                    Company team member
+                                {% endif %}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="ctmd-header-status">
+
+                    <span class="ctmd-status-dot"></span>
+
+                    <span>
+                        {% if member.status == "active" %}
+                            Active
+                        {% else %}
+                            {{ member.get_status_display }}
+                        {% endif %}
+                    </span>
+
+                </div>
+
+            </div>
+        </div>
+
+
+    <!-- =====================================================
+         MEMBER INFORMATION
+         ===================================================== -->
+    
+    <div class="ctmd-info-card">
+
+        <div class="ctmd-info-item">
+
+            <span class="ctmd-info-label">
+                Email
+            </span>
+
+            <span class="ctmd-info-value">
+                {{ member.email|default:"—" }}
+            </span>
+
+        </div>
+
+
+        <div class="ctmd-info-item">
+
+            <span class="ctmd-info-label">
+                Phone
+            </span>
+
+            <span class="ctmd-info-value">
+                {{ member.phone|default:"—" }}
+            </span>
+
+        </div>
+
+
+        <div class="ctmd-info-item">
+
+            <span class="ctmd-info-label">
+                WhatsApp
+            </span>
+
+            <span class="ctmd-info-value">
+                {{ member.whatsappNumber|default:"—" }}
+            </span>
+
+        </div>
+
+
+        <div class="ctmd-info-item">
+
+            <span class="ctmd-info-label">
+                Role
+            </span>
+
+            <span class="ctmd-info-value">
+                {{ member.get_role_display }}
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         SUMMARY
+         ===================================================== -->
+
+    <div class="ctmd-summary">
+
+        <div class="ctmd-summary-card">
+
+            <div class="ctmd-summary-icon ctmd-blue">
+                <span class="material-symbols-outlined">
+                    apartment
+                </span>
+            </div>
+
+            <div>
+                <span>
+                    Projects
+                </span>
+
+                <strong>
+                    {{ project_count }}
+                </strong>
+            </div>
+
+        </div>
+
+
+        <div class="ctmd-summary-card">
+
+            <div class="ctmd-summary-icon ctmd-green">
+                <span class="material-symbols-outlined">
+                    check_circle
+                </span>
+            </div>
+
+            <div>
+                <span>
+                    Access
+                </span>
+
+                <strong>
+                    {% if member.status == "active" %}
+                        Active
+                    {% else %}
+                        Inactive
+                    {% endif %}
+                </strong>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         PROJECTS
+         ===================================================== -->
+
+    <div class="ctmd-section">
+
+        <div class="ctmd-section-heading">
+
+            <div>
+
+                <span class="ctmd-section-label">
+                    PROJECT ACCESS
+                </span>
+
+                <h2>
+                    Assigned projects
+                </h2>
+
+                <p>
+                    Projects this team member has access to.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="ctmd-project-list">
+
+            {% for project in projects %}
+
+    <a
+        href="{% url 'projects:project-view' project.uuid %}?next={{ request.get_full_path|urlencode }}"
+        class="ctmd-project"
+    >
+
+        <div class="ctmd-project-left">
+
+            <div class="ctmd-project-icon">
+
+                <span class="material-symbols-outlined">
+                    construction
+                </span>
+
+            </div>
+
+
+            <div class="ctmd-project-info">
+
+                <div class="ctmd-project-name-row">
+
+                    <h3>
+                        {{ project.project_name }}
+                    </h3>
+
+
+                    {% if project.status == "active" %}
+
+                        <span class="ctmd-project-status ctmd-status-active">
+                            Active
+                        </span>
+
+                    {% elif project.status == "on_hold" %}
+
+                        <span class="ctmd-project-status ctmd-status-hold">
+                            On Hold
+                        </span>
+
+                    {% elif project.status == "completed" %}
+
+                        <span class="ctmd-project-status ctmd-status-complete">
+                            Completed
+                        </span>
+
+                    {% else %}
+
+                        <span class="ctmd-project-status ctmd-status-archived">
+                            Archived
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="ctmd-project-meta">
+
+                    {% if project.location %}
+
+                        <span>
+                            <i class="bi bi-geo-alt"></i>
+                            {{ project.location.city|default:"Project location" }}
+                        </span>
+
+                    {% endif %}
+
+
+                    {% if project.start_date %}
+
+                        <span>
+                            <i class="bi bi-calendar3"></i>
+                            Started {{ project.start_date|date:"d M Y" }}
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="ctmd-project-arrow">
+
+            <i class="bi bi-chevron-right"></i>
+
+        </div>
+
+    </a>
+
+{% empty %}
+
+    <div class="ctmd-empty">
+
+        <div class="ctmd-empty-icon">
+
+            <span class="material-symbols-outlined">
+                apartment
+            </span>
+
+        </div>
+
+        <h3>
+            No projects assigned
+        </h3>
+
+        <p>
+            This team member hasn't been assigned
+            to any projects yet.
+        </p>
+
+    </div>
+
+{% endfor %}
+
+        </div>
+
+    </div>
+
+    <!-- Deactivate Account -->
+    <section class="tm-danger-section">
+        <div class="tm-danger-content">
+            <div>
+                <h6 class="tm-danger-title">Deactivate account</h6>
+                <p class="tm-danger-text">
+                    Deactivate this team member's account. They will no longer be able to access Coreva,
+                    but their existing projects and records will be kept.
+                </p>
+            </div>
+
+            <button
+                type="button"
+                class="btn btn-outline-danger tm-danger-btn"
+                data-bs-toggle="modal"
+                data-bs-target="#deactivateMemberModal">
+                Deactivate account
+            </button>
+        </div>
+    </section>
+
+
+    <!-- Deactivate Confirmation Modal -->
+    <div class="modal fade" id="deactivateMemberModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content tm-modal">
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Deactivate account?</h5>
+                    <button
+                        type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close">
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <p class="mb-2">
+                        Are you sure you want to deactivate
+                        <strong>{{ member.first_name }} {{ member.last_name }}</strong>?
+                    </p>
+
+                    <p class="text-muted small mb-0">
+                        They will lose access to Coreva. Their existing projects, inspections,
+                        issues and reports will not be deleted.
+                    </p>
+                </div>
+
+                <div class="modal-footer">
+                    <button
+                        type="button"
+                        class="btn btn-light"
+                        data-bs-dismiss="modal">
+                        Cancel
+                    </button>
+
+                    <form method="POST" action="#">
+                        {% csrf_token %}
+
+                        <button type="submit" class="btn btn-danger">
+                            Deactivate account
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+

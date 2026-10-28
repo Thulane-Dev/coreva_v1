@@ -1,0 +1,20 @@
+<a
+    id="DeliveriesSessionSM"
+    href="{% url 'projects:project-deliveries' project.uuid %}?next={{ request.get_full_path|urlencode }}&section=workspace"
+    class="d-block d-md-none"
+    hx-swap-oob="outerHTML"
+>
+    <div class="coreva-action-block">
+        <div class="coreva-action-icon coreva-icon-green">
+            <i class="bi bi-truck"></i>
+        </div>
+
+        <div class="coreva-action-content">
+            <span class="coreva-action-title">Deliveries</span>
+            <span class="coreva-action-subtitle">Material deliveries</span>
+        </div>
+        {% if deliveries  %}
+        <span class="coreva-action-badge">{{deliveries|length}}</span>
+        {% endif %}
+    </div>
+</a>
